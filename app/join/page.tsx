@@ -8,7 +8,7 @@ export default function JoinPage() {
         {/* Header Section */}
         <section className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
-            Join <span className="text-blue-600">Digitart</span>
+            How to <span className="text-blue-600">Join</span>
           </h1>
           <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-medium">
             Digitartテクノロジー愛好会に興味を持っていただきありがとうございます！<br className="hidden md:block" />
