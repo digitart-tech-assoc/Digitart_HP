@@ -2,13 +2,13 @@ import Link from 'next/link';
 
 export default function JoinPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 font-sans p-6 md:p-12 lg:p-24 selection:bg-blue-200">
+    <main className="min-h-screen bg-slate-50 text-slate-900 font-sans p-6 md:p-12 lg:p-24 selection:bg-emerald-200">
       <div className="max-w-4xl mx-auto space-y-12">
         
         {/* Header Section */}
         <section className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
-            How to <span className="text-blue-600">Join</span>
+            How to <span className="text-emerald-600">Join</span>
           </h1>
           <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-medium">
             Digitartテクノロジー愛好会に興味を持っていただきありがとうございます！<br className="hidden md:block" />
@@ -19,7 +19,7 @@ export default function JoinPage() {
         {/* How to Join Section */}
         <section className="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
           <div className="flex items-center gap-4 mb-8 pb-6 border-b border-slate-100">
-            <div className="flex-shrink-0 w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+            <div className="flex-shrink-0 w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
               </svg>
@@ -33,7 +33,7 @@ export default function JoinPage() {
 
             {/* Step 1 */}
             <div className="relative flex flex-col md:flex-row gap-4 md:gap-8 items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl border-4 border-white shadow-sm relative z-10">1</div>
+              <div className="flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xl border-4 border-white shadow-sm relative z-10">1</div>
               <div className="flex-grow bg-slate-50 rounded-2xl p-6 border border-slate-200 w-full hover:shadow-md transition-shadow">
                 <h3 className="font-bold text-xl text-slate-900 mb-2">SNSでDMを送信</h3>
                 <p className="text-slate-600 leading-relaxed font-medium">
@@ -55,7 +55,7 @@ export default function JoinPage() {
 
             {/* Step 2 */}
             <div className="relative flex flex-col md:flex-row gap-4 md:gap-8 items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl border-4 border-white shadow-sm relative z-10">2</div>
+              <div className="flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xl border-4 border-white shadow-sm relative z-10">2</div>
               <div className="flex-grow bg-slate-50 rounded-2xl p-6 border border-slate-200 w-full hover:shadow-md transition-shadow">
                 <h3 className="font-bold text-xl text-slate-900 mb-2">担当者からのDiscord招待リンクの送信</h3>
                 <p className="text-slate-600 leading-relaxed font-medium">
@@ -66,7 +66,7 @@ export default function JoinPage() {
 
             {/* Step 3 */}
             <div className="relative flex flex-col md:flex-row gap-4 md:gap-8 items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl border-4 border-white shadow-sm relative z-10">3</div>
+              <div className="flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xl border-4 border-white shadow-sm relative z-10">3</div>
               <div className="flex-grow bg-slate-50 rounded-2xl p-6 border border-slate-200 w-full hover:shadow-md transition-shadow">
                 <h3 className="font-bold text-xl text-slate-900 mb-2">正式入会・入会費の納入</h3>
                 <p className="text-slate-600 leading-relaxed font-medium">
@@ -125,7 +125,7 @@ export default function JoinPage() {
                 </div>
               </a>
               <a href="mailto:aoyama.tech.exe@gmail.com" className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-300 hover:shadow-md transition-all group">
-                <div className="bg-blue-500 text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform">
+                <div className="bg-emerald-500 text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
@@ -139,10 +139,10 @@ export default function JoinPage() {
           </section>
 
           {/* About Section */}
-          <section className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl shadow-md p-8 text-white relative overflow-hidden transition-transform hover:-translate-y-1 duration-300">
+          <section className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-3xl shadow-md p-8 text-white relative overflow-hidden transition-transform hover:-translate-y-1 duration-300">
             {/* Background decoration */}
             <div className="absolute -right-12 -top-12 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-indigo-400/30 rounded-full blur-2xl pointer-events-none"></div>
+            <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-teal-400/30 rounded-full blur-2xl pointer-events-none"></div>
 
             <div className="relative z-10 flex flex-col h-full">
               <div className="flex items-center gap-3 mb-6">
@@ -153,7 +153,7 @@ export default function JoinPage() {
                 </div>
                 <h2 className="text-xl font-bold">サークルの活動内容</h2>
               </div>
-              <div className="text-blue-100 mb-10 flex-grow leading-relaxed font-medium space-y-4">
+              <div className="text-emerald-100 mb-10 flex-grow leading-relaxed font-medium space-y-4">
                 <p>
                   私たちDigitartが普段どのような活動を行っているか、過去の制作物やイベントの様子などはAboutページに詳しくまとめています。
                 </p>
