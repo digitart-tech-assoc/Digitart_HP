@@ -1,4 +1,4 @@
-export default function JoinPage(): JSX.Element {
+export default function JoinPage() {
 	return (
 		<main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f7fafc' }}>
 			<div style={{ maxWidth: 720, padding: 32, background: '#fff', borderRadius: 12, boxShadow: '0 10px 25px rgba(0,0,0,0.08)', textAlign: 'center' }}>
