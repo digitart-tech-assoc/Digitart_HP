@@ -37,7 +37,15 @@ export default function JoinPage() {
               <div className="flex-grow bg-slate-50 rounded-2xl p-6 border border-slate-200 w-full hover:shadow-md transition-shadow">
                 <h3 className="font-bold text-xl text-slate-900 mb-2">SNSでDMを送信</h3>
                 <p className="text-slate-600 leading-relaxed font-medium">
-                  当サークルの公式SNS（<a href="https://x.com/PiedPiper_AGU" target="_blank" rel="noreferrer" className="text-sky-500 hover:text-sky-600 font-bold underline decoration-sky-200 hover:decoration-sky-500 underline-offset-4 transition-all">X (Twitter)</a> または <a href="https://www.instagram.com/piedpiper_aoyama" target="_blank" rel="noreferrer" className="text-pink-500 hover:text-pink-600 font-bold underline decoration-pink-200 hover:decoration-pink-500 underline-offset-4 transition-all">Instagram</a>）へ、入会希望の旨を記載してDMをお送りください。
+                  当サークルの公式SNS（
+				  	<a href="https://x.com/PiedPiper_AGU" target="_blank" rel="noreferrer" className="text-sky-500 hover:text-sky-600 font-bold underline decoration-sky-200 hover:decoration-sky-500 underline-offset-4 transition-all">
+					  X (Twitter)
+					</a>
+				  または
+				    <a href="https://www.instagram.com/piedpiper_aoyama" target="_blank" rel="noreferrer" className="text-pink-500 hover:text-pink-600 font-bold underline decoration-pink-200 hover:decoration-pink-500 underline-offset-4 transition-all">
+					  Instagram
+					</a>
+				  ）へ、入会希望の旨を記載してDMをお送りください。
                 </p>
               </div>
             </div>
