@@ -47,6 +47,9 @@ export default function JoinPage() {
 					</a>
 				  ）へ、入会希望の旨を記載してDMをお送りください。
                 </p>
+                <p className="text-sm text-slate-500 mt-3 font-medium">
+                  ※ メールでのお問い合わせも受け付けております。メールアドレスはページ下部に記載しています。
+                </p>
               </div>
             </div>
 
