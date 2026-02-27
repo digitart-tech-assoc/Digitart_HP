@@ -2,7 +2,7 @@ import { SOCIAL_LINKS } from "@/lib/constants";
 
 export default function JoinPage() {
   return (
-    <div className="p-6 md:p-12 lg:p-24">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-6 md:p-12 lg:p-24 selection:bg-emerald-200">
       <div className="max-w-4xl mx-auto space-y-12">
         
         {/* Header Section */}
