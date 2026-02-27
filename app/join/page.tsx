@@ -1,8 +1,12 @@
 import Link from 'next/link';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function JoinPage() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 font-sans p-6 md:p-12 lg:p-24 selection:bg-emerald-200">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200">
+      <Header />
+      <main className="flex-1 p-6 md:p-12 lg:p-24">
       <div className="max-w-4xl mx-auto space-y-12">
         
         {/* Header Section */}
@@ -175,5 +179,7 @@ export default function JoinPage() {
 
       </div>
     </main>
+      <Footer />
+    </div>
   );
 }
