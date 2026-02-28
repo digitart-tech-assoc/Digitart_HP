@@ -38,8 +38,10 @@ export function getSortedArticlesData() {
   return allArticlesData.sort((a, b) => {
     if (a.date < b.date) {
       return 1;
-    } else {
+    } else if (a.date > b.date) {
       return -1;
+    } else {
+      return 0;
     }
   });
 }
