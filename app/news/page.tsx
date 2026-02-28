@@ -10,7 +10,7 @@ export default function NewsPage() {
   const allArticlesData = getSortedArticlesData();
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 lg:p-16 selection:bg-emerald-200">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 lg:p-16 selection:bg-emerald-200">
       <div className="max-w-4xl mx-auto space-y-12">
         
         {/* Header Section */}
@@ -87,6 +87,6 @@ export default function NewsPage() {
         </section>
 
       </div>
-    </main>
+    </div>
   );
 }

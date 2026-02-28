@@ -34,7 +34,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 lg:p-16 selection:bg-emerald-200">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 lg:p-16 selection:bg-emerald-200">
       <div className="max-w-3xl mx-auto space-y-6">
         
         {/* Back Link */}
@@ -108,6 +108,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </article>
 
       </div>
-    </main>
+    </div>
   );
 }
