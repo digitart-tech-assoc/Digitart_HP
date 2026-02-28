@@ -21,7 +21,7 @@ export default function NewsPage() {
             Latest <span className="text-emerald-600">News</span>
           </h1>
           <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-medium mt-2">
-            サークルの最新情報や活動記録、お知らせなどを発信しています。
+            サークルの活動記録やお知らせ、技術記事などを発信しています。
           </p>
         </section>
 
