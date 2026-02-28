@@ -102,7 +102,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     {children}
                   </CodeBlock>
                 ) : (
-                  <code className="bg-slate-100 text-slate-800 px-2 py-1 rounded-md text-sm font-mono border border-slate-200 wrap-break-word" {...props}>
+                  <code className="bg-slate-100 text-slate-800 px-2 py-1 rounded-md text-sm font-mono border border-slate-200 break-words" {...props}>
                     {children}
                   </code>
                 )
