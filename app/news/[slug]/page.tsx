@@ -80,7 +80,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               h2: ({node, ...props}) => <h2 className="text-xl md:text-2xl font-bold text-slate-900 mt-8 mb-3 pb-2 border-b border-slate-100" {...props} />,
               h3: ({node, ...props}) => <h3 className="text-lg md:text-xl font-bold text-slate-900 mt-6 mb-3 flex items-center gap-2" {...props}><span className="w-1.5 h-6 bg-emerald-500 rounded-full inline-block"></span>{props.children}</h3>,
               p: ({node, ...props}) => <p className="leading-relaxed text-slate-700 font-medium mb-5 text-base" {...props} />,
-              a: ({node, ...props}) => <a className="text-emerald-600 hover:text-emerald-700 underline underline-offset-4 decoration-emerald-200 hover:decoration-emerald-500 transition-all font-bold" target="_blank" rel="noopener noreferrer" {...props} />,
+              a: ({ node, href, children, ...props }) => {
+                const linkClass = "text-emerald-600 hover:text-emerald-700 underline underline-offset-4 decoration-emerald-200 hover:decoration-emerald-500 transition-all font-bold";
+                if (!href) {
+                  return <span className={linkClass} {...props}>{children}</span>;
+                }
+                const isExternal = /^https?:\/\//.test(href);
+                if (isExternal) {
+                  return <a href={href} className={linkClass} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
+                }
+                return <Link href={href} className={linkClass} {...props}>{children}</Link>;
+              },
               ul: ({node, ...props}) => <ul className="list-disc list-outside ml-6 mb-5 space-y-1.5 text-slate-700 font-medium marker:text-emerald-500" {...props} />,
               ol: ({node, ...props}) => <ol className="list-decimal list-outside ml-6 mb-5 space-y-1.5 text-slate-700 font-medium font-mono marker:text-emerald-600" {...props} />,
               li: ({node, ...props}) => <li className="pl-1 leading-relaxed" {...props} />,
