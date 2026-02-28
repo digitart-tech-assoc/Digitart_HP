@@ -5,6 +5,8 @@ import remarkGfm from 'remark-gfm';
 import CodeBlock from './CodeBlock';
 import { getArticleData, getSortedArticlesData } from '@/lib/news';
 
+export const dynamic = 'force-static';
+
 // 静的パスを生成するための関数
 export function generateStaticParams() {
   const articles = getSortedArticlesData();

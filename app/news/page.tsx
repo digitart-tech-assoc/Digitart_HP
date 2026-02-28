@@ -6,6 +6,8 @@ export const metadata = {
   description: 'Digitartテクノロジー愛好会の最新ニュースや活動報告',
 };
 
+export const dynamic = 'force-static';
+
 export default function NewsPage() {
   const allArticlesData = getSortedArticlesData();
 
