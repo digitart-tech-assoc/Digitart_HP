@@ -1,10 +1,22 @@
+import Link from "next/link";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
 export default function JoinPage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-6 md:p-12 lg:p-24 selection:bg-emerald-200">
-      <div className="max-w-4xl mx-auto space-y-12">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans px-4 py-6 md:px-8 lg:px-16 lg:py-12 selection:bg-emerald-200">
+      <div className="max-w-4xl mx-auto">
         
+        {/* Back Link */}
+        <div className="mb-6 md:mb-8">
+          <Link href="/" className="inline-flex items-center text-slate-500 hover:text-emerald-600 font-bold transition-colors group">
+            <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            トップページへ戻る
+          </Link>
+        </div>
+        
+        <div className="space-y-12">
         {/* Header Section */}
         <section className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
@@ -171,6 +183,8 @@ export default function JoinPage() {
             </div>
           </section>
           
+        </div>
+
         </div>
 
       </div>
