@@ -38,12 +38,12 @@ export default function JoinPage() {
                 <h3 className="font-bold text-xl text-slate-900 mb-2">SNSでDMを送信</h3>
                 <p className="text-slate-600 leading-relaxed font-medium">
                   当サークルの公式SNS（
-				  	<a href="https://x.com/PiedPiper_AGU" target="_blank" rel="noreferrer" className="text-sky-500 hover:text-sky-600 font-bold underline decoration-sky-200 hover:decoration-sky-500 underline-offset-4 transition-all">
-					  X (Twitter)
+				  	<a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noreferrer" className="text-sky-500 hover:text-sky-600 font-bold underline decoration-sky-200 hover:decoration-sky-500 underline-offset-4 transition-all">
+					  {SOCIAL_LINKS.twitter.label}
 					</a>
 				  または
-				    <a href="https://www.instagram.com/piedpiper_aoyama" target="_blank" rel="noreferrer" className="text-pink-500 hover:text-pink-600 font-bold underline decoration-pink-200 hover:decoration-pink-500 underline-offset-4 transition-all">
-					  Instagram
+				    <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noreferrer" className="text-pink-500 hover:text-pink-600 font-bold underline decoration-pink-200 hover:decoration-pink-500 underline-offset-4 transition-all">
+					  {SOCIAL_LINKS.instagram.label}
 					</a>
 				  ）へ、入会希望の旨を記載してDMをお送りください。
                 </p>
@@ -100,18 +100,18 @@ export default function JoinPage() {
               入会のご連絡・ご質問はこちらの窓口からお願いいたします。
             </p>
             <div className="space-y-4">
-              <a href="https://x.com/PiedPiper_AGU" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-300 hover:shadow-md transition-all group">
+              <a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-300 hover:shadow-md transition-all group">
                 <div className="bg-black text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform">
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                   </svg>
                 </div>
                 <div>
-                  <div className="font-bold text-slate-900">X (Twitter)</div>
-                  <div className="text-sm text-slate-500 font-medium">@PiedPiper_AGU</div>
+                  <div className="font-bold text-slate-900">{SOCIAL_LINKS.twitter.label}</div>
+                  <div className="text-sm text-slate-500 font-medium">{SOCIAL_LINKS.twitter.handle}</div>
                 </div>
               </a>
-              <a href="https://www.instagram.com/piedpiper_aoyama" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-300 hover:shadow-md transition-all group">
+              <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-300 hover:shadow-md transition-all group">
                 <div className="bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth="2"></rect>
@@ -120,19 +120,19 @@ export default function JoinPage() {
                   </svg>
                 </div>
                 <div>
-                  <div className="font-bold text-slate-900">Instagram</div>
-                  <div className="text-sm text-slate-500 font-medium">@piedpiper_aoyama</div>
+                  <div className="font-bold text-slate-900">{SOCIAL_LINKS.instagram.label}</div>
+                  <div className="text-sm text-slate-500 font-medium">{SOCIAL_LINKS.instagram.handle}</div>
                 </div>
               </a>
-              <a href="mailto:aoyama.tech.exe@gmail.com" className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-300 hover:shadow-md transition-all group">
+              <a href={`mailto:${SOCIAL_LINKS.email.address}`} className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-white border border-transparent hover:border-slate-300 hover:shadow-md transition-all group">
                 <div className="bg-emerald-500 text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div>
-                  <div className="font-bold text-slate-900">メールアドレス</div>
-                  <div className="text-sm text-slate-500 font-medium">aoyama.tech.exe</div>
+                  <div className="font-bold text-slate-900">{SOCIAL_LINKS.email.label}</div>
+                  <div className="text-sm text-slate-500 font-medium">{SOCIAL_LINKS.email.address.split('@')[0]}</div>
                 </div>
               </a>
             </div>
