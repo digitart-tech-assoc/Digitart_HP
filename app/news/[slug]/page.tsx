@@ -2,6 +2,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 import CodeBlock from './CodeBlock';
 import { getArticleData, getSortedArticlesData } from '@/lib/news';
 
@@ -65,7 +68,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {/* Markdown Content rendered via react-markdown */}
         <article className="prose prose-slate prose-emerald md:prose-lg max-w-none bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-slate-200">
           <ReactMarkdown 
-            remarkPlugins={[remarkGfm]}
+            remarkPlugins={[remarkGfm, remarkMath]}
+            rehypePlugins={[rehypeKatex]}
             components={{
               // Tailwind Typographyがない場合のフォールバック用カスタムスタイリング
               h1: ({node, ...props}) => <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 mt-6 mb-4 pb-3 border-b-2 border-slate-100" {...props} />,
@@ -100,8 +104,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 )
               },
               img: ({node, alt, ...props}) => (
-                <span className="block my-10 rounded-2xl overflow-hidden shadow-md border border-slate-200">
-                  <img className="w-full h-auto object-cover" alt={alt || 'Article image'} {...props} />
+                <span className="block w-fit max-w-full my-10 mx-auto rounded-2xl overflow-hidden shadow-md border border-slate-200">
+                  <img 
+                    className="max-w-full w-auto h-auto object-cover !m-0" 
+                    alt={alt || 'Article image'} 
+                    {...props} 
+                  />
                 </span>
               ),
               hr: ({node, ...props}) => <hr className="my-10 border-t-2 border-slate-100 border-dashed" {...props} />
