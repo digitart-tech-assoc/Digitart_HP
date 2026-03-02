@@ -58,6 +58,12 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        {/* Cloudflare Web Analytics */}
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "17076835b8734a72bf6f8c4db5a92aaa"}'
+        ></script>
       </body>
     </html>
   );
