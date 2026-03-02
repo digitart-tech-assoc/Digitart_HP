@@ -30,3 +30,22 @@ body {
 .bylaws-page .prose ul, .bylaws-page .prose ol { padding-left: 1.5rem; margin: 0.6rem 0; }
 .bylaws-page .prose li { margin: 0.35rem 0; }
 
+.bylaws-page .prose ol {
+  counter-reset: bylaws-ol-counter;
+  list-style: none;
+  padding-left: 1.75rem;
+}
+.bylaws-page .prose ol > li {
+  position: relative;
+  padding-left: 0.75rem;
+}
+.bylaws-page .prose ol > li::before {
+  counter-increment: bylaws-ol-counter;
+  content: counter(bylaws-ol-counter) ".";
+  position: absolute;
+  left: -1.75rem;
+  width: 1.5rem;
+  text-align: right;
+  color: var(--foreground);
+}
+
