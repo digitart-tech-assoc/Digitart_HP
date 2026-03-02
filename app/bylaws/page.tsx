@@ -19,7 +19,7 @@ export default async function Page() {
 		<main className="max-w-3xl mx-auto p-8">
 			{/* Page-scoped wrapper so styles can target only bylaws page */}
 			<div className="bylaws-page">
-				<article className="prose dark:prose-invert">
+				<article className="prose">
 					<ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
 						{content}
 					</ReactMarkdown>
