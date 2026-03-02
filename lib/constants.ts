@@ -32,4 +32,5 @@ export const NAV_LINKS: readonly {
   { href: "/about", label: "About" },
   { href: "/news", label: "News" },
   { href: "/join", label: "Join Us", accent: true },
+  { href: "/bylaws", label: "Bylaws" },
 ];
