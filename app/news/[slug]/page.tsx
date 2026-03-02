@@ -38,15 +38,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 lg:p-16 selection:bg-emerald-200">
       <div className="max-w-3xl mx-auto space-y-6">
-        
-        {/* Back Link */}
-        <Link href="/news" className="inline-flex items-center text-slate-500 hover:text-emerald-600 font-bold transition-colors group">
-          <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          ニュース一覧へ戻る
-        </Link>
-        
+                
         {/* Article Header */}
         <header className="space-y-6 flex flex-col items-start">
           <div className="flex flex-wrap items-center gap-3">
