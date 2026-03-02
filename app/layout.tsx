@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,6 +21,28 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    images: [
+      {
+        url: `${SITE_URL}/images/digitart_OGP.jpg`,
+        width: 1200,
+        height: 630,
+        alt: SITE_NAME,
+      },
+    ],
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [`${SITE_URL}/images/digitart_OGP.jpg`],
+  },
 };
 
 export default function RootLayout({
