@@ -2,7 +2,7 @@
 
 export const SITE_NAME = "Digitart";
 export const SITE_DESCRIPTION = "Digitart テクノロジー愛好会 公式ホームページ";
-export const SITE_URL = "https://digitart.dev"; // 本番URLに差し替え
+export const SITE_URL = "https://www.digitart.jp";
 
 /** SNS / 連絡先 */
 export const SOCIAL_LINKS = {
