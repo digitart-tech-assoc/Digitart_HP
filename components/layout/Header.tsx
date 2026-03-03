@@ -18,7 +18,7 @@ export default function Header() {
             className="flex items-center gap-2 text-xl font-bold tracking-tight text-gray-700 hover:text-black transition-colors"
           >
             <Image
-              src="/images/digitart_white_normal.jpg"
+              src="/images/digitart_white_normal.svg"
               alt={`${SITE_NAME} ロゴ`}
               width={36}
               height={36}
