@@ -8,7 +8,7 @@ import { ImageWithFallback } from "@/components/ImageWithFallback";
 import choco_mint from "../assets/works/choco-mint.png";
 import circle from "../assets/works/CIRCLE.png";
 import aterna from "../assets/works/aterna.png";
-import programmer_recylce from "../assets/works/programmer-recycle.png";
+import programmer_recycle from "../assets/works/programmer-recycle.png";
 
 const PROJECTS = [
   {
@@ -36,7 +36,7 @@ const PROJECTS = [
     title: "プログラマーはrecycle()されました",
     desc: "ロジックを構築し、実行して敵を倒すローグライクゲーム。",
     tech: ["React", "Tailwind CSS", "PostgreSQL"],
-    image: programmer_recylce,
+    image: programmer_recycle,
     category: "Web app",
   },
 ];

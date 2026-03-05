@@ -6,7 +6,6 @@ import Link from "next/link";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 
 import period1 from "../assets/history/1-period.jpg";
-import period3 from "../assets/history/3-period.jpg";
 import period4 from "../assets/history/4-period.jpg";
 import period5 from "../assets/history/5-period.jpg";
 import period6 from "../assets/history/6-period.jpg";

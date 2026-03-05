@@ -21,12 +21,7 @@ import worksHero from "./assets/works_hero.jpg";
 import dataHero from "./assets/data_hero.jpg";
 import supportersHero from "./assets/supporters_hero.jpg";
 
-function resolveSrc(img: any) {
-  if (!img) return "";
-  if (typeof img === "string") return img;
-  if (typeof img === "object" && "src" in img) return img.src;
-  return String(img);
-}
+// ImageWithFallback now accepts StaticImageData and resolves src internally.
 
 const GUIDE_CARDS = [
   {
@@ -116,7 +111,7 @@ export default function AboutPage() {
                 >
                   <div className="aspect-square relative">
                     <ImageWithFallback
-                      src={resolveSrc(card.image)}
+                      src={card.image}
                       alt={card.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
@@ -260,7 +255,7 @@ export default function AboutPage() {
                   className="rounded-2xl overflow-hidden shadow-xl border-4 border-white"
                 >
                   <ImageWithFallback
-                    src={resolveSrc(card.image)}
+                    src={card.image}
                     alt={card.title}
                     className="w-full aspect-[4/3] object-cover"
                   />

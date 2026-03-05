@@ -1,17 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Quote,
-  Mail,
-  Instagram,
-  Twitter,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 import Link from "next/link";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
-import { SOCIAL_LINKS } from "@/lib/constants";
 
 import icon_chrom from "../assets/supporter/icon_chrom.jpg";
 
@@ -158,7 +150,7 @@ export default function SupporterPage() {
                   {resolvedImage ? (
                     <ImageWithFallback
                       src={resolvedImage}
-                      alt={member.name}
+                      alt={member.name ?? member.role ?? 'Supporter'}
                       className="w-full h-full object-cover"
                     />
                   ) : (
