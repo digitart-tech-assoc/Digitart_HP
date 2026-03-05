@@ -33,7 +33,6 @@ const ANNUAL_EVENTS = [
     title: "新歓イベント",
     desc: "新入生を歓迎し、Digitartの活動内容を紹介する最初のイベント。ゲーム大会や交流会を通じて、同級生や先輩メンバーと仲良くなれる機会です。",
     image: WelcomeEvent_img,
-    color: "from-pink-300 to-emerald-300",
     tagColor: "bg-pink-100 text-pink-700",
     url: null,
   },
@@ -43,7 +42,6 @@ const ANNUAL_EVENTS = [
     title: "新入生向け講座",
     desc: "プログラミングやチーム開発の基礎を学ぶ新入生向けの集中講座。数週間にわたり、実際に手を動かしながら学べる内容で、初心者が安心して参加できるようサポート体制も充実させています。",
     image: WelcomeLecture_img,
-    color: "from-pink-300 to-emerald-300",
     tagColor: "bg-pink-100 text-pink-700",
     url: null,
   },
@@ -53,7 +51,6 @@ const ANNUAL_EVENTS = [
     title: "わかば学習会",
     desc: "初心者向けの学習会。ゲーム制作やWeb開発など、テーマごとに分かれて実施。先輩メンバーが丁寧に教えるスタイルで、多くの新入生が参加し、スキルアップを図っています。",
     image: WakabaStudy_img,
-    color: "from-green-300 to-lime-300",
     tagColor: "bg-green-100 text-green-700",
     url: null,
   },
@@ -63,7 +60,6 @@ const ANNUAL_EVENTS = [
     title: "BBQ",
     desc: "新入生歓迎と親睦を兼ねたBBQイベント。メンバー同士の交流を深める絶好の機会となっています。食事を楽しみながら、サークル活動や趣味の話で盛り上がります。",
     image: BBQ_img,
-    color: "from-green-300 to-lime-300",
     tagColor: "bg-green-100 text-green-700",
     url: null,
   },
@@ -83,7 +79,6 @@ const ANNUAL_EVENTS = [
     title: "夏季輪講",
     desc: "メンバーが持ち寄りで趣味や専門知識を紹介する輪講イベント。テーマはAI、Web開発、ゲームなど多岐にわたり、オンラインで開催されるため家から気軽に参加できます。",
     image: SummerLecture_img,
-    color: "from-sky-300 to-blue-300",
     tagColor: "bg-sky-100 text-sky-700",
     url: null,
   },
@@ -93,7 +88,6 @@ const ANNUAL_EVENTS = [
     title: "夏合宿",
     desc: "サークル最大のイベントの一つ。数日間の合宿を通じて、メンバー同士の親睦を深めます。過去には伊豆半島で開催し、リフレッシュしながら交流を行いました。",
     image: SummerCamp_img,
-    color: "from-sky-300 to-blue-300",
     tagColor: "bg-sky-100 text-sky-700",
     url: null,
   },
@@ -103,7 +97,6 @@ const ANNUAL_EVENTS = [
     title: "学園祭出展(相模原祭)",
     desc: "大学の学園祭「相模原祭」での展示イベント。メンバーが制作した作品を展示し、来場者に体験してもらいます。過去にはVRゲームやオリジナルゲームなどを出展し、好評を博しました。",
     image: SagamiharaFes_img,
-    color: "from-amber-300 to-orange-300",
     tagColor: "bg-amber-100 text-amber-700",
     url: null,
   },
@@ -113,7 +106,6 @@ const ANNUAL_EVENTS = [
     title: "学園祭出展(青山祭)",
     desc: "大学の学園祭「青山祭」での展示イベント。相模原祭で展示した作品をさらにブラッシュアップして出展することが多いです。来場者からのフィードバックを得る貴重な機会となっています。",
     image: AoyamaFes_img,
-    color: "from-amber-300 to-orange-300",
     tagColor: "bg-amber-100 text-amber-700",
     url: null,
   },
@@ -123,7 +115,6 @@ const ANNUAL_EVENTS = [
     title: "ハッカソン",
     desc: "テーマを決めて、1ヶ月で作品を作るハッカソンイベント。個人参加もチーム参加も歓迎。過去には「circle」をテーマにしたハッカソンを開催し、斬新なアイデアが多数生まれました。",
     image: Hackathon_img,
-    color: "from-indigo-300 to-purple-300",
     tagColor: "bg-indigo-100 text-indigo-700",
     url: null,
   },
@@ -133,7 +124,6 @@ const ANNUAL_EVENTS = [
     title: "LT会",
     desc: "ライトニングトーク形式で、メンバーが自由なテーマで5分間のプレゼンを行う年末恒例イベント。技術ネタからポエム、趣味の話まで何でもOK。",
     image: LT_img,
-    color: "from-indigo-300 to-purple-300",
     tagColor: "bg-indigo-100 text-indigo-700",
     url: null,
   },
@@ -143,7 +133,6 @@ const ANNUAL_EVENTS = [
     title: "追い出し会",
     desc: "年度末の総まとめ。1年間の活動成果を振り返り、卒業するメンバーを送り出す感謝のイベント。",
     image: Graduation_img,
-    color: "from-sky-300 to-cyan-300",
     tagColor: "bg-sky-100 text-sky-700",
     url: null,
   },
@@ -337,9 +326,7 @@ export default function EventsPage() {
                       alt={event.title}
                       className="w-full h-48 md:h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-r ${event.color} opacity-30`}
-                    />
+                    {/* removed color overlay to keep original image colors */}
                     <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-sm">
                       <span
                         className="text-2xl text-gray-900"
