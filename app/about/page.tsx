@@ -267,7 +267,7 @@ export default function AboutPage() {
       ))}
 
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-gradient-to-br from-emerald-400 via-green-400 to-teal-400 text-white">
+      <section className="py-24 px-6 bg-gradient-to-br from-emerald-600 via-green-600 to-teal-500 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
