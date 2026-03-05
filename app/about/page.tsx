@@ -9,14 +9,17 @@ import {
   Palette,
   Cpu,
   History,
+  Calendars,
   Briefcase,
   BarChart3,
   Heart,
 } from "lucide-react";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
+import JoinUs from "@/components/about/JoinUs";
 
 // image imports (place files under app/about/assets/)
 import historyHero from "./assets/history_hero.jpg";
+import eventHero from "./assets/events_hero.jpg";
 import worksHero from "./assets/works_hero.jpg";
 import dataHero from "./assets/data_hero.jpg";
 import supportersHero from "./assets/supporters_hero.jpg";
@@ -36,6 +39,16 @@ const GUIDE_CARDS = [
   },
   {
     num: "02",
+    title: "Events",
+    subtitle: "Digitartの年間イベント",
+    desc: "作品制作や交流を深める、年間の定例イベントや特別イベントをご紹介します。",
+    icon: Calendars,
+    to: "/about/events",
+    image: eventHero,
+    color: "from-lime-700 to-green-950",
+  },
+  {
+    num: "03",
     title: "Works",
     subtitle: "作品・プロジェクト",
     desc: "メンバーが生み出した革新的なプロジェクトをご紹介。",
@@ -45,7 +58,7 @@ const GUIDE_CARDS = [
     color: "from-green-700 to-emerald-950",
   },
   {
-    num: "03",
+    num: "04",
     title: "Data",
     subtitle: "データで見るDigitart",
     desc: "メンバー数やプロジェクト数など、数字でDigitartを知る。",
@@ -55,7 +68,7 @@ const GUIDE_CARDS = [
     color: "from-teal-700 to-cyan-950",
   },
   {
-    num: "04",
+    num: "05",
     title: "Supporter",
     subtitle: "Digitartを支える人たち",
     desc: "団体を支えるメンバーやサポーターにフォーカス。",
@@ -65,6 +78,17 @@ const GUIDE_CARDS = [
     color: "from-lime-700 to-green-950",
   },
 ];
+
+// Determine grid columns: up to 5 columns on md+ screens
+const GUIDE_COLS = Math.min(GUIDE_CARDS.length, 5);
+// Map to explicit Tailwind classes so PurgeCSS/Tailwind can see them
+const MD_GRID_CLASS = {
+  1: "md:grid-cols-1",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-4",
+  5: "md:grid-cols-5",
+}[GUIDE_COLS] || "md:grid-cols-5";
 
 const DOMAIN_CARDS = [
   {
@@ -96,7 +120,7 @@ export default function AboutPage() {
       {/* Guide Cards Grid */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className={`grid grid-cols-2 ${MD_GRID_CLASS} gap-4 md:gap-6 justify-items-center`}>
             {GUIDE_CARDS.map((card, i) => (
               <motion.div
                 key={card.num}
@@ -107,7 +131,7 @@ export default function AboutPage() {
               >
                 <Link
                   href={card.to}
-                  className="group block relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                  className="group block relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 mx-auto w-full md:w-auto"
                 >
                   <div className="aspect-square relative">
                     <ImageWithFallback
@@ -249,54 +273,26 @@ export default function AboutPage() {
                 </Link>
               </div>
               <div className="flex-1">
-                <motion.div
-                  whileHover={{ scale: 1.03, rotate: i % 2 === 0 ? 2 : -2 }}
-                  transition={{ duration: 0.4 }}
-                  className="rounded-2xl overflow-hidden shadow-xl border-4 border-white"
-                >
-                  <ImageWithFallback
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full aspect-[4/3] object-cover"
-                  />
-                </motion.div>
+                <Link href={card.to} className="block">
+                  <motion.div
+                    whileHover={{ scale: 1.03, rotate: i % 2 === 0 ? 2 : -2 }}
+                    transition={{ duration: 0.4 }}
+                    className="rounded-2xl overflow-hidden shadow-xl border-4 border-white"
+                  >
+                    <ImageWithFallback
+                      src={card.image}
+                      alt={card.title}
+                      className="w-full aspect-[4/3] object-cover"
+                    />
+                  </motion.div>
+                </Link>
               </div>
             </motion.div>
           </div>
         </section>
       ))}
 
-      {/* CTA Section */}
-      <section className="py-24 px-6 bg-gradient-to-br from-emerald-600 via-green-700 to-teal-600 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2
-              className="text-4xl md:text-6xl mb-6"
-              style={{ fontWeight: 700 }}
-            >
-              Join Us
-            </h2>
-            <p className="text-xl mb-10 text-white/90 leading-relaxed">
-              経験やスキルは問いません。
-              <br />
-              テクノロジーに興味があれば、誰でも歓迎します。
-            </p>
-            <Link
-              href="/join"
-              className="inline-flex items-center gap-3 bg-white text-emerald-600 px-8 py-4 rounded-full text-lg hover:shadow-2xl transition-shadow duration-300"
-              style={{ fontWeight: 700 }}
-            >
-              Show More
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <JoinUs />
     </div>
   );
 }

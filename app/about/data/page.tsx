@@ -9,6 +9,7 @@ import {
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import JoinUs from "@/components/about/JoinUs";
 
 function AnimatedNumber({
   value,
@@ -216,6 +217,8 @@ export default function DataPage() {
           ))}
         </div>
       </section>
+
+      <JoinUs />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
+import JoinUs from "@/components/about/JoinUs";
 
 import period1 from "../assets/history/1-period.jpg";
 import period4 from "../assets/history/4-period.jpg";
@@ -154,6 +155,8 @@ export default function HistoryPage() {
           ))}
         </div>
       </section>
+
+      <JoinUs />
     </div>
   );
 }
