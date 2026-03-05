@@ -69,7 +69,7 @@ export default function SupporterPage() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-lime-300 via-green-400 to-emerald-400 text-white">
+      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-lime-400 via-green-600 to-emerald-600 text-white">
         <div className="max-w-6xl mx-auto">
           <Link
             href="/about"
