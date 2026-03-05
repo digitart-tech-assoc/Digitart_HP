@@ -180,6 +180,36 @@ function parseMonths(month: string): number[] {
   return nums;
 }
 
+// Precompute counts per month (1-12) from ANNUAL_EVENTS
+const MONTH_COUNTS: Record<string, number> = (() => {
+  const counts: Record<string, number> = {};
+  for (let i = 1; i <= 12; i++) counts[String(i)] = 0;
+  for (const e of ANNUAL_EVENTS) {
+    for (const m of parseMonths(e.month)) {
+      const key = String(m);
+      counts[key] = (counts[key] ?? 0) + 1;
+    }
+  }
+  return counts;
+})();
+
+// Map event counts to Tailwind background classes (more events -> darker green)
+function monthBgClass(count: number) {
+  if (count <= 0) return "bg-gray-100";
+  if (count === 1) return "bg-emerald-200";
+  if (count === 2) return "bg-emerald-400";
+  if (count === 3) return "bg-emerald-600";
+  return "bg-emerald-800"; // 4 or more
+}
+
+// Map event counts to text color for month label
+function monthTextClass(count: number) {
+  if (count <= 0) return "text-gray-400";
+  if (count === 1) return "text-emerald-600";
+  if (count === 2) return "text-emerald-700";
+  return "text-emerald-900";
+}
+
 export default function EventsPage() {
 
   return (
@@ -263,38 +293,14 @@ export default function EventsPage() {
             transition={{ duration: 0.8 }}
             className="hidden md:flex items-center gap-1 mb-16 px-4"
           >
-            {[
-              "4",
-              "5",
-              "6",
-              "7",
-              "8",
-              "9",
-              "10",
-              "11",
-              "12",
-              "1",
-              "2",
-              "3",
-            ].map((m) => {
-              const hasEvent = ANNUAL_EVENTS.some((e) =>
-                parseMonths(e.month).includes(parseInt(m, 10))
-              );
+            {["4","5","6","7","8","9","10","11","12","1","2","3"].map((m) => {
+              const count = MONTH_COUNTS[String(parseInt(m, 10))] || 0;
+              const barClass = monthBgClass(count);
+              const textClass = monthTextClass(count);
               return (
                 <div key={m} className="flex-1 text-center">
-                  <div
-                    className={`h-2 rounded-full mx-0.5 ${
-                      hasEvent
-                        ? "bg-gradient-to-r from-emerald-400 to-teal-400"
-                        : "bg-gray-100"
-                    }`}
-                  />
-                  <span
-                    className={`text-xs mt-2 block ${
-                      hasEvent ? "text-emerald-600" : "text-gray-400"
-                    }`}
-                    style={hasEvent ? { fontWeight: 600 } : {}}
-                  >
+                  <div className={`h-2 rounded-full mx-0.5 ${barClass}`} />
+                  <span className={`text-xs mt-2 block ${textClass}`} style={count > 0 ? { fontWeight: 600 } : {}}>
                     {m}月
                   </span>
                 </div>
