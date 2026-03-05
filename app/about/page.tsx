@@ -32,7 +32,7 @@ const GUIDE_CARDS = [
     icon: History,
     to: "/about/history",
     image: historyHero,
-    color: "from-emerald-400 to-teal-400",
+    color: "from-emerald-700 to-teal-950",
   },
   {
     num: "02",
@@ -42,7 +42,7 @@ const GUIDE_CARDS = [
     icon: Briefcase,
     to: "/about/works",
     image: worksHero,
-    color: "from-green-400 to-emerald-400",
+    color: "from-green-700 to-emerald-950",
   },
   {
     num: "03",
@@ -52,7 +52,7 @@ const GUIDE_CARDS = [
     icon: BarChart3,
     to: "/about/data",
     image: dataHero,
-    color: "from-teal-400 to-cyan-400",
+    color: "from-teal-700 to-cyan-950",
   },
   {
     num: "04",
@@ -62,7 +62,7 @@ const GUIDE_CARDS = [
     icon: Heart,
     to: "/about/supporter",
     image: supportersHero,
-    color: "from-lime-400 to-green-400",
+    color: "from-lime-700 to-green-950",
   },
 ];
 
@@ -94,7 +94,7 @@ export default function AboutPage() {
   return (
     <div className="bg-white">
       {/* Guide Cards Grid */}
-      <section className="py-20 px-6 bg-gradient-to-b from-emerald-300/30 to-white">
+      <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {GUIDE_CARDS.map((card, i) => (
@@ -267,7 +267,7 @@ export default function AboutPage() {
       ))}
 
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-gradient-to-br from-emerald-400 via-green-400 to-teal-400 text-white">
+      <section className="py-24 px-6 bg-gradient-to-br from-emerald-600 via-green-700 to-teal-600 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
