@@ -50,7 +50,7 @@ export default function HistoryPage() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-emerald-300 via-green-400 to-teal-400 text-white">
+      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-emerald-400 via-green-600 to-teal-600 text-white">
         <div className="max-w-6xl mx-auto">
           <Link
             href="/about"
