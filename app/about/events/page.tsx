@@ -9,6 +9,7 @@ import {
   Users,
   ChevronRight,
   ExternalLink,
+  Laptop,
 } from "lucide-react";
 import Link from "next/link";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
@@ -140,19 +141,19 @@ const ANNUAL_EVENTS = [
 
 const REGULAR_ACTIVITIES = [
   {
-    label: "定例ミーティング",
-    detail: "毎週水曜 18:00-20:00",
+    label: "対面活動",
+    detail: "毎週月曜･木曜 18:45-21:00",
     icon: CalendarDays,
   },
   {
-    label: "プロジェクトワーク",
-    detail: "随時（オンライン中心）",
-    icon: Clock,
+    label: "活動場所",
+    detail: "相模原キャンパスF棟 + オンライン",
+    icon: MapPin,
   },
   {
-    label: "勉強会・輪読会",
-    detail: "月2回（土曜午後）",
-    icon: Users,
+    label: "オンライン(Discord)",
+    detail: "24時間いつでも活動中！",
+    icon: Laptop,
   },
 ];
 
