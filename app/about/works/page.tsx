@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
+import JoinUs from "@/components/about/JoinUs";
 
 import choco_mint from "../assets/works/choco-mint.png";
 import circle from "../assets/works/CIRCLE.png";
@@ -177,6 +178,8 @@ export default function WorksPage() {
           ))}
         </div>
       </section>
+
+      <JoinUs />
     </div>
   );
 }

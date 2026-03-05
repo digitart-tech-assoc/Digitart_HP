@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
+import JoinUs from "@/components/about/JoinUs";
 
 import WelcomeEvent_img from "../assets/events/welcome-event.jpg";
 import WelcomeLecture_img from "../assets/events/welcome-lecture.jpg";
@@ -430,35 +431,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-6 bg-gradient-to-br from-emerald-400 via-green-400 to-teal-400 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2
-              className="text-3xl md:text-4xl mb-4"
-              style={{ fontWeight: 700 }}
-            >
-              イベントに参加してみませんか？
-            </h2>
-            <p className="text-white/90 text-lg mb-8">
-              多くのイベントは非メンバーの見学も歓迎しています。
-            </p>
-            <Link
-              href="/about/supporter"
-              className="inline-flex items-center gap-3 bg-white text-emerald-600 px-8 py-4 rounded-full text-lg hover:shadow-2xl transition-shadow duration-300"
-              style={{ fontWeight: 700 }}
-            >
-              入会について詳しく
-              <ChevronRight className="w-5 h-5" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <JoinUs />
     </div>
   );
 }
