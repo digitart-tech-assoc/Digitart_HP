@@ -9,6 +9,7 @@ import {
   Palette,
   Cpu,
   History,
+  Calendars,
   Briefcase,
   BarChart3,
   Heart,
@@ -17,6 +18,7 @@ import { ImageWithFallback } from "@/components/ImageWithFallback";
 
 // image imports (place files under app/about/assets/)
 import historyHero from "./assets/history_hero.jpg";
+import eventHero from "./assets/events_hero.jpg";
 import worksHero from "./assets/works_hero.jpg";
 import dataHero from "./assets/data_hero.jpg";
 import supportersHero from "./assets/supporters_hero.jpg";
@@ -36,6 +38,16 @@ const GUIDE_CARDS = [
   },
   {
     num: "02",
+    title: "Events",
+    subtitle: "Digitartの年間イベント",
+    desc: "作品制作や交流を深める、年間の定例イベントや特別イベントをご紹介します。",
+    icon: Calendars,
+    to: "/about/events",
+    image: eventHero,
+    color: "from-lime-700 to-green-950",
+  },
+  {
+    num: "03",
     title: "Works",
     subtitle: "作品・プロジェクト",
     desc: "メンバーが生み出した革新的なプロジェクトをご紹介。",
@@ -45,7 +57,7 @@ const GUIDE_CARDS = [
     color: "from-green-700 to-emerald-950",
   },
   {
-    num: "03",
+    num: "04",
     title: "Data",
     subtitle: "データで見るDigitart",
     desc: "メンバー数やプロジェクト数など、数字でDigitartを知る。",
@@ -55,7 +67,7 @@ const GUIDE_CARDS = [
     color: "from-teal-700 to-cyan-950",
   },
   {
-    num: "04",
+    num: "05",
     title: "Supporter",
     subtitle: "Digitartを支える人たち",
     desc: "団体を支えるメンバーやサポーターにフォーカス。",
@@ -65,6 +77,17 @@ const GUIDE_CARDS = [
     color: "from-lime-700 to-green-950",
   },
 ];
+
+// Determine grid columns: up to 5 columns on md+ screens
+const GUIDE_COLS = Math.min(GUIDE_CARDS.length, 5);
+// Map to explicit Tailwind classes so PurgeCSS/Tailwind can see them
+const MD_GRID_CLASS = {
+  1: "md:grid-cols-1",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-4",
+  5: "md:grid-cols-5",
+}[GUIDE_COLS] || "md:grid-cols-5";
 
 const DOMAIN_CARDS = [
   {
@@ -96,7 +119,7 @@ export default function AboutPage() {
       {/* Guide Cards Grid */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className={`grid grid-cols-2 ${MD_GRID_CLASS} gap-4 md:gap-6 justify-items-center`}>
             {GUIDE_CARDS.map((card, i) => (
               <motion.div
                 key={card.num}
@@ -107,7 +130,7 @@ export default function AboutPage() {
               >
                 <Link
                   href={card.to}
-                  className="group block relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                  className="group block relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 mx-auto w-full md:w-auto"
                 >
                   <div className="aspect-square relative">
                     <ImageWithFallback
