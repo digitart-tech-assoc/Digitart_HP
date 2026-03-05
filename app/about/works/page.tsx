@@ -16,6 +16,7 @@ const PROJECTS = [
     desc: "ルビィちゃんが好きなものを「矛盾なく」発表するゲーム。",
     tech: ["Unity", "Figma"],
     image: choco_mint,
+    url: "https://unityroom.com/games/chocomint_yorimo_anata",
     category: "Game",
   },
   {
@@ -23,6 +24,7 @@ const PROJECTS = [
     desc: "サークルの会計処理を効率的に管理,可視化するWebシステム。",
     tech: ["Vue.js", "FastAPI", "Supabase"],
     image: circle,
+    url: "https://www.chrom.jp/CIRCLE/",
     category: "Web app",
   },
   {
@@ -30,6 +32,7 @@ const PROJECTS = [
     desc: "ゴシックファンタジーをテーマにした音楽ゲーム。",
     tech: ["Unity", "C#", "Cubase"],
     image: aterna,
+    url: "https://unityroom.com/games/aeterna",
     category: "Game",
   },
   {
@@ -37,6 +40,7 @@ const PROJECTS = [
     desc: "ロジックを構築し、実行して敵を倒すローグライクゲーム。",
     tech: ["React", "Tailwind CSS", "PostgreSQL"],
     image: programmer_recycle,
+    url: "https://replace-eight.vercel.app/",
     category: "Web app",
   },
 ];
@@ -114,30 +118,37 @@ export default function WorksPage() {
               } items-center gap-12`}
             >
               <div className="flex-1 w-full">
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  className="rounded-3xl overflow-hidden shadow-xl relative group"
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
                 >
-                  <ImageWithFallback
-                    src={typeof project.image === "string" ? project.image : (project.image?.src ?? String(project.image))}
-                    alt={project.title}
-                    className="w-full aspect-[16/9] object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <span
-                      className="text-white flex items-center gap-2"
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="rounded-3xl overflow-hidden shadow-xl relative group"
+                  >
+                    <ImageWithFallback
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full aspect-[16/9] object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                      <span
+                        className="text-white flex items-center gap-2"
+                        style={{ fontWeight: 600 }}
+                      >
+                        View Project <ExternalLink className="w-4 h-4" />
+                      </span>
+                    </div>
+                    <div
+                      className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm"
                       style={{ fontWeight: 600 }}
                     >
-                      View Project <ExternalLink className="w-4 h-4" />
-                    </span>
-                  </div>
-                  <div
-                    className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm"
-                    style={{ fontWeight: 600 }}
-                  >
-                    {project.category}
-                  </div>
-                </motion.div>
+                      {project.category}
+                    </div>
+                  </motion.div>
+                </a>
               </div>
 
               <div className="flex-1">
