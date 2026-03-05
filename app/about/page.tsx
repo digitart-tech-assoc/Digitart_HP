@@ -296,7 +296,7 @@ export default function AboutPage() {
               className="inline-flex items-center gap-3 bg-white text-emerald-600 px-8 py-4 rounded-full text-lg hover:shadow-2xl transition-shadow duration-300"
               style={{ fontWeight: 700 }}
             >
-              お問い合わせ
+              Show More
               <ArrowRight className="w-5 h-5" />
             </Link>
           </motion.div>
