@@ -320,7 +320,7 @@ export default function EventsPage() {
         <div className="max-w-6xl mx-auto space-y-8">
           {ANNUAL_EVENTS.map((event, i) => (
             <motion.div
-              key={event.month}
+              key={`${event.month}-${i}`}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
