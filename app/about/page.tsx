@@ -249,17 +249,19 @@ export default function AboutPage() {
                 </Link>
               </div>
               <div className="flex-1">
-                <motion.div
-                  whileHover={{ scale: 1.03, rotate: i % 2 === 0 ? 2 : -2 }}
-                  transition={{ duration: 0.4 }}
-                  className="rounded-2xl overflow-hidden shadow-xl border-4 border-white"
-                >
-                  <ImageWithFallback
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full aspect-[4/3] object-cover"
-                  />
-                </motion.div>
+                <Link href={card.to} className="block">
+                  <motion.div
+                    whileHover={{ scale: 1.03, rotate: i % 2 === 0 ? 2 : -2 }}
+                    transition={{ duration: 0.4 }}
+                    className="rounded-2xl overflow-hidden shadow-xl border-4 border-white"
+                  >
+                    <ImageWithFallback
+                      src={card.image}
+                      alt={card.title}
+                      className="w-full aspect-[4/3] object-cover"
+                    />
+                  </motion.div>
+                </Link>
               </div>
             </motion.div>
           </div>
