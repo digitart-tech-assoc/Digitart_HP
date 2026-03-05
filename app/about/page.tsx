@@ -32,7 +32,7 @@ const GUIDE_CARDS = [
     icon: History,
     to: "/about/history",
     image: historyHero,
-    color: "from-emerald-400 to-teal-400",
+    color: "from-emerald-700 to-teal-950",
   },
   {
     num: "02",
@@ -42,7 +42,7 @@ const GUIDE_CARDS = [
     icon: Briefcase,
     to: "/about/works",
     image: worksHero,
-    color: "from-green-400 to-emerald-400",
+    color: "from-green-700 to-emerald-950",
   },
   {
     num: "03",
@@ -52,7 +52,7 @@ const GUIDE_CARDS = [
     icon: BarChart3,
     to: "/about/data",
     image: dataHero,
-    color: "from-teal-400 to-cyan-400",
+    color: "from-teal-700 to-cyan-950",
   },
   {
     num: "04",
@@ -62,7 +62,7 @@ const GUIDE_CARDS = [
     icon: Heart,
     to: "/about/supporter",
     image: supportersHero,
-    color: "from-lime-400 to-green-400",
+    color: "from-lime-700 to-green-950",
   },
 ];
 
