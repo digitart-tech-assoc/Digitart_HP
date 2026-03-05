@@ -53,7 +53,7 @@ function AnimatedNumber({
 
 const STATS = [
   { label: "メンバー数", value: 80, suffix: "名", note: "2026年3月現在" },
-  { label: "OB･OG数", value: 3, suffix: "名", note: "2026年3月現在" },
+  { label: "創立", value: 7, suffix: "周年", note: "2026年3月現在" },
   { label: "活動回数", value: 54, suffix: "回", note: "2025年度実績" },
   { label: "年間イベント開催数", value: 11, suffix: "件", note: "2025年度実績" },
   { label: "Discord発言数", value: 41200, suffix: "件", note: "2025年度実績(速報値)" },
