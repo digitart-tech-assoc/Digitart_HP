@@ -119,7 +119,7 @@ export default function WorksPage() {
                   className="rounded-3xl overflow-hidden shadow-xl relative group"
                 >
                   <ImageWithFallback
-                    src={project.image}
+                    src={typeof project.image === "string" ? project.image : (project.image?.src ?? String(project.image))}
                     alt={project.title}
                     className="w-full aspect-[16/9] object-cover"
                   />
