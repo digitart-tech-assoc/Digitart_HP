@@ -225,7 +225,7 @@ export default function EventsPage() {
             className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            DIGITART GUIDE
+            ABOUT US
           </Link>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
