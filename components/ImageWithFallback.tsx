@@ -15,6 +15,13 @@ export function ImageWithFallback(
   };
 
   const { src, alt, style, className, ...rest } = props;
+  // Normalize src: support string URLs and StaticImageData imports
+  const resolvedSrc = (() => {
+    if (!src) return "";
+    if (typeof src === "string") return src;
+    if (typeof src === "object" && "src" in src) return (src as any).src;
+    return String(src);
+  })();
 
   return didError ? (
     <div
@@ -26,13 +33,13 @@ export function ImageWithFallback(
           src={ERROR_IMG_SRC}
           alt="Error loading image"
           {...rest}
-          data-original-url={src}
+          data-original-url={resolvedSrc}
         />
       </div>
     </div>
   ) : (
     <img
-      src={src}
+      src={resolvedSrc}
       alt={alt}
       className={className}
       style={style}
