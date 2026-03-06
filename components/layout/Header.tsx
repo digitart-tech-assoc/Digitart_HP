@@ -17,11 +17,6 @@ export default function Header() {
 
   return (
     <>
-      {/* 開発中バナー */}
-      <div className="bg-amber-400 text-amber-950 text-center text-sm font-semibold py-1.5 tracking-wide">
-        🚧 このサイトは現在開発中です — デザイン・機能は予告なく変更される場合があります 🚧
-      </div>
-
       <header className="sticky top-0 z-50 backdrop-blur bg-white/80 border-b border-slate-200 shadow-sm">
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
           {/* ロゴ */}
