@@ -55,41 +55,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200`}
       >
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        {/* Cloudflare Web Analytics */}
-        <script
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "ec137f383473422da320b985a577919c"}'
-        ></script>
-      </body>
-
-      <header>
-  <div className="logo">
-    <img src="/logo.png" alt="Digitart Logo" />
-    <h1>Digitart</h1>
-  </div>
-
-  <nav>
-    <a href="/">ホーム</a>
-    <a href="/about">サークル紹介</a>
-    <a href="/activities">活動内容</a>
-    <a href="/work">作品</a>
-    <a href="/members">メンバー</a>
-    <a href="/contact">お問い合わせ</a>
-  </nav>
-</header>
-
-<main>{children}</main>
-
-<footer>
-  <p>© 2026 Digitart</p>
-  <p>青山学院大学 デジタルアートサークル</p>
-</footer>
-    </html>
-
+       
 
 
   );
