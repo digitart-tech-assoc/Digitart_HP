@@ -27,7 +27,7 @@ export type NavItem = {
   href: string;
   label: string;
   accent?: boolean;
-  children?: NavItem[]; // 階層を持たせる
+  children?: NavItem[];
 };
 
 export const NAV_LINKS: NavItem[] = [
