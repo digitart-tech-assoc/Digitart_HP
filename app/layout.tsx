@@ -55,8 +55,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200`}
       >
-       
-
-
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        {/* Cloudflare Web Analytics */}
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "ec137f383473422da320b985a577919c"}'
+        ></script>
+      </body>
+    </html>
   );
 }
