@@ -7,6 +7,7 @@ import { ImageWithFallback } from "@/components/ImageWithFallback";
 import JoinUs from "@/components/about/JoinUs";
 
 import icon_chrom from "../assets/supporter/icon_chrom.jpg";
+import icon_mimisuke from "../assets/supporter/icon_mimisuke.png";
 
 const MEMBERS = [
   {
@@ -42,12 +43,12 @@ const MEMBERS = [
     image: null,
   },
   {
-    name: null,
+    name: "みみすけ",
     role: "広報",
-    year: null,
+    year: "情報テクノロジー学科 2年",
     quote:
-      null,
-    image: null,
+      "エラーはトモダチ！赤文字が出るたびワクワクする体質になりませんか？^o^",
+    image: icon_mimisuke,
   },
 ];
 
