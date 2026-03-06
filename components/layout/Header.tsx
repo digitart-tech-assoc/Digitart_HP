@@ -31,10 +31,7 @@ export default function Header() {
           <nav style={{ display: "flex", gap: "20px" }}>
             <Link href="/">ホーム</Link>
             <Link href="/about">サークル紹介</Link>
-            <Link href="/activities">活動内容</Link>
-            <Link href="/work">作品</Link>
-            <Link href="/members">メンバー</Link>
-            <Link href="/contact">お問い合わせ</Link>
+            <Link href="/join">参加方法</Link>
           </nav>
         </div>
       </header>
