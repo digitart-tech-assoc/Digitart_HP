@@ -58,7 +58,7 @@ const STATS = [
   { label: "活動回数", value: 54, suffix: "回", note: "2025年度実績" },
   { label: "年間イベント開催数", value: 11, suffix: "件", note: "2025年度実績" },
   { label: "Discord発言数", value: 41200, suffix: "件", note: "2025年度実績(速報値)" },
-  { label: "Discord通話参加時間", value: 9090,suffix: "時間",note: "2025年度実績(速報値)"}, //9022時間+68時間
+  { label: "Discord通話参加時間", value: 9291,suffix: "時間",note: "2025年度実績(速報値)"}, //9022時間+68時間+201時間
 ];
 
 const BREAKDOWNS = [
