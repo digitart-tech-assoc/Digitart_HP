@@ -8,6 +8,7 @@ import JoinUs from "@/components/about/JoinUs";
 
 import icon_chrom from "../assets/supporter/icon_chrom.jpg";
 import icon_mimisuke from "../assets/supporter/icon_mimisuke.png";
+import icon_sora339 from "../assets/supporter/icon_sora339.png";
 
 const MEMBERS = [
   {
@@ -27,12 +28,12 @@ const MEMBERS = [
     image: null,
   },
   {
-    name: null,
+    name: "Sora_339",
     role: "副代表",
-    year: null,
+    year: "社会情報学部社会情報学科 3年",
     quote:
-      null,
-    image: null,
+      "創造を楽しもう！",
+    image: icon_sora339,
   },
   {
     name: null,
