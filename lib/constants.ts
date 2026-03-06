@@ -23,14 +23,27 @@ export const SOCIAL_LINKS = {
 } as const;
 
 /** ナビゲーションリンク */
-export const NAV_LINKS: readonly {
+export type NavItem = {
   href: string;
   label: string;
   accent?: boolean;
-}[] = [
+  children?: NavItem[]; // 階層を持たせる
+};
+
+export const NAV_LINKS: NavItem[] = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  {
+    href: "/about",
+    label: "About",
+    children: [
+      { href: "/about/history", label: "History" },
+      { href: "/about/data", label: "Data" },
+      { href: "/about/events", label: "Events" },
+      { href: "/about/works", label: "Works" },
+      { href: "/about/supporter", label: "Supporter" },
+    ],
+  },
   { href: "/news", label: "News" },
-  { href: "/join", label: "Join Us", accent: true },
+  { href: "/join", label: "Join Us" },
   { href: "/bylaws", label: "Bylaws" },
 ];
