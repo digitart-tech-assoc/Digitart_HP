@@ -11,11 +11,6 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-slate-200 bg-slate-900 text-slate-300">
-      {/* 開発中バナー */}
-      <div className="bg-amber-400 text-amber-950 text-center text-sm font-semibold py-1.5 tracking-wide">
-        🚧 このサイトは現在開発中です — コンテンツは順次追加されます 🚧
-      </div>
-
       <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* ブランド */}
         <div className="col-span-1">
