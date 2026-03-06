@@ -10,6 +10,9 @@ import choco_mint from "../assets/works/choco-mint.png";
 import circle from "../assets/works/CIRCLE.png";
 import aterna from "../assets/works/aterna.png";
 import programmer_recycle from "../assets/works/programmer-recycle.png";
+import slime_defence from "../assets/works/slime-defence.png";
+import ai_voicevox from "../assets/works/ai-voicevox.png";
+
 
 const PROJECTS = [
   {
@@ -44,6 +47,22 @@ const PROJECTS = [
     url: "https://replace-eight.vercel.app/",
     category: "Web app",
   },
+  {
+    title: "引き放て！スライムディフェンス！",
+    desc: "スライムが弓とスキルを駆使して迫りくる敵を迎え撃つタワーディフェンスゲーム。",
+    tech: ["Unity", "C#"],
+    image: slime_defence,
+    url: "https://unityroom.com/games/slimedefence",
+    category: "Game",
+  },
+  {
+    title: "AI-VOICEVOX",
+    desc: "LLM（生成AI）同士を討論させたり、質問したりできるWebアプリです。",
+    tech: ["Next.js", "JavaScript", "Tailwind CSS"],
+    image: ai_voicevox,
+    url: "https://ai-voicevox.vercel.app/",
+    category: "Web app",
+  }
 ];
 
 export default function WorksPage() {
