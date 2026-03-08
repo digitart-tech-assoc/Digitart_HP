@@ -1,0 +1,6 @@
+User-agent: *
+Disallow:
+
+# このサイトのサイトマップ
+Sitemap: https://www.digitart.jp/sitemap.xml
+Host: www.digitart.jp
