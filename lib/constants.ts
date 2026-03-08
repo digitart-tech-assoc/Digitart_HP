@@ -1,6 +1,6 @@
 /** サイト全体で共有する定数 */
 
-export const SITE_NAME = "Digitart";
+export const SITE_NAME = "Digitart テクノロジー愛好会";
 export const SITE_DESCRIPTION = "Digitart テクノロジー愛好会 公式ホームページ";
 export const SITE_URL = "https://www.digitart.jp";
 
