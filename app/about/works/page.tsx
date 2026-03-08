@@ -32,7 +32,7 @@ const PROJECTS = [
     category: "Web app",
   },
   {
-    title: "Aterna",
+    title: "Aeterna",
     desc: "ゴシックファンタジーをテーマにした音楽ゲーム。",
     tech: ["Unity", "C#", "Cubase"],
     image: aterna,
