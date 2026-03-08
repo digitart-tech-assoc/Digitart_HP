@@ -9,6 +9,7 @@ import JoinUs from "@/components/about/JoinUs";
 import icon_chrom from "../assets/supporter/icon_chrom.jpg";
 import icon_mimisuke from "../assets/supporter/icon_mimisuke.png";
 import icon_sora339 from "../assets/supporter/icon_sora339.png";
+import icon_banetu from "../assets/supporter/icon_banetu.jpg";
 
 const MEMBERS = [
   {
@@ -20,12 +21,12 @@ const MEMBERS = [
     image: icon_chrom,
   },
   {
-    name: null,
+    name: "Banetu",
     role: "副代表",
-    year: null,
+    year: "情報テクノロジー学科 2年",
     quote:
-      null,
-    image: null,
+      "Digitartの作曲&ゲーム（プレイ）担当。コード書けなくても居場所はあるよ！",
+    image: icon_banetu,
   },
   {
     name: "Sora_339",
