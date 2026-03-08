@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/constants";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SOCIAL_LINKS } from "@/lib/constants";
+import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -50,11 +51,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    alternateName: "デジタルト テクノロジー愛好会",
+    url: SITE_URL,
+    logo: `${SITE_URL}/images/digitart_OGP.jpg`,
+    sameAs: [SOCIAL_LINKS.twitter.url, SOCIAL_LINKS.instagram.url],
+  };
+
   return (
     <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200`}
       >
+        <JsonLd data={orgJsonLd} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
