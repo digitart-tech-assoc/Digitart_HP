@@ -352,7 +352,7 @@ export default function EventsPage() {
                         >
                           {event.title}
                         </h3>
-                        <p className="text-gray-500 text-sm line-clamp-2">
+                        <p className="text-gray-500 text-sm md:line-clamp-2">
                           {event.desc}
                         </p>
                         {event.url && event.url !== "null" && (
