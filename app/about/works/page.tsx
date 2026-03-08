@@ -44,7 +44,7 @@ const PROJECTS = [
     desc: "ロジックを構築し、実行して敵を倒すローグライクゲーム。",
     tech: ["React", "Tailwind CSS", "PostgreSQL"],
     image: programmer_recycle,
-    url: "https://replace-eight.vercel.app/",
+    url: null,
     category: "Web app",
   },
   {
@@ -138,37 +138,55 @@ export default function WorksPage() {
               } items-center gap-12`}
             >
               <div className="flex-1 w-full">
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    className="rounded-3xl overflow-hidden shadow-xl relative group"
+                {project.url ? (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
                   >
-                    <ImageWithFallback
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full aspect-[16/9] object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                      <span
-                        className="text-white flex items-center gap-2"
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="rounded-3xl overflow-hidden shadow-xl relative group"
+                    >
+                      <ImageWithFallback
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full aspect-[16/9] object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <span
+                          className="text-white flex items-center gap-2"
+                          style={{ fontWeight: 600 }}
+                        >
+                          View Project <ExternalLink className="w-4 h-4" />
+                        </span>
+                      </div>
+                      <div
+                        className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm"
                         style={{ fontWeight: 600 }}
                       >
-                        View Project <ExternalLink className="w-4 h-4" />
-                      </span>
+                        {project.category}
+                      </div>
+                    </motion.div>
+                  </a>
+                ) : (
+                  <div className="block">
+                    <div className="rounded-3xl overflow-hidden shadow-xl relative">
+                      <ImageWithFallback
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full aspect-[16/9] object-cover"
+                      />
+                      <div
+                        className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm"
+                        style={{ fontWeight: 600 }}
+                      >
+                        {project.category}
+                      </div>
                     </div>
-                    <div
-                      className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm"
-                      style={{ fontWeight: 600 }}
-                    >
-                      {project.category}
-                    </div>
-                  </motion.div>
-                </a>
+                  </div>
+                )}
               </div>
 
               <div className="flex-1">
