@@ -203,6 +203,7 @@ function monthTextClass(count: number) {
   return "text-emerald-900";
 }
 
+
 export default function EventsPage() {
 
   return (

@@ -7,11 +7,6 @@ import newsHero from "@/app/about/assets/events/sagamihara-fes.jpg";
 import joinHero from "@/app/about/assets/supporters_hero.jpg";
 import bylawsHero from "@/app/about/assets/history_hero.jpg";
 
-export const metadata = {
-  title: "Home",
-  description: "Digitartテクノロジー愛好会の公式ホームページ",
-};
-
 export default function Home() {
   const latestArticles = getSortedArticlesData().slice(0, 3);
   const pickupItems = [

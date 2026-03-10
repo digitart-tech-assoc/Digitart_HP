@@ -1,5 +1,7 @@
 "use client";
 
+import { getCustomMetadata } from "@/lib/metadata";
+
 import { motion } from "motion/react";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -64,6 +66,7 @@ const PROJECTS = [
     category: "Web app",
   }
 ];
+
 
 export default function WorksPage() {
   return (

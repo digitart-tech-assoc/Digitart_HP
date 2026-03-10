@@ -1,10 +1,16 @@
 import fs from 'fs/promises'
 import path from 'path'
-import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
+import { getCustomMetadata } from '@/lib/metadata'
+
+export const metadata = getCustomMetadata({
+    title: "Bylaws",
+    description: "Digitartサークル規約",
+    path: "/bylaws",
+});
 
 export default async function Page() {
 	const filePath = path.join(process.cwd(), 'app', 'bylaws', 'bylaws.md')
