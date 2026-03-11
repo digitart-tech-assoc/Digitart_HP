@@ -315,7 +315,7 @@ export default function EventsPage() {
               transition={{ duration: 0.6, delay: 0.05 }}
               className="group"
             >
-              <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+              <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-500">
                 {/* Collapsed View */}
                 <div className="flex flex-col md:flex-row">
                   {/* Image */}

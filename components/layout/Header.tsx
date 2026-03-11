@@ -42,17 +42,17 @@ export default function Header() {
             className="relative z-[60] flex flex-col justify-center items-center w-10 h-10 gap-[5px] rounded-lg hover:bg-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
           >
             <span
-              className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
+              className={`block w-5 h-[2px] rounded-full transition duration-300 origin-center ${
                 isOpen ? "rotate-45 translate-y-[7px] bg-white" : "bg-gray-700"
               }`}
             />
             <span
-              className={`block w-5 h-[2px] rounded-full transition-all duration-300 ${
+              className={`block w-5 h-[2px] rounded-full transition duration-300 ${
                 isOpen ? "opacity-0 scale-x-0 bg-white" : "bg-gray-700"
               }`}
             />
             <span
-              className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
+              className={`block w-5 h-[2px] rounded-full transition duration-300 origin-center ${
                 isOpen ? "-rotate-45 -translate-y-[7px] bg-white" : "bg-gray-700"
               }`}
             />

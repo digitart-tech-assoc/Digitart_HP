@@ -33,7 +33,7 @@ export default function NewsPage() {
                 <Link 
                   href={`/news/${id}`} 
                   key={id}
-                  className="group bg-white rounded-2xl p-5 md:px-6 md:py-5 shadow-sm hover:shadow-md border border-slate-200 transition-all hover:-translate-y-1 relative overflow-hidden flex flex-col md:flex-row md:items-center md:justify-between gap-3"
+                  className="group bg-white rounded-2xl p-5 md:px-6 md:py-5 shadow-sm hover:shadow-md border border-slate-200 transition hover:-translate-y-1 relative overflow-hidden flex flex-col md:flex-row md:items-center md:justify-between gap-3"
                 >
                   <div className="absolute top-0 left-0 w-1.5 h-full bg-emerald-500 scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300"></div>
                   

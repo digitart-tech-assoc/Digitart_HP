@@ -77,7 +77,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               h3: ({node, ...props}) => <h3 className="text-lg md:text-xl font-bold text-slate-900 mt-6 mb-3 flex items-center gap-2" {...props}><span className="w-1.5 h-6 bg-emerald-500 rounded-full inline-block"></span>{props.children}</h3>,
               p: ({node, ...props}) => <p className="leading-relaxed text-slate-700 font-medium mb-5 text-base" {...props} />,
               a: ({ node, href, children, ...props }) => {
-                const linkClass = "text-emerald-600 hover:text-emerald-700 underline underline-offset-4 decoration-emerald-200 hover:decoration-emerald-500 transition-all font-bold";
+                const linkClass = "text-emerald-600 hover:text-emerald-700 underline underline-offset-4 decoration-emerald-200 hover:decoration-emerald-500 transition font-bold";
                 if (!href) {
                   return <span className={linkClass} {...props}>{children}</span>;
                 }

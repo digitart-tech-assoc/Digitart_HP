@@ -57,15 +57,15 @@ export default function JoinPage() {
               className="relative flex flex-col md:flex-row gap-4 md:gap-8 items-start"
             >
               <div className="flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xl border-4 border-emerald-50 shadow-sm relative z-10" style={{ fontWeight: 700 }}>1</div>
-              <div className="flex-grow bg-white rounded-2xl p-8 border border-gray-100 w-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="flex-grow bg-white rounded-2xl p-8 border border-gray-100 w-full hover:shadow-xl hover:-translate-y-1 transition duration-300">
                 <h3 className="text-xl text-gray-900 mb-3" style={{ fontWeight: 700 }}>SNSでDMを送信</h3>
                 <p className="text-gray-600 leading-relaxed">
                   当サークルの公式SNS（
-				  	<a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noreferrer" className="text-sky-500 hover:text-sky-600 font-bold underline decoration-sky-200 hover:decoration-sky-500 underline-offset-4 transition-all">
+				  	<a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noreferrer" className="text-sky-500 hover:text-sky-600 font-bold underline decoration-sky-200 hover:decoration-sky-500 underline-offset-4 transition">
 					  {SOCIAL_LINKS.twitter.label}
 					</a>
 				  または
-				    <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noreferrer" className="text-pink-500 hover:text-pink-600 font-bold underline decoration-pink-200 hover:decoration-pink-500 underline-offset-4 transition-all">
+				    <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noreferrer" className="text-pink-500 hover:text-pink-600 font-bold underline decoration-pink-200 hover:decoration-pink-500 underline-offset-4 transition">
 					  {SOCIAL_LINKS.instagram.label}
 					</a>
 				  ）へ、入会希望の旨を記載してDMをお送りください。
@@ -85,7 +85,7 @@ export default function JoinPage() {
               className="relative flex flex-col md:flex-row gap-4 md:gap-8 items-start"
             >
               <div className="flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xl border-4 border-emerald-50 shadow-sm relative z-10" style={{ fontWeight: 700 }}>2</div>
-              <div className="flex-grow bg-white rounded-2xl p-8 border border-gray-100 w-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="flex-grow bg-white rounded-2xl p-8 border border-gray-100 w-full hover:shadow-xl hover:-translate-y-1 transition duration-300">
                 <h3 className="text-xl text-gray-900 mb-3" style={{ fontWeight: 700 }}>担当者からのDiscord招待リンクの送信</h3>
                 <p className="text-gray-600 leading-relaxed">
                   担当者より当サークルへのDiscordサーバ招待リンクをお送りいたします。サーバに参加していただくことで、仮入会となります。
@@ -102,7 +102,7 @@ export default function JoinPage() {
               className="relative flex flex-col md:flex-row gap-4 md:gap-8 items-start"
             >
               <div className="flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xl border-4 border-emerald-50 shadow-sm relative z-10" style={{ fontWeight: 700 }}>3</div>
-              <div className="flex-grow bg-white rounded-2xl p-8 border border-gray-100 w-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="flex-grow bg-white rounded-2xl p-8 border border-gray-100 w-full hover:shadow-xl hover:-translate-y-1 transition duration-300">
                 <h3 className="text-xl text-gray-900 mb-3" style={{ fontWeight: 700 }}>正式入会・入会費の納入</h3>
                 <p className="text-gray-600 leading-relaxed">
                   正式に入会される際、入会費として <span className="text-rose-600 text-lg bg-rose-50 px-2 py-1 rounded-md mx-1 border border-rose-100" style={{ fontWeight: 700 }}>1,000円</span> を徴収させていただきます。<br />
@@ -141,7 +141,7 @@ export default function JoinPage() {
               入会のご連絡・ご質問はこちらの窓口からお願いいたします。
             </p>
             <div className="space-y-4">
-              <a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 hover:shadow-lg transition-all duration-300 group">
+              <a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 hover:shadow-lg transition duration-300 group">
                 <div className="bg-black text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform duration-300">
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -152,7 +152,7 @@ export default function JoinPage() {
                   <div className="text-sm text-gray-500">{SOCIAL_LINKS.twitter.handle}</div>
                 </div>
               </a>
-              <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 hover:shadow-lg transition-all duration-300 group">
+              <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 hover:shadow-lg transition duration-300 group">
                 <div className="bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform duration-300">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth="2"></rect>
@@ -165,7 +165,7 @@ export default function JoinPage() {
                   <div className="text-sm text-gray-500">{SOCIAL_LINKS.instagram.handle}</div>
                 </div>
               </a>
-              <a href={`mailto:${SOCIAL_LINKS.email.address}`} className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 hover:shadow-lg transition-all duration-300 group">
+              <a href={`mailto:${SOCIAL_LINKS.email.address}`} className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 hover:shadow-lg transition duration-300 group">
                 <div className="bg-emerald-500 text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform duration-300">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -209,7 +209,7 @@ export default function JoinPage() {
                 </p>
               </div>
               
-              <Link href="/about" aria-label="詳しくはこちら" className="inline-flex items-center justify-center w-full bg-white text-emerald-800 py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:bg-emerald-50 transition-all duration-300 group" style={{ fontWeight: 700 }}>
+              <Link href="/about" aria-label="詳しくはこちら" className="inline-flex items-center justify-center w-full bg-white text-emerald-800 py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:bg-emerald-50 transition duration-300 group" style={{ fontWeight: 700 }}>
                 詳しくはこちら
                 <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>

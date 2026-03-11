@@ -59,7 +59,7 @@ export default function Home() {
                 <Link
                   href={item.href}
                   key={item.href}
-                  className="group relative min-h-[180px] md:min-h-[200px] lg:min-h-[220px] overflow-hidden rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all"
+                  className="group relative min-h-[180px] md:min-h-[200px] lg:min-h-[220px] overflow-hidden rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition"
                 >
                   <div
                     className={`absolute inset-0 bg-cover ${item.imagePosition} transition-transform duration-500 group-hover:scale-105`}
@@ -99,7 +99,7 @@ export default function Home() {
                 <Link
                   key={id}
                   href={`/news/${id}`}
-                  className="group rounded-2xl border border-slate-200 bg-white px-5 py-4 md:px-6 md:py-5 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all"
+                  className="group rounded-2xl border border-slate-200 bg-white px-5 py-4 md:px-6 md:py-5 shadow-sm hover:shadow-md hover:-translate-y-1 transition"
                 >
                   <div className="space-y-2">
                     <time className="inline-flex items-center gap-2 text-sm font-bold text-emerald-600" dateTime={date}>
@@ -129,7 +129,7 @@ export default function Home() {
               href={SOCIAL_LINKS.twitter.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50 p-4 transition-all duration-300 hover:border-gray-200 hover:bg-white hover:shadow-lg"
+              className="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50 p-4 transition duration-300 hover:border-gray-200 hover:bg-white hover:shadow-lg"
             >
               <div className="rounded-xl bg-black p-2.5 text-white shadow-sm transition-transform duration-300 group-hover:scale-110">
                 <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -145,7 +145,7 @@ export default function Home() {
               href={SOCIAL_LINKS.instagram.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50 p-4 transition-all duration-300 hover:border-gray-200 hover:bg-white hover:shadow-lg"
+              className="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50 p-4 transition duration-300 hover:border-gray-200 hover:bg-white hover:shadow-lg"
             >
               <div className="rounded-xl bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 p-2.5 text-white shadow-sm transition-transform duration-300 group-hover:scale-110">
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -161,7 +161,7 @@ export default function Home() {
             </a>
             <a
               href={`mailto:${SOCIAL_LINKS.email.address}`}
-              className="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50 p-4 transition-all duration-300 hover:border-gray-200 hover:bg-white hover:shadow-lg"
+              className="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50 p-4 transition duration-300 hover:border-gray-200 hover:bg-white hover:shadow-lg"
             >
               <div className="rounded-xl bg-emerald-500 p-2.5 text-white shadow-sm transition-transform duration-300 group-hover:scale-110">
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">

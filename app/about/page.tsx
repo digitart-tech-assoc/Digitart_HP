@@ -131,7 +131,7 @@ export default function AboutPage() {
               >
                 <Link
                   href={card.to}
-                  className="group block relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 mx-auto w-full md:w-auto"
+                  className="group block relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition duration-500 hover:-translate-y-2 mx-auto w-full md:w-auto"
                 >
                   <div className="aspect-square relative">
                     <ImageWithFallback
@@ -209,7 +209,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
-                className={`${card.color} p-8 rounded-3xl hover:shadow-xl transition-all duration-300 group cursor-pointer relative overflow-hidden`}
+                className={`${card.color} p-8 rounded-3xl hover:shadow-xl transition duration-300 group cursor-pointer relative overflow-hidden`}
               >
                 <span
                   className="absolute top-4 right-4 text-xs text-emerald-600/60"
@@ -266,7 +266,7 @@ export default function AboutPage() {
                 </p>
                 <Link
                   href={card.to}
-                  className="inline-flex items-center gap-2 border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-full hover:bg-gray-900 hover:text-white transition-all duration-300 group"
+                  className="inline-flex items-center gap-2 border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-full hover:bg-gray-900 hover:text-white transition duration-300 group"
                 >
                   VIEW MORE
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
