@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 backdrop-blur bg-white/80 border-b border-slate-200 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/95 border-b border-slate-200 shadow-sm">
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
           {/* ロゴ */}
           <Link
@@ -63,7 +63,7 @@ export default function Header() {
       {/* オーバーレイ */}
       <div
         onClick={() => setIsOpen(false)}
-        className={`fixed inset-0 z-[55] bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[55] bg-black/50 transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         aria-hidden="true"
