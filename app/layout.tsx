@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SOCIAL_LINKS } from "@/lib/constants";
 import JsonLd from "@/components/JsonLd";
+import InpTracker from "@/components/InpTracker";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -66,6 +67,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200`}
       >
+        <InpTracker />
         <JsonLd data={orgJsonLd} />
         <Header />
         <main className="flex-1">{children}</main>
