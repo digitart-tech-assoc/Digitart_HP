@@ -106,7 +106,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               img: ({node, alt, ...props}) => (
                 <span className="block w-fit max-w-full my-10 mx-auto rounded-2xl overflow-hidden shadow-md border border-slate-200">
                   <img 
-                    className="max-w-full w-auto h-auto object-cover !m-0" 
+                    className="max-w-full w-auto max-h-96 h-auto object-cover !m-0" 
                     alt={alt || 'Article image'} 
                     {...props} 
                   />
