@@ -5,7 +5,19 @@ import matter from 'gray-matter';
 // src配下やapp配下のarticlesディレクトリを指定
 const articlesDirectory = path.join(process.cwd(), 'app', 'news', 'articles');
 
-export function getSortedArticlesData() {
+export interface ArticleMeta {
+  id: string;
+  title: string;
+  date: string;
+  excerpt?: string;
+  author?: string;
+}
+
+export interface ArticleData extends ArticleMeta {
+  content: string;
+}
+
+export function getSortedArticlesData(): ArticleMeta[] {
   // ディレクトリがない（最初）場合は空配列を返す
   if (!fs.existsSync(articlesDirectory)) {
     return [];
@@ -46,7 +58,7 @@ export function getSortedArticlesData() {
   });
 }
 
-export function getArticleData(id: string) {
+export function getArticleData(id: string): ArticleData | null {
   const fullPath = path.join(articlesDirectory, `${id}.md`);
   if (!fs.existsSync(fullPath)) {
     return null;

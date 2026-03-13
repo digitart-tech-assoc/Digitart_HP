@@ -63,6 +63,13 @@ export default function NewsPage() {
                         {excerpt}
                       </p>
                     )}
+                    {process.env.NODE_ENV === 'development' && (
+                      <div className="pt-1">
+                        <span className="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">
+                          Preview: /news/preview/{id}
+                        </span>
+                      </div>
+                    )}
                   </div>
                     
                   {/* ボタン部分 (右寄せ or 下寄せ) */}
