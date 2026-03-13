@@ -17,7 +17,9 @@ export function getCustomMetadata({
   const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
   const pageDescription = description || SITE_DESCRIPTION;
   const pageUrl = `${SITE_URL}${path}`;
-  const imageUrl = image || `${SITE_URL}/images/digitart_OGP.jpg`;
+  const imageUrl = image 
+    ? (image.startsWith("http") ? image : `${SITE_URL}${image.startsWith("/") ? "" : "/"}${image}`)
+    : `${SITE_URL}/images/digitart_OGP.jpg`;
 
   return {
     title: pageTitle,
