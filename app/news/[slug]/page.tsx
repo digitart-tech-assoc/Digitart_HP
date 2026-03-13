@@ -7,6 +7,7 @@ import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import CodeBlock from './CodeBlock';
 import { getArticleData, getSortedArticlesData } from '@/lib/news';
+import { getCustomMetadata } from '@/lib/metadata';
 
 export const dynamic = 'force-static';
 
@@ -24,10 +25,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!articleData) {
     return { title: '404 - Article Not Found' };
   }
-  return {
-    title: `${articleData.title} | Digitart News`,
+  return getCustomMetadata({
+    title: articleData.title,
     description: articleData.excerpt || 'Digitartテクノロジー愛好会のニュース記事',
-  };
+    image: articleData.image,
+    path: `/news/${slug}`,
+  });
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {

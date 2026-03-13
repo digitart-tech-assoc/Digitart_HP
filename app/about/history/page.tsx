@@ -47,6 +47,7 @@ const TIMELINE = [
   },
 ];
 
+
 export default function HistoryPage() {
   return (
     <div className="bg-white">

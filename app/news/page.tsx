@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import { getCustomMetadata } from '@/lib/metadata';
 import { getSortedArticlesData } from '@/lib/news';
 
-export const metadata = {
-  title: 'ニュース | Digitart',
+export const metadata = getCustomMetadata({
+  title: 'ニュース',
   description: 'Digitartテクノロジー愛好会の最新ニュースや活動報告',
-};
+  path: "/news",
+});
 
 export const dynamic = 'force-static';
 

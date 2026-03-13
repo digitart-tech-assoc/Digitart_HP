@@ -70,6 +70,7 @@ const QA = [
   },
 ];
 
+
 export default function SupporterPage() {
   return (
     <div className="bg-white">
