@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import {
   ArrowRight,
   Code,
@@ -115,46 +116,104 @@ const DOMAIN_CARDS = [
 ];
 
 export default function AboutPage() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let isHovered = false;
+    const interval = setInterval(() => {
+      // Only auto-scroll on mobile devices
+      if (window.innerWidth >= 768) return;
+
+      if (scrollRef.current && !isHovered) {
+        const container = scrollRef.current;
+        if (container.children.length >= GUIDE_CARDS.length * 2) {
+          const originalFirst = container.children[0] as HTMLElement;
+          const cloneFirst = container.children[GUIDE_CARDS.length] as HTMLElement;
+          
+          if (originalFirst && cloneFirst) {
+            const loopPoint = cloneFirst.offsetLeft - originalFirst.offsetLeft;
+            const scrollAmount = loopPoint / GUIDE_CARDS.length;
+
+            // If we've reached the second set of cards, seamlessly jump back to the first set
+            // before initiating the next scroll step to create a perfect loop.
+            if (Math.ceil(container.scrollLeft) >= loopPoint) {
+              container.scrollLeft = container.scrollLeft - loopPoint;
+            }
+
+            container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+          }
+        }
+      }
+    }, 3000);
+
+    const handleTouchStart = () => { isHovered = true; };
+    const handleTouchEnd = () => { 
+      setTimeout(() => { isHovered = false; }, 2000); 
+    };
+
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener('touchstart', handleTouchStart, { passive: true });
+      el.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
+    return () => {
+      clearInterval(interval);
+      if (el) {
+        el.removeEventListener('touchstart', handleTouchStart);
+        el.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
+  }, []);
+
   return (
     <div className="bg-white">
       {/* Guide Cards Grid */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className={`grid grid-cols-2 ${MD_GRID_CLASS} gap-4 md:gap-6 justify-items-center`}>
-            {GUIDE_CARDS.map((card, i) => (
+          <div
+            ref={scrollRef}
+            className={`flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-6 px-6 md:pb-0 md:mx-0 md:px-0 md:grid ${MD_GRID_CLASS} md:gap-6 md:justify-items-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:w-1 after:shrink-0 md:after:hidden`}
+          >
+            {[...GUIDE_CARDS, ...GUIDE_CARDS].map((card, i) => (
               <motion.div
-                key={card.num}
+                key={`${card.num}-${i}`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
+                transition={{ duration: 0.6, delay: (i % GUIDE_CARDS.length) * 0.1 }}
+                className={`shrink-0 w-[60vw] sm:w-[45vw] md:w-full snap-center ${i >= GUIDE_CARDS.length ? "md:hidden" : ""}`}
               >
                 <Link
                   href={card.to}
-                  className="group block relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 mx-auto w-full md:w-auto"
+                  className="group block relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 mx-auto w-full h-full"
                 >
-                  <div className="aspect-square relative">
+                  <div className="aspect-[4/3] md:aspect-square relative flex items-end">
                     <ImageWithFallback
                       src={card.image}
                       alt={card.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div
-                      className={`absolute inset-0 bg-gradient-to-t ${card.color} opacity-60 group-hover:opacity-40 transition-opacity duration-500`}
+                      className={`absolute inset-0 bg-gradient-to-t ${card.color} opacity-40 group-hover:opacity-60 transition-opacity duration-500`}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
                     <div
-                      className="absolute top-3 right-3 bg-white/90 text-emerald-700 px-2 py-0.5 rounded-full text-xs"
+                      className="absolute top-3 right-3 bg-white/90 text-emerald-700 px-2 py-0.5 rounded-full text-xs z-10"
                       style={{ fontWeight: 600 }}
                     >
                       {card.num}
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <div className="relative z-10 w-full p-5 md:p-6 text-left">
                       <h3
-                        className="text-white text-lg md:text-xl"
+                        className="text-white text-xl md:text-2xl mb-1.5 md:mb-2"
                         style={{ fontWeight: 700 }}
                       >
                         {card.title}
                       </h3>
+                      <p className="text-white/90 text-xs md:text-sm line-clamp-2 md:line-clamp-3 leading-relaxed">
+                        {card.desc}
+                      </p>
                     </div>
                   </div>
                 </Link>
@@ -201,7 +260,7 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
             {DOMAIN_CARDS.map((card, i) => (
               <motion.div
                 key={card.title}
@@ -209,22 +268,26 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
-                className={`${card.color} p-8 rounded-3xl hover:shadow-xl transition-all duration-300 group cursor-pointer relative overflow-hidden`}
+                className={`${card.color} p-5 md:p-8 rounded-2xl md:rounded-3xl hover:shadow-xl transition-all duration-300 group cursor-pointer relative overflow-hidden`}
               >
                 <span
-                  className="absolute top-4 right-4 text-xs text-emerald-600/60"
+                  className="absolute top-3 right-3 md:top-4 md:right-4 text-[10px] md:text-xs text-emerald-600/60"
                   style={{ fontWeight: 600 }}
                 >
                   {card.num}
                 </span>
-                <card.icon className="w-12 h-12 text-emerald-600 mb-4 group-hover:scale-110 transition-transform duration-300" />
-                <h3
-                  className="text-2xl text-gray-900 mb-2"
-                  style={{ fontWeight: 700 }}
-                >
-                  {card.title}
-                </h3>
-                <p className="text-gray-600">{card.desc}</p>
+                <div className="flex items-center md:items-start md:flex-col gap-4 md:gap-0">
+                  <card.icon className="w-8 h-8 md:w-12 md:h-12 text-emerald-600 shrink-0 md:mb-4 group-hover:scale-110 transition-transform duration-300" />
+                  <div>
+                    <h3
+                      className="text-lg md:text-2xl text-gray-900 mb-0.5 md:mb-2"
+                      style={{ fontWeight: 700 }}
+                    >
+                      {card.title}
+                    </h3>
+                    <p className="text-xs md:text-base text-gray-600">{card.desc}</p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
