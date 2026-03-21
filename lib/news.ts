@@ -30,7 +30,7 @@ export function getSortedArticlesData() {
       // データをidとまとめて返す
       return {
         id,
-        ...(matterResult.data as { title: string; date: string; excerpt?: string; author?: string; image?: string }),
+        ...(matterResult.data as { title: string; date: string; excerpt?: string; author?: string; image?: string; category?: 'notice' | 'column' }),
       };
     });
 
@@ -60,6 +60,6 @@ export function getArticleData(id: string) {
   return {
     id,
     content: matterResult.content,
-    ...(matterResult.data as { title: string; date: string; excerpt?: string; author?: string; image?: string }),
+    ...(matterResult.data as { title: string; date: string; excerpt?: string; author?: string; image?: string; category?: 'notice' | 'column' }),
   };
 }

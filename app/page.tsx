@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getSortedArticlesData } from "@/lib/news";
+import NewsList from "@/components/news/NewsList";
 import { SOCIAL_LINKS } from "@/lib/constants";
 import HomeHero from "@/components/home/HomeHero";
 import aboutHero from "@/app/about/assets/works_hero.jpg";
@@ -8,7 +9,7 @@ import joinHero from "@/app/about/assets/supporters_hero.jpg";
 import bylawsHero from "@/app/about/assets/history_hero.jpg";
 
 export default function Home() {
-  const latestArticles = getSortedArticlesData().slice(0, 3);
+  const allArticles = getSortedArticlesData();
   const pickupItems = [
     {
       href: "/about",
@@ -77,45 +78,16 @@ export default function Home() {
             </div>
           </section>
 
-
-          <section className="space-y-5">
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-              Latest <span className="text-emerald-600">News</span>
-            </h2>
-            <Link href="/news" className="text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
-              すべて見る
-            </Link>
-          </div>
-
-          {latestArticles.length > 0 ? (
-            <div className="flex flex-col gap-4">
-              {latestArticles.map(({ id, date, title, excerpt }) => (
-                <Link
-                  key={id}
-                  href={`/news/${id}`}
-                  className="group rounded-2xl border border-slate-200 bg-white px-5 py-4 md:px-6 md:py-5 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all"
-                >
-                  <div className="space-y-2">
-                    <time className="inline-flex items-center gap-2 text-sm font-bold text-emerald-600" dateTime={date}>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      {new Date(date).toLocaleDateString("ja-JP")}
-                    </time>
-                    <h3 className="text-lg md:text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                      {title}
-                    </h3>
-                    {excerpt && <p className="text-sm md:text-base text-slate-600 font-medium line-clamp-2">{excerpt}</p>}
-                  </div>
-                </Link>
-              ))}
+          <section className="space-y-4">
+            <div className="flex items-end justify-between gap-4">
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+                Latest <span className="text-emerald-600">News</span>
+              </h2>
+              <Link href="/news" className="text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
+                すべて見る
+              </Link>
             </div>
-          ) : (
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-slate-600 font-medium">
-              まだニュース記事はありません。
-            </div>
-          )}
+            <NewsList articles={allArticles} maxItemsPerTab={5} />
           </section>
 
           <section className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
