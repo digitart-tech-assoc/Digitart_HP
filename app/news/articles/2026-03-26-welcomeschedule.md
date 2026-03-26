@@ -14,9 +14,9 @@ category: "notice"
 
 下記のカレンダーが今年度の新歓予定になります！
 
-![](/public/images/articles/2026-03-26/image.png)
+![](/images/articles/2026-03-26/image.png)
 
-![](/public/images/articles/2026-03-26/image2.png)
+![](/images/articles/2026-03-26/image2.png)
 
 
 ## とりあえずどこに行けばいいの？
