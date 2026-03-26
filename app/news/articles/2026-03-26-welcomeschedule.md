@@ -3,7 +3,7 @@ title: "【新入生必見】Digitartの新歓予定はこちら！             
 date: "2026-03-26"
 author: "Digitart 幹部"
 excerpt: "新入生の方に向けて、Digitartの新歓日程を公開しました。"
-image: "/public/images/articles/2026-03-26/image.png"
+image: "/images/articles/2026-03-26/image.png"
 category: "notice"
 ---
 
