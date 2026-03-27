@@ -3,6 +3,7 @@ import { getSortedArticlesData } from "@/lib/news";
 import NewsList from "@/components/news/NewsList";
 import { SOCIAL_LINKS } from "@/lib/constants";
 import HomeHero from "@/components/home/HomeHero";
+import EventCalendar from "@/components/home/EventCalendar";
 import aboutHero from "@/app/about/assets/works_hero.jpg";
 import newsHero from "@/app/about/assets/events/sagamihara-fes.jpg";
 import joinHero from "@/app/about/assets/supporters_hero.jpg";
@@ -46,6 +47,7 @@ export default function Home() {
       <div>
         <HomeHero />
         <div className="max-w-5xl mx-auto space-y-12 md:space-y-16">
+          <EventCalendar />
           <section className="space-y-4">
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
               Pick Up <span className="text-emerald-600">Pages</span>

@@ -1,0 +1,170 @@
+[
+  {
+    "date": "2026-04-02",
+    "title": "対面新歓（青山）",
+    "type": "welcome",
+    "time": "10:00〜16:00",
+    "location": "青山キャンパス"
+  },
+  {
+    "date": "2026-04-03",
+    "title": "対面新歓（相模原）",
+    "type": "welcome",
+    "time": "10:00〜16:00",
+    "location": "相模原キャンパス"
+  },
+  {
+    "date": "2026-04-03",
+    "title": "サークル説明会",
+    "type": "info",
+    "time": "21:00〜",
+    "location": "Discord"
+  },
+  {
+    "date": "2026-04-04",
+    "title": "サークル説明会",
+    "type": "info",
+    "time": "20:00〜",
+    "location": "Discord"
+  },
+  {
+    "date": "2026-04-05",
+    "title": "サークル説明会",
+    "type": "info",
+    "time": "20:00〜",
+    "location": "Discord"
+  },
+  {
+    "date": "2026-04-06",
+    "title": "サークル説明会",
+    "type": "info",
+    "time": "21:00〜",
+    "location": "Discord"
+  },
+  {
+    "date": "2026-04-09",
+    "title": "サークル説明会",
+    "type": "info",
+    "time": "21:00〜",
+    "location": "Discord"
+  },
+  {
+    "date": "2026-04-13",
+    "title": "初回活動（対面）",
+    "type": "activity",
+    "time": "18:30〜",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-04-16",
+    "title": "JavaScript講習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-04-19",
+    "title": "[予備]JS講習",
+    "type": "reserve",
+    "time": "時間未定",
+    "location": "Discord"
+  },
+  {
+    "date": "2026-04-20",
+    "title": "JavaScript講習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-04-23",
+    "title": "JavaScript講習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-04-26",
+    "title": "[予備]JS講習",
+    "type": "reserve",
+    "time": "時間未定",
+    "location": "Discord"
+  },
+  {
+    "date": "2026-04-27",
+    "title": "JavaScript講習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-04-30",
+    "title": "GitHub講習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-05-03",
+    "title": "[予備]JS講習",
+    "type": "reserve",
+    "time": "時間未定",
+    "location": "Discord"
+  },
+  {
+    "date": "2026-05-07",
+    "title": "GitHub講習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-05-10",
+    "title": "[予備]GitHub講習",
+    "type": "reserve",
+    "time": "時間未定",
+    "location": "Discord"
+  },
+  {
+    "date": "2026-05-11",
+    "title": "わかば学習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-05-14",
+    "title": "わかば学習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-05-18",
+    "title": "わかば学習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-05-21",
+    "title": "わかば学習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-05-25", 
+    "title": "わかば学習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-05-28",
+    "title": "わかば学習会",
+    "type": "study",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  }
+]
