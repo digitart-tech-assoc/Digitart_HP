@@ -63,7 +63,7 @@ const STATS = [
 
 const BREAKDOWNS = [
   {
-    title: "所属学部の内訳(2026年3月現在)",
+    title: "所属学部の内訳(2026年4月1日現在)",
     items: [
       { label: "情報テクノロジー学科", pct: 51 },
       { label: "社会情報学部", pct: 22 },
@@ -73,12 +73,12 @@ const BREAKDOWNS = [
     ],
   },
   {
-    title: "学年の分布(2026年3月現在)",
+    title: "学年の分布(2026年4月1日現在)",
     items: [
-      { label: "1年生", pct: 37 },
-      { label: "2年生", pct: 31 },
-      { label: "3年生", pct: 24 },
-      { label: "4年生・院生", pct: 8 },
+      { label: "1年生", pct: 0 },
+      { label: "2年生", pct: 37 },
+      { label: "3年生", pct: 31 },
+      { label: "4年生・院生", pct: 32 },
     ],
   },
 ];
