@@ -20,6 +20,13 @@ export default function Home() {
       imagePosition: "bg-center",
     },
     {
+      href: "/about/works",
+      title: "Works",
+      desc: "メンバーの制作した作品をチェック",
+      image: bylawsHero,
+      imagePosition: "bg-center",
+    },
+    {
       href: "/news",
       title: "News",
       desc: "最新のお知らせや活動報告を公開中",
@@ -31,13 +38,6 @@ export default function Home() {
       title: "Join Us",
       desc: "入会フローとお問い合わせ先はこちら",
       image: joinHero,
-      imagePosition: "bg-center",
-    },
-    {
-      href: "/bylaws",
-      title: "Bylaws",
-      desc: "サークル規約を確認できます",
-      image: bylawsHero,
       imagePosition: "bg-center",
     },
   ] as const;

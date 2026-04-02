@@ -63,19 +63,19 @@ export default function HomeHero() {
             className="flex flex-wrap gap-3 pt-1"
           >
             <Link
-              href="/join"
+              href="/about"
               className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-emerald-700"
             >
-              入会する
+              活動を見る
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
             <Link
-              href="/about"
+              href="/join"
               className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition-colors hover:border-emerald-300 hover:text-emerald-700"
             >
-              活動を見る
+              入会する
             </Link>
           </motion.div>
         </div>
@@ -84,7 +84,7 @@ export default function HomeHero() {
           initial={{ opacity: 0, scale: 0.9, y: 18 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2 }}
-          className="flex items-center justify-center lg:justify-end"
+          className="hidden lg:flex items-center justify-center lg:justify-end"
         >
           <motion.div
             whileHover={{ rotate: 540, scale: 1.08 }}
