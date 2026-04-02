@@ -58,20 +58,27 @@ export default function JoinPage() {
             >
               <div className="flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xl border-4 border-emerald-50 shadow-sm relative z-10" style={{ fontWeight: 700 }}>1</div>
               <div className="flex-grow bg-white rounded-2xl p-8 border border-gray-100 w-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <h3 className="text-xl text-gray-900 mb-3" style={{ fontWeight: 700 }}>SNSでDMを送信</h3>
+                <h3 className="text-xl text-gray-900 mb-3" style={{ fontWeight: 700 }}>仮入会フォームよりDiscordに参加</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  当サークルの公式SNS（
-				  	<a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noreferrer" className="text-sky-500 hover:text-sky-600 font-bold underline decoration-sky-200 hover:decoration-sky-500 underline-offset-4 transition-all">
-					  {SOCIAL_LINKS.twitter.label}
-					</a>
-				  または
-				    <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noreferrer" className="text-pink-500 hover:text-pink-600 font-bold underline decoration-pink-200 hover:decoration-pink-500 underline-offset-4 transition-all">
-					  {SOCIAL_LINKS.instagram.label}
-					</a>
-				  ）へ、入会希望の旨を記載してDMをお送りください。
+                  <a href="https://auth.digitart.jp/join/form" target="_blank" rel="noreferrer" className="text-emerald-600 hover:text-emerald-700 font-bold underline decoration-emerald-200 hover:decoration-emerald-500 underline-offset-4 transition-all">
+                    仮入会フォーム
+                  </a>
+                  より必要事項を入力し、Discordへの招待リンクを取得してください。
                 </p>
-                <p className="text-sm text-gray-500 mt-4 bg-gray-50 p-3 rounded-lg border border-gray-100">
-                  ※ メールでのお問い合わせも受け付けております。メールアドレスはページ下部に記載しています。
+                <p className="text-sm text-gray-600 mt-4 bg-gray-50 p-3 rounded-lg border border-gray-100">
+                  公式SNS（
+                  <a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noreferrer" className="text-sky-500 hover:text-sky-600 font-semibold">
+                    X (Twitter)
+                  </a>
+                  または
+                  <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noreferrer" className="text-pink-500 hover:text-pink-600 font-semibold">
+                    Instagram
+                  </a>
+                  ）でのDM、及び
+                  <a href="mailto:aoyama.tech.exe@gmail.com" className="text-emerald-600 hover:text-emerald-700 font-semibold">
+                    メール
+                  </a>
+                  でのお問い合わせも受け付けています。仮入会フォームが正常に動作しない場合もこちらをご利用ください。
                 </p>
               </div>
             </motion.div>
@@ -86,9 +93,9 @@ export default function JoinPage() {
             >
               <div className="flex-shrink-0 w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xl border-4 border-emerald-50 shadow-sm relative z-10" style={{ fontWeight: 700 }}>2</div>
               <div className="flex-grow bg-white rounded-2xl p-8 border border-gray-100 w-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <h3 className="text-xl text-gray-900 mb-3" style={{ fontWeight: 700 }}>担当者からのDiscord招待リンクの送信</h3>
+                <h3 className="text-xl text-gray-900 mb-3" style={{ fontWeight: 700 }}>Discordへの参加<span className="text-emerald-600">(仮入会完了)</span></h3>
                 <p className="text-gray-600 leading-relaxed">
-                  担当者より当サークルへのDiscordサーバ招待リンクをお送りいたします。サーバに参加していただくことで、仮入会となります。
+                  受け取ったDiscordの招待リンクから、当サークルのDiscordサーバに参加してください。これにより仮入会が完了します。
                 </p>
               </div>
             </motion.div>
