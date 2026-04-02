@@ -84,7 +84,7 @@ export default function HomeHero() {
           initial={{ opacity: 0, scale: 0.9, y: 18 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.2 }}
-          className="flex items-center justify-center lg:justify-end"
+          className="hidden lg:flex items-center justify-center lg:justify-end"
         >
           <motion.div
             whileHover={{ rotate: 540, scale: 1.08 }}
