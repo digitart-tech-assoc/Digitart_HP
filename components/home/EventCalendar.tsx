@@ -115,13 +115,21 @@ export default function EventCalendar() {
       </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400">
-        {(Object.entries(TYPE_STYLES) as [EventType, { dot: string; text: string }][]).map(([t, s]) => (
-          <span key={t} className="flex items-center gap-1.5">
-            <span className={`h-2 w-2 rounded-full ${s.dot}`} />
-            {{ welcome:"対面新歓", info:"説明会", activity:"活動", study:"講習会", reserve:"予備" }[t]}
-          </span>
-        ))}
+      <div className="flex items-center justify-between gap-x-4 gap-y-1 text-xs text-slate-400">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          {(Object.entries(TYPE_STYLES) as [EventType, { dot: string; text: string }][]).map(([t, s]) => (
+            <span key={t} className="flex items-center gap-1.5">
+              <span className={`h-2 w-2 rounded-full ${s.dot}`} />
+              {{ welcome:"対面新歓", info:"説明会", activity:"活動", study:"講習会", reserve:"予備" }[t]}
+            </span>
+          ))}
+        </div>
+        <a
+          href="/news/2026-03-26-welcomeschedule"
+          className="ml-4 text-xs text-emerald-600 font-medium whitespace-nowrap"
+        >
+          more info &gt;&gt;
+        </a>
       </div>
     </section>
   );
