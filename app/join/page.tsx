@@ -112,7 +112,7 @@ export default function JoinPage() {
               <div className="flex-grow bg-white rounded-2xl p-8 border border-gray-100 w-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <h3 className="text-xl text-gray-900 mb-3" style={{ fontWeight: 700 }}>正式入会・入会費の納入</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  正式に入会される際、入会費として <span className="text-rose-600 text-lg bg-rose-50 px-2 py-1 rounded-md mx-1 border border-rose-100" style={{ fontWeight: 700 }}>1,000円</span> を徴収させていただきます。<br />
+                  正式に入会される際、入会費として <span className="text-rose-600 text-lg bg-rose-50 px-2 py-1 rounded-md mx-1 border border-rose-100" style={{ fontWeight: 700 }}>1,000円</span> を頂戴いたします。<br />
                   <span className="text-sm text-gray-500 mt-5 block flex items-center gap-2 bg-gray-50 p-3 rounded-lg border border-gray-100" style={{ fontWeight: 600 }}>
                     <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
