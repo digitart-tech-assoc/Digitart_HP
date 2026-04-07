@@ -30,16 +30,6 @@ import supportersHero from "./assets/supporters_hero.jpg";
 const GUIDE_CARDS = [
   {
     num: "01",
-    title: "History",
-    subtitle: "Digitartの歩み",
-    desc: "設立からの成長と、団体の挑戦の歴史をご紹介します。",
-    icon: History,
-    to: "/about/history",
-    image: historyHero,
-    color: "from-emerald-700 to-teal-950",
-  },
-  {
-    num: "02",
     title: "Events",
     subtitle: "Digitartの年間イベント",
     desc: "作品制作や交流を深める、年間の定例イベントや特別イベントをご紹介します。",
@@ -49,7 +39,7 @@ const GUIDE_CARDS = [
     color: "from-lime-700 to-green-950",
   },
   {
-    num: "03",
+    num: "02",
     title: "Works",
     subtitle: "作品・プロジェクト",
     desc: "メンバーが生み出した革新的なプロジェクトをご紹介。",
@@ -57,6 +47,16 @@ const GUIDE_CARDS = [
     to: "/about/works",
     image: worksHero,
     color: "from-green-700 to-emerald-950",
+  },
+  {
+    num: "03",
+    title: "History",
+    subtitle: "Digitartの歩み",
+    desc: "設立からの成長と、団体の挑戦の歴史をご紹介します。",
+    icon: History,
+    to: "/about/history",
+    image: historyHero,
+    color: "from-emerald-700 to-teal-950",
   },
   {
     num: "04",
