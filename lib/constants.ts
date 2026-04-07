@@ -36,10 +36,10 @@ export const NAV_LINKS: NavItem[] = [
     href: "/about",
     label: "About",
     children: [
-      { href: "/about/history", label: "History" },
-      { href: "/about/data", label: "Data" },
       { href: "/about/events", label: "Events" },
       { href: "/about/works", label: "Works" },
+      { href: "/about/history", label: "History" },
+      { href: "/about/data", label: "Data" },
       { href: "/about/supporter", label: "Supporter" },
     ],
   },
