@@ -8,7 +8,7 @@ import JoinUs from "@/components/about/JoinUs";
 
 import icon_chrom from "../assets/supporter/icon_chrom.jpg";
 import icon_mimisuke from "../assets/supporter/icon_mimisuke.png";
-import icon_sora339 from "../assets/supporter/icon_sora339.png";
+import icon_bell from "../assets/supporter/icon_bell.jpg";
 import icon_kuzumochi from "../assets/supporter/icon_kuzumochi.png";
 import icon_banetu from "../assets/supporter/icon_banetu.jpg";
 
@@ -30,12 +30,12 @@ const MEMBERS = [
     image: icon_banetu,
   },
   {
-    name: "Sora_339",
+    name: "ベル",
     role: "副代表",
-    year: "社会情報学部社会情報学科 3年",
+    year: "情報テクノロジー学科 2年",
     quote:
-      "創造を楽しもう！",
-    image: icon_sora339,
+      "Welcome to the underground!",
+    image: icon_bell,
   },
   {
     name: "葛餅",
