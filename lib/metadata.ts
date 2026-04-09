@@ -4,6 +4,7 @@ import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "./constants";
 type CustomMetadataProps = {
   title?: string;
   description?: string;
+  keywords?: string[];
   image?: string;
   path?: string;
 };
@@ -11,6 +12,7 @@ type CustomMetadataProps = {
 export function getCustomMetadata({
   title,
   description,
+  keywords = [],
   image,
   path = "",
 }: CustomMetadataProps = {}): Metadata {
@@ -24,6 +26,7 @@ export function getCustomMetadata({
   return {
     title: pageTitle,
     description: pageDescription,
+    keywords: keywords.length > 0 ? keywords : undefined,
     openGraph: {
       title: pageTitle,
       description: pageDescription,

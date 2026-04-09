@@ -241,15 +241,15 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h2
+            <h1
               className="text-4xl md:text-5xl text-gray-900 mb-6"
               style={{ fontWeight: 700 }}
             >
               About Us
-            </h2>
+            </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Digitartテクノロジー愛好会は、あらゆるテクノロジー好きが集まるクリエイター集団です。
-              webアプリやゲーム制作を通じたプログラミング、デザイン、ハードウェアなど、多様な分野で活動し、
+              Digitartテクノロジー愛好会は、青山学院大学のあらゆるテクノロジー好きが集まるクリエイター集団です。
+              プログラミング、ゲーム開発、デザイン、ハードウェアなど、多様な分野で活動し、
               技術を通じて新しい価値を創造しています。
             </p>
           </motion.div>

@@ -1,7 +1,7 @@
 /** サイト全体で共有する定数 */
 
 export const SITE_NAME = "Digitart テクノロジー愛好会";
-export const SITE_DESCRIPTION = "Digitart テクノロジー愛好会 公式ホームページ";
+export const SITE_DESCRIPTION = "青山学院大学公認学生団体 Digitart テクノロジー愛好会。プログラミング、ゲーム開発、AI/MLなどを学べる学生団体です。";
 export const SITE_URL = "https://www.digitart.jp";
 
 /** SNS / 連絡先 */
