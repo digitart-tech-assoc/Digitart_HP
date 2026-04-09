@@ -18,7 +18,7 @@ const MEMBERS = [
     role: "代表",
     year: "社会情報学部社会情報学科 3年",
     quote:
-      "テクノロジーで人の生活を豊かにしたい。Digitartはその夢を形にできる場所です。",
+      "テクノロジーで何かを作りたい。Digitartはその夢を形にできる場所です。",
     image: icon_chrom,
   },
   {
