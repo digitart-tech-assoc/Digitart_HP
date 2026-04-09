@@ -16,7 +16,7 @@ const MEMBERS = [
   {
     name: "くろむ",
     role: "代表",
-    year: "社会情報学部社会情報学科 2年",
+    year: "社会情報学部社会情報学科 3年",
     quote:
       "テクノロジーで人の生活を豊かにしたい。Digitartはその夢を形にできる場所です。",
     image: icon_chrom,
@@ -24,7 +24,7 @@ const MEMBERS = [
   {
     name: "Banetu",
     role: "副代表",
-    year: "情報テクノロジー学科 2年",
+    year: "情報テクノロジー学科 3年",
     quote:
       "Digitartの作曲&ゲーム（プレイ）担当。コード書けなくても居場所はあるよ！",
     image: icon_banetu,
@@ -32,7 +32,7 @@ const MEMBERS = [
   {
     name: "ベル",
     role: "副代表",
-    year: "情報テクノロジー学科 2年",
+    year: "情報テクノロジー学科 3年",
     quote:
       "Welcome to the underground!",
     image: icon_bell,
@@ -40,7 +40,7 @@ const MEMBERS = [
   {
     name: "葛餅",
     role: "会計",
-    year: "情報テクノロジ学科 1年",
+    year: "情報テクノロジ学科 2年",
     quote:
       "興味があるなら飛び込んでみませんか！歓迎しますよ！",
     image: icon_kuzumochi,
@@ -48,7 +48,7 @@ const MEMBERS = [
   {
     name: "みみすけ",
     role: "広報",
-    year: "情報テクノロジー学科 2年",
+    year: "情報テクノロジー学科 3年",
     quote:
       "エラーはトモダチ！赤文字が出るたびワクワクする体質になりませんか？^o^",
     image: icon_mimisuke,
