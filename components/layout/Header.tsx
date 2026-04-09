@@ -103,17 +103,29 @@ export default function Header() {
               return (
                 <li key={link.href}>
                   <div className="flex items-start justify-between gap-3">
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-colors group ${
-                        parentActive
-                          ? "text-blue-600 bg-blue-50 hover:bg-blue-100"
-                          : "text-gray-700 hover:bg-slate-100 hover:text-black"
-                      }`}
-                    >
-                      <span>{link.label}</span>
-                    </Link>
+                    {link.href.startsWith("http") ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setIsOpen(false)}
+                        className="flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-colors group text-gray-700 hover:bg-slate-100 hover:text-black"
+                      >
+                        <span>{link.label}</span>
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-colors group ${
+                          parentActive
+                            ? "text-blue-600 bg-blue-50 hover:bg-blue-100"
+                            : "text-gray-700 hover:bg-slate-100 hover:text-black"
+                        }`}
+                      >
+                        <span>{link.label}</span>
+                      </Link>
+                    )}
 
                     {children && children.length > 0 && (
                       <button

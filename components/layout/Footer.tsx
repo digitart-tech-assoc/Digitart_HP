@@ -26,9 +26,15 @@ export default function Footer() {
             <ul className="flex-1 space-y-2 text-sm">
               {cols[0].map((link: any) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-slate-300 hover:text-white">
-                    {link.label}
-                  </Link>
+                  {link.href.startsWith("http") ? (
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-white">
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link href={link.href} className="text-slate-300 hover:text-white">
+                      {link.label}
+                    </Link>
+                  )}
                   {link.children?.length ? (
                     <ul className="mt-1 ml-3 space-y-1 text-sm">
                       {link.children.map((c: any) => (
@@ -47,9 +53,15 @@ export default function Footer() {
             <ul className="flex-1 space-y-2 text-sm">
               {cols[1].map((link: any) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-slate-300 hover:text-white">
-                    {link.label}
-                  </Link>
+                  {link.href.startsWith("http") ? (
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-white">
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link href={link.href} className="text-slate-300 hover:text-white">
+                      {link.label}
+                    </Link>
+                  )}
                   {link.children?.length ? (
                     <ul className="mt-1 ml-3 space-y-1 text-sm">
                       {link.children.map((c: any) => (
