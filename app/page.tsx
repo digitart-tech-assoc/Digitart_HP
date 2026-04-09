@@ -45,8 +45,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 lg:p-16 selection:bg-emerald-200">
       <div>
-        <HomeHero />
         <div className="max-w-5xl mx-auto space-y-12 md:space-y-16">
+          <HomeHero />
           <EventCalendar />
           <section className="space-y-4">
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
