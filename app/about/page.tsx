@@ -198,12 +198,6 @@ export default function AboutPage() {
                       className={`absolute inset-0 bg-gradient-to-t ${card.color} opacity-40 group-hover:opacity-60 transition-opacity duration-500`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
-                    <div
-                      className="absolute top-3 right-3 bg-white/90 text-emerald-700 px-2 py-0.5 rounded-full text-xs z-10"
-                      style={{ fontWeight: 600 }}
-                    >
-                      {card.num}
-                    </div>
                     <div className="relative z-10 w-full p-5 md:p-6 text-left">
                       <h3
                         className="text-white text-xl md:text-2xl mb-1.5 md:mb-2"
@@ -270,12 +264,6 @@ export default function AboutPage() {
                 transition={{ duration: 0.6, delay: i * 0.15 }}
                 className={`${card.color} p-5 md:p-8 rounded-2xl md:rounded-3xl hover:shadow-xl transition-all duration-300 group cursor-pointer relative overflow-hidden`}
               >
-                <span
-                  className="absolute top-3 right-3 md:top-4 md:right-4 text-[10px] md:text-xs text-emerald-600/60"
-                  style={{ fontWeight: 600 }}
-                >
-                  {card.num}
-                </span>
                 <div className="flex items-center md:items-start md:flex-col gap-4 md:gap-0">
                   <card.icon className="w-8 h-8 md:w-12 md:h-12 text-emerald-600 shrink-0 md:mb-4 group-hover:scale-110 transition-transform duration-300" />
                   <div>
