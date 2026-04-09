@@ -46,4 +46,5 @@ export const NAV_LINKS: NavItem[] = [
   { href: "/news", label: "News" },
   { href: "/join", label: "Join Us" },
   { href: "/bylaws", label: "Bylaws" },
+  { href: "https://auth.digitart.jp/contact", label: "Contact" },
 ];

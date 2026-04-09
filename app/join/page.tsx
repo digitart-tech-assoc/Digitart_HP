@@ -66,6 +66,10 @@ export default function JoinPage() {
                   より必要事項を入力し、Discordへの招待リンクを取得してください。
                 </p>
                 <p className="text-sm text-gray-600 mt-4 bg-gray-50 p-3 rounded-lg border border-gray-100">
+                  <a href="https://auth.digitart.jp/contact" target="_blank" rel="noreferrer" className="text-emerald-600 hover:text-emerald-700 font-semibold">
+                    お問い合わせフォーム
+                  </a>
+                  でのお問い合わせ、及び
                   公式SNS（
                   <a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noreferrer" className="text-sky-500 hover:text-sky-600 font-semibold">
                     X (Twitter)
@@ -74,11 +78,8 @@ export default function JoinPage() {
                   <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noreferrer" className="text-pink-500 hover:text-pink-600 font-semibold">
                     Instagram
                   </a>
-                  ）でのDM、及び
-                  <a href="mailto:aoyama.tech.exe@gmail.com" className="text-emerald-600 hover:text-emerald-700 font-semibold">
-                    メール
-                  </a>
-                  でのお問い合わせも受け付けています。仮入会フォームが正常に動作しない場合もこちらをご利用ください。
+                  ）でのDM
+                  も受け付けています。仮入会フォームが使用できない場合はこちらをご利用ください。
                 </p>
               </div>
             </motion.div>
@@ -148,6 +149,17 @@ export default function JoinPage() {
               入会のご連絡・ご質問はこちらの窓口からお願いいたします。
             </p>
             <div className="space-y-4">
+              <a href="https://auth.digitart.jp/contact" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 hover:shadow-lg transition-all duration-300 group">
+                <div className="bg-emerald-500 text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform duration-300">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 3 6-3M6 9v6a2 2 0 002 2h8a2 2 0 002-2V9m0 0V7a2 2 0 00-2-2H8a2 2 0 00-2 2v2m0 0H4m12 0h4" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-gray-900" style={{ fontWeight: 700 }}>お問い合わせフォーム</div>
+                  <div className="text-sm text-gray-500">https://auth.digitart.jp/contact</div>
+                </div>
+              </a>
               <a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 hover:shadow-lg transition-all duration-300 group">
                 <div className="bg-black text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform duration-300">
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -170,17 +182,6 @@ export default function JoinPage() {
                 <div>
                   <div className="text-gray-900" style={{ fontWeight: 700 }}>{SOCIAL_LINKS.instagram.label}</div>
                   <div className="text-sm text-gray-500">{SOCIAL_LINKS.instagram.handle}</div>
-                </div>
-              </a>
-              <a href={`mailto:${SOCIAL_LINKS.email.address}`} className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 hover:shadow-lg transition-all duration-300 group">
-                <div className="bg-emerald-500 text-white p-2.5 rounded-xl group-hover:scale-110 shadow-sm transition-transform duration-300">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-gray-900" style={{ fontWeight: 700 }}>{SOCIAL_LINKS.email.label}</div>
-                  <div className="text-sm text-gray-500">{SOCIAL_LINKS.email.address.split('@')[0]}</div>
                 </div>
               </a>
             </div>

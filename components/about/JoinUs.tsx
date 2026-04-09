@@ -25,14 +25,26 @@ export default function JoinUs() {
             <br />
             テクノロジーに興味があれば、誰でも歓迎します。
           </p>
-          <Link
-            href="/join"
-            className="inline-flex items-center gap-3 bg-white text-emerald-600 px-8 py-4 rounded-full text-lg hover:shadow-2xl transition-shadow duration-300"
-            style={{ fontWeight: 700 }}
-          >
-            Show More
-            <ArrowRight className="w-5 h-5" />
-          </Link>
+          <div className="flex flex-col md:flex-row justify-center gap-4">
+            <Link
+              href="/join"
+              className="inline-flex items-center justify-center gap-3 bg-white text-emerald-600 px-8 py-4 rounded-full text-lg hover:shadow-2xl transition-shadow duration-300"
+              style={{ fontWeight: 700 }}
+            >
+              Show More
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <a
+              href="https://auth.digitart.jp/contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-3 bg-white text-emerald-600 px-8 py-4 rounded-full text-lg border-2 border-white hover:bg-white hover:text-emerald-600 transition-all duration-300"
+              style={{ fontWeight: 700 }}
+            >
+              Contact
+              <ArrowRight className="w-5 h-5" />
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>
