@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SOCIAL_LINKS } from "@/lib/constants";
 import JsonLd from "@/components/JsonLd";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  keywords: ["青学", "青山学院大学", "サークル", "プログラミング", "ゲーム", "ゲーム開発", "AI", "機械学習", "テクノロジー", "学生団体", "Digitart"],
   openGraph: {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
@@ -59,6 +61,15 @@ export default function RootLayout({
     url: SITE_URL,
     logo: `${SITE_URL}/images/digitart_OGP.jpg`,
     sameAs: [SOCIAL_LINKS.twitter.url, SOCIAL_LINKS.instagram.url],
+    description: SITE_DESCRIPTION,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Customer Support",
+      url: "https://auth.digitart.jp/contact"
+    },
+    foundingDate: "2020",
+    areaServed: "JP",
+    additionalType: "StudentOrganization"
   };
 
   return (
@@ -67,6 +78,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200`}
       >
         <JsonLd data={orgJsonLd} />
+        <BreadcrumbJsonLd />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

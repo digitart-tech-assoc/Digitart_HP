@@ -2,7 +2,8 @@ import { getCustomMetadata } from "@/lib/metadata";
 
 export const metadata = getCustomMetadata({
   title: "Join Us",
-  description: "Digitartテクノロジー愛好会への入会方法や各種お問い合わせ",
+  description: "青山学院大学のDigitartテクノロジー愛好会への入会方法。プログラミングやゲーム開発の初心者も大歓迎です。仮入会フォームから参加できます。",
+  keywords: ["青学", "サークル", "入会", "プログラミング", "ゲーム", "募集", "学生団体"],
   path: "/join",
 });
 
