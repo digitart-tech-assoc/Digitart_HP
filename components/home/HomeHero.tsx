@@ -39,11 +39,12 @@ export default function HomeHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-slate-900"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wide leading-tight text-slate-900"
           >
-            Build with Code,
-            <br />
-            <span className="text-emerald-600">Create with Heart</span>
+            <span className="text-emerald-600">好き</span>{' '}を<br/>
+            <span className="text-emerald-600">カタチ</span>{' '}にしよう
+            
+            
           </motion.h1>
 
           <motion.p
@@ -86,11 +87,7 @@ export default function HomeHero() {
           transition={{ duration: 0.55, delay: 0.2 }}
           className="hidden lg:flex items-center justify-center lg:justify-end"
         >
-          <motion.div
-            whileHover={{ rotate: 540, scale: 1.08 }}
-            transition={{ type: "spring", stiffness: 260, damping: 14 }}
-            className="relative"
-          >
+          <div className="relative">
             <div className="absolute inset-0 rounded-full bg-emerald-300/30 blur-3xl" aria-hidden="true" />
             <Image
               src="/images/digitart_white_normal.svg"
@@ -100,7 +97,7 @@ export default function HomeHero() {
               className="relative w-52 md:w-64 lg:w-80 h-auto drop-shadow-[0_20px_24px_rgba(15,23,42,0.18)]"
               priority
             />
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
