@@ -38,7 +38,7 @@
     "date": "2026-04-13",
     "title": "初回活動（対面）",
     "type": "activity",
-    "time": "18:30〜",
+    "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
@@ -52,7 +52,7 @@
     "date": "2026-04-19",
     "title": "[予備]プログラミング基礎講習",
     "type": "reserve",
-    "time": "時間未定",
+    "time": "20:00~22:00",
     "location": "Discord"
   },
   {
@@ -73,7 +73,7 @@
     "date": "2026-04-26",
     "title": "[予備]プログラミング基礎講習",
     "type": "reserve",
-    "time": "時間未定",
+    "time": "20:00~22:00",
     "location": "Discord"
   },
   {
@@ -94,7 +94,7 @@
     "date": "2026-05-03",
     "title": "[予備]プログラミング基礎講習",
     "type": "reserve",
-    "time": "時間未定",
+    "time": "20:00~22:00",
     "location": "Discord"
   },
   {
@@ -108,7 +108,7 @@
     "date": "2026-05-10",
     "title": "[予備]GitHub講習",
     "type": "reserve",
-    "time": "時間未定",
+    "time": "20:00~22:00",
     "location": "Discord"
   },
   {
