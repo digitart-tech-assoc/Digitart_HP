@@ -98,6 +98,13 @@
     "location": "Discord"
   },
   {
+    "date": "2026-05-06",
+    "title": "お出かけ!!",
+    "type": "event",
+    "time": "未定",
+    "location": "江ノ島(予定)"
+  },
+  {
     "date": "2026-05-07",
     "title": "わかば学習会",
     "type": "study",
@@ -131,6 +138,13 @@
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
+  },
+  {
+    "date": "2026-05-24",
+    "title": "BBQ",
+    "type": "event",
+    "time": "18:30~21:30",
+    "location": "新百合ヶ丘"
   },
   {
     "date": "2026-05-25", 
