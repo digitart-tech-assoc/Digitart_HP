@@ -38,78 +38,78 @@
     "date": "2026-04-13",
     "title": "初回活動（対面）",
     "type": "activity",
-    "time": "18:30〜",
+    "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-04-16",
-    "title": "JavaScript講習会",
+    "title": "プログラミング基礎講習",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-04-19",
-    "title": "[予備]JS講習",
-    "type": "reserve",
-    "time": "時間未定",
+    "title": "[予備]プログラミング基礎講習",
+    "type": "etc",
+    "time": "20:00~22:00",
     "location": "Discord"
   },
   {
     "date": "2026-04-20",
-    "title": "JavaScript講習会",
+    "title": "プログラミング基礎講習",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-04-23",
-    "title": "JavaScript講習会",
+    "title": "プログラミング基礎講習",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-04-26",
-    "title": "[予備]JS講習",
-    "type": "reserve",
-    "time": "時間未定",
+    "title": "[予備]プログラミング基礎講習",
+    "type": "etc",
+    "time": "20:00~22:00",
     "location": "Discord"
   },
   {
     "date": "2026-04-27",
-    "title": "JavaScript講習会",
+    "title": "プログラミング基礎講習",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-04-30",
-    "title": "GitHub講習会",
+    "title": "わかば学習会",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-05-03",
-    "title": "[予備]JS講習",
-    "type": "reserve",
-    "time": "時間未定",
+    "title": "[予備]プログラミング基礎講習",
+    "type": "etc",
+    "time": "20:00~22:00",
     "location": "Discord"
+  },
+  {
+    "date": "2026-05-06",
+    "title": "お出かけ!!",
+    "type": "event",
+    "time": "未定",
+    "location": "江ノ島(予定)"
   },
   {
     "date": "2026-05-07",
-    "title": "GitHub講習会",
+    "title": "わかば学習会",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
-  },
-  {
-    "date": "2026-05-10",
-    "title": "[予備]GitHub講習",
-    "type": "reserve",
-    "time": "時間未定",
-    "location": "Discord"
   },
   {
     "date": "2026-05-11",
@@ -140,15 +140,22 @@
     "location": "F401教室"
   },
   {
+    "date": "2026-05-24",
+    "title": "BBQ",
+    "type": "event",
+    "time": "18:30~21:30",
+    "location": "新百合ヶ丘"
+  },
+  {
     "date": "2026-05-25", 
-    "title": "わかば学習会",
+    "title": "GitHub講習会",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-05-28",
-    "title": "わかば学習会",
+    "title": "GitHub講習会",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
