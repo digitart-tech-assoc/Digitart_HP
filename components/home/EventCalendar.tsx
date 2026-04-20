@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import eventsData from "@/lib/events.json";
 
-type EventType = "welcome" | "info" | "activity" | "study" | "reserve";
+type EventType = "info" | "activity" | "study" | "event" | "etc";
 
 interface CalendarEvent {
   date: string;
@@ -16,11 +16,11 @@ interface CalendarEvent {
 const events = eventsData as CalendarEvent[];
 
 const TYPE_STYLES: Record<EventType, { dot: string; text: string }> = {
-  welcome:  { dot: "bg-emerald-500", text: "text-emerald-600" },
+  event:    { dot: "bg-lime-500", text: "text-lime-600" },
   info:     { dot: "bg-violet-500",  text: "text-violet-600"  },
   activity: { dot: "bg-amber-500",   text: "text-amber-600"   },
   study:    { dot: "bg-teal-500",    text: "text-teal-600"    },
-  reserve:  { dot: "bg-slate-400",   text: "text-slate-400"   },
+  etc:      { dot: "bg-slate-400",   text: "text-slate-400"   },
 };
 
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
@@ -120,7 +120,7 @@ export default function EventCalendar() {
           {(Object.entries(TYPE_STYLES) as [EventType, { dot: string; text: string }][]).map(([t, s]) => (
             <span key={t} className="flex items-center gap-1.5">
               <span className={`h-2 w-2 rounded-full ${s.dot}`} />
-              {{ welcome:"対面新歓", info:"説明会", activity:"活動", study:"講習会", reserve:"予備" }[t]}
+              {{ event:"イベント", info:"説明会", activity:"活動", study:"講習会", etc:"その他" }[t]}
             </span>
           ))}
         </div>

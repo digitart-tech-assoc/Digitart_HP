@@ -51,7 +51,7 @@
   {
     "date": "2026-04-19",
     "title": "[予備]プログラミング基礎講習",
-    "type": "reserve",
+    "type": "etc",
     "time": "20:00~22:00",
     "location": "Discord"
   },
@@ -72,7 +72,7 @@
   {
     "date": "2026-04-26",
     "title": "[予備]プログラミング基礎講習",
-    "type": "reserve",
+    "type": "etc",
     "time": "20:00~22:00",
     "location": "Discord"
   },
@@ -93,7 +93,7 @@
   {
     "date": "2026-05-03",
     "title": "[予備]プログラミング基礎講習",
-    "type": "reserve",
+    "type": "etc",
     "time": "20:00~22:00",
     "location": "Discord"
   },
