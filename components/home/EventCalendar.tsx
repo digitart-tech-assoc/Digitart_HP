@@ -125,7 +125,7 @@ export default function EventCalendar() {
           ))}
         </div>
         <a
-          href="/news/2026-03-26-welcomeschedule"
+          href="/news/2026-04-14-welcomeschedule"
           className="ml-4 text-xs text-emerald-600 font-medium whitespace-nowrap"
         >
           more info &gt;&gt;
