@@ -85,7 +85,7 @@
   },
   {
     "date": "2026-04-30",
-    "title": "GitHub講習会",
+    "title": "わかば学習会",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
@@ -99,17 +99,10 @@
   },
   {
     "date": "2026-05-07",
-    "title": "GitHub講習会",
+    "title": "わかば学習会",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
-  },
-  {
-    "date": "2026-05-10",
-    "title": "[予備]GitHub講習",
-    "type": "reserve",
-    "time": "20:00~22:00",
-    "location": "Discord"
   },
   {
     "date": "2026-05-11",
