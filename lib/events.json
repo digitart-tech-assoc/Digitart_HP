@@ -43,42 +43,42 @@
   },
   {
     "date": "2026-04-16",
-    "title": "JavaScript講習会",
+    "title": "プログラミング基礎講習",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-04-19",
-    "title": "[予備]JS講習",
+    "title": "[予備]プログラミング基礎講習",
     "type": "reserve",
     "time": "時間未定",
     "location": "Discord"
   },
   {
     "date": "2026-04-20",
-    "title": "JavaScript講習会",
+    "title": "プログラミング基礎講習",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-04-23",
-    "title": "JavaScript講習会",
+    "title": "プログラミング基礎講習",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
   },
   {
     "date": "2026-04-26",
-    "title": "[予備]JS講習",
+    "title": "[予備]プログラミング基礎講習",
     "type": "reserve",
     "time": "時間未定",
     "location": "Discord"
   },
   {
     "date": "2026-04-27",
-    "title": "JavaScript講習会",
+    "title": "プログラミング基礎講習",
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
@@ -92,7 +92,7 @@
   },
   {
     "date": "2026-05-03",
-    "title": "[予備]JS講習",
+    "title": "[予備]プログラミング基礎講習",
     "type": "reserve",
     "time": "時間未定",
     "location": "Discord"
