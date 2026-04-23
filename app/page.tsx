@@ -5,6 +5,7 @@ import EventCalendar from "@/components/home/EventCalendar";
 import NewsList from "@/components/news/NewsList";
 import PickupPages from "@/components/home/PickupPages";
 import JoinUs from "@/components/about/JoinUs";
+import ScrollToTop from "@/components/ScrollToTop";
 
 import aboutHero    from "@/app/about/assets/works_hero.jpg";
 import worksHero    from "@/app/about/assets/history_hero.jpg";
@@ -51,6 +52,7 @@ export default function Home() {
 
   return (
     <div className="bg-transparent text-slate-900">
+      <ScrollToTop />
       {/* ── Hero ─────────────────────────────────────────── */}
       <HomeHero />
 
