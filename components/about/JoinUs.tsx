@@ -29,7 +29,7 @@ export default function JoinUs() {
           <div className="flex flex-col md:flex-row justify-center items-center gap-6">
             <Link
               href="/join"
-              className="inline-flex items-center justify-center gap-3 bg-[#8cc63f] text-white px-10 py-4 rounded-full text-lg font-bold hover:bg-[#7ab135] transition-all duration-300 shadow-[0_0_30px_rgba(140,198,63,0.3)] hover:-translate-y-1"
+              className="inline-flex items-center justify-center gap-3 bg-[#8cc63f] text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-[#7ab135] transition-all duration-300 shadow-[0_0_30px_rgba(140,198,63,0.3)] hover:-translate-y-1 min-w-52"
             >
               入会案内
               <ArrowRight className="w-5 h-5" />
@@ -38,7 +38,7 @@ export default function JoinUs() {
               href="https://auth.digitart.jp/contact"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 bg-transparent text-white border-2 border-white/20 px-10 py-4 rounded-full text-lg font-bold hover:bg-white/10 hover:border-white transition-all duration-300"
+              className="inline-flex items-center justify-center gap-3 bg-transparent text-white border-2 border-white/20 px-8 py-4 rounded-full text-lg font-bold hover:bg-white/10 hover:border-white transition-all duration-300 min-w-52"
             >
               お問い合わせ
               <ArrowRight className="w-5 h-5" />
