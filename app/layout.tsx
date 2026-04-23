@@ -75,7 +75,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white text-slate-900 font-sans selection:bg-emerald-100`}
       >
         <JsonLd data={orgJsonLd} />
         <BreadcrumbJsonLd />

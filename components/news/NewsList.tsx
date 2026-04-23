@@ -21,15 +21,9 @@ const TABS: { id: TabType; label: string }[] = [
   { id: 'column', label: 'コラム' },
 ];
 
-const CATEGORY_BADGE: Record<string, { label: string; className: string }> = {
-  notice: {
-    label: 'お知らせ',
-    className: 'bg-red-100 text-red-700 border border-red-200',
-  },
-  column: {
-    label: 'コラム',
-    className: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
-  },
+const CAT_META: Record<'notice' | 'column', { label: string; color: string; bg: string }> = {
+  notice: { label: 'お知らせ', color: '#b91c1c', bg: '#fee2e2' },
+  column: { label: 'コラム',   color: '#3d7a18', bg: '#e8f4df' },
 };
 
 export default function NewsList({
@@ -45,110 +39,77 @@ export default function NewsList({
     .filter((a) => activeTab === 'all' || a.category === activeTab)
     .slice(0, maxItemsPerTab);
 
+  // Count actual total vs capped; show "N+" if more articles exist beyond the cap
   const countFor = (tab: TabType) => {
-    const base =
-      tab === 'all' ? articles.length : articles.filter((a) => a.category === tab).length;
-    return maxItemsPerTab !== undefined ? Math.min(base, maxItemsPerTab) : base;
+    const total = tab === 'all' ? articles.length : articles.filter((a) => a.category === tab).length;
+    if (maxItemsPerTab !== undefined && total > maxItemsPerTab) {
+      return `${maxItemsPerTab}+`;
+    }
+    return String(total);
   };
 
   return (
-    <div className="space-y-5">
+    <div>
       {/* Tabs */}
-      <div className="flex gap-2 bg-white rounded-2xl p-1.5 shadow-sm border border-slate-200 w-fit">
+      <div className="flex justify-center gap-4 md:gap-8 border-b border-slate-200 mb-8 md:mb-12">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-1.5 rounded-xl text-sm font-bold transition-all duration-200 flex items-center gap-1.5 ${
+            className={`pb-3 md:pb-4 text-sm md:text-base font-bold tracking-wider border-b-[3px] transition-colors ${
               activeTab === tab.id
-                ? 'bg-emerald-500 text-white shadow-sm'
-                : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'
+                ? 'border-[#8cc63f] text-slate-900'
+                : 'border-transparent text-slate-400 hover:text-slate-700'
             }`}
           >
             {tab.label}
-            <span
-              className={`text-xs rounded-full px-1.5 py-0.5 leading-none font-bold ${
-                activeTab === tab.id ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-400'
-              }`}
-            >
-              {countFor(tab.id)}
-            </span>
+            <span className="ml-1.5 text-xs md:text-sm opacity-60">({countFor(tab.id)})</span>
           </button>
         ))}
       </div>
 
-      {/* List */}
       {filtered.length > 0 ? (
-        <div className="flex flex-col gap-4">
-          {filtered.map(({ id, date, title, excerpt, author, category }) => {
-            const badge = category ? CATEGORY_BADGE[category] : null;
+        <ul className="divide-y divide-slate-100">
+          {filtered.map(({ id, date, title, excerpt, category }) => {
+            const meta = category ? CAT_META[category] : null;
             return (
-              <Link
-                href={`/news/${id}`}
-                key={id}
-                className="group bg-white rounded-2xl p-5 md:px-6 md:py-5 shadow-sm hover:shadow-md border border-slate-200 transition-all hover:-translate-y-1 relative overflow-hidden flex flex-col md:flex-row md:items-center md:justify-between gap-3"
-              >
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-emerald-500 scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
-
-                <div className="flex flex-col grow text-left space-y-2">
-                  <div className="flex items-center gap-3 flex-wrap">
-                    {badge && (
-                      <span className={`inline-flex items-center text-xs font-bold px-2.5 py-0.5 rounded-full ${badge.className}`}>
-                        {badge.label}
-                      </span>
-                    )}
-                    <time dateTime={date} className="flex items-center gap-1.5 text-sm font-bold text-emerald-600">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
+              <li key={id} className="group py-5 md:py-8">
+                <Link href={`/news/${id}`} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-8">
+                  {/* Left part: Date and Badge */}
+                  <div className="flex items-center md:flex-col md:items-start gap-2 md:gap-2 shrink-0 md:w-36 pt-0.5">
+                    <time dateTime={date} className="text-xs md:text-base font-bold text-slate-400 tabular-nums">
                       {new Date(date).toLocaleDateString('ja-JP')}
                     </time>
-                    {author && (
-                      <div className="flex items-center gap-1.5 text-sm font-bold text-slate-500">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        {author}
-                      </div>
+                    {meta && (
+                      <span
+                        className="inline-flex items-center justify-center text-[10px] md:text-xs font-bold px-2 md:px-3 py-0.5 md:py-1 rounded"
+                        style={{ color: meta.color, background: meta.bg }}
+                      >
+                        {meta.label}
+                      </span>
                     )}
                   </div>
 
-                  <h2 className="text-xl md:text-2xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1">
-                    {title}
-                  </h2>
-                  {excerpt && (
-                    <p className="text-slate-600 font-medium text-sm leading-snug line-clamp-2 md:mt-0.5">
-                      {excerpt}
-                    </p>
-                  )}
-                </div>
-
-                <div className="shrink-0 md:w-28 flex items-center justify-end text-sm font-bold text-emerald-600 group-hover:text-emerald-700 transition-colors mt-1 md:mt-0">
-                  記事を読む
-                  <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </div>
-              </Link>
+                  {/* Right part: Title and Excerpt */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base md:text-xl font-bold text-slate-800 group-hover:text-[#8cc63f] transition-colors leading-snug md:leading-[1.4]">
+                      {title}
+                    </h3>
+                    {excerpt && (
+                      <p className="mt-1 md:mt-3 text-sm md:text-base text-slate-500 leading-relaxed line-clamp-2">
+                        {excerpt}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
       ) : (
-        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-12 text-center">
-          <div className="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15" />
-            </svg>
-          </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">
-            {activeTab === 'notice' ? 'お知らせ' : activeTab === 'column' ? 'コラム' : '記事'}がありません
-          </h3>
-          <p className="text-slate-600 font-medium">
-            {activeTab === 'all'
-              ? 'サークルの新しいニュースが投稿されるのをお待ちください。'
-              : '他のタブもご覧ください。'}
-          </p>
-        </div>
+        <p className="py-12 text-center text-base md:text-lg font-medium text-slate-400">
+          {activeTab === 'all' ? 'まだ記事がありません' : '該当する記事がありません'}
+        </p>
       )}
     </div>
   );

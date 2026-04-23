@@ -167,9 +167,9 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white pt-20">
       {/* Guide Cards Grid */}
-      <section className="py-20 px-6">
+      <section className="py-12 md:py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div
             ref={scrollRef}
@@ -262,10 +262,10 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
-                className={`${card.color} p-5 md:p-8 rounded-2xl md:rounded-3xl hover:shadow-xl transition-all duration-300 group cursor-pointer relative overflow-hidden`}
+                className={`${card.color} p-5 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden`}
               >
                 <div className="flex items-center md:items-start md:flex-col gap-4 md:gap-0">
-                  <card.icon className="w-8 h-8 md:w-12 md:h-12 text-emerald-600 shrink-0 md:mb-4 group-hover:scale-110 transition-transform duration-300" />
+                  <card.icon className="w-8 h-8 md:w-12 md:h-12 text-emerald-600 shrink-0 md:mb-4" />
                   <div>
                     <h3
                       className="text-lg md:text-2xl text-gray-900 mb-0.5 md:mb-2"

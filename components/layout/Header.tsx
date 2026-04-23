@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { SITE_NAME, NAV_LINKS } from "@/lib/constants";
 
@@ -11,24 +11,43 @@ export default function Header() {
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
 
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 80);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const isHome = pathname === "/";
+  const headerVisible = !isHome || isScrolled || isOpen;
+
   const toggleGroup = (href: string) => {
     setOpenGroups((prev) => ({ ...prev, [href]: !prev[href] }));
   };
 
   return (
     <>
-      <header className="sticky top-0 z-50 backdrop-blur bg-white/80 border-b border-slate-200 shadow-sm">
+      <header
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ease-out ${
+          headerVisible
+            ? "translate-y-0 opacity-100 bg-white/90 backdrop-blur-md border-b border-[#8cc63f]/20 shadow-sm"
+            : "-translate-y-full opacity-0 pointer-events-none"
+        }`}
+      >
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
           {/* ロゴ */}
           <Link
             href="/"
-            className="flex items-center gap-2 text-xl font-bold tracking-tight text-gray-700 hover:text-black transition-colors"
+            className="flex items-center gap-3 text-xl font-bold tracking-tight text-slate-800 hover:text-[#6a9e2f] transition-colors"
           >
             <Image
               src="/images/digitart_white_normal.svg"
               alt={`${SITE_NAME} ロゴ`}
-              width={36}
-              height={36}
+              width={32}
+              height={32}
               className="rounded-md"
             />
             {SITE_NAME}
@@ -39,21 +58,21 @@ export default function Header() {
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
             aria-expanded={isOpen}
-            className="relative z-[60] flex flex-col justify-center items-center w-10 h-10 gap-[5px] rounded-lg hover:bg-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+            className="relative z-[60] flex flex-col justify-center items-center w-10 h-10 gap-[5px] rounded-lg hover:bg-[#8cc63f]/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8cc63f]"
           >
             <span
-              className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
-                isOpen ? "rotate-45 translate-y-[7px] bg-white" : "bg-gray-700"
+              className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center bg-slate-700 ${
+                isOpen ? "rotate-45 translate-y-[7px]" : ""
               }`}
             />
             <span
-              className={`block w-5 h-[2px] rounded-full transition-all duration-300 ${
-                isOpen ? "opacity-0 scale-x-0 bg-white" : "bg-gray-700"
+              className={`block w-5 h-[2px] rounded-full transition-all duration-300 bg-slate-700 ${
+                isOpen ? "opacity-0 scale-x-0" : ""
               }`}
             />
             <span
-              className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center ${
-                isOpen ? "-rotate-45 -translate-y-[7px] bg-white" : "bg-gray-700"
+              className={`block w-5 h-[2px] rounded-full transition-all duration-300 origin-center bg-slate-700 ${
+                isOpen ? "-rotate-45 -translate-y-[7px]" : ""
               }`}
             />
           </button>
@@ -119,7 +138,7 @@ export default function Header() {
                         onClick={() => setIsOpen(false)}
                         className={`flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-colors group ${
                           parentActive
-                            ? "text-blue-600 bg-blue-50 hover:bg-blue-100"
+                            ? "text-[#5a8a22] bg-[#8cc63f]/10 hover:bg-[#8cc63f]/15"
                             : "text-gray-700 hover:bg-slate-100 hover:text-black"
                         }`}
                       >
@@ -160,7 +179,7 @@ export default function Header() {
                             }}
                             className={`block px-4 py-2 rounded-lg text-sm transition-colors ${
                               pathname === child.href
-                                ? "text-blue-600 bg-blue-50"
+                                ? "text-[#5a8a22] bg-[#8cc63f]/10"
                                 : "text-gray-700 hover:bg-slate-100 hover:text-black"
                             }`}
                           >

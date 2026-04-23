@@ -7,7 +7,7 @@ import { ArrowRightIcon } from "lucide-react";
 
 export default function JoinPage() {
   return (
-    <div className="bg-white text-gray-900 font-sans selection:bg-emerald-200">
+    <div className="bg-white text-gray-900 font-sans selection:bg-emerald-200 pt-20">
       <div className="max-w-6xl mx-auto space-y-16 py-20 px-6">
         
         {/* Header Section */}

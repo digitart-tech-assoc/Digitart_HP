@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import eventsData from "@/lib/events.json";
 
-type EventType = "info" | "activity" | "study" | "event" | "etc";
+type EventType = "welcome" | "info" | "activity" | "study" | "reserve" | "event" | "etc";
 
 interface CalendarEvent {
   date: string;
@@ -15,12 +15,14 @@ interface CalendarEvent {
 
 const events = eventsData as CalendarEvent[];
 
-const TYPE_STYLES: Record<EventType, { dot: string; text: string }> = {
-  event:    { dot: "bg-lime-500", text: "text-lime-600" },
-  info:     { dot: "bg-violet-500",  text: "text-violet-600"  },
-  activity: { dot: "bg-amber-500",   text: "text-amber-600"   },
-  study:    { dot: "bg-teal-500",    text: "text-teal-600"    },
-  etc:      { dot: "bg-slate-400",   text: "text-slate-400"   },
+const TYPE_META: Record<EventType, { color: string }> = {
+  welcome:  { color: "#84cc16" }, // lime-500
+  info:     { color: "#8b5cf6" }, // violet-500
+  activity: { color: "#f59e0b" }, // amber-500
+  study:    { color: "#14b8a6" }, // teal-500
+  reserve:  { color: "#94a3b8" }, // slate-400
+  event:    { color: "#84cc16" }, // lime-500
+  etc:      { color: "#94a3b8" }, // slate-400
 };
 
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
@@ -35,102 +37,69 @@ export default function EventCalendar() {
   const rows = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     return events
       .filter((e) => e.date >= toDateStr(today))
-      .sort((a, b) => a.date.localeCompare(b.date) || 0)
+      .sort((a, b) => a.date.localeCompare(b.date))
       .slice(0, DISPLAY_ROWS);
   }, []);
 
   if (rows.length === 0) return null;
 
   return (
-    <section className="space-y-4">
-      {/* Header */}
-      <div className="flex items-end gap-4">
-        <div>
-          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-            Welcome <span className="text-emerald-600">Events</span>
-          </h2>
-          <p className="mt-0.5 text-sm text-slate-500 font-medium">2026年度 新入生向けイベント</p>
-        </div>
-        <span className="mb-0.5 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-bold text-emerald-700">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          新歓期間中
-        </span>
-      </div>
-
-      {/* Table */}
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+    <div className="w-full">
+      <ul className="divide-y divide-slate-100">
         {rows.map((ev, i) => {
           const d = new Date(ev.date + "T00:00:00");
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
-          const diffDays = Math.round((d.getTime() - today.getTime()) / 86400000);
           const dow = WEEKDAYS[d.getDay()];
           const isSun = d.getDay() === 0;
           const isSat = d.getDay() === 6;
-          const dayLabel =
-            diffDays === 0 ? "今日" : diffDays === 1 ? "明日" : diffDays === 2 ? "明後日" : null;
+          const meta = TYPE_META[ev.type] || { color: "#94a3b8" };
 
           return (
-            <div
-              key={i}
-              className={`flex items-stretch gap-0 ${i < rows.length - 1 ? "border-b border-slate-100" : ""}`}
-            >
-              {/* Date column */}
-              <div className="flex flex-col items-center justify-center gap-0.5 px-4 py-4 min-w-[72px] border-r border-slate-100 bg-slate-50/60">
-                <span className={`text-[11px] font-bold ${isSun ? "text-rose-400" : isSat ? "text-sky-400" : "text-slate-400"}`}>
+            <li key={i} className="py-6 flex flex-col md:flex-row items-start gap-4 md:gap-8 group">
+              {/* Date */}
+              <div className="shrink-0 w-16 md:w-24 md:pt-0.5">
+                <span
+                  className="text-base md:text-2xl font-bold tabular-nums"
+                  style={{ color: isSun ? "#dc2626" : isSat ? "#2563eb" : "#1e293b" }}
+                >
                   {d.getMonth() + 1}/{d.getDate()}
+                  <span className="text-xs md:text-base ml-1">({dow})</span>
                 </span>
-                <span className={`text-[11px] font-bold ${isSun ? "text-rose-400" : isSat ? "text-sky-400" : "text-slate-400"}`}>
-                  ({dow})
-                </span>
-                {dayLabel ? (
-                  <span className="mt-1 text-[10px] font-bold rounded-full bg-emerald-500 text-white px-1.5 py-0.5 leading-none">
-                    {dayLabel}
+              </div>
+
+              {/* Content */}
+              <div className="flex-1">
+                <div className="flex items-center gap-2 md:gap-3 mb-1.5">
+                  <span
+                    className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full shrink-0"
+                    style={{ backgroundColor: meta.color }}
+                  />
+                  <span className="text-base md:text-xl font-bold text-slate-800">
+                    {ev.title}
                   </span>
-                ) : (
-                  <span className="mt-1 text-[10px] font-semibold text-slate-400 leading-none">
-                    {diffDays}日後
-                  </span>
+                </div>
+                {(ev.time || ev.location) && (
+                  <div className="text-sm md:text-base text-slate-500 font-medium flex flex-wrap items-center gap-4 md:gap-6 ml-[1.3rem] md:ml-[1.6rem]">
+                    {ev.time && (
+                      <span className="flex items-center gap-1.5">
+                        <svg className="w-4 h-4 md:w-5 md:h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        {ev.time.replace(/~/g, '〜')}
+                      </span>
+                    )}
+                    {ev.location && (
+                      <span className="flex items-center gap-1.5">
+                        <svg className="w-4 h-4 md:w-5 md:h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        {ev.location}
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
-
-              {/* Event info column */}
-              <div className="flex items-center gap-3 px-4 py-4 flex-1">
-                <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${TYPE_STYLES[ev.type].dot}`} />
-                <div>
-                  <p className="text-sm font-bold text-slate-800 leading-tight">{ev.title}</p>
-                  {(ev.time || ev.location) && (
-                    <p className="mt-0.5 text-xs text-slate-400 font-medium leading-tight">
-                      {[ev.time, ev.location].filter(Boolean).join("　")}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
+            </li>
           );
         })}
-      </div>
-
-      {/* Legend */}
-      <div className="flex items-center justify-between gap-x-4 gap-y-1 text-xs text-slate-400">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          {(Object.entries(TYPE_STYLES) as [EventType, { dot: string; text: string }][]).map(([t, s]) => (
-            <span key={t} className="flex items-center gap-1.5">
-              <span className={`h-2 w-2 rounded-full ${s.dot}`} />
-              {{ event:"イベント", info:"説明会", activity:"活動", study:"講習会", etc:"その他" }[t]}
-            </span>
-          ))}
-        </div>
-        <a
-          href="/news/2026-04-14-welcomeschedule"
-          className="ml-4 text-xs text-emerald-600 font-medium whitespace-nowrap"
-        >
-          more info &gt;&gt;
-        </a>
-      </div>
-    </section>
+      </ul>
+    </div>
   );
 }

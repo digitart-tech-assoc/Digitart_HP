@@ -102,27 +102,18 @@ export default function WorksPage() {
       </section>
 
       {/* Intro */}
-      <section className="py-20 px-6">
+      <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
+            className="text-lg text-gray-600 leading-relaxed"
           >
-            <div className="flex items-center justify-center gap-6 mb-8">
-              <div className="border-2 border-gray-300 rounded-full px-6 py-3 text-gray-700">
-                テクノロジーの追求
-              </div>
-              <div className="border-2 border-gray-300 rounded-full px-6 py-3 text-gray-700">
-                クリエイティブの実現
-              </div>
-            </div>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              プログラミング、デザイン、ハードウェアを横断するメンバーたちが、
-              チームで生み出した革新的なプロジェクトの数々をご紹介します。
-            </p>
-          </motion.div>
+            プログラミング、デザイン、ハードウェアを横断するメンバーたちが、
+            チームで生み出したプロジェクトの数々をご紹介します。
+          </motion.p>
         </div>
       </section>
 
