@@ -10,7 +10,7 @@ export default function Footer() {
   const cols = [left, right];
 
   return (
-    <footer className="border-t border-slate-200 bg-slate-900 text-slate-300">
+    <footer className="relative z-10 bg-slate-900 text-slate-300">
       <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* ブランド */}
         <div className="col-span-1">

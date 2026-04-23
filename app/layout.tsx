@@ -80,8 +80,10 @@ export default function RootLayout({
         <JsonLd data={orgJsonLd} />
         <BreadcrumbJsonLd />
         <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <main>{children}</main>
+        <div className="flex-1 bg-slate-900 flex flex-col justify-end">
+          <Footer />
+        </div>
         {/* Cloudflare Web Analytics */}
         <script
           defer

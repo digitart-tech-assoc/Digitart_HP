@@ -73,11 +73,11 @@ export default function NewsList({
           {filtered.map(({ id, date, title, excerpt, category }) => {
             const meta = category ? CAT_META[category] : null;
             return (
-              <li key={id} className="group py-5 md:py-8">
+              <li key={id} className="group py-4 md:py-5">
                 <Link href={`/news/${id}`} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-8">
                   {/* Left part: Date and Badge */}
                   <div className="flex items-center md:flex-col md:items-start gap-2 md:gap-2 shrink-0 md:w-36 pt-0.5">
-                    <time dateTime={date} className="text-xs md:text-base font-bold text-slate-400 tabular-nums">
+                    <time dateTime={date} className="text-sm md:text-lg font-bold text-slate-400 tabular-nums">
                       {new Date(date).toLocaleDateString('ja-JP')}
                     </time>
                     {meta && (
@@ -92,11 +92,11 @@ export default function NewsList({
 
                   {/* Right part: Title and Excerpt */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base md:text-xl font-bold text-slate-800 group-hover:text-[#8cc63f] transition-colors leading-snug md:leading-[1.4]">
+                    <h3 className="text-lg md:text-2xl font-bold text-slate-800 group-hover:text-[#8cc63f] transition-colors leading-snug md:leading-[1.4]">
                       {title}
                     </h3>
                     {excerpt && (
-                      <p className="mt-1 md:mt-3 text-sm md:text-base text-slate-500 leading-relaxed line-clamp-2">
+                      <p className="mt-1 md:mt-2 text-base md:text-lg text-slate-500 leading-relaxed line-clamp-2">
                         {excerpt}
                       </p>
                     )}

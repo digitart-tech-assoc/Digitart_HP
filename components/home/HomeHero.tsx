@@ -96,7 +96,7 @@ export default function HomeHero() {
         </div>
       )}
 
-      <section className="fixed top-0 left-0 w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden -z-10">
+      <section className="fixed top-0 left-0 w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden z-0">
         {/* ── Slides: crossfade with layered approach ── */}
         <div className="absolute inset-0">
           {/* Always render all slides, control visibility via z-index + opacity */}
@@ -235,7 +235,7 @@ export default function HomeHero() {
       </section>
 
       {/* Spacer */}
-      <div className="h-screen w-full relative -z-20" aria-hidden="true" />
+      <div className="h-screen w-full relative -z-10" aria-hidden="true" />
     </>
   );
 }

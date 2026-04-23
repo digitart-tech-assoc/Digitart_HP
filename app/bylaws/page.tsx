@@ -22,7 +22,7 @@ export default async function Page() {
 	}
 
 	return (
-		<main className="max-w-3xl mx-auto p-8">
+		<main className="max-w-3xl mx-auto px-8 pt-24 md:pt-32 pb-16">
 			{/* Page-scoped wrapper so styles can target only bylaws page */}
 			<div className="bylaws-page">
 				<article className="prose">

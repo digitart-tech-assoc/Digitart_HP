@@ -4,6 +4,7 @@ import HomeHero from "@/components/home/HomeHero";
 import EventCalendar from "@/components/home/EventCalendar";
 import NewsList from "@/components/news/NewsList";
 import PickupPages from "@/components/home/PickupPages";
+import JoinUs from "@/components/about/JoinUs";
 
 import aboutHero    from "@/app/about/assets/works_hero.jpg";
 import worksHero    from "@/app/about/assets/history_hero.jpg";
@@ -61,7 +62,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto px-6 md:px-12">
             <div className="mb-10 md:mb-14">
               <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-2 md:mb-3">Events</p>
-              <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">スケジュール</h2>
+              <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">直近のイベント</h2>
             </div>
             <EventCalendar />
           </div>
@@ -110,6 +111,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* ── Join Us ──────────────────────────────────────── */}
+        <JoinUs />
       </main>
     </div>
   );
