@@ -36,6 +36,7 @@ export default function HomeHeroIntroDark({ phase }: HomeHeroIntroProps) {
               width={120}
               height={120}
               priority
+              loading="eager"
               className="w-20 h-20"
             />
           </div>

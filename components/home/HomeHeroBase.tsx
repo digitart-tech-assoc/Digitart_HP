@@ -146,6 +146,8 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
                 alt={`${SITE_NAME} logo`}
                 width={160}
                 height={160}
+                loading="eager"
+                priority
                 className="relative w-30 sm:w-50 md:w-60 h-auto opacity-100 drop-shadow-2xl"
               />
             </div>
