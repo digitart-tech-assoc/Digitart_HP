@@ -160,7 +160,7 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
 
           {/* Catchphrase */}
           <h1
-            className="text-[clamp(2.5rem,7vw,7rem)] font-black leading-[1.1] tracking-tight text-white mb-8 md:mb-10"
+            className="text-[clamp(2.5rem,5vw,6rem)] font-black leading-[1.1] tracking-tight text-white mb-8 md:mb-10"
             lang="ja"
           >
             好きを<br className="sm:hidden" /><span style={{ color: "#8cc63f" }}>カタチに</span>しよう
