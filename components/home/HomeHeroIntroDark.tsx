@@ -13,7 +13,7 @@ export default function HomeHeroIntroDark({ phase }: HomeHeroIntroProps) {
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
           style={{
-            backgroundColor: "#000000",
+            backgroundColor: "#222",
             opacity: phase === "white" ? 0 : 1,
             transition: "opacity 0.8s ease-in-out",
           }}
