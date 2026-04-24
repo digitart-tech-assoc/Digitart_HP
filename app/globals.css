@@ -18,6 +18,13 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.hero-join-btn {
+  background-color: #6E9442;
+}
+.hero-join-btn:hover {
+  background-color: #5a7a35;
+}
+
 /* Bylaws page specific overrides (scoped) */
 .bylaws-page .prose {
   line-height: 1.75;

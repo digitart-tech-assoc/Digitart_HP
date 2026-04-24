@@ -75,13 +75,15 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white text-slate-900 font-sans selection:bg-emerald-100`}
       >
         <JsonLd data={orgJsonLd} />
         <BreadcrumbJsonLd />
         <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <main>{children}</main>
+        <div className="flex-1 bg-slate-900 flex flex-col justify-end">
+          <Footer />
+        </div>
         {/* Cloudflare Web Analytics */}
         <script
           defer

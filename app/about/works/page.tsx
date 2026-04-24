@@ -72,57 +72,43 @@ export default function WorksPage() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-green-400 via-emerald-600 to-teal-600 text-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="pt-32 pb-20 px-6 bg-white border-b border-slate-100">
+        <div className="max-w-6xl mx-auto text-center">
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-[#8cc63f] mb-8 transition-colors font-bold tracking-wider text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             ABOUT US
           </Link>
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl mb-4"
-            style={{ fontWeight: 700 }}
           >
-            Works
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-white/90"
-          >
-            作品・プロジェクト
-          </motion.p>
+            <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-3">
+              Projects
+            </p>
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-8">
+              制作物
+            </h1>
+          </motion.div>
         </div>
       </section>
 
       {/* Intro */}
-      <section className="py-20 px-6">
+      <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
+            className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium"
           >
-            <div className="flex items-center justify-center gap-6 mb-8">
-              <div className="border-2 border-gray-300 rounded-full px-6 py-3 text-gray-700">
-                テクノロジーの追求
-              </div>
-              <div className="border-2 border-gray-300 rounded-full px-6 py-3 text-gray-700">
-                クリエイティブの実現
-              </div>
-            </div>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              プログラミング、デザイン、ハードウェアを横断するメンバーたちが、
-              チームで生み出した革新的なプロジェクトの数々をご紹介します。
-            </p>
-          </motion.div>
+            プログラミング、デザイン、ハードウェアを横断するメンバーたちが、
+            チームで生み出したプロジェクトの数々をご紹介します。
+          </motion.p>
         </div>
       </section>
 
@@ -166,8 +152,7 @@ export default function WorksPage() {
                         </span>
                       </div>
                       <div
-                        className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm"
-                        style={{ fontWeight: 600 }}
+                        className="absolute top-4 left-4 bg-[#8cc63f] text-white px-3 py-1 rounded-full text-sm font-bold tracking-wider"
                       >
                         {project.category}
                       </div>
@@ -182,8 +167,7 @@ export default function WorksPage() {
                         className="w-full aspect-[16/9] object-cover"
                       />
                       <div
-                        className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm"
-                        style={{ fontWeight: 600 }}
+                        className="absolute top-4 left-4 bg-[#8cc63f] text-white px-3 py-1 rounded-full text-sm font-bold tracking-wider"
                       >
                         {project.category}
                       </div>
@@ -194,20 +178,18 @@ export default function WorksPage() {
 
               <div className="flex-1">
                 <h3
-                  className="text-3xl text-gray-900 mb-4"
-                  style={{ fontWeight: 700 }}
+                  className="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight"
                 >
                   {project.title}
                 </h3>
-                <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                <p className="text-slate-600 font-medium text-lg md:text-xl leading-relaxed mb-6">
                   {project.desc}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-4 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-sm"
-                      style={{ fontWeight: 500 }}
+                      className="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-sm font-bold"
                     >
                       {t}
                     </span>

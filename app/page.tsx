@@ -1,151 +1,122 @@
 import Link from "next/link";
 import { getSortedArticlesData } from "@/lib/news";
-import NewsList from "@/components/news/NewsList";
-import { SOCIAL_LINKS } from "@/lib/constants";
 import HomeHero from "@/components/home/HomeHero";
 import EventCalendar from "@/components/home/EventCalendar";
-import aboutHero from "@/app/about/assets/works_hero.jpg";
-import newsHero from "@/app/about/assets/events/sagamihara-fes.jpg";
-import joinHero from "@/app/about/assets/supporters_hero.jpg";
-import bylawsHero from "@/app/about/assets/history_hero.jpg";
+import NewsList from "@/components/news/NewsList";
+import PickupPages from "@/components/home/PickupPages";
+import JoinUs from "@/components/about/JoinUs";
+import ScrollToTop from "@/components/ScrollToTop";
+
+import aboutHero    from "@/app/about/assets/works_hero.jpg";
+import worksHero    from "@/app/about/assets/history_hero.jpg";
+import newsHero     from "@/app/about/assets/events/sagamihara-fes.jpg";
+import joinHero     from "@/app/about/assets/supporters_hero.jpg";
+
+const PICKUP_ITEMS = [
+  {
+    href: "/about",
+    en: "About",
+    ja: "活動内容",
+    desc: "プログラミング・ゲーム・デザインを横断するDigitartの活動を紹介します。",
+    image: aboutHero,
+    imagePosition: "bg-center",
+  },
+  {
+    href: "/about/works",
+    en: "Works",
+    ja: "制作物",
+    desc: "メンバーが生み出した作品・プロジェクトをご覧いただけます。",
+    image: worksHero,
+    imagePosition: "bg-center",
+  },
+  {
+    href: "/news",
+    en: "News",
+    ja: "最新情報",
+    desc: "サークルの最新情報やコラムをお届けします。",
+    image: newsHero,
+    imagePosition: "bg-center",
+  },
+  {
+    href: "/join",
+    en: "Join Us",
+    ja: "入会案内",
+    desc: "Digitartへの入会方法や活動日程を確認できます。",
+    image: joinHero,
+    imagePosition: "bg-center",
+  },
+];
 
 export default function Home() {
   const allArticles = getSortedArticlesData();
-  const pickupItems = [
-    {
-      href: "/about",
-      title: "About",
-      desc: "活動内容・イベント・制作物をまとめてチェック",
-      image: aboutHero,
-      imagePosition: "bg-center",
-    },
-    {
-      href: "/about/works",
-      title: "Works",
-      desc: "メンバーの制作した作品をチェック",
-      image: bylawsHero,
-      imagePosition: "bg-center",
-    },
-    {
-      href: "/news",
-      title: "News",
-      desc: "最新のお知らせや活動報告を公開中",
-      image: newsHero,
-      imagePosition: "bg-center",
-    },
-    {
-      href: "/join",
-      title: "Join Us",
-      desc: "入会フローとお問い合わせ先はこちら",
-      image: joinHero,
-      imagePosition: "bg-center",
-    },
-  ] as const;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 lg:p-16 selection:bg-emerald-200">
-      <div>
-        <div className="max-w-5xl mx-auto space-y-12 md:space-y-16">
-          <HomeHero />
-          <EventCalendar />
-          <section className="space-y-4">
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-              Pick Up <span className="text-emerald-600">Pages</span>
-            </h2>
-            <div className="grid gap-4 md:grid-cols-2">
-              {pickupItems.map((item) => (
-                <Link
-                  href={item.href}
-                  key={item.href}
-                  className="group relative min-h-[180px] md:min-h-[200px] lg:min-h-[220px] overflow-hidden rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all"
-                >
-                  <div
-                    className={`absolute inset-0 bg-cover ${item.imagePosition} transition-transform duration-500 group-hover:scale-105`}
-                    style={{ backgroundImage: `url(${item.image.src})` }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-slate-900/62 via-slate-900/48 to-emerald-900/52 group-hover:from-slate-900/56 group-hover:to-emerald-800/45 transition-colors" />
-                  <div className="relative flex items-start justify-between gap-4 p-5 md:p-6">
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-bold text-white">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm md:text-base text-slate-100 font-medium leading-relaxed">{item.desc}</p>
-                    </div>
-                    <svg className="w-5 h-5 text-emerald-200 shrink-0 mt-1 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
+    <div className="bg-transparent text-slate-900">
+      <ScrollToTop />
+      {/* ── Hero ─────────────────────────────────────────── */}
+      <HomeHero />
 
-          <section className="space-y-4">
-            <div className="flex items-end justify-between gap-4">
-              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-                Latest <span className="text-emerald-600">News</span>
+      {/* ── Main Content (slides over fixed hero) ────────── */}
+      <main className="relative bg-white z-10 shadow-[0_-16px_40px_rgba(0,0,0,0.22)] overflow-hidden">
+
+        {/* ── Schedule ─────────────────────────────────────── */}
+        <section className="py-16 md:py-28 border-b border-slate-100">
+          <div className="max-w-5xl mx-auto px-6 md:px-12">
+            <div className="mb-10 md:mb-14">
+              <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-2 md:mb-3">Events</p>
+              <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">直近のイベント</h2>
+            </div>
+            <EventCalendar />
+          </div>
+        </section>
+
+        {/* ── Pick Up Pages ─────────────────────────────────── */}
+        <section className="py-16 md:py-28 border-b border-slate-100 bg-slate-50/60">
+          <div className="max-w-5xl mx-auto px-6 md:px-12">
+            <div className="mb-10 md:mb-14">
+              <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-2 md:mb-3">Topics</p>
+              <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">
+                トピックス
               </h2>
-              <Link href="/news" className="text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
-                すべて見る
+            </div>
+            <PickupPages items={PICKUP_ITEMS} />
+          </div>
+        </section>
+
+        {/* ── News ─────────────────────────────────────────── */}
+        <section className="py-16 md:py-28 border-b border-slate-100">
+          <div className="max-w-5xl mx-auto px-6 md:px-12">
+            <div className="flex items-end justify-between mb-10 md:mb-14">
+              <div>
+                <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-2 md:mb-3">Latest News</p>
+                <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">お知らせ</h2>
+              </div>
+              {/* Desktop "View All" */}
+              <Link
+                href="/news"
+                className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-[#6a9e2f] border-2 border-[#8cc63f] rounded-full hover:bg-[#8cc63f] hover:text-white transition-all duration-300"
+              >
+                すべて見る →
               </Link>
             </div>
-            <NewsList articles={allArticles} maxItemsPerTab={5} />
-          </section>
 
-          <section className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-            <div className="grid gap-4 md:grid-cols-3">
-            <a
-              href={SOCIAL_LINKS.twitter.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50 p-4 transition-all duration-300 hover:border-gray-200 hover:bg-white hover:shadow-lg"
-            >
-              <div className="rounded-xl bg-black p-2.5 text-white shadow-sm transition-transform duration-300 group-hover:scale-110">
-                <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </div>
-              <div>
-                <div className="text-gray-900" style={{ fontWeight: 700 }}>{SOCIAL_LINKS.twitter.label}</div>
-                <div className="text-sm text-gray-500">{SOCIAL_LINKS.twitter.handle}</div>
-              </div>
-            </a>
-            <a
-              href={SOCIAL_LINKS.instagram.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50 p-4 transition-all duration-300 hover:border-gray-200 hover:bg-white hover:shadow-lg"
-            >
-              <div className="rounded-xl bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 p-2.5 text-white shadow-sm transition-transform duration-300 group-hover:scale-110">
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth="2"></rect>
-                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" strokeWidth="2"></path>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" strokeWidth="2" strokeLinecap="round"></line>
-                </svg>
-              </div>
-              <div>
-                <div className="text-gray-900" style={{ fontWeight: 700 }}>{SOCIAL_LINKS.instagram.label}</div>
-                <div className="text-sm text-gray-500">{SOCIAL_LINKS.instagram.handle}</div>
-              </div>
-            </a>
-            <a
-              href={`mailto:${SOCIAL_LINKS.email.address}`}
-              className="group flex items-center gap-4 rounded-2xl border border-transparent bg-gray-50 p-4 transition-all duration-300 hover:border-gray-200 hover:bg-white hover:shadow-lg"
-            >
-              <div className="rounded-xl bg-emerald-500 p-2.5 text-white shadow-sm transition-transform duration-300 group-hover:scale-110">
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div>
-                <div className="text-gray-900" style={{ fontWeight: 700 }}>{SOCIAL_LINKS.email.label}</div>
-                <div className="text-sm text-gray-500">{SOCIAL_LINKS.email.address.split("@")[0]}</div>
-              </div>
-            </a>
+            <NewsList articles={allArticles} maxItemsPerTab={5} />
+
+            {/* Mobile "View All" */}
+            <div className="mt-10 sm:hidden text-center">
+              <Link
+                href="/news"
+                className="inline-flex items-center gap-2 px-7 py-3 text-sm font-bold text-[#6a9e2f] border-2 border-[#8cc63f] rounded-full hover:bg-[#8cc63f] hover:text-white transition-all duration-300"
+              >
+                すべて見る →
+              </Link>
             </div>
-          </section>
-        </div>
-      </div>
+          </div>
+        </section>
+
+        {/* ── Join Us ──────────────────────────────────────── */}
+        <JoinUs />
+      </main>
     </div>
   );
 }

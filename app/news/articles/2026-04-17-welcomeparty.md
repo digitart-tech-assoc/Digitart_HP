@@ -3,7 +3,7 @@ title: "[活動報告]初回対面活動を終えて"
 date: "2026-04-17"
 author: "くろむ"
 excerpt: "2026年度の初回対面活動の活動報告です。"
-category: "colum"
+category: "column"
 ---
 
 ## 初回対面活動を開催しました

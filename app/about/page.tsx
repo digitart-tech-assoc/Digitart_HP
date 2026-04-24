@@ -30,8 +30,8 @@ import supportersHero from "./assets/supporters_hero.jpg";
 const GUIDE_CARDS = [
   {
     num: "01",
-    title: "Events",
-    subtitle: "Digitartの年間イベント",
+    title: "年間行事",
+    subtitle: "Events",
     desc: "作品制作や交流を深める、年間の定例イベントや特別イベントをご紹介します。",
     icon: Calendars,
     to: "/about/events",
@@ -40,9 +40,9 @@ const GUIDE_CARDS = [
   },
   {
     num: "02",
-    title: "Works",
-    subtitle: "作品・プロジェクト",
-    desc: "メンバーが生み出した革新的なプロジェクトをご紹介。",
+    title: "作品紹介",
+    subtitle: "Works",
+    desc: "メンバーが生み出した作品の数々をご紹介。",
     icon: Briefcase,
     to: "/about/works",
     image: worksHero,
@@ -50,8 +50,8 @@ const GUIDE_CARDS = [
   },
   {
     num: "03",
-    title: "History",
-    subtitle: "Digitartの歩み",
+    title: "団体の歩み",
+    subtitle: "History",
     desc: "設立からの成長と、団体の挑戦の歴史をご紹介します。",
     icon: History,
     to: "/about/history",
@@ -60,8 +60,8 @@ const GUIDE_CARDS = [
   },
   {
     num: "04",
-    title: "Data",
-    subtitle: "データで見るDigitart",
+    title: "活動データ",
+    subtitle: "Data",
     desc: "メンバー数やプロジェクト数など、数字でDigitartを知る。",
     icon: BarChart3,
     to: "/about/data",
@@ -70,8 +70,8 @@ const GUIDE_CARDS = [
   },
   {
     num: "05",
-    title: "Supporter",
-    subtitle: "Digitartを支える人たち",
+    title: "幹部紹介",
+    subtitle: "Supporters",
     desc: "団体を支えるメンバーやサポーターにフォーカス。",
     icon: Heart,
     to: "/about/supporter",
@@ -95,22 +95,22 @@ const DOMAIN_CARDS = [
   {
     num: "No.01",
     icon: Code,
-    title: "Programming",
-    desc: "Web app (React, Vue.js), AI/ML",
+    title: "プログラミング",
+    desc: "Webアプリ開発, AI/機械学習",
     color: "bg-emerald-100",
   },
   {
     num: "No.02",
     icon: Gamepad2,
-    title: "Games",
-    desc: "Unity, Unreal Engine",
+    title: "ゲーム開発",
+    desc: "Unity, Unreal Engineを用いた開発",
     color: "bg-teal-100",
   },
   {
     num: "No.03",
     icon: Palette,
-    title: "Design",
-    desc: "UI/UX, Graphics, 3D",
+    title: "デザイン",
+    desc: "UI/UX, グラフィック, 3Dモデリング",
     color: "bg-cyan-100",
   }
 ];
@@ -167,9 +167,9 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white pt-20">
       {/* Guide Cards Grid */}
-      <section className="py-20 px-6">
+      <section className="py-12 md:py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div
             ref={scrollRef}
@@ -200,8 +200,7 @@ export default function AboutPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
                     <div className="relative z-10 w-full p-5 md:p-6 text-left">
                       <h3
-                        className="text-white text-xl md:text-2xl mb-1.5 md:mb-2"
-                        style={{ fontWeight: 700 }}
+                        className="text-white text-xl md:text-2xl font-black mb-1.5 md:mb-2"
                       >
                         {card.title}
                       </h3>
@@ -232,7 +231,7 @@ export default function AboutPage() {
       </section>
 
       {/* Domain Overview Section */}
-      <section className="py-24 px-6 bg-gradient-to-b from-emerald-50 to-white">
+      <section className="py-24 md:py-32 px-6 bg-white border-t border-slate-100">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -241,12 +240,16 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1
-              className="text-4xl md:text-5xl text-gray-900 mb-6"
-              style={{ fontWeight: 700 }}
+            <p
+              className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-3"
             >
-              About Us
-            </h1>
+              Overview
+            </p>
+            <h2
+              className="text-4xl md:text-5xl font-black text-slate-900 mb-8"
+            >
+              Digitartについて
+            </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Digitartテクノロジー愛好会は、青山学院大学のあらゆるテクノロジー好きが集まるクリエイター集団です。
               プログラミング、ゲーム開発、デザイン、ハードウェアなど、多様な分野で活動し、
@@ -262,18 +265,17 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
-                className={`${card.color} p-5 md:p-8 rounded-2xl md:rounded-3xl hover:shadow-xl transition-all duration-300 group cursor-pointer relative overflow-hidden`}
+                className={`${card.color} p-5 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden`}
               >
                 <div className="flex items-center md:items-start md:flex-col gap-4 md:gap-0">
-                  <card.icon className="w-8 h-8 md:w-12 md:h-12 text-emerald-600 shrink-0 md:mb-4 group-hover:scale-110 transition-transform duration-300" />
+                  <card.icon className="w-8 h-8 md:w-12 md:h-12 text-emerald-600 shrink-0 md:mb-4" />
                   <div>
                     <h3
-                      className="text-lg md:text-2xl text-gray-900 mb-0.5 md:mb-2"
-                      style={{ fontWeight: 700 }}
+                      className="text-xl md:text-2xl font-bold text-slate-900 mb-1 md:mb-2"
                     >
                       {card.title}
                     </h3>
-                    <p className="text-xs md:text-base text-gray-600">{card.desc}</p>
+                    <p className="text-sm md:text-base font-medium text-slate-600">{card.desc}</p>
                   </div>
                 </div>
               </motion.div>
@@ -286,7 +288,7 @@ export default function AboutPage() {
       {GUIDE_CARDS.map((card, i) => (
         <section
           key={card.num}
-          className={`py-20 px-6 ${i % 2 === 0 ? "bg-white" : "bg-emerald-50/50"}`}
+          className={`py-20 md:py-32 px-6 ${i % 2 === 0 ? "bg-slate-50/60" : "bg-white"}`}
         >
           <div className="max-w-6xl mx-auto">
             <motion.div
@@ -298,28 +300,23 @@ export default function AboutPage() {
             >
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="w-3 h-3 rounded-full bg-emerald-400" />
-                  <span
-                    className="text-emerald-600"
-                    style={{ fontWeight: 600 }}
-                  >
+                  <span className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f]">
                     {card.subtitle}
                   </span>
                 </div>
                 <h2
-                  className="text-3xl md:text-4xl text-gray-900 mb-6"
-                  style={{ fontWeight: 700 }}
+                  className="text-3xl md:text-5xl font-black text-slate-900 mb-8 leading-tight"
                 >
                   {card.title}
                 </h2>
-                <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                <p className="text-slate-600 font-medium text-lg leading-relaxed mb-10">
                   {card.desc}
                 </p>
                 <Link
                   href={card.to}
-                  className="inline-flex items-center gap-2 border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-full hover:bg-gray-900 hover:text-white transition-all duration-300 group"
+                  className="inline-flex items-center gap-3 px-8 py-4 text-sm font-bold text-slate-900 border-2 border-slate-900 rounded-full hover:bg-slate-900 hover:text-white transition-all duration-300 group"
                 >
-                  VIEW MORE
+                  詳しく見る
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
