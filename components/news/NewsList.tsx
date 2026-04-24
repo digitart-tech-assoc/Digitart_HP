@@ -51,55 +51,89 @@ export default function NewsList({
   return (
     <div>
       {/* Tabs */}
-      <div className="flex justify-center gap-4 md:gap-8 border-b border-slate-200 mb-8 md:mb-12">
+      <div className="flex justify-center gap-2 md:gap-4 mb-8 md:mb-12">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`pb-3 md:pb-4 text-sm md:text-base font-bold tracking-wider border-b-[3px] transition-colors ${
+            className={`px-4 py-2 md:px-6 md:py-2.5 text-sm md:text-base font-bold rounded-full transition-all duration-300 ${
               activeTab === tab.id
-                ? 'border-[#8cc63f] text-slate-900'
-                : 'border-transparent text-slate-400 hover:text-slate-700'
+                ? 'bg-[#8cc63f] text-white shadow-lg shadow-[#8cc63f]/30 scale-105'
+                : 'bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800 shadow-sm border border-slate-200'
             }`}
           >
             {tab.label}
-            <span className="ml-1.5 text-xs md:text-sm opacity-60">({countFor(tab.id)})</span>
+            <span className={`ml-1.5 text-xs md:text-sm font-medium ${activeTab === tab.id ? 'text-white/80' : 'text-slate-400'}`}>
+              ({countFor(tab.id)})
+            </span>
           </button>
         ))}
       </div>
 
       {filtered.length > 0 ? (
-        <ul className="divide-y divide-slate-100">
+        <ul className="flex flex-col gap-4 md:gap-6">
           {filtered.map(({ id, date, title, excerpt, category }) => {
             const meta = category ? CAT_META[category] : null;
             return (
-              <li key={id} className="group py-4 md:py-5">
-                <Link href={`/news/${id}`} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-8">
-                  {/* Left part: Date and Badge */}
-                  <div className="flex items-center md:flex-col md:items-start gap-2 md:gap-2 shrink-0 md:w-36 pt-0.5">
-                    <time dateTime={date} className="text-sm md:text-lg font-bold text-slate-400 tabular-nums">
-                      {new Date(date).toLocaleDateString('ja-JP')}
-                    </time>
+              <li key={id} className="group">
+                <Link
+                  href={`/news/${id}`}
+                  className="flex flex-col md:flex-row md:items-stretch gap-4 md:gap-6 bg-white rounded-2xl p-5 md:p-6 shadow-sm hover:shadow-xl border border-slate-100 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
+                >
+                  {/* Decorative line on the left */}
+                  <div
+                    className={`absolute left-0 top-0 bottom-0 w-1 md:w-1.5 transition-colors duration-300 ${
+                      meta ? '' : 'bg-slate-200'
+                    } group-hover:opacity-100 opacity-80`}
+                    style={meta ? { backgroundColor: meta.color } : {}}
+                  />
+
+                  {/* Date and Badge section */}
+                  <div className="flex items-center justify-between md:flex-col md:items-start md:justify-start gap-3 shrink-0 md:w-32 pl-2 md:pl-3 pt-0.5">
                     {meta && (
                       <span
-                        className="inline-flex items-center justify-center text-[10px] md:text-xs font-bold px-2 md:px-3 py-0.5 md:py-1 rounded"
-                        style={{ color: meta.color, background: meta.bg }}
+                        className="inline-flex items-center justify-center text-[10px] md:text-xs font-bold px-2.5 py-1 rounded-full border"
+                        style={{
+                          color: meta.color,
+                          backgroundColor: meta.bg,
+                          borderColor: `${meta.color}40`,
+                        }}
                       >
                         {meta.label}
                       </span>
                     )}
+                    <time
+                      dateTime={date}
+                      className="text-sm md:text-base font-bold text-slate-400 tabular-nums font-mono"
+                    >
+                      {new Date(date).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                    </time>
                   </div>
 
-                  {/* Right part: Title and Excerpt */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg md:text-2xl font-bold text-slate-800 group-hover:text-[#8cc63f] transition-colors leading-snug md:leading-[1.4]">
+                  {/* Content section */}
+                  <div className="flex-1 min-w-0 flex flex-col justify-center">
+                    <h3 className="text-lg md:text-xl font-bold text-slate-800 group-hover:text-[#8cc63f] transition-colors leading-snug md:leading-[1.5] mb-2">
                       {title}
                     </h3>
                     {excerpt && (
-                      <p className="mt-1 md:mt-2 text-base md:text-lg text-slate-500 leading-relaxed line-clamp-2">
+                      <p className="text-sm md:text-base text-slate-500 leading-relaxed line-clamp-2">
                         {excerpt}
                       </p>
                     )}
+                  </div>
+
+                  {/* Optional icon/chevron for affordance */}
+                  <div className="hidden md:flex items-center justify-center pr-2">
+                    <div className="w-10 h-10 rounded-full bg-slate-50 group-hover:bg-[#8cc63f]/10 flex items-center justify-center transition-colors duration-300">
+                      <svg
+                        className="w-5 h-5 text-slate-400 group-hover:text-[#8cc63f] transition-colors duration-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
                   </div>
                 </Link>
               </li>

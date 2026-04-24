@@ -7,8 +7,15 @@ export default function NewsPage() {
   const allArticlesData = getSortedArticlesData();
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans pt-20 pb-32 selection:bg-emerald-200">
-      <div className="max-w-4xl mx-auto px-6 md:px-12 space-y-16 py-20">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans pt-20 pb-32 selection:bg-emerald-200">
+      {/* Decorative background gradients */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#8cc63f]/15 rounded-full blur-[100px]" />
+        <div className="absolute top-[20%] right-[-10%] w-[30%] h-[50%] bg-emerald-400/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-cyan-400/5 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16 py-12 md:py-20 relative">
 
         <section className="text-center relative">
           {/* Background decoration */}
