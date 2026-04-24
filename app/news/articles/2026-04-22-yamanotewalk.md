@@ -3,7 +3,7 @@ title: "歩いて山手線を一周した話"
 date: "2026-04-24"
 author: "くろむ"
 excerpt: "渋谷発で山手線を徒歩一周した記録。道中の思い出を振り返ります。"
-category: "colum"
+category: "column"
 ---
 
 ## はじめに  
