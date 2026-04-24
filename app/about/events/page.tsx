@@ -219,7 +219,7 @@ export default function EventsPage() {
             className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            ABOUT US
+            戻る
           </Link>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -228,7 +228,7 @@ export default function EventsPage() {
             className="text-5xl md:text-7xl mb-4"
             style={{ fontWeight: 700 }}
           >
-            Events
+          年間行事
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -236,7 +236,7 @@ export default function EventsPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl text-white/90"
           >
-            年間スケジュール
+            一年を通して実施されるイベントをご紹介
           </motion.p>
         </div>
       </section>
@@ -275,7 +275,7 @@ export default function EventsPage() {
               className="text-3xl md:text-4xl text-gray-900"
               style={{ fontWeight: 700 }}
             >
-              Annual Schedule
+              スケジュール
             </h2>
           </motion.div>
 

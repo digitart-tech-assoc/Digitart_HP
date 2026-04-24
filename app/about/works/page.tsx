@@ -72,41 +72,50 @@ export default function WorksPage() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 bg-white border-b border-slate-100">
-        <div className="max-w-6xl mx-auto text-center">
+      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] " />
+        </div>
+        <div className="max-w-6xl mx-auto relative z-10">
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 text-slate-400 hover:text-[#8cc63f] mb-8 transition-colors font-bold tracking-wider text-sm"
+            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            ABOUT US
+            戻る
           </Link>
-          <motion.div
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="text-5xl md:text-7xl mb-4"
+            style={{ fontWeight: 700 }}
           >
-            <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-3">
-              Projects
-            </p>
-            <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-8">
-              制作物
-            </h1>
-          </motion.div>
+            作品紹介
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xl text-white/90"
+          >
+            Digitartメンバーが生み出したプロジェクトの数々
+          </motion.p>
         </div>
       </section>
 
       {/* Intro */}
-      <section className="py-16 px-6">
+      <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium"
+            transition={{ duration: 0.8 }}
+            className="text-lg text-gray-600 leading-relaxed"
           >
             プログラミング、デザイン、ハードウェアを横断するメンバーたちが、
+            <br className="hidden md:block" />
             チームで生み出したプロジェクトの数々をご紹介します。
           </motion.p>
         </div>

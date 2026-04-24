@@ -23,10 +23,10 @@ export default function JoinPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] text-[#8cc63f] mb-3">
-              入会案内
+            <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-3">
+            Welcome
             </p>
-            <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight mb-8">
+            <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-tight mb-8">
               Join Us
             </h1>
             <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium">
