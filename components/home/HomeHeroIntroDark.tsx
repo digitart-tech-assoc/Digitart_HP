@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Logo from "@/components/Logo";
 
 interface HomeHeroIntroProps {
   phase: "intro" | "expand" | "white" | "done";
@@ -28,16 +28,28 @@ export default function HomeHeroIntroDark({ phase }: HomeHeroIntroProps) {
                   ? "scale(20)"
                   : "scale(80)",
               opacity: phase === "white" ? 0 : 1,
+              willChange: "transform, opacity",
+              WebkitFontSmoothing: "antialiased",
+              backfaceVisibility: "hidden",
+              MozPerspective: "1000px",
             }}
           >
-            <Image
-              src="/images/digitart_white_normal.svg"
-              alt="Digitart logo intro"
+            <Logo
               width={120}
               height={120}
-              priority
-              loading="eager"
-              className="w-20 h-20"
+              aria-label="Digitart logo intro"
+              style={{
+                WebkitFontSmoothing: "antialiased",
+                MozOsxFontSmoothing: "grayscale",
+                backfaceVisibility: "hidden",
+                display: "block",
+                width: 120,
+                height: 120,
+                shapeRendering: "crispEdges",
+                imageRendering: "crisp-edges",
+                WebkitTransformStyle: "preserve-3d",
+                transformStyle: "preserve-3d",
+              }}
             />
           </div>
         </div>

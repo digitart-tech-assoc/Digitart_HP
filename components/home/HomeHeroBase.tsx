@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Logo from "@/components/Logo";
 import Link from "next/link";
 import { useEffect, useState, useRef, ReactNode } from "react";
 import { SITE_NAME } from "@/lib/constants";
@@ -141,13 +141,22 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
                 style={{ background: "rgba(140,198,63,0.5)" }}
                 aria-hidden="true"
               />
-              <Image
-                src="/images/digitart_white_normal.svg"
-                alt={`${SITE_NAME} logo`}
+              <Logo
+                aria-label={`${SITE_NAME} logo`}
                 width={160}
                 height={160}
-                loading="eager"
-                priority
+                style={{
+                  display: "block",
+                  width: 160,
+                  height: "auto",
+                  shapeRendering: "crispEdges",
+                  imageRendering: "crisp-edges",
+                  WebkitFontSmoothing: "antialiased",
+                  MozOsxFontSmoothing: "grayscale",
+                  backfaceVisibility: "hidden",
+                  WebkitTransformStyle: "preserve-3d",
+                  transformStyle: "preserve-3d",
+                }}
                 className="relative w-30 sm:w-50 md:w-60 h-auto opacity-100 drop-shadow-2xl"
               />
             </div>
