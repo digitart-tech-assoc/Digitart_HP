@@ -1,7 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { SITE_NAME, SOCIAL_LINKS, NAV_LINKS } from "@/lib/constants";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Adminページではフッターを表示しない
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
   const year = new Date().getFullYear();
   // 左列に Home と About を固定配置し、残りを右列に配置する
   const leftKeys = ["/", "/about"];
