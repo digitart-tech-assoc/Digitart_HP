@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useActionState, FormEvent } from 'react';
-import { publishArticleAction } from '@/app/admin/actions';
+import { publishArticleAction, ActionState } from '@/app/admin/actions';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -11,10 +11,10 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { ImagePlus, Send, Loader2 } from 'lucide-react';
 import 'katex/dist/katex.min.css';
 
-const initialState = {
-  error: null as string | null,
-  success: false as boolean,
-  prUrl: null as string | null,
+const initialState: ActionState = {
+  error: null,
+  success: false,
+  prUrl: null,
 };
 
 export default function AdminNewsEditor() {

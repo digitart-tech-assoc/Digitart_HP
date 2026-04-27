@@ -2,7 +2,6 @@
 
 import { useActionState } from 'react';
 import { loginAction } from '@/app/admin/actions';
-import { Button } from '@/components/ui/button'; // fallback to simple button if not exists
 import { KeyRound } from 'lucide-react';
 
 const initialState = {

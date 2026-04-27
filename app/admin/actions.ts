@@ -26,11 +26,17 @@ export async function loginAction(prevState: any, formData: FormData) {
   }
 }
 
-export async function publishArticleAction(prevState: any, formData: FormData) {
+export type ActionState = {
+  error: string | null;
+  success: boolean;
+  prUrl: string | null;
+};
+
+export async function publishArticleAction(prevState: any, formData: FormData): Promise<ActionState> {
   const cookieStore = await cookies();
   const authCookie = cookieStore.get('admin_auth');
   if (!authCookie || authCookie.value !== 'true') {
-    return { error: '認証されていません。' };
+    return { error: '認証されていません。', success: false, prUrl: null };
   }
 
   try {
@@ -44,11 +50,11 @@ export async function publishArticleAction(prevState: any, formData: FormData) {
     const imagesJson = formData.get('images') as string;
     
     if (!title || !author || !date || !category || !content || !slugInput) {
-      return { error: '必須項目が入力されていません。' };
+      return { error: '必須項目が入力されていません。', success: false, prUrl: null };
     }
 
     if (!/^[a-z0-9-]+$/.test(slugInput)) {
-      return { error: 'ファイル名は半角英小文字、数字、ハイフンのみ使用可能です。' };
+      return { error: 'ファイル名は半角英小文字、数字、ハイフンのみ使用可能です。', success: false, prUrl: null };
     }
 
     const allImages: { path: string, content: string }[] = imagesJson ? JSON.parse(imagesJson) : [];
@@ -75,11 +81,11 @@ ${content}
     const finalSlug = `${date}-${slugInput}`;
     const mdPath = `app/news/articles/${finalSlug}.md`;
 
-    const githubFiles = [
+    const githubFiles: { path: string; content: string; encoding: 'utf-8' | 'base64' }[] = [
       {
         path: mdPath,
         content: frontmatter,
-        encoding: 'utf-8' as const,
+        encoding: 'utf-8',
       }
     ];
 
@@ -97,9 +103,9 @@ ${content}
     const commitMessage = `add: 記事「${title}」を追加`;
     const prUrl = await createPullRequestForArticle(githubFiles, commitMessage, branchName);
 
-    return { success: true, prUrl };
+    return { error: null, success: true, prUrl };
   } catch (error: any) {
     console.error('Failed to publish article:', error);
-    return { error: error.message || '記事の公開に失敗しました。' };
+    return { error: error.message || '記事の公開に失敗しました。', success: false, prUrl: null };
   }
 }
