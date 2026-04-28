@@ -10,6 +10,11 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
+  
+  // Adminページではヘッダーを表示しない
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
