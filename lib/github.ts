@@ -9,8 +9,7 @@ export async function createPullRequestForArticle(
   const baseBranch = process.env.GITHUB_BRANCH || 'main';
 
   if (!token || !owner || !repo) {
-    const availableKeys = Object.keys(process.env).join(', ');
-    throw new Error(`GitHubの設定が見つかりません。現在の利用可能な環境変数: [${availableKeys}]。環境変数 GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO を設定してください。`);
+    throw new Error('GitHubの設定が見つかりません。環境変数 GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO を設定してください。');
   }
 
   const baseUrl = `https://api.github.com/repos/${owner}/${repo}`;
