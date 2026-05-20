@@ -53,32 +53,33 @@ function AnimatedNumber({
 }
 
 const STATS = [
-  { label: "メンバー数", value: 80, suffix: "名", note: "2026年3月現在" },
+  { label: "メンバー数", value: 105, suffix: "名", note: "2026年5月現在" },
   { label: "創立", value: 7, suffix: "周年", note: "2026年3月現在" },
   { label: "活動回数", value: 54, suffix: "回", note: "2025年度実績" },
   { label: "年間イベント開催数", value: 11, suffix: "件", note: "2025年度実績" },
   { label: "Discord発言数", value: 41200, suffix: "件", note: "2025年度実績(速報値)" },
-  { label: "Discord通話参加時間", value: 9371,suffix: "時間",note: "2025年度実績(速報値)"}, //9022時間+68時間+281時間
+  { label: "Discord通話参加時間", value: 1504,suffix: "時間",note: "2026年度速報値"},
 ];
 
 const BREAKDOWNS = [
   {
-    title: "所属学部の内訳(2026年4月1日現在)",
+    title: "所属学部の内訳(2026年5月17日現在)",
     items: [
-      { label: "情報テクノロジー学科", pct: 51 },
-      { label: "社会情報学部", pct: 22 },
-      { label: "理工学部(除 情報テクノロジー)", pct: 19 },
-      { label: "その他(相模原キャンパス)", pct: 4 },
-      { label: "その他(青山キャンパス)", pct: 4 },
+      { label: "情報テクノロジー学科", pct: 55 },
+      { label: "社会情報学部", pct: 17 },
+      { label: "理工学部(除 情報テクノロジー)", pct: 14 },
+      { label: "その他(相模原キャンパス)", pct: 8 },
+      { label: "その他(青山キャンパス)", pct: 5 },
     ],
   },
   {
-    title: "学年の分布(2026年4月1日現在)",
+    title: "学年の分布(2026年5月17日現在)",
     items: [
-      { label: "1年生", pct: 0 },
-      { label: "2年生", pct: 37 },
-      { label: "3年生", pct: 31 },
-      { label: "4年生・院生", pct: 32 },
+      { label: "1年生", pct: 27 },
+      { label: "2年生", pct: 31 },
+      { label: "3年生", pct: 24 },
+      { label: "4年生", pct: 13 },
+      { label: "院生",  pct: 4 },
     ],
   },
 ];
