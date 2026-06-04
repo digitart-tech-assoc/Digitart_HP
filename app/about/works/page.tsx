@@ -9,7 +9,7 @@ import { ImageWithFallback } from "@/components/ImageWithFallback";
 import JoinUs from "@/components/about/JoinUs";
 
 import choco_mint from "../assets/works/choco-mint.png";
-import circle from "../assets/works/CIRCLE.png";
+import auth_web_app from "../assets/works/auth-web-app.png";
 import aterna from "../assets/works/aterna.png";
 import programmer_recycle from "../assets/works/programmer-recycle.png";
 import slime_defence from "../assets/works/slime-defence.png";
@@ -26,11 +26,11 @@ const PROJECTS = [
     category: "Game",
   },
   {
-    title: "CIRCLE",
-    desc: "サークルの会計処理を効率的に管理,可視化するWebシステム。",
-    tech: ["Vue.js", "FastAPI", "Supabase"],
-    image: circle,
-    url: "https://www.chrom.jp/CIRCLE/",
+    title: "AuthWebApp",
+    desc: "サークルのDiscord処理を管理するWebシステム(内部向け)。",
+    tech: ["React", "FastAPI", "Supabase"],
+    image: auth_web_app,
+    url: null,
     category: "Web app",
   },
   {
