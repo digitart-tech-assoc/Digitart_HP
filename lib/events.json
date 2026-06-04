@@ -159,5 +159,75 @@
     "type": "study",
     "time": "18:30〜21:00",
     "location": "F401教室"
+  },
+  {
+    "date": "2026-06-01",
+    "title": "LT会",
+    "type": "event",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-06-04",
+    "title": "わかば創作会",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-06-08",
+    "title": "わかば創作会",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-06-11",
+    "title": "わかば創作会",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-06-15",
+    "title": "わかば創作会",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-06-18",
+    "title": "わかば創作会",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-06-22",
+    "title": "わかば創作会",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-06-25",
+    "title": "わかば創作会",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-06-29",
+    "title": "わかば創作会",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-07-02",
+    "title": "わかば創作会",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
   }
 ]
