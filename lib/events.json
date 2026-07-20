@@ -229,5 +229,33 @@
     "type": "activity",
     "time": "18:30〜21:00",
     "location": "F401教室"
+  },
+  {
+    "date": "2026-07-06",
+    "title": "わかば創作会(成果発表会)",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-07-09",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-08-18",
+    "title": "夏合宿",
+    "type": "event",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
+  },
+  {
+    "date": "2026-08-19",
+    "title": "夏合宿",
+    "type": "event",
+    "time": "18:30〜21:00",
+    "location": "F401教室"
   }
 ]
