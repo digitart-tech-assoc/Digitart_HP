@@ -255,12 +255,12 @@ export default function SummerLectureCalendar() {
                   >
                     {lec.title}
                   </p>
-                  <p className="text-xs mt-0.5 flex items-center gap-1.5" style={{ color: GREEN.text, opacity: 0.7 }}>
+                  {/* <p className="text-xs mt-0.5 flex items-center gap-1.5" style={{ color: GREEN.text, opacity: 0.7 }}>
                     <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                     {lec.presenters.join("・")}
-                  </p>
+                  </p> */}
                   {lec.notes && (
                     <p className="text-xs mt-1 leading-relaxed" style={{ color: GREEN.text, opacity: 0.7 }}>
                       {lec.notes}
@@ -345,7 +345,7 @@ export default function SummerLectureCalendar() {
                       </span>
                     </div>
 
-                    {/* スピーカー */}
+                    {/* スピーカー
                     <div className="flex items-start gap-2.5">
                       <svg className="w-4 h-4 mt-0.5 shrink-0 opacity-70" fill="none" stroke={GREEN.dot} strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -353,7 +353,7 @@ export default function SummerLectureCalendar() {
                       <span style={{ color: GREEN.text }}>
                         {lec.presenters.join("・")}
                       </span>
-                    </div>
+                    </div> */}
 
                     {/* 補足 */}
                     {lec.notes && (
