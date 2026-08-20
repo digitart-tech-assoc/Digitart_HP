@@ -257,5 +257,47 @@
     "type": "event",
     "time": "00:00〜20:00",
     "location": "富士五湖"
+  },
+  {
+    "date": "2026-09-24",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-09-24",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-09-28",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-01",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-05",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-08",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
   }
 ]
