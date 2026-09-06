@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getSortedArticlesData } from "@/lib/news";
 import HomeHero from "@/components/home/HomeHero";
 import EventCalendar from "@/components/home/EventCalendar";
+import SummerLectureCalendar from "@/components/home/SummerLectureCalendar";
 import NewsList from "@/components/news/NewsList";
 import PickupPages from "@/components/home/PickupPages";
 import JoinUs from "@/components/about/JoinUs";
@@ -67,6 +68,17 @@ export default function Home() {
               <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">直近のイベント</h2>
             </div>
             <EventCalendar />
+          </div>
+        </section>
+
+        {/* ── Summer Lecture Calendar ───────────────────────── */}
+        <section className="py-16 md:py-24 border-b border-slate-100 bg-gradient-to-b from-white to-slate-50/40">
+          <div className="max-w-5xl mx-auto px-6 md:px-12">
+            <div className="mb-10 md:mb-12">
+              <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-2 md:mb-3">Summer Lectures</p>
+              <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">夏季輪講開催中</h2>
+            </div>
+            <SummerLectureCalendar />
           </div>
         </section>
 
