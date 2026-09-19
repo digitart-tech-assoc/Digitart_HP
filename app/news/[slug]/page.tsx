@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
 import 'katex/dist/katex.min.css';
 import CodeBlock from './CodeBlock';
 import { getArticleData, getSortedArticlesData } from '@/lib/news';
@@ -72,7 +73,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <article className="prose prose-slate prose-emerald md:prose-lg max-w-none bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-slate-200">
           <ReactMarkdown 
             remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex]}
+            rehypePlugins={[rehypeRaw, rehypeKatex]}
             components={{
               // Tailwind Typographyがない場合のフォールバック用カスタムスタイリング
               h1: ({node, ...props}) => <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 mt-6 mb-4 pb-3 border-b-2 border-slate-100" {...props} />,
@@ -90,6 +91,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 }
                 return <Link href={href} className={linkClass} {...props}>{children}</Link>;
               },
+              iframe: ({ node, ...props }) => (
+                <iframe
+                  title="埋め込みコンテンツ"
+                  className="w-full max-w-full my-6 rounded-xl border-0"
+                  {...props}
+                />
+              ),
               ul: ({node, ...props}) => <ul className="list-disc list-outside ml-6 mb-5 space-y-1.5 text-slate-700 font-medium marker:text-emerald-500" {...props} />,
               ol: ({node, ...props}) => <ol className="list-decimal list-outside ml-6 mb-5 space-y-1.5 text-slate-700 font-medium font-mono marker:text-emerald-600" {...props} />,
               li: ({node, ...props}) => <li className="pl-1 leading-relaxed" {...props} />,
