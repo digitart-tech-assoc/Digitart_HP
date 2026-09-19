@@ -102,13 +102,25 @@ export default function Home() {
 
             <NewsList articles={allArticles} maxItemsPerTab={5} />
 
-            {/* Mobile "View All" */}
-            <div className="mt-10 sm:hidden text-center">
+            <div className="mt-8 md:mt-10 flex items-center justify-center gap-3">
+              {/* モバイルビューのみ表示する「すべて見る」ボタン */}
               <Link
                 href="/news"
-                className="inline-flex items-center gap-2 px-7 py-3 text-sm font-bold text-[#6a9e2f] border-2 border-[#8cc63f] rounded-full hover:bg-[#8cc63f] hover:text-white transition-all duration-300"
+                className="sm:hidden inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold text-[#6a9e2f] border-2 border-[#8cc63f] rounded-full hover:bg-[#8cc63f] hover:text-white transition-all duration-300"
               >
                 すべて見る →
+              </Link>
+              {/* PCビュー：タブ同等サイズの「記事を書く」ボタン / スマホビュー：丸い鉛筆アイコンボタン */}
+              <Link
+                href="/admin/news/login"
+                title="記事を書く"
+                aria-label="記事を書く"
+                className="border-2 border-[#8cc63f] text-[#6a9e2f] hover:bg-[#8cc63f] hover:text-white transition-all duration-300 flex items-center justify-center rounded-full shrink-0 w-11 h-11 sm:w-auto sm:h-auto sm:px-6 sm:py-2.5 sm:text-base sm:font-bold"
+              >
+                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                <span className="hidden sm:inline ml-2">記事を書く</span>
               </Link>
             </div>
           </div>
