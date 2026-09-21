@@ -130,6 +130,25 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </ReactMarkdown>
         </article>
 
+        {/* Bottom Actions */}
+        <div className="pt-6 flex flex-wrap items-center justify-between gap-4">
+          <Link
+            href="/news"
+            className="inline-flex items-center gap-2 px-4 py-2 md:px-6 md:py-2.5 text-sm md:text-base font-bold text-slate-600 bg-white hover:bg-slate-100 rounded-full border border-slate-200 transition-all duration-300 shadow-sm"
+          >
+            ← ニュース一覧に戻る
+          </Link>
+          <Link
+            href="/admin/news/login"
+            className="inline-flex items-center gap-2 px-4 py-2 md:px-6 md:py-2.5 text-sm md:text-base font-bold text-[#6a9e2f] border-2 border-[#8cc63f] rounded-full hover:bg-[#8cc63f] hover:text-white transition-all duration-300"
+          >
+            <svg className="w-4 h-4 md:w-5 md:h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            記事を書く
+          </Link>
+        </div>
+
       </div>
     </div>
   );
