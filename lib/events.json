@@ -266,13 +266,6 @@
     "location": "未定"
   },
   {
-    "date": "2026-09-24",
-    "title": "対面活動",
-    "type": "activity",
-    "time": "18:30〜21:00",
-    "location": "未定"
-  },
-  {
     "date": "2026-09-28",
     "title": "対面活動",
     "type": "activity",
@@ -295,6 +288,55 @@
   },
   {
     "date": "2026-10-08",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-10",
+    "title": "相模原祭 1日目",
+    "type": "event",
+    "time": "9:00〜18:20",
+    "location": "相模原キャンパスD棟前広場"
+  },
+  {
+    "date": "2026-10-11",
+    "title": "相模原祭 2日目",
+    "type": "event",
+    "time": "9:00〜18:20",
+    "location": "相模原キャンパスD棟前広場"
+  },
+  {
+    "date": "2026-10-15",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-19",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-22",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-26",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-29",
     "title": "対面活動",
     "type": "activity",
     "time": "18:30〜21:00",
