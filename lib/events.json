@@ -248,14 +248,98 @@
     "date": "2026-08-18",
     "title": "夏合宿",
     "type": "event",
-    "time": "18:30〜21:00",
-    "location": "F401教室"
+    "time": "09:00〜24:00",
+    "location": "富士五湖"
   },
   {
     "date": "2026-08-19",
     "title": "夏合宿",
     "type": "event",
+    "time": "00:00〜20:00",
+    "location": "富士五湖"
+  },
+  {
+    "date": "2026-09-24",
+    "title": "対面活動",
+    "type": "activity",
     "time": "18:30〜21:00",
-    "location": "F401教室"
+    "location": "未定"
+  },
+  {
+    "date": "2026-09-28",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-01",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-05",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-08",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-10",
+    "title": "相模原祭 1日目",
+    "type": "event",
+    "time": "9:00〜18:20",
+    "location": "相模原キャンパスD棟前広場"
+  },
+  {
+    "date": "2026-10-11",
+    "title": "相模原祭 2日目",
+    "type": "event",
+    "time": "9:00〜18:20",
+    "location": "相模原キャンパスD棟前広場"
+  },
+  {
+    "date": "2026-10-15",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-19",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-22",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-26",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
+  },
+  {
+    "date": "2026-10-29",
+    "title": "対面活動",
+    "type": "activity",
+    "time": "18:30〜21:00",
+    "location": "未定"
   }
 ]

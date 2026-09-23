@@ -92,8 +92,8 @@ export default function AdminNewsEditor() {
           </div>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">リクエストを送信しました！</h1>
           <p className="text-slate-500 font-medium leading-relaxed">
-            記事の追加リクエスト（Pull Request）が作成されました。<br />
-            管理者が確認・承認するとサイトに反映されます。
+            記事の投稿リクエストが作成されました。<br />
+            管理者が承認次第、記事が公開されます。今しばらくお待ちください。
           </p>
           {state.prUrl && (
             <a
@@ -102,7 +102,7 @@ export default function AdminNewsEditor() {
               rel="noopener noreferrer"
               className="text-emerald-600 hover:text-emerald-700 font-bold underline underline-offset-4 block mt-4"
             >
-              <span title="Organizationへのアクセス権が必要です">作成されたPull Requestを確認する</span>
+              <span title="Organizationへのアクセス権が必要です">リクエストを確認する→</span>
             </a>
           )}
           <button
@@ -120,7 +120,7 @@ export default function AdminNewsEditor() {
     <div className="min-h-screen bg-stone-50 flex flex-col">
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur-md px-6 py-4 flex items-center justify-between sticky top-0 z-10 flex-nowrap gap-4">
         <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2 whitespace-nowrap shrink-0">
-          記事の新規作成
+          記事の作成
         </h1>
         <div className="flex items-center gap-4 min-w-0">
           {state?.error && (
@@ -137,7 +137,7 @@ export default function AdminNewsEditor() {
             className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-emerald-200 transition-all hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0"
           >
             {isPending ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
-            {isPending ? '送信中...' : '追加リクエストを送信'}
+            {isPending ? '送信中...' : '投稿リクエストを送信'}
           </button>
         </div>
       </header>

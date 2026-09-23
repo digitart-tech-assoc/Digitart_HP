@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
 import 'katex/dist/katex.min.css';
 import CodeBlock from './CodeBlock';
 import { getArticleData, getSortedArticlesData } from '@/lib/news';
@@ -72,7 +73,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <article className="prose prose-slate prose-emerald md:prose-lg max-w-none bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-slate-200">
           <ReactMarkdown 
             remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex]}
+            rehypePlugins={[rehypeRaw, rehypeKatex]}
             components={{
               // Tailwind Typographyがない場合のフォールバック用カスタムスタイリング
               h1: ({node, ...props}) => <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 mt-6 mb-4 pb-3 border-b-2 border-slate-100" {...props} />,
@@ -90,6 +91,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 }
                 return <Link href={href} className={linkClass} {...props}>{children}</Link>;
               },
+              iframe: ({ node, ...props }) => (
+                <iframe
+                  title="埋め込みコンテンツ"
+                  className="w-full max-w-full my-6 rounded-xl border-0"
+                  {...props}
+                />
+              ),
               ul: ({node, ...props}) => <ul className="list-disc list-outside ml-6 mb-5 space-y-1.5 text-slate-700 font-medium marker:text-emerald-500" {...props} />,
               ol: ({node, ...props}) => <ol className="list-decimal list-outside ml-6 mb-5 space-y-1.5 text-slate-700 font-medium font-mono marker:text-emerald-600" {...props} />,
               li: ({node, ...props}) => <li className="pl-1 leading-relaxed" {...props} />,
@@ -121,6 +129,25 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             {articleData.content}
           </ReactMarkdown>
         </article>
+
+        {/* Bottom Actions */}
+        <div className="pt-6 flex flex-wrap items-center justify-between gap-4">
+          <Link
+            href="/news"
+            className="inline-flex items-center gap-2 px-4 py-2 md:px-6 md:py-2.5 text-sm md:text-base font-bold text-slate-600 bg-white hover:bg-slate-100 rounded-full border border-slate-200 transition-all duration-300 shadow-sm"
+          >
+            ← ニュース一覧に戻る
+          </Link>
+          <Link
+            href="/admin/news/login"
+            className="inline-flex items-center gap-2 px-4 py-2 md:px-6 md:py-2.5 text-sm md:text-base font-bold text-[#6a9e2f] border-2 border-[#8cc63f] rounded-full hover:bg-[#8cc63f] hover:text-white transition-all duration-300"
+          >
+            <svg className="w-4 h-4 md:w-5 md:h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            記事を書く
+          </Link>
+        </div>
 
       </div>
     </div>

@@ -10,13 +10,8 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
-  
-  // Adminページではヘッダーを表示しない
-  if (pathname?.startsWith('/admin')) {
-    return null;
-  }
-
   const [isScrolled, setIsScrolled] = useState(false);
+
   useEffect(() => {
     const onScroll = () => {
       setIsScrolled(window.scrollY > 80);
@@ -25,6 +20,11 @@ export default function Header() {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Adminページではヘッダーを表示しない
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   const isHome = pathname === "/";
   const headerVisible = !isHome || isScrolled || isOpen;
