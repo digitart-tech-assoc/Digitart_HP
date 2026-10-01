@@ -4,11 +4,6 @@ import { ArrowLeft, Quote } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 
-import icon_banetu from "@/app/(site)/about/assets/supporter/icon_banetu.jpg";
-import icon_bell from "@/app/(site)/about/assets/supporter/icon_bell.jpg";
-import icon_chrom from "@/app/(site)/about/assets/supporter/icon_chrom.jpg";
-import icon_kuzumochi from "@/app/(site)/about/assets/supporter/icon_kuzumochi.png";
-import icon_mimisuke from "@/app/(site)/about/assets/supporter/icon_mimisuke.png";
 import JoinUs from "@/components/about/JoinUs";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
@@ -18,35 +13,35 @@ const MEMBERS = [
     role: "代表",
     year: "社会情報学部社会情報学科 3年",
     quote: "テクノロジーで何かを作りたい。Digitartはその夢を形にできる場所です。",
-    image: icon_chrom,
+    image: "/images/supporters/chrom.jpg",
   },
   {
     name: "Banetu",
     role: "副代表",
     year: "情報テクノロジー学科 3年",
     quote: "Digitartの作曲&ゲーム（プレイ）担当。コード書けなくても居場所はあるよ！",
-    image: icon_banetu,
+    image: "/images/supporters/banetu.jpg",
   },
   {
     name: "ベル",
     role: "副代表",
     year: "情報テクノロジー学科 3年",
     quote: "Welcome to the underground!",
-    image: icon_bell,
+    image: "/images/supporters/bell.jpg",
   },
   {
     name: "葛餅",
     role: "会計",
     year: "情報テクノロジ学科 2年",
     quote: "興味があるなら飛び込んでみませんか！歓迎しますよ！",
-    image: icon_kuzumochi,
+    image: "/images/supporters/kuzumochi.png",
   },
   {
     name: "みみすけ",
     role: "広報",
     year: "情報テクノロジー学科 3年",
     quote: "エラーはトモダチ！赤文字が出るたびワクワクする体質になりませんか？^o^",
-    image: icon_mimisuke,
+    image: "/images/supporters/mimisuke.png",
   },
 ];
 
@@ -126,17 +121,10 @@ export default function SupporterPage() {
               第7期役員
             </h2>
           </div>
-          {MEMBERS.map((member: any, i) => {
-            const resolvedImage =
-              member.image == null
-                ? null
-                : typeof member.image === "string"
-                  ? member.image
-                  : (member.image?.src ?? String(member.image));
-
+          {MEMBERS.map((member, i) => {
             return (
               <motion.div
-                key={`${member.name ?? "member"}-${i}`}
+                key={member.name}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
@@ -150,17 +138,11 @@ export default function SupporterPage() {
                     whileHover={{ scale: 1.05 }}
                     className="h-48 w-48 overflow-hidden rounded-full border-4 border-emerald-100 shadow-xl md:h-64 md:w-64"
                   >
-                    {resolvedImage ? (
-                      <ImageWithFallback
-                        src={resolvedImage}
-                        alt={member.name ?? member.role ?? "Supporter"}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-gray-100 text-gray-500">
-                        <span className="text-sm">画像なし</span>
-                      </div>
-                    )}
+                    <ImageWithFallback
+                      src={member.image}
+                      alt={member.name}
+                      className="h-full w-full object-cover"
+                    />
                   </motion.div>
                 </div>
 

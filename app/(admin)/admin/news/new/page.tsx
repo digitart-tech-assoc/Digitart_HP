@@ -6,6 +6,7 @@ import { useState, useRef, useActionState } from "react";
 import { publishArticleAction, ActionState } from "@/app/(admin)/admin/actions";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { ARTICLE_CATEGORIES } from "@/features/news/schema";
+import { ARTICLE_IMAGES_DIR } from "@/lib/contentPaths";
 
 const initialState: ActionState = {
   error: null,
@@ -37,8 +38,8 @@ export default function AdminNewsEditor() {
       const base64Content = base64Data.split(",")[1]; // Remove data URL prefix
 
       const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, "_")}`;
-      const imagePath = `public/images/articles/${date}/${fileName}`;
-      const imageMarkdownUrl = `/images/articles/${date}/${fileName}`;
+      const imagePath = `${ARTICLE_IMAGES_DIR}/${date}/${fileName}`;
+      const imageMarkdownUrl = imagePath.replace(/^public/, "");
 
       setImages((prev) => [...prev, { path: imagePath, content: base64Content }]);
 

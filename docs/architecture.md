@@ -59,6 +59,8 @@ app  →  features  →  components / lib
 |---|---|
 | 新しいページ | `app/(site)/<パス>/page.tsx`（中身は `features/` 側に書く） |
 | ニュース記事 | `content/news/YYYY-MM-DD-<slug>.md` |
+| 記事内の画像 | `public/images/articles/<公開日>/`（管理画面から投稿すると自動で置かれる） |
+| ページで使う画像 | `public/images/<ページ・機能名>/`（例: `public/images/works/`）。コードからは `/images/works/xxx.png` の文字列で参照する |
 | イベント・制作物などのデータ | `content/*.json`（型とスキーマは `features/<機能>/schema.ts`） |
 | 1 つの機能でだけ使う部品 | `features/<機能>/components/` |
 | 2 つ以上の機能で使う部品 | `components/ui/` など |

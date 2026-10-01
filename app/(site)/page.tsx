@@ -1,9 +1,5 @@
 import Link from "next/link";
 
-import newsHero from "@/app/(site)/about/assets/events/sagamihara-fes.jpg";
-import worksHero from "@/app/(site)/about/assets/history_hero.jpg";
-import joinHero from "@/app/(site)/about/assets/supporters_hero.jpg";
-import aboutHero from "@/app/(site)/about/assets/works_hero.jpg";
 import JoinUs from "@/components/about/JoinUs";
 import EventCalendar from "@/components/home/EventCalendar";
 import HomeHero from "@/components/home/HomeHero";
@@ -19,7 +15,7 @@ const PICKUP_ITEMS = [
     en: "About",
     ja: "活動内容",
     desc: "プログラミング・ゲーム・デザインを横断するDigitartの活動を紹介します。",
-    image: aboutHero,
+    image: "/images/about/works-hero.jpg",
     imagePosition: "bg-center",
   },
   {
@@ -27,7 +23,7 @@ const PICKUP_ITEMS = [
     en: "Works",
     ja: "制作物",
     desc: "メンバーが生み出した作品・プロジェクトをご覧いただけます。",
-    image: worksHero,
+    image: "/images/about/history-hero.jpg",
     imagePosition: "bg-center",
   },
   {
@@ -35,7 +31,7 @@ const PICKUP_ITEMS = [
     en: "News",
     ja: "最新情報",
     desc: "サークルの最新情報やコラムをお届けします。",
-    image: newsHero,
+    image: "/images/events/sagamihara-fes.jpg",
     imagePosition: "bg-center",
   },
   {
@@ -43,7 +39,7 @@ const PICKUP_ITEMS = [
     en: "Join Us",
     ja: "入会案内",
     desc: "Digitartへの入会方法や活動日程を確認できます。",
-    image: joinHero,
+    image: "/images/about/supporters-hero.jpg",
     imagePosition: "bg-center",
   },
 ];

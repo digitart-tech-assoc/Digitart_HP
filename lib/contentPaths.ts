@@ -8,3 +8,9 @@ export const ARTICLES_DIR = "content/news";
 
 /** サークル規約の Markdown */
 export const BYLAWS_FILE = "content/bylaws.md";
+
+/**
+ * 記事内の画像を置くディレクトリ。実際のファイルは `<このパス>/<公開日>/` に置く。
+ * public/ 配下のファイルは、先頭の public を除いたパス（/images/articles/...）で参照できる。
+ */
+export const ARTICLE_IMAGES_DIR = "public/images/articles";

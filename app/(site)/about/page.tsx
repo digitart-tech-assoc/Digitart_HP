@@ -19,15 +19,6 @@ import JoinUs from "@/components/about/JoinUs";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
-// image imports (place files under app/about/assets/)
-import dataHero from "./assets/data_hero.jpg";
-import eventHero from "./assets/events_hero.jpg";
-import historyHero from "./assets/history_hero.jpg";
-import supportersHero from "./assets/supporters_hero.jpg";
-import worksHero from "./assets/works_hero.jpg";
-
-// ImageWithFallback now accepts StaticImageData and resolves src internally.
-
 const GUIDE_CARDS = [
   {
     num: "01",
@@ -36,7 +27,7 @@ const GUIDE_CARDS = [
     desc: "作品制作や交流を深める、年間の定例イベントや特別イベントをご紹介します。",
     icon: Calendars,
     to: "/about/events",
-    image: eventHero,
+    image: "/images/about/events-hero.jpg",
     color: "from-lime-700 to-green-950",
   },
   {
@@ -46,7 +37,7 @@ const GUIDE_CARDS = [
     desc: "メンバーが生み出した作品の数々をご紹介。",
     icon: Briefcase,
     to: "/about/works",
-    image: worksHero,
+    image: "/images/about/works-hero.jpg",
     color: "from-green-700 to-emerald-950",
   },
   {
@@ -56,7 +47,7 @@ const GUIDE_CARDS = [
     desc: "設立からの成長と、団体の挑戦の歴史をご紹介します。",
     icon: History,
     to: "/about/history",
-    image: historyHero,
+    image: "/images/about/history-hero.jpg",
     color: "from-emerald-700 to-teal-950",
   },
   {
@@ -66,7 +57,7 @@ const GUIDE_CARDS = [
     desc: "メンバー数やプロジェクト数など、数字でDigitartを知る。",
     icon: BarChart3,
     to: "/about/data",
-    image: dataHero,
+    image: "/images/about/data-hero.jpg",
     color: "from-teal-700 to-cyan-950",
   },
   {
@@ -76,7 +67,7 @@ const GUIDE_CARDS = [
     desc: "団体を支えるメンバーやサポーターにフォーカス。",
     icon: Heart,
     to: "/about/supporter",
-    image: supportersHero,
+    image: "/images/about/supporters-hero.jpg",
     color: "from-lime-700 to-green-950",
   },
 ];

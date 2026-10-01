@@ -4,17 +4,6 @@ import { ArrowLeft, CalendarDays, MapPin, ExternalLink, Laptop } from "lucide-re
 import { motion } from "motion/react";
 import Link from "next/link";
 
-import AoyamaFes_img from "@/app/(site)/about/assets/events/aoyama-fes.jpg";
-import BBQ_img from "@/app/(site)/about/assets/events/bbq.jpg";
-import Graduation_img from "@/app/(site)/about/assets/events/graduation.jpg";
-import Hackathon_img from "@/app/(site)/about/assets/events/hackathon.jpg";
-import LT_img from "@/app/(site)/about/assets/events/lt.jpg";
-import SagamiharaFes_img from "@/app/(site)/about/assets/events/sagamihara-fes.jpg";
-import SummerCamp_img from "@/app/(site)/about/assets/events/summer-camp.jpg";
-import SummerLecture_img from "@/app/(site)/about/assets/events/summer-lecture.jpg";
-import WakabaCreate_img from "@/app/(site)/about/assets/events/wakaba-create.jpg";
-import WelcomeEvent_img from "@/app/(site)/about/assets/events/welcome-event.jpg";
-import WelcomeLecture_img from "@/app/(site)/about/assets/events/welcome-lecture.jpg";
 import JoinUs from "@/components/about/JoinUs";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
@@ -24,7 +13,7 @@ const ANNUAL_EVENTS = [
     season: "1st Semester",
     title: "新歓イベント",
     desc: "新入生を歓迎し、Digitartの活動内容を紹介する最初のイベント。ゲーム大会や交流会を通じて、同級生や先輩メンバーと仲良くなれる機会です。",
-    image: WelcomeEvent_img,
+    image: "/images/events/welcome-event.jpg",
     tagColor: "bg-green-100 text-green-700",
     url: null,
   },
@@ -33,7 +22,7 @@ const ANNUAL_EVENTS = [
     season: "1st Semester",
     title: "新入生向け講座",
     desc: "プログラミングやチーム開発の基礎を学ぶ新入生向けの集中講座。数週間にわたり、実際に手を動かしながら学べる内容で、初心者が安心して参加できるようサポート体制も充実させています。",
-    image: WelcomeLecture_img,
+    image: "/images/events/welcome-lecture.jpg",
     tagColor: "bg-green-100 text-green-700",
     url: null,
   },
@@ -42,7 +31,7 @@ const ANNUAL_EVENTS = [
     season: "1st Semester",
     title: "BBQ",
     desc: "新入生歓迎と親睦を兼ねたBBQイベント。メンバー同士の交流を深める絶好の機会となっています。食事を楽しみながら、サークル活動や趣味の話で盛り上がります。",
-    image: BBQ_img,
+    image: "/images/events/bbq.jpg",
     tagColor: "bg-green-100 text-green-700",
     url: null,
   },
@@ -51,7 +40,7 @@ const ANNUAL_EVENTS = [
     season: "1st Semester",
     title: "わかば創作会",
     desc: "学習会で得たスキルを活かして、実際に作品を作ることに挑戦するイベント。チームで協力して作品を制作します。完成した作品は学園祭やオンラインで発表します。",
-    image: WakabaCreate_img,
+    image: "/images/events/wakaba-create.jpg",
     color: "from-green-300 to-lime-300",
     tagColor: "bg-green-100 text-green-700",
     url: null,
@@ -61,7 +50,7 @@ const ANNUAL_EVENTS = [
     season: "Summer Vacation",
     title: "夏季輪講",
     desc: "メンバーが持ち寄りで趣味や専門知識を紹介する輪講イベント。テーマはAI、Web開発、ゲームなど多岐にわたり、オンラインで開催されるため家から気軽に参加できます。",
-    image: SummerLecture_img,
+    image: "/images/events/summer-lecture.jpg",
     tagColor: "bg-sky-100 text-sky-700",
     url: null,
   },
@@ -70,7 +59,7 @@ const ANNUAL_EVENTS = [
     season: "Summer Vacation",
     title: "夏合宿",
     desc: "サークル最大のイベントの一つ。数日間の合宿を通じて、メンバー同士の親睦を深めます。過去には伊豆半島で開催し、リフレッシュしながら交流を行いました。",
-    image: SummerCamp_img,
+    image: "/images/events/summer-camp.jpg",
     tagColor: "bg-sky-100 text-sky-700",
     url: null,
   },
@@ -79,7 +68,7 @@ const ANNUAL_EVENTS = [
     season: "2nd Semester",
     title: "学園祭出展(相模原祭)",
     desc: "大学の学園祭「相模原祭」での展示イベント。メンバーが制作した作品を展示し、来場者に体験してもらいます。過去にはVRゲームやオリジナルゲームなどを出展し、好評を博しました。",
-    image: SagamiharaFes_img,
+    image: "/images/events/sagamihara-fes.jpg",
     tagColor: "bg-amber-100 text-amber-700",
     url: null,
   },
@@ -88,7 +77,7 @@ const ANNUAL_EVENTS = [
     season: "2nd Semester",
     title: "学園祭出展(青山祭)",
     desc: "大学の学園祭「青山祭」での展示イベント。相模原祭で展示した作品をさらにブラッシュアップして出展することが多いです。来場者からのフィードバックを得る貴重な機会となっています。",
-    image: AoyamaFes_img,
+    image: "/images/events/aoyama-fes.jpg",
     tagColor: "bg-amber-100 text-amber-700",
     url: null,
   },
@@ -97,7 +86,7 @@ const ANNUAL_EVENTS = [
     season: "2nd Semester",
     title: "ハッカソン",
     desc: "テーマを決めて、1ヶ月で作品を作るハッカソンイベント。個人参加もチーム参加も歓迎。過去には「circle」をテーマにしたハッカソンを開催し、斬新なアイデアが多数生まれました。",
-    image: Hackathon_img,
+    image: "/images/events/hackathon.jpg",
     tagColor: "bg-amber-100 text-amber-700",
     url: null,
   },
@@ -106,7 +95,7 @@ const ANNUAL_EVENTS = [
     season: "2nd Semester",
     title: "LT会",
     desc: "ライトニングトーク形式で、メンバーが自由なテーマで5分間のプレゼンを行う年末恒例イベント。技術ネタからポエム、趣味の話まで何でもOK。",
-    image: LT_img,
+    image: "/images/events/lt.jpg",
     tagColor: "bg-amber-100 text-amber-700",
     url: null,
   },
@@ -115,7 +104,7 @@ const ANNUAL_EVENTS = [
     season: "Spring Vacation",
     title: "追い出し会",
     desc: "年度末の総まとめ。1年間の活動成果を振り返り、卒業するメンバーを送り出す感謝のイベント。",
-    image: Graduation_img,
+    image: "/images/events/graduation.jpg",
     tagColor: "bg-pink-100 text-pink-700",
     url: null,
   },
