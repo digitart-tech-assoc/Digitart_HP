@@ -6,11 +6,11 @@ import Link from "next/link";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 import JoinUs from "@/components/about/JoinUs";
 
-import period1 from "../assets/history/1-period.jpg";
-import period4 from "../assets/history/4-period.jpg";
-import period5 from "../assets/history/5-period.jpg";
-import period6 from "../assets/history/6-period.jpg";
-import period7 from "../assets/history/7-period.jpg";
+import period1 from "@/app/about/assets/history/1-period.jpg";
+import period4 from "@/app/about/assets/history/4-period.jpg";
+import period5 from "@/app/about/assets/history/5-period.jpg";
+import period6 from "@/app/about/assets/history/6-period.jpg";
+import period7 from "@/app/about/assets/history/7-period.jpg";
 
 
 

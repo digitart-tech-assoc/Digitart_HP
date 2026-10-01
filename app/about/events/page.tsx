@@ -15,18 +15,18 @@ import Link from "next/link";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 import JoinUs from "@/components/about/JoinUs";
 
-import WelcomeEvent_img from "../assets/events/welcome-event.jpg";
-import WelcomeLecture_img from "../assets/events/welcome-lecture.jpg";
-import WakabaStudy_img from "../assets/events/wakaba-study.jpg";
-import BBQ_img from "../assets/events/bbq.jpg";
-import WakabaCreate_img from "../assets/events/wakaba-create.jpg";
-import SummerLecture_img from "../assets/events/summer-lecture.jpg";
-import SummerCamp_img from "../assets/events/summer-camp.jpg";
-import SagamiharaFes_img from "../assets/events/sagamihara-fes.jpg";
-import AoyamaFes_img from "../assets/events/aoyama-fes.jpg";
-import Hackathon_img from "../assets/events/hackathon.jpg";
-import LT_img from "../assets/events/lt.jpg";
-import Graduation_img from "../assets/events/graduation.jpg";
+import WelcomeEvent_img from "@/app/about/assets/events/welcome-event.jpg";
+import WelcomeLecture_img from "@/app/about/assets/events/welcome-lecture.jpg";
+import WakabaStudy_img from "@/app/about/assets/events/wakaba-study.jpg";
+import BBQ_img from "@/app/about/assets/events/bbq.jpg";
+import WakabaCreate_img from "@/app/about/assets/events/wakaba-create.jpg";
+import SummerLecture_img from "@/app/about/assets/events/summer-lecture.jpg";
+import SummerCamp_img from "@/app/about/assets/events/summer-camp.jpg";
+import SagamiharaFes_img from "@/app/about/assets/events/sagamihara-fes.jpg";
+import AoyamaFes_img from "@/app/about/assets/events/aoyama-fes.jpg";
+import Hackathon_img from "@/app/about/assets/events/hackathon.jpg";
+import LT_img from "@/app/about/assets/events/lt.jpg";
+import Graduation_img from "@/app/about/assets/events/graduation.jpg";
 
 const ANNUAL_EVENTS = [
   {

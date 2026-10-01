@@ -8,12 +8,12 @@ import Link from "next/link";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 import JoinUs from "@/components/about/JoinUs";
 
-import choco_mint from "../assets/works/choco-mint.png";
-import auth_web_app from "../assets/works/auth-web-app.png";
-import aterna from "../assets/works/aterna.png";
-import programmer_recycle from "../assets/works/programmer-recycle.png";
-import slime_defence from "../assets/works/slime-defence.png";
-import ai_voicevox from "../assets/works/ai-voicevox.png";
+import choco_mint from "@/app/about/assets/works/choco-mint.png";
+import auth_web_app from "@/app/about/assets/works/auth-web-app.png";
+import aterna from "@/app/about/assets/works/aterna.png";
+import programmer_recycle from "@/app/about/assets/works/programmer-recycle.png";
+import slime_defence from "@/app/about/assets/works/slime-defence.png";
+import ai_voicevox from "@/app/about/assets/works/ai-voicevox.png";
 
 
 const PROJECTS = [
