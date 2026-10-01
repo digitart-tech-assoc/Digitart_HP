@@ -125,8 +125,8 @@
 ### 4.7 ニュース投稿
 
 1. メンバーがログイン画面でパスワードを入力する
-2. サーバー側で `ADMIN_PASSWORD` と照合する
-3. 成功時、`admin_auth=true` のHTTP Only Cookieを7日間発行する
+2. サーバー側で `ADMIN_PASSWORD` と定数時間で照合する。同じIPアドレスから15分間に10回失敗すると、一時的にログインを受け付けない
+3. 成功時、有効期限と署名を含むセッショントークン（`v1.<有効期限>.<HMAC-SHA256署名>`）を `admin_auth` Cookieとして7日間発行する
 4. 記事作成画面でタイトル、著者、日付、カテゴリ、slug、概要、Markdown本文を入力する
 5. 画像をファイル選択、貼り付け、ドラッグ＆ドロップで本文へ挿入する
 6. 左側の編集欄と右側のMarkdownプレビューを表示する
@@ -134,6 +134,13 @@
 8. 記事追加用ブランチとPull Requestを作成し、管理者の承認後に公開する
 
 投稿データのslugは、日付を接頭辞にした `{date}-{slug}` 形式で生成する。入力slugは半角英小文字、数字、ハイフンのみ許可する。
+
+投稿内容はServer Actionで再検証する（`features/news/editor/publishInput.ts`）。
+
+- 公開日は実在する `YYYY-MM-DD`、カテゴリは定義済みのもののみ
+- 画像の保存先は `public/images/articles/<YYYY-MM-DD>/<ファイル名>` のみ。拡張子はPNG・JPEG・GIF・WebP・AVIFに限り、データの先頭バイトでも形式を確認する（SVGは不可）
+- 画像は1枚10MB・30枚まで。リクエスト全体は25MBまで（`next.config.ts`）
+- frontmatterの値はエスケープして出力し、タイトルなどに `"` や改行が含まれても構造が変わらないようにする
 
 ## 5. データ仕様
 
@@ -251,8 +258,11 @@ docs/                   要件定義書・実装仕様書
 - 管理用パスワード、GitHubアクセストークン等の秘密情報をリポジトリにコミットしない
 - `ADMIN_PASSWORD` はサーバー側でのみ参照する
 - `GITHUB_TOKEN` はServer Actionおよびサーバー側GitHub連携からのみ参照する
-- 管理画面はMiddlewareで認証Cookieを検査する
-- 認証CookieはHTTP Only、ProductionではSecure、Path `/`、有効期限7日とする
+- 管理画面はMiddlewareで認証Cookieを検査し、記事投稿のServer Actionでも同じ検査を行う
+- 認証Cookieの値は `ADMIN_SESSION_SECRET` と `ADMIN_PASSWORD` から作った鍵でHMAC署名し、署名と有効期限を検証する。パスワードをローテーションすると発行済みのセッションは無効になる
+- 認証CookieはHTTP Only、ProductionではSecure、SameSite Strict、Path `/`、有効期限7日とする
+- ログイン試行の回数制限はアプリ内（インスタンスごとのメモリ上）でも行うが、確実な制限としてCloudflareのRate Limitingルールを設定する（例：`/admin/news/login` へのPOSTを同一IPから1分間に10回まで）
+- `GITHUB_TOKEN` は対象リポジトリのみを対象にしたFine-grained Personal Access Tokenとし、権限は Contents: Read and write と Pull requests: Read and write だけにする。**Workflows権限は付与しない**（付与しないことで、万一 `.github/workflows/` への書き込みが試みられてもGitHub側で拒否される）
 - 記事本文のHTMLを許可する箇所は、Markdown描画の仕様と信頼できる投稿者の運用を前提にする
 - GitHub APIのエラーは利用者向けの投稿失敗として処理し、秘密情報をエラーメッセージに含めない
 
@@ -261,7 +271,8 @@ docs/                   要件定義書・実装仕様書
 | 変数 | 必須 | 用途 |
 | --- | --- | --- |
 | `ADMIN_PASSWORD` | 管理画面利用時 | メンバー確認用パスワード |
-| `GITHUB_TOKEN` | 投稿機能利用時 | GitHub API認証 |
+| `ADMIN_SESSION_SECRET` | 管理画面利用時 | セッションCookieの署名鍵。32文字以上のランダムな文字列（例：`openssl rand -base64 48`）。未設定の場合は誰もログインできない |
+| `GITHUB_TOKEN` | 投稿機能利用時 | GitHub API認証（必要な権限は「8. セキュリティ要件」を参照） |
 | `GITHUB_OWNER` | 投稿機能利用時 | GitHubリポジトリ所有者 |
 | `GITHUB_REPO` | 投稿機能利用時 | 記事を追加するリポジトリ |
 | `GITHUB_BRANCH` | 任意 | Pull Requestのベースブランチ。未設定時は`main` |
