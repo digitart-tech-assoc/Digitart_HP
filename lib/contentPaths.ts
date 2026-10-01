@@ -4,4 +4,7 @@
  */
 
 /** 記事 Markdown を置くディレクトリ */
-export const ARTICLES_DIR = "app/(site)/news/articles";
+export const ARTICLES_DIR = "content/news";
+
+/** サークル規約の Markdown */
+export const BYLAWS_FILE = "content/bylaws.md";

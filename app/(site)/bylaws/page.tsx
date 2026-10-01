@@ -6,6 +6,7 @@ import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
+import { BYLAWS_FILE } from "@/lib/contentPaths";
 import { getCustomMetadata } from "@/lib/metadata";
 
 export const metadata = getCustomMetadata({
@@ -15,7 +16,7 @@ export const metadata = getCustomMetadata({
 });
 
 export default async function Page() {
-  const filePath = path.join(process.cwd(), "app", "(site)", "bylaws", "bylaws.md");
+  const filePath = path.join(process.cwd(), BYLAWS_FILE);
   let content = "";
   try {
     content = await fs.readFile(filePath, "utf8");
