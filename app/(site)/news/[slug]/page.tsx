@@ -2,38 +2,38 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
+import { getAllArticles, getArticle } from "@/features/news/articles";
 import { getCustomMetadata } from "@/lib/metadata";
-import { getArticleData, getSortedArticlesData } from "@/lib/news";
 
 export const dynamic = "force-static";
 
 // 静的パスを生成するための関数
 export function generateStaticParams() {
-  const articles = getSortedArticlesData();
+  const articles = getAllArticles();
   return articles.map((article) => ({
-    slug: article.id,
+    slug: article.slug,
   }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const articleData = getArticleData(slug);
-  if (!articleData) {
+  const article = getArticle(slug);
+  if (!article) {
     return { title: "404 - Article Not Found" };
   }
   return getCustomMetadata({
-    title: articleData.title,
-    description: articleData.excerpt || "Digitartテクノロジー愛好会のニュース記事",
-    image: articleData.image,
+    title: article.title,
+    description: article.excerpt || "Digitartテクノロジー愛好会のニュース記事",
+    image: article.image,
     path: `/news/${slug}`,
   });
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const articleData = getArticleData(slug);
+  const article = getArticle(slug);
 
-  if (!articleData) {
+  if (!article) {
     notFound();
   }
 
@@ -44,7 +44,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <header className="flex flex-col items-start space-y-6">
           <div className="flex flex-wrap items-center gap-3">
             <time
-              dateTime={articleData.date}
+              dateTime={article.date}
               className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-sm font-bold text-emerald-600"
             >
               <svg
@@ -60,9 +60,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
-              {new Date(articleData.date).toLocaleDateString("ja-JP")}
+              {new Date(article.date).toLocaleDateString("ja-JP")}
             </time>
-            {articleData.author && (
+            {article.author && (
               <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-sm font-bold text-slate-600">
                 <svg
                   className="h-4 w-4"
@@ -77,17 +77,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                {articleData.author}
+                {article.author}
               </div>
             )}
           </div>
           <h1 className="text-3xl leading-tight font-extrabold tracking-tight text-slate-900 md:text-4xl lg:text-5xl">
-            {articleData.title}
+            {article.title}
           </h1>
         </header>
 
         <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
-          <MarkdownRenderer content={articleData.content} />
+          <MarkdownRenderer content={article.content} />
         </article>
 
         {/* Bottom Actions */}

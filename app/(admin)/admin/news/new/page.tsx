@@ -5,6 +5,7 @@ import { useState, useRef, useActionState } from "react";
 
 import { publishArticleAction, ActionState } from "@/app/(admin)/admin/actions";
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
+import { ARTICLE_CATEGORIES } from "@/features/news/schema";
 
 const initialState: ActionState = {
   error: null,
@@ -212,8 +213,11 @@ export default function AdminNewsEditor() {
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
                 >
-                  <option value="notice">お知らせ</option>
-                  <option value="column">コラム</option>
+                  {Object.entries(ARTICLE_CATEGORIES).map(([id, { label }]) => (
+                    <option key={id} value={id}>
+                      {label}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="col-span-2">

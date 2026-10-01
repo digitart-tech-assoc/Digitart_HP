@@ -1,6 +1,5 @@
-import { SITE_URL } from "@/lib/constants";
-import { NAV_LINKS } from "@/lib/constants";
-import { getSortedArticlesData } from "@/lib/news";
+import { getAllArticles } from "@/features/news/articles";
+import { NAV_LINKS, SITE_URL } from "@/lib/constants";
 
 function formatDate(dateStr?: string) {
   if (!dateStr) return new Date().toISOString().split("T")[0];
@@ -16,12 +15,12 @@ function urlElement(loc: string, lastmod?: string, changefreq = "monthly", prior
 }
 
 export async function GET() {
-  const articles = getSortedArticlesData();
+  const articles = getAllArticles();
 
   const urls: string[] = [];
 
-  // Top-level NAV_LINKS (and children)
-  NAV_LINKS.forEach((link) => {
+  // ナビゲーションのページ（外部サイトへのリンクは除く）
+  NAV_LINKS.filter((link) => link.href.startsWith("/")).forEach((link) => {
     const loc = `${SITE_URL}${link.href}`;
     urls.push(
       urlElement(
@@ -32,18 +31,15 @@ export async function GET() {
       ),
     );
 
-    const children = (link as any).children as Array<any> | undefined;
-    if (children && children.length > 0) {
-      children.forEach((c) => {
-        const childLoc = `${SITE_URL}${c.href}`;
-        urls.push(urlElement(childLoc, undefined, "monthly", "0.5"));
-      });
-    }
+    link.children?.forEach((c) => {
+      const childLoc = `${SITE_URL}${c.href}`;
+      urls.push(urlElement(childLoc, undefined, "monthly", "0.5"));
+    });
   });
 
-  // Articles
-  articles.forEach((a: any) => {
-    const loc = `${SITE_URL}/news/${a.id}`;
+  // 記事
+  articles.forEach((a) => {
+    const loc = `${SITE_URL}/news/${a.slug}`;
     urls.push(urlElement(loc, a.date, "never", "0.5"));
   });
 

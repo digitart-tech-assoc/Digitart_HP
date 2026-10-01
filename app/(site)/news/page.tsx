@@ -1,13 +1,13 @@
 import Link from "next/link";
 
-import NewsList from "@/components/news/NewsList";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { getSortedArticlesData } from "@/lib/news";
+import { getAllArticles } from "@/features/news/articles";
+import { NewsList } from "@/features/news/components/NewsList";
 
 export const dynamic = "force-static";
 
 export default function NewsPage() {
-  const allArticlesData = getSortedArticlesData();
+  const allArticlesData = getAllArticles();
 
   return (
     <div className="min-h-screen bg-slate-50 pt-20 pb-32 font-sans text-slate-900 selection:bg-emerald-200">
