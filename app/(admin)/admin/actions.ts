@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { ARTICLES_DIR } from "@/lib/contentPaths";
 import { createPullRequestForArticle } from "@/lib/github";
 
 export async function loginAction(prevState: any, formData: FormData) {
@@ -87,7 +88,7 @@ ${content}
 
     // Prepare files for GitHub
     const finalSlug = `${date}-${slugInput}`;
-    const mdPath = `app/news/articles/${finalSlug}.md`;
+    const mdPath = `${ARTICLES_DIR}/${finalSlug}.md`;
 
     const githubFiles: { path: string; content: string; encoding: "utf-8" | "base64" }[] = [
       {
