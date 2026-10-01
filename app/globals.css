@@ -12,6 +12,25 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/*
+ * ブランドカラー。色は直接 #8cc63f のように書かず、bg-brand / text-brand-strong などのクラスで使う。
+ * インラインスタイルからは var(--color-brand) で参照できる。
+ */
+@theme {
+  /* メインのブランドカラー（ボタン背景・アクセント） */
+  --color-brand: #8cc63f;
+  /* ブランドカラーのボタンにホバーしたとき */
+  --color-brand-hover: #7ab135;
+  /* 白背景の上に置く文字・枠線（brand より読みやすい濃さ） */
+  --color-brand-strong: #6a9e2f;
+  /* ナビゲーションの選択中項目など、さらに濃い文字色 */
+  --color-brand-deep: #5a8a22;
+  /* ロゴの緑 */
+  --color-brand-logo: #6e9442;
+  /* Instagram のブランドカラー */
+  --color-instagram: #e1306c;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

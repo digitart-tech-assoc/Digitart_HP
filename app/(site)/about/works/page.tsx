@@ -11,7 +11,7 @@ import choco_mint from "@/app/(site)/about/assets/works/choco-mint.png";
 import programmer_recycle from "@/app/(site)/about/assets/works/programmer-recycle.png";
 import slime_defence from "@/app/(site)/about/assets/works/slime-defence.png";
 import JoinUs from "@/components/about/JoinUs";
-import { ImageWithFallback } from "@/components/ImageWithFallback";
+import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
 const PROJECTS = [
   {
@@ -151,7 +151,7 @@ export default function WorksPage() {
                           View Project <ExternalLink className="h-4 w-4" />
                         </span>
                       </div>
-                      <div className="absolute top-4 left-4 rounded-full bg-[#8cc63f] px-3 py-1 text-sm font-bold tracking-wider text-white">
+                      <div className="absolute top-4 left-4 rounded-full bg-brand px-3 py-1 text-sm font-bold tracking-wider text-white">
                         {project.category}
                       </div>
                     </motion.div>
@@ -164,7 +164,7 @@ export default function WorksPage() {
                         alt={project.title}
                         className="aspect-[16/9] w-full object-cover"
                       />
-                      <div className="absolute top-4 left-4 rounded-full bg-[#8cc63f] px-3 py-1 text-sm font-bold tracking-wider text-white">
+                      <div className="absolute top-4 left-4 rounded-full bg-brand px-3 py-1 text-sm font-bold tracking-wider text-white">
                         {project.category}
                       </div>
                     </div>

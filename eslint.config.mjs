@@ -52,6 +52,8 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     rules: {
+      // react-markdown の components で ({ node, ...props }) のように node を取り除く書き方を許可する
+      "@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true }],
       "import/no-restricted-paths": ["error", { zones: layerZones }],
       "no-restricted-imports": [
         "error",

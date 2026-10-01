@@ -59,7 +59,7 @@ export default function NewsList({
             onClick={() => setActiveTab(tab.id)}
             className={`rounded-full px-4 py-2 text-sm font-bold transition-all duration-300 md:px-6 md:py-2.5 md:text-base ${
               activeTab === tab.id
-                ? "scale-105 bg-[#8cc63f] text-white shadow-lg shadow-[#8cc63f]/30"
+                ? "scale-105 bg-brand text-white shadow-lg shadow-brand/30"
                 : "border border-slate-200 bg-white text-slate-500 shadow-sm hover:bg-slate-50 hover:text-slate-800"
             }`}
           >
@@ -115,7 +115,7 @@ export default function NewsList({
 
                   {/* Content section */}
                   <div className="flex min-w-0 flex-1 flex-col justify-center">
-                    <h3 className="mb-2 text-lg leading-snug font-bold text-slate-800 transition-colors group-hover:text-[#8cc63f] md:text-xl md:leading-[1.5]">
+                    <h3 className="mb-2 text-lg leading-snug font-bold text-slate-800 transition-colors group-hover:text-brand md:text-xl md:leading-[1.5]">
                       {title}
                     </h3>
                     {excerpt && (
@@ -127,9 +127,9 @@ export default function NewsList({
 
                   {/* Optional icon/chevron for affordance */}
                   <div className="hidden items-center justify-center pr-2 md:flex">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 transition-colors duration-300 group-hover:bg-[#8cc63f]/10">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 transition-colors duration-300 group-hover:bg-brand/10">
                       <svg
-                        className="h-5 w-5 text-slate-400 transition-colors duration-300 group-hover:text-[#8cc63f]"
+                        className="h-5 w-5 text-slate-400 transition-colors duration-300 group-hover:text-brand"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"

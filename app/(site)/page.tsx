@@ -9,7 +9,8 @@ import EventCalendar from "@/components/home/EventCalendar";
 import HomeHero from "@/components/home/HomeHero";
 import PickupPages from "@/components/home/PickupPages";
 import NewsList from "@/components/news/NewsList";
-import ScrollToTop from "@/components/ScrollToTop";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { getSortedArticlesData } from "@/lib/news";
 
 const PICKUP_ITEMS = [
@@ -62,9 +63,7 @@ export default function Home() {
         <section className="border-b border-slate-100 py-16 md:py-28">
           <div className="mx-auto max-w-5xl px-6 md:px-12">
             <div className="mb-10 md:mb-14">
-              <p className="mb-2 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:mb-3 md:text-xs">
-                Events
-              </p>
+              <Eyebrow className="mb-2 md:mb-3">Events</Eyebrow>
               <h2 className="text-2xl leading-tight font-black text-slate-900 md:text-5xl">
                 直近のイベント
               </h2>
@@ -77,9 +76,7 @@ export default function Home() {
         <section className="border-b border-slate-100 bg-slate-50/60 py-16 md:py-28">
           <div className="mx-auto max-w-5xl px-6 md:px-12">
             <div className="mb-10 md:mb-14">
-              <p className="mb-2 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:mb-3 md:text-xs">
-                Topics
-              </p>
+              <Eyebrow className="mb-2 md:mb-3">Topics</Eyebrow>
               <h2 className="text-2xl leading-tight font-black text-slate-900 md:text-5xl">
                 トピックス
               </h2>
@@ -93,9 +90,7 @@ export default function Home() {
           <div className="mx-auto max-w-5xl px-6 md:px-12">
             <div className="mb-10 flex items-end justify-between md:mb-14">
               <div>
-                <p className="mb-2 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:mb-3 md:text-xs">
-                  Latest News
-                </p>
+                <Eyebrow className="mb-2 md:mb-3">Latest News</Eyebrow>
                 <h2 className="text-2xl leading-tight font-black text-slate-900 md:text-5xl">
                   お知らせ
                 </h2>
@@ -103,7 +98,7 @@ export default function Home() {
               {/* Desktop "View All" */}
               <Link
                 href="/news"
-                className="hidden items-center gap-2 rounded-full border-2 border-[#8cc63f] px-5 py-2.5 text-sm font-bold text-[#6a9e2f] transition-all duration-300 hover:bg-[#8cc63f] hover:text-white sm:inline-flex"
+                className="hidden items-center gap-2 rounded-full border-2 border-brand px-5 py-2.5 text-sm font-bold text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white sm:inline-flex"
               >
                 すべて見る →
               </Link>
@@ -115,7 +110,7 @@ export default function Home() {
               {/* モバイルビューのみ表示する「すべて見る」ボタン */}
               <Link
                 href="/news"
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#8cc63f] px-6 py-2.5 text-sm font-bold text-[#6a9e2f] transition-all duration-300 hover:bg-[#8cc63f] hover:text-white sm:hidden"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-brand px-6 py-2.5 text-sm font-bold text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white sm:hidden"
               >
                 すべて見る →
               </Link>
@@ -124,7 +119,7 @@ export default function Home() {
                 href="/admin/news/login"
                 title="記事を書く"
                 aria-label="記事を書く"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[#8cc63f] text-[#6a9e2f] transition-all duration-300 hover:bg-[#8cc63f] hover:text-white sm:h-auto sm:w-auto sm:px-6 sm:py-2.5 sm:text-base sm:font-bold"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-brand text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white sm:h-auto sm:w-auto sm:px-6 sm:py-2.5 sm:text-base sm:font-bold"
               >
                 <svg
                   className="h-5 w-5 shrink-0"

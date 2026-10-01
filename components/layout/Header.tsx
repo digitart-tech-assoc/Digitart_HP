@@ -34,7 +34,7 @@ export default function Header() {
       <header
         className={`fixed top-0 z-50 w-full transition-all duration-500 ease-out ${
           headerVisible
-            ? "translate-y-0 border-b border-[#8cc63f]/20 bg-white/90 opacity-100 shadow-sm backdrop-blur-md"
+            ? "translate-y-0 border-b border-brand/20 bg-white/90 opacity-100 shadow-sm backdrop-blur-md"
             : "pointer-events-none -translate-y-full opacity-0"
         }`}
       >
@@ -42,7 +42,7 @@ export default function Header() {
           {/* ロゴ */}
           <Link
             href="/"
-            className="flex items-center gap-3 text-xl font-bold tracking-tight text-slate-800 transition-colors hover:text-[#6a9e2f]"
+            className="flex items-center gap-3 text-xl font-bold tracking-tight text-slate-800 transition-colors hover:text-brand-strong"
           >
             <Image
               src="/images/digitart_white_normal.svg"
@@ -59,7 +59,7 @@ export default function Header() {
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
             aria-expanded={isOpen}
-            className="relative z-[60] flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-lg transition-colors hover:bg-[#8cc63f]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8cc63f]"
+            className="relative z-[60] flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-lg transition-colors hover:bg-brand/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             <span
               className={`block h-[2px] w-5 origin-center rounded-full bg-slate-700 transition-all duration-300 ${
@@ -146,7 +146,7 @@ export default function Header() {
                         onClick={() => setIsOpen(false)}
                         className={`group flex-1 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
                           parentActive
-                            ? "bg-[#8cc63f]/10 text-[#5a8a22] hover:bg-[#8cc63f]/15"
+                            ? "bg-brand/10 text-brand-deep hover:bg-brand/15"
                             : "text-gray-700 hover:bg-slate-100 hover:text-black"
                         }`}
                       >
@@ -193,7 +193,7 @@ export default function Header() {
                             }}
                             className={`block rounded-lg px-4 py-2 text-sm transition-colors ${
                               pathname === child.href
-                                ? "bg-[#8cc63f]/10 text-[#5a8a22]"
+                                ? "bg-brand/10 text-brand-deep"
                                 : "text-gray-700 hover:bg-slate-100 hover:text-black"
                             }`}
                           >
