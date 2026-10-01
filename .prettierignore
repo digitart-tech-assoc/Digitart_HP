@@ -1,0 +1,10 @@
+# 生成物・依存
+.next/
+.vercel/
+.open-next/
+node_modules/
+package-lock.json
+public/
+
+# Markdown は記事・規約の表示に影響するため整形しない
+*.md

@@ -1,18 +1,16 @@
 "use client";
 
-import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
-import { ImageWithFallback } from "@/components/ImageWithFallback";
+
+import period1 from "@/app/about/assets/history/1-period.jpg";
+import period4 from "@/app/about/assets/history/4-period.jpg";
+import period5 from "@/app/about/assets/history/5-period.jpg";
+import period6 from "@/app/about/assets/history/6-period.jpg";
+import period7 from "@/app/about/assets/history/7-period.jpg";
 import JoinUs from "@/components/about/JoinUs";
-
-import period1 from "../assets/history/1-period.jpg";
-import period4 from "../assets/history/4-period.jpg";
-import period5 from "../assets/history/5-period.jpg";
-import period6 from "../assets/history/6-period.jpg";
-import period7 from "../assets/history/7-period.jpg";
-
-
+import { ImageWithFallback } from "@/components/ImageWithFallback";
 
 const TIMELINE = [
   {
@@ -47,28 +45,27 @@ const TIMELINE = [
   },
 ];
 
-
 export default function HistoryPage() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 text-white relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 px-6 pt-32 pb-20 text-white">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] " />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')]" />
         </div>
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="relative z-10 mx-auto max-w-6xl">
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
+            className="mb-8 inline-flex items-center gap-2 text-white/80 transition-colors hover:text-white"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="h-4 w-4" />
             戻る
           </Link>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl mb-4"
+            className="mb-4 text-5xl md:text-7xl"
             style={{ fontWeight: 700 }}
           >
             団体の歩み
@@ -85,14 +82,14 @@ export default function HistoryPage() {
       </section>
 
       {/* Intro */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-4xl text-center">
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-lg text-gray-600 leading-relaxed"
+            className="text-lg leading-relaxed text-gray-600"
           >
             2019年に設立されたDigitartテクノロジー愛好会。
             わずか5名からスタートした団体が、どのように成長し、挑戦を続けてきたのか。
@@ -102,10 +99,10 @@ export default function HistoryPage() {
       </section>
 
       {/* Timeline */}
-      <section className="py-12 px-6 pb-32">
-        <div className="max-w-5xl mx-auto relative">
+      <section className="px-6 py-12 pb-32">
+        <div className="relative mx-auto max-w-5xl">
           {/* Center line */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-emerald-200 transform md:-translate-x-0.5" />
+          <div className="absolute top-0 bottom-0 left-6 w-0.5 transform bg-emerald-200 md:left-1/2 md:-translate-x-0.5" />
 
           {TIMELINE.map((item, i) => (
             <motion.div
@@ -114,44 +111,40 @@ export default function HistoryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className={`relative mb-16 flex flex-col md:flex-row items-start gap-8 ${
+              className={`relative mb-16 flex flex-col items-start gap-8 md:flex-row ${
                 i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
               }`}
             >
               {/* Dot */}
-              <div className="absolute left-6 md:left-1/2 w-4 h-4 bg-emerald-400 rounded-full border-4 border-white shadow-md transform -translate-x-2 md:-translate-x-2 z-10" />
+              <div className="absolute left-6 z-10 h-4 w-4 -translate-x-2 transform rounded-full border-4 border-white bg-emerald-400 shadow-md md:left-1/2 md:-translate-x-2" />
 
               {/* Content */}
               <div
-                className={`flex-1 ml-14 md:ml-0 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"}`}
+                className={`ml-14 flex-1 md:ml-0 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"}`}
               >
-                <span
-                  className="text-emerald-500 text-sm"
-                  style={{ fontWeight: 600 }}
-                >
+                <span className="text-sm text-emerald-500" style={{ fontWeight: 600 }}>
                   {item.year}
                 </span>
-                <h3
-                  className="text-2xl text-gray-900 mt-1 mb-3"
-                  style={{ fontWeight: 700 }}
-                >
+                <h3 className="mt-1 mb-3 text-2xl text-gray-900" style={{ fontWeight: 700 }}>
                   {item.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                <p className="leading-relaxed text-gray-600">{item.desc}</p>
               </div>
 
               {/* Image */}
-              <div
-                className={`flex-1 ml-14 md:ml-0 ${i % 2 === 0 ? "md:pl-16" : "md:pr-16"}`}
-              >
+              <div className={`ml-14 flex-1 md:ml-0 ${i % 2 === 0 ? "md:pl-16" : "md:pr-16"}`}>
                 <motion.div
                   whileHover={{ scale: 1.03 }}
-                  className="rounded-2xl overflow-hidden shadow-lg"
+                  className="overflow-hidden rounded-2xl shadow-lg"
                 >
                   <ImageWithFallback
-                    src={typeof item.image === "string" ? item.image : (item.image?.src ?? String(item.image))}
+                    src={
+                      typeof item.image === "string"
+                        ? item.image
+                        : (item.image?.src ?? String(item.image))
+                    }
                     alt={item.title}
-                    className="w-full aspect-video object-cover"
+                    className="aspect-video w-full object-cover"
                   />
                 </motion.div>
               </div>

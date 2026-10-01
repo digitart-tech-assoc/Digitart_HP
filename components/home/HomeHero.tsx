@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import HomeHeroBase from "./HomeHeroBase";
-import HomeHeroIntroLight from "./HomeHeroIntroLight";
 import HomeHeroIntroDark from "./HomeHeroIntroDark";
+import HomeHeroIntroLight from "./HomeHeroIntroLight";
 
 type Phase = "intro" | "expand" | "white" | "done";
 
@@ -30,10 +31,7 @@ export default function HomeHero() {
   }
 
   const renderIntro = (phase: Phase) =>
-    isDark 
-      ? <HomeHeroIntroDark phase={phase} />
-      : <HomeHeroIntroLight phase={phase} />;
+    isDark ? <HomeHeroIntroDark phase={phase} /> : <HomeHeroIntroLight phase={phase} />;
 
   return <HomeHeroBase renderIntro={renderIntro} />;
 }
-

@@ -1,15 +1,16 @@
-'use client';
+"use client";
 
-import { useState, useRef, useActionState, FormEvent } from 'react';
-import { publishArticleAction, ActionState } from '@/app/admin/actions';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { ImagePlus, Send, Loader2 } from 'lucide-react';
-import 'katex/dist/katex.min.css';
+import { ImagePlus, Send, Loader2 } from "lucide-react";
+import { useState, useRef, useActionState, FormEvent } from "react";
+import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import rehypeKatex from "rehype-katex";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+
+import { publishArticleAction, ActionState } from "@/app/admin/actions";
+import "katex/dist/katex.min.css";
 
 const initialState: ActionState = {
   error: null,
@@ -19,28 +20,28 @@ const initialState: ActionState = {
 
 export default function AdminNewsEditor() {
   const [state, formAction, isPending] = useActionState(publishArticleAction, initialState);
-  
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-  const [slug, setSlug] = useState('');
-  const [category, setCategory] = useState('column');
-  const [excerpt, setExcerpt] = useState('');
-  const [content, setContent] = useState('');
+
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [slug, setSlug] = useState("");
+  const [category, setCategory] = useState("column");
+  const [excerpt, setExcerpt] = useState("");
+  const [content, setContent] = useState("");
   const [images, setImages] = useState<{ path: string; content: string }[]>([]);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Handle image upload via file input or drag & drop
   const handleImageUpload = (file: File) => {
-    if (!file.type.startsWith('image/')) return;
+    if (!file.type.startsWith("image/")) return;
 
     const reader = new FileReader();
     reader.onload = (e) => {
       const base64Data = e.target?.result as string;
-      const base64Content = base64Data.split(',')[1]; // Remove data URL prefix
-      
-      const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+      const base64Content = base64Data.split(",")[1]; // Remove data URL prefix
+
+      const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, "_")}`;
       const imagePath = `public/images/articles/${date}/${fileName}`;
       const imageMarkdownUrl = `/images/articles/${date}/${fileName}`;
 
@@ -53,7 +54,7 @@ export default function AdminNewsEditor() {
         const end = textareaRef.current.selectionEnd;
         const newContent = content.substring(0, start) + imageMarkdown + content.substring(end);
         setContent(newContent);
-        
+
         // Reset cursor
         setTimeout(() => {
           if (textareaRef.current) {
@@ -85,14 +86,17 @@ export default function AdminNewsEditor() {
 
   if (state?.success) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-stone-50 px-4">
-        <div className="text-center space-y-6 max-w-md">
-          <div className="inline-flex w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl items-center justify-center mx-auto mb-4 rotate-3 shadow-sm border border-emerald-200">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-stone-50 px-4">
+        <div className="max-w-md space-y-6 text-center">
+          <div className="mx-auto mb-4 inline-flex h-20 w-20 rotate-3 items-center justify-center rounded-3xl border border-emerald-200 bg-emerald-100 text-emerald-600 shadow-sm">
             <Send size={36} />
           </div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">リクエストを送信しました！</h1>
-          <p className="text-slate-500 font-medium leading-relaxed">
-            記事の投稿リクエストが作成されました。<br />
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
+            リクエストを送信しました！
+          </h1>
+          <p className="leading-relaxed font-medium text-slate-500">
+            記事の投稿リクエストが作成されました。
+            <br />
             管理者が承認次第、記事が公開されます。今しばらくお待ちください。
           </p>
           {state.prUrl && (
@@ -100,14 +104,14 @@ export default function AdminNewsEditor() {
               href={state.prUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-emerald-600 hover:text-emerald-700 font-bold underline underline-offset-4 block mt-4"
+              className="mt-4 block font-bold text-emerald-600 underline underline-offset-4 hover:text-emerald-700"
             >
               <span title="Organizationへのアクセス権が必要です">リクエストを確認する→</span>
             </a>
           )}
           <button
             onClick={() => window.location.reload()}
-            className="mt-6 px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold shadow-lg shadow-emerald-200 transition-all hover:-translate-y-0.5"
+            className="mt-6 rounded-2xl bg-emerald-600 px-8 py-3 font-bold text-white shadow-lg shadow-emerald-200 transition-all hover:-translate-y-0.5 hover:bg-emerald-500"
           >
             続けて別の記事を書く
           </button>
@@ -117,27 +121,30 @@ export default function AdminNewsEditor() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 flex flex-col">
-      <header className="border-b border-slate-200 bg-white/80 backdrop-blur-md px-6 py-4 flex items-center justify-between sticky top-0 z-10 flex-nowrap gap-4">
-        <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2 whitespace-nowrap shrink-0">
+    <div className="flex min-h-screen flex-col bg-stone-50">
+      <header className="sticky top-0 z-10 flex flex-nowrap items-center justify-between gap-4 border-b border-slate-200 bg-white/80 px-6 py-4 backdrop-blur-md">
+        <h1 className="flex shrink-0 items-center gap-2 text-2xl font-bold whitespace-nowrap text-slate-900">
           記事の作成
         </h1>
-        <div className="flex items-center gap-4 min-w-0">
+        <div className="flex min-w-0 items-center gap-4">
           {state?.error && (
-            <span className="text-red-500 text-sm font-bold bg-red-50 px-3 py-1 rounded-full border border-red-100 truncate max-w-md" title={state.error}>
+            <span
+              className="max-w-md truncate rounded-full border border-red-100 bg-red-50 px-3 py-1 text-sm font-bold text-red-500"
+              title={state.error}
+            >
               {state.error}
             </span>
           )}
           <button
             onClick={() => {
-              const form = document.getElementById('publish-form') as HTMLFormElement;
+              const form = document.getElementById("publish-form") as HTMLFormElement;
               if (form) form.requestSubmit();
             }}
             disabled={isPending}
-            className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-emerald-200 transition-all hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0"
+            className="flex shrink-0 items-center gap-2 rounded-xl bg-emerald-600 px-6 py-2.5 font-bold whitespace-nowrap text-white shadow-lg shadow-emerald-200 transition-all hover:-translate-y-0.5 hover:bg-emerald-500 active:translate-y-0 disabled:opacity-50"
           >
             {isPending ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
-            {isPending ? '送信中...' : '投稿リクエストを送信'}
+            {isPending ? "送信中..." : "投稿リクエストを送信"}
           </button>
         </div>
       </header>
@@ -153,60 +160,68 @@ export default function AdminNewsEditor() {
         <input type="hidden" name="images" value={JSON.stringify(images)} />
       </form>
 
-      <div className="flex flex-1 overflow-hidden h-[calc(100vh-73px)]">
+      <div className="flex h-[calc(100vh-73px)] flex-1 overflow-hidden">
         {/* Left Side: Editor */}
-        <div className="w-1/2 flex flex-col border-r border-slate-200 bg-stone-50">
-          <div className="p-6 overflow-y-auto space-y-5 border-b border-slate-200 bg-white/30">
+        <div className="flex w-1/2 flex-col border-r border-slate-200 bg-stone-50">
+          <div className="space-y-5 overflow-y-auto border-b border-slate-200 bg-white/30 p-6">
             <div className="grid grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 ml-1">タイトル</label>
+                <label className="mb-1.5 ml-1 block text-xs font-bold tracking-widest text-slate-400 uppercase">
+                  タイトル
+                </label>
                 <input
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
                   placeholder="記事のタイトル"
                   required
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 ml-1">著者</label>
+                <label className="mb-1.5 ml-1 block text-xs font-bold tracking-widest text-slate-400 uppercase">
+                  著者
+                </label>
                 <input
                   type="text"
                   value={author}
                   onChange={(e) => setAuthor(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
                   placeholder="Discord名"
                   required
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 ml-1">公開日</label>
+                <label className="mb-1.5 ml-1 block text-xs font-bold tracking-widest text-slate-400 uppercase">
+                  公開日
+                </label>
                 <input
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
                   required
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 ml-1">カテゴリ</label>
+                <label className="mb-1.5 ml-1 block text-xs font-bold tracking-widest text-slate-400 uppercase">
+                  カテゴリ
+                </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all appearance-none"
+                  className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
                 >
                   <option value="notice">お知らせ</option>
                   <option value="column">コラム</option>
                 </select>
               </div>
               <div className="col-span-2">
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
+                <label className="mb-1.5 ml-1 block text-xs font-bold tracking-widest text-slate-400 uppercase">
                   ファイル名（URLの一部になります） <span className="text-red-400">*</span>
                 </label>
                 <div className="flex items-center">
-                  <span className="px-4 py-2.5 bg-slate-100 border border-r-0 border-slate-200 rounded-l-xl text-slate-500 font-mono text-sm">
+                  <span className="rounded-l-xl border border-r-0 border-slate-200 bg-slate-100 px-4 py-2.5 font-mono text-sm text-slate-500">
                     {date}-
                   </span>
                   <input
@@ -215,31 +230,38 @@ export default function AdminNewsEditor() {
                     onChange={(e) => setSlug(e.target.value)}
                     pattern="^[a-z0-9-]+$"
                     title="半角英小文字、数字、ハイフンのみ使用できます"
-                    className="flex-1 px-4 py-2.5 border border-slate-200 rounded-r-xl bg-white text-slate-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all font-mono"
+                    className="flex-1 rounded-r-xl border border-slate-200 bg-white px-4 py-2.5 font-mono text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
                     placeholder="snake-case-title"
                     required
                   />
-                  <span className="ml-2 text-slate-500 font-mono text-sm">.md</span>
+                  <span className="ml-2 font-mono text-sm text-slate-500">.md</span>
                 </div>
-                <p className="mt-1.5 ml-1 text-xs text-slate-400 font-medium">半角英小文字、数字、ハイフンのみ使用可能</p>
+                <p className="mt-1.5 ml-1 text-xs font-medium text-slate-400">
+                  半角英小文字、数字、ハイフンのみ使用可能
+                </p>
               </div>
               <div className="col-span-2">
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 ml-1">概要</label>
+                <label className="mb-1.5 ml-1 block text-xs font-bold tracking-widest text-slate-400 uppercase">
+                  概要
+                </label>
                 <textarea
                   value={excerpt}
                   onChange={(e) => setExcerpt(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all resize-none"
+                  className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
                   rows={2}
                   placeholder="ニュース一覧に表示される概要文"
                 />
               </div>
             </div>
           </div>
-          
-          <div className="flex-1 relative flex flex-col bg-amber-50/60">
-            <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
-              <label className="cursor-pointer bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-500 p-2.5 rounded-xl hover:bg-white hover:text-emerald-600 transition-all shadow-sm group" title="画像を挿入">
-                <ImagePlus size={20} className="group-hover:scale-110 transition-transform" />
+
+          <div className="relative flex flex-1 flex-col bg-amber-50/60">
+            <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
+              <label
+                className="group cursor-pointer rounded-xl border border-slate-200 bg-white/80 p-2.5 text-slate-500 shadow-sm backdrop-blur-sm transition-all hover:bg-white hover:text-emerald-600"
+                title="画像を挿入"
+              >
+                <ImagePlus size={20} className="transition-transform group-hover:scale-110" />
                 <input
                   type="file"
                   accept="image/*"
@@ -257,7 +279,7 @@ export default function AdminNewsEditor() {
               onPaste={handlePaste}
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
-              className="flex-1 w-full p-8 bg-transparent text-slate-800 outline-none resize-none font-mono text-sm leading-relaxed"
+              className="w-full flex-1 resize-none bg-transparent p-8 font-mono text-sm leading-relaxed text-slate-800 outline-none"
               placeholder="ここにMarkdownで記事を書いてください... (画像はドラッグ＆ドロップや貼り付けで挿入できます)"
               required
             />
@@ -265,25 +287,76 @@ export default function AdminNewsEditor() {
         </div>
 
         {/* Right Side: Preview */}
-        <div className="w-1/2 bg-white overflow-y-auto p-10 max-w-none shadow-inner border-l border-slate-100">
+        <div className="w-1/2 max-w-none overflow-y-auto border-l border-slate-100 bg-white p-10 shadow-inner">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeKatex]}
             components={{
-              h1: ({node, ...props}) => <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 mt-6 mb-4 pb-3 border-b-2 border-slate-100" {...props} />,
-              h2: ({node, ...props}) => <h2 className="text-xl md:text-2xl font-bold text-slate-900 mt-8 mb-3 pb-2 border-b border-slate-100" {...props} />,
-              h3: ({node, ...props}) => <h3 className="text-lg md:text-xl font-bold text-slate-900 mt-6 mb-3 flex items-center gap-2" {...props}><span className="w-1.5 h-6 bg-emerald-500 rounded-full inline-block"></span>{props.children}</h3>,
-              p: ({node, ...props}) => <p className="leading-relaxed text-slate-700 font-medium mb-5 text-base" {...props} />,
+              h1: ({ node, ...props }) => (
+                <h1
+                  className="mt-6 mb-4 border-b-2 border-slate-100 pb-3 text-2xl font-extrabold text-slate-900 md:text-3xl"
+                  {...props}
+                />
+              ),
+              h2: ({ node, ...props }) => (
+                <h2
+                  className="mt-8 mb-3 border-b border-slate-100 pb-2 text-xl font-bold text-slate-900 md:text-2xl"
+                  {...props}
+                />
+              ),
+              h3: ({ node, ...props }) => (
+                <h3
+                  className="mt-6 mb-3 flex items-center gap-2 text-lg font-bold text-slate-900 md:text-xl"
+                  {...props}
+                >
+                  <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>
+                  {props.children}
+                </h3>
+              ),
+              p: ({ node, ...props }) => (
+                <p
+                  className="mb-5 text-base leading-relaxed font-medium text-slate-700"
+                  {...props}
+                />
+              ),
               a: ({ node, href, children, ...props }) => {
-                const linkClass = "text-emerald-600 hover:text-emerald-700 underline underline-offset-4 decoration-emerald-200 hover:decoration-emerald-500 transition-all font-bold";
-                return <a href={href} className={linkClass} target="_blank" rel="noopener noreferrer" {...props}>{children}</a>;
+                const linkClass =
+                  "text-emerald-600 hover:text-emerald-700 underline underline-offset-4 decoration-emerald-200 hover:decoration-emerald-500 transition-all font-bold";
+                return (
+                  <a
+                    href={href}
+                    className={linkClass}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    {...props}
+                  >
+                    {children}
+                  </a>
+                );
               },
-              ul: ({node, ...props}) => <ul className="list-disc list-outside ml-6 mb-5 space-y-1.5 text-slate-700 font-medium marker:text-emerald-500" {...props} />,
-              ol: ({node, ...props}) => <ol className="list-decimal list-outside ml-6 mb-5 space-y-1.5 text-slate-700 font-medium font-mono marker:text-emerald-600" {...props} />,
-              li: ({node, ...props}) => <li className="pl-1 leading-relaxed text-slate-700" {...props} />,
-              blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-emerald-400 pl-4 py-1.5 my-4 bg-emerald-50/50 rounded-r-xl italic text-slate-600 font-medium" {...props} />,
-              code: ({node, className, children, ...props}: any) => {
-                const match = /language-(\w+)/.exec(className || '');
+              ul: ({ node, ...props }) => (
+                <ul
+                  className="mb-5 ml-6 list-outside list-disc space-y-1.5 font-medium text-slate-700 marker:text-emerald-500"
+                  {...props}
+                />
+              ),
+              ol: ({ node, ...props }) => (
+                <ol
+                  className="mb-5 ml-6 list-outside list-decimal space-y-1.5 font-mono font-medium text-slate-700 marker:text-emerald-600"
+                  {...props}
+                />
+              ),
+              li: ({ node, ...props }) => (
+                <li className="pl-1 leading-relaxed text-slate-700" {...props} />
+              ),
+              blockquote: ({ node, ...props }) => (
+                <blockquote
+                  className="my-4 rounded-r-xl border-l-4 border-emerald-400 bg-emerald-50/50 py-1.5 pl-4 font-medium text-slate-600 italic"
+                  {...props}
+                />
+              ),
+              code: ({ node, className, children, ...props }: any) => {
+                const match = /language-(\w+)/.exec(className || "");
                 return match ? (
                   <SyntaxHighlighter
                     {...props}
@@ -291,35 +364,40 @@ export default function AdminNewsEditor() {
                     language={match[1]}
                     PreTag="div"
                   >
-                    {String(children).replace(/\n$/, '')}
+                    {String(children).replace(/\n$/, "")}
                   </SyntaxHighlighter>
                 ) : (
-                  <code className="bg-slate-100 text-slate-800 px-2 py-1 rounded-md text-sm font-mono border border-slate-200 break-words" {...props}>
+                  <code
+                    className="rounded-md border border-slate-200 bg-slate-100 px-2 py-1 font-mono text-sm break-words text-slate-800"
+                    {...props}
+                  >
                     {children}
                   </code>
-                )
+                );
               },
-              img: ({node, alt, src, ...props}) => {
-                // If it's a dropped image, src might be a local path that hasn't been uploaded. 
+              img: ({ node, alt, src, ...props }) => {
+                // If it's a dropped image, src might be a local path that hasn't been uploaded.
                 // We show base64 content instead if we have it in our state.
-                const imgState = images.find(img => img.path === 'public' + src);
+                const imgState = images.find((img) => img.path === "public" + src);
                 const actualSrc = imgState ? `data:image/png;base64,${imgState.content}` : src;
-                
+
                 return (
-                  <span className="block w-fit max-w-full my-10 mx-auto rounded-2xl overflow-hidden shadow-md border border-slate-200">
-                    <img 
-                      className="max-w-full w-auto max-h-96 h-auto object-cover !m-0" 
+                  <span className="mx-auto my-10 block w-fit max-w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
+                    <img
+                      className="!m-0 h-auto max-h-96 w-auto max-w-full object-cover"
                       src={actualSrc}
-                      alt={alt || '記事内画像'} 
-                      {...props} 
+                      alt={alt || "記事内画像"}
+                      {...props}
                     />
                   </span>
                 );
               },
-              hr: ({node, ...props}) => <hr className="my-10 border-t-2 border-slate-100 border-dashed" {...props} />
+              hr: ({ node, ...props }) => (
+                <hr className="my-10 border-t-2 border-dashed border-slate-100" {...props} />
+              ),
             }}
           >
-            {content || '*ここにプレビューが表示されます...*'}
+            {content || "*ここにプレビューが表示されます...*"}
           </ReactMarkdown>
         </div>
       </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import {
   ArrowLeft,
   CalendarDays,
@@ -11,22 +10,23 @@ import {
   ExternalLink,
   Laptop,
 } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
-import { ImageWithFallback } from "@/components/ImageWithFallback";
-import JoinUs from "@/components/about/JoinUs";
 
-import WelcomeEvent_img from "../assets/events/welcome-event.jpg";
-import WelcomeLecture_img from "../assets/events/welcome-lecture.jpg";
-import WakabaStudy_img from "../assets/events/wakaba-study.jpg";
-import BBQ_img from "../assets/events/bbq.jpg";
-import WakabaCreate_img from "../assets/events/wakaba-create.jpg";
-import SummerLecture_img from "../assets/events/summer-lecture.jpg";
-import SummerCamp_img from "../assets/events/summer-camp.jpg";
-import SagamiharaFes_img from "../assets/events/sagamihara-fes.jpg";
-import AoyamaFes_img from "../assets/events/aoyama-fes.jpg";
-import Hackathon_img from "../assets/events/hackathon.jpg";
-import LT_img from "../assets/events/lt.jpg";
-import Graduation_img from "../assets/events/graduation.jpg";
+import AoyamaFes_img from "@/app/about/assets/events/aoyama-fes.jpg";
+import BBQ_img from "@/app/about/assets/events/bbq.jpg";
+import Graduation_img from "@/app/about/assets/events/graduation.jpg";
+import Hackathon_img from "@/app/about/assets/events/hackathon.jpg";
+import LT_img from "@/app/about/assets/events/lt.jpg";
+import SagamiharaFes_img from "@/app/about/assets/events/sagamihara-fes.jpg";
+import SummerCamp_img from "@/app/about/assets/events/summer-camp.jpg";
+import SummerLecture_img from "@/app/about/assets/events/summer-lecture.jpg";
+import WakabaCreate_img from "@/app/about/assets/events/wakaba-create.jpg";
+import WakabaStudy_img from "@/app/about/assets/events/wakaba-study.jpg";
+import WelcomeEvent_img from "@/app/about/assets/events/welcome-event.jpg";
+import WelcomeLecture_img from "@/app/about/assets/events/welcome-lecture.jpg";
+import JoinUs from "@/components/about/JoinUs";
+import { ImageWithFallback } from "@/components/ImageWithFallback";
 
 const ANNUAL_EVENTS = [
   {
@@ -203,32 +203,30 @@ function monthTextClass(count: number) {
   return "text-emerald-900";
 }
 
-
 export default function EventsPage() {
-
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 text-white relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 px-6 pt-32 pb-20 text-white">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] " />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')]" />
         </div>
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="relative z-10 mx-auto max-w-6xl">
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
+            className="mb-8 inline-flex items-center gap-2 text-white/80 transition-colors hover:text-white"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="h-4 w-4" />
             戻る
           </Link>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl mb-4"
+            className="mb-4 text-5xl md:text-7xl"
             style={{ fontWeight: 700 }}
           >
-          年間行事
+            年間行事
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -242,14 +240,14 @@ export default function EventsPage() {
       </section>
 
       {/* Intro */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-4xl text-center">
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-lg text-gray-600 leading-relaxed"
+            className="text-lg leading-relaxed text-gray-600"
           >
             Digitartでは年間を通じてさまざまなイベントを開催しています。
             <br />
@@ -261,20 +259,17 @@ export default function EventsPage() {
       </section>
 
       {/* Annual Timeline Visual */}
-      <section className="py-8 px-6">
-        <div className="max-w-6xl mx-auto">
+      <section className="px-6 py-8">
+        <div className="mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="flex items-center gap-3 mb-12"
+            className="mb-12 flex items-center gap-3"
           >
-            <span className="w-3 h-3 rounded-full bg-emerald-400" />
-            <h2
-              className="text-3xl md:text-4xl text-gray-900"
-              style={{ fontWeight: 700 }}
-            >
+            <span className="h-3 w-3 rounded-full bg-emerald-400" />
+            <h2 className="text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
               スケジュール
             </h2>
           </motion.div>
@@ -285,16 +280,19 @@ export default function EventsPage() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="hidden md:flex items-center gap-1 mb-16 px-4"
+            className="mb-16 hidden items-center gap-1 px-4 md:flex"
           >
-            {["4","5","6","7","8","9","10","11","12","1","2","3"].map((m) => {
+            {["4", "5", "6", "7", "8", "9", "10", "11", "12", "1", "2", "3"].map((m) => {
               const count = MONTH_COUNTS[String(parseInt(m, 10))] || 0;
               const barClass = monthBgClass(count);
               const textClass = monthTextClass(count);
               return (
                 <div key={m} className="flex-1 text-center">
-                  <div className={`h-2 rounded-full mx-0.5 ${barClass}`} />
-                  <span className={`text-xs mt-2 block ${textClass}`} style={count > 0 ? { fontWeight: 600 } : {}}>
+                  <div className={`mx-0.5 h-2 rounded-full ${barClass}`} />
+                  <span
+                    className={`mt-2 block text-xs ${textClass}`}
+                    style={count > 0 ? { fontWeight: 600 } : {}}
+                  >
                     {m}月
                   </span>
                 </div>
@@ -305,8 +303,8 @@ export default function EventsPage() {
       </section>
 
       {/* Event Cards */}
-      <section className="pb-20 px-6">
-        <div className="max-w-6xl mx-auto space-y-8">
+      <section className="px-6 pb-20">
+        <div className="mx-auto max-w-6xl space-y-8">
           {ANNUAL_EVENTS.map((event, i) => (
             <motion.div
               key={`${event.month}-${i}`}
@@ -316,56 +314,51 @@ export default function EventsPage() {
               transition={{ duration: 0.6, delay: 0.05 }}
               className="group"
             >
-              <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+              <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:shadow-xl">
                 {/* Collapsed View */}
                 <div className="flex flex-col md:flex-row">
                   {/* Image */}
-                  <div className="md:w-72 lg:w-80 flex-shrink-0 relative overflow-hidden">
+                  <div className="relative flex-shrink-0 overflow-hidden md:w-72 lg:w-80">
                     <ImageWithFallback
                       src={event.image}
                       alt={event.title}
-                      className="w-full h-48 md:h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="h-48 w-full object-cover transition-transform duration-700 group-hover:scale-105 md:h-full"
                     />
                     {/* removed color overlay to keep original image colors */}
-                    <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-sm">
-                      <span
-                        className="text-2xl text-gray-900"
-                        style={{ fontWeight: 700 }}
-                      >
+                    <div className="absolute top-4 left-4 rounded-xl bg-white/95 px-4 py-2 shadow-sm backdrop-blur-sm">
+                      <span className="text-2xl text-gray-900" style={{ fontWeight: 700 }}>
                         {event.month}
                       </span>
                     </div>
                   </div>
 
                   {/* Content */}
-                  <div className="flex-1 p-6 md:p-8 flex flex-col justify-center">
+                  <div className="flex flex-1 flex-col justify-center p-6 md:p-8">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
                         <span
-                          className={`inline-block px-3 py-1 rounded-full text-xs mb-3 ${event.tagColor}`}
+                          className={`mb-3 inline-block rounded-full px-3 py-1 text-xs ${event.tagColor}`}
                           style={{ fontWeight: 600 }}
                         >
                           {event.season}
                         </span>
                         <h3
-                          className="text-xl md:text-2xl text-gray-900 mb-3"
+                          className="mb-3 text-xl text-gray-900 md:text-2xl"
                           style={{ fontWeight: 700 }}
                         >
                           {event.title}
                         </h3>
-                        <p className="text-gray-500 text-sm md:line-clamp-2">
-                          {event.desc}
-                        </p>
+                        <p className="text-sm text-gray-500 md:line-clamp-2">{event.desc}</p>
                         {event.url && event.url !== "null" && (
                           <a
                             href={event.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 transition-colors mt-3"
+                            className="mt-3 inline-flex items-center gap-2 text-emerald-600 transition-colors hover:text-emerald-700"
                             style={{ fontWeight: 600 }}
                           >
                             過去のレポート
-                            <ExternalLink className="w-4 h-4" />
+                            <ExternalLink className="h-4 w-4" />
                           </a>
                         )}
                       </div>
@@ -379,27 +372,22 @@ export default function EventsPage() {
       </section>
 
       {/* Regular Activities */}
-      <section className="py-20 px-6 bg-emerald-50/60">
-        <div className="max-w-5xl mx-auto">
+      <section className="bg-emerald-50/60 px-6 py-20">
+        <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12"
+            className="mb-12 text-center"
           >
-            <h2
-              className="text-3xl md:text-4xl text-gray-900 mb-4"
-              style={{ fontWeight: 700 }}
-            >
+            <h2 className="mb-4 text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
               定例活動
             </h2>
-            <p className="text-gray-600">
-              イベント以外にも、日常的に活動しています。
-            </p>
+            <p className="text-gray-600">イベント以外にも、日常的に活動しています。</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid gap-6 md:grid-cols-3">
             {REGULAR_ACTIVITIES.map((act, i) => (
               <motion.div
                 key={act.label}
@@ -407,13 +395,10 @@ export default function EventsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 text-center"
+                className="rounded-2xl bg-white p-8 text-center shadow-sm transition-shadow duration-300 hover:shadow-lg"
               >
-                <act.icon className="w-10 h-10 text-emerald-500 mx-auto mb-4" />
-                <h4
-                  className="text-lg text-gray-900 mb-2"
-                  style={{ fontWeight: 700 }}
-                >
+                <act.icon className="mx-auto mb-4 h-10 w-10 text-emerald-500" />
+                <h4 className="mb-2 text-lg text-gray-900" style={{ fontWeight: 700 }}>
                   {act.label}
                 </h4>
                 <p className="text-sm text-gray-500">{act.detail}</p>

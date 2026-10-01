@@ -1,8 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
-import Link from "next/link";
-import { useEffect, useRef } from "react";
 import {
   ArrowRight,
   Code,
@@ -15,15 +12,19 @@ import {
   BarChart3,
   Heart,
 } from "lucide-react";
-import { ImageWithFallback } from "@/components/ImageWithFallback";
+import { motion } from "motion/react";
+import Link from "next/link";
+import { useEffect, useRef } from "react";
+
 import JoinUs from "@/components/about/JoinUs";
+import { ImageWithFallback } from "@/components/ImageWithFallback";
 
 // image imports (place files under app/about/assets/)
-import historyHero from "./assets/history_hero.jpg";
-import eventHero from "./assets/events_hero.jpg";
-import worksHero from "./assets/works_hero.jpg";
 import dataHero from "./assets/data_hero.jpg";
+import eventHero from "./assets/events_hero.jpg";
+import historyHero from "./assets/history_hero.jpg";
 import supportersHero from "./assets/supporters_hero.jpg";
+import worksHero from "./assets/works_hero.jpg";
 
 // ImageWithFallback now accepts StaticImageData and resolves src internally.
 
@@ -83,13 +84,14 @@ const GUIDE_CARDS = [
 // Determine grid columns: up to 5 columns on md+ screens
 const GUIDE_COLS = Math.min(GUIDE_CARDS.length, 5);
 // Map to explicit Tailwind classes so PurgeCSS/Tailwind can see them
-const MD_GRID_CLASS = {
-  1: "md:grid-cols-1",
-  2: "md:grid-cols-2",
-  3: "md:grid-cols-3",
-  4: "md:grid-cols-4",
-  5: "md:grid-cols-5",
-}[GUIDE_COLS] || "md:grid-cols-5";
+const MD_GRID_CLASS =
+  {
+    1: "md:grid-cols-1",
+    2: "md:grid-cols-2",
+    3: "md:grid-cols-3",
+    4: "md:grid-cols-4",
+    5: "md:grid-cols-5",
+  }[GUIDE_COLS] || "md:grid-cols-5";
 
 const DOMAIN_CARDS = [
   {
@@ -112,7 +114,7 @@ const DOMAIN_CARDS = [
     title: "デザイン",
     desc: "UI/UX, グラフィック, 3Dモデリング",
     color: "bg-cyan-100",
-  }
+  },
 ];
 
 export default function AboutPage() {
@@ -129,7 +131,7 @@ export default function AboutPage() {
         if (container.children.length >= GUIDE_CARDS.length * 2) {
           const originalFirst = container.children[0] as HTMLElement;
           const cloneFirst = container.children[GUIDE_CARDS.length] as HTMLElement;
-          
+
           if (originalFirst && cloneFirst) {
             const loopPoint = cloneFirst.offsetLeft - originalFirst.offsetLeft;
             const scrollAmount = loopPoint / GUIDE_CARDS.length;
@@ -146,22 +148,26 @@ export default function AboutPage() {
       }
     }, 3000);
 
-    const handleTouchStart = () => { isHovered = true; };
-    const handleTouchEnd = () => { 
-      setTimeout(() => { isHovered = false; }, 2000); 
+    const handleTouchStart = () => {
+      isHovered = true;
+    };
+    const handleTouchEnd = () => {
+      setTimeout(() => {
+        isHovered = false;
+      }, 2000);
     };
 
     const el = scrollRef.current;
     if (el) {
-      el.addEventListener('touchstart', handleTouchStart, { passive: true });
-      el.addEventListener('touchend', handleTouchEnd, { passive: true });
+      el.addEventListener("touchstart", handleTouchStart, { passive: true });
+      el.addEventListener("touchend", handleTouchEnd, { passive: true });
     }
 
     return () => {
       clearInterval(interval);
       if (el) {
-        el.removeEventListener('touchstart', handleTouchStart);
-        el.removeEventListener('touchend', handleTouchEnd);
+        el.removeEventListener("touchstart", handleTouchStart);
+        el.removeEventListener("touchend", handleTouchEnd);
       }
     };
   }, []);
@@ -169,11 +175,11 @@ export default function AboutPage() {
   return (
     <div className="bg-white pt-20">
       {/* Guide Cards Grid */}
-      <section className="py-12 md:py-20 px-6">
-        <div className="max-w-6xl mx-auto">
+      <section className="px-6 py-12 md:py-20">
+        <div className="mx-auto max-w-6xl">
           <div
             ref={scrollRef}
-            className={`flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 -mx-6 px-6 md:pb-0 md:mx-0 md:px-0 md:grid ${MD_GRID_CLASS} md:gap-6 md:justify-items-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden after:w-1 after:shrink-0 md:after:hidden`}
+            className={`-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-6 md:mx-0 md:grid md:px-0 md:pb-0 ${MD_GRID_CLASS} [scrollbar-width:none] after:w-1 after:shrink-0 md:justify-items-center md:gap-6 md:after:hidden [&::-webkit-scrollbar]:hidden`}
           >
             {[...GUIDE_CARDS, ...GUIDE_CARDS].map((card, i) => (
               <motion.div
@@ -182,29 +188,27 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: (i % GUIDE_CARDS.length) * 0.1 }}
-                className={`shrink-0 w-[60vw] sm:w-[45vw] md:w-full snap-center ${i >= GUIDE_CARDS.length ? "md:hidden" : ""}`}
+                className={`w-[60vw] shrink-0 snap-center sm:w-[45vw] md:w-full ${i >= GUIDE_CARDS.length ? "md:hidden" : ""}`}
               >
                 <Link
                   href={card.to}
-                  className="group block relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 mx-auto w-full h-full"
+                  className="group relative mx-auto block h-full w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
                 >
-                  <div className="aspect-[4/3] md:aspect-square relative flex items-end">
+                  <div className="relative flex aspect-[4/3] items-end md:aspect-square">
                     <ImageWithFallback
                       src={card.image}
                       alt={card.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div
-                      className={`absolute inset-0 bg-gradient-to-t ${card.color} opacity-40 group-hover:opacity-60 transition-opacity duration-500`}
+                      className={`absolute inset-0 bg-gradient-to-t ${card.color} opacity-40 transition-opacity duration-500 group-hover:opacity-60`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
-                    <div className="relative z-10 w-full p-5 md:p-6 text-left">
-                      <h3
-                        className="text-white text-xl md:text-2xl font-black mb-1.5 md:mb-2"
-                      >
+                    <div className="relative z-10 w-full p-5 text-left md:p-6">
+                      <h3 className="mb-1.5 text-xl font-black text-white md:mb-2 md:text-2xl">
                         {card.title}
                       </h3>
-                      <p className="text-white/90 text-xs md:text-sm line-clamp-2 md:line-clamp-3 leading-relaxed">
+                      <p className="line-clamp-2 text-xs leading-relaxed text-white/90 md:line-clamp-3 md:text-sm">
                         {card.desc}
                       </p>
                     </div>
@@ -219,7 +223,7 @@ export default function AboutPage() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-center text-gray-600 mt-12 text-lg leading-relaxed max-w-3xl mx-auto"
+            className="mx-auto mt-12 max-w-3xl text-center text-lg leading-relaxed text-gray-600"
           >
             私たちの活動やモノづくりへの想い、
             <br className="md:hidden" />
@@ -231,33 +235,29 @@ export default function AboutPage() {
       </section>
 
       {/* Domain Overview Section */}
-      <section className="py-24 md:py-32 px-6 bg-white border-t border-slate-100">
-        <div className="max-w-6xl mx-auto">
+      <section className="border-t border-slate-100 bg-white px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="mb-16 text-center"
           >
-            <p
-              className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-3"
-            >
+            <p className="mb-3 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
               Overview
             </p>
-            <h2
-              className="text-4xl md:text-5xl font-black text-slate-900 mb-8"
-            >
+            <h2 className="mb-8 text-4xl font-black text-slate-900 md:text-5xl">
               Digitartについて
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="mx-auto max-w-3xl text-lg leading-relaxed text-gray-600">
               Digitartテクノロジー愛好会は、青山学院大学のあらゆるテクノロジー好きが集まるクリエイター集団です。
               プログラミング、ゲーム開発、デザイン、ハードウェアなど、多様な分野で活動し、
               技術を通じて新しい価値を創造しています。
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid gap-4 md:grid-cols-3 md:gap-6">
             {DOMAIN_CARDS.map((card, i) => (
               <motion.div
                 key={card.title}
@@ -265,17 +265,15 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
-                className={`${card.color} p-5 md:p-8 rounded-2xl md:rounded-3xl relative overflow-hidden`}
+                className={`${card.color} relative overflow-hidden rounded-2xl p-5 md:rounded-3xl md:p-8`}
               >
-                <div className="flex items-center md:items-start md:flex-col gap-4 md:gap-0">
-                  <card.icon className="w-8 h-8 md:w-12 md:h-12 text-emerald-600 shrink-0 md:mb-4" />
+                <div className="flex items-center gap-4 md:flex-col md:items-start md:gap-0">
+                  <card.icon className="h-8 w-8 shrink-0 text-emerald-600 md:mb-4 md:h-12 md:w-12" />
                   <div>
-                    <h3
-                      className="text-xl md:text-2xl font-bold text-slate-900 mb-1 md:mb-2"
-                    >
+                    <h3 className="mb-1 text-xl font-bold text-slate-900 md:mb-2 md:text-2xl">
                       {card.title}
                     </h3>
-                    <p className="text-sm md:text-base font-medium text-slate-600">{card.desc}</p>
+                    <p className="text-sm font-medium text-slate-600 md:text-base">{card.desc}</p>
                   </div>
                 </div>
               </motion.div>
@@ -288,9 +286,9 @@ export default function AboutPage() {
       {GUIDE_CARDS.map((card, i) => (
         <section
           key={card.num}
-          className={`py-20 md:py-32 px-6 ${i % 2 === 0 ? "bg-slate-50/60" : "bg-white"}`}
+          className={`px-6 py-20 md:py-32 ${i % 2 === 0 ? "bg-slate-50/60" : "bg-white"}`}
         >
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -299,25 +297,23 @@ export default function AboutPage() {
               className={`flex flex-col ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-12`}
             >
               <div className="flex-1">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f]">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
                     {card.subtitle}
                   </span>
                 </div>
-                <h2
-                  className="text-3xl md:text-5xl font-black text-slate-900 mb-8 leading-tight"
-                >
+                <h2 className="mb-8 text-3xl leading-tight font-black text-slate-900 md:text-5xl">
                   {card.title}
                 </h2>
-                <p className="text-slate-600 font-medium text-lg leading-relaxed mb-10">
+                <p className="mb-10 text-lg leading-relaxed font-medium text-slate-600">
                   {card.desc}
                 </p>
                 <Link
                   href={card.to}
-                  className="inline-flex items-center gap-3 px-8 py-4 text-sm font-bold text-slate-900 border-2 border-slate-900 rounded-full hover:bg-slate-900 hover:text-white transition-all duration-300 group"
+                  className="group inline-flex items-center gap-3 rounded-full border-2 border-slate-900 px-8 py-4 text-sm font-bold text-slate-900 transition-all duration-300 hover:bg-slate-900 hover:text-white"
                 >
                   詳しく見る
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
               <div className="flex-1">
@@ -325,12 +321,12 @@ export default function AboutPage() {
                   <motion.div
                     whileHover={{ scale: 1.03, rotate: i % 2 === 0 ? 2 : -2 }}
                     transition={{ duration: 0.4 }}
-                    className="rounded-2xl overflow-hidden shadow-xl border-4 border-white"
+                    className="overflow-hidden rounded-2xl border-4 border-white shadow-xl"
                   >
                     <ImageWithFallback
                       src={card.image}
                       alt={card.title}
-                      className="w-full aspect-[4/3] object-cover"
+                      className="aspect-[4/3] w-full object-cover"
                     />
                   </motion.div>
                 </Link>

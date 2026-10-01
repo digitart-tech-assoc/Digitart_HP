@@ -1,52 +1,61 @@
-import Link from 'next/link';
-import { getSortedArticlesData } from '@/lib/news';
-import NewsList from '@/components/news/NewsList';
+import Link from "next/link";
 
-export const dynamic = 'force-static';
+import NewsList from "@/components/news/NewsList";
+import { getSortedArticlesData } from "@/lib/news";
+
+export const dynamic = "force-static";
 
 export default function NewsPage() {
   const allArticlesData = getSortedArticlesData();
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans pt-20 pb-32 selection:bg-emerald-200">
+    <div className="min-h-screen bg-slate-50 pt-20 pb-32 font-sans text-slate-900 selection:bg-emerald-200">
       {/* Decorative background gradients */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#8cc63f]/15 rounded-full blur-[100px]" />
-        <div className="absolute top-[20%] right-[-10%] w-[30%] h-[50%] bg-emerald-400/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-cyan-400/5 rounded-full blur-[100px]" />
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-[#8cc63f]/15 blur-[100px]" />
+        <div className="absolute top-[20%] right-[-10%] h-[50%] w-[30%] rounded-full bg-emerald-400/10 blur-[100px]" />
+        <div className="absolute bottom-[-10%] left-[20%] h-[40%] w-[40%] rounded-full bg-cyan-400/5 blur-[100px]" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 md:px-12 space-y-12 md:space-y-16 py-12 md:py-20 relative">
-
-        <section className="text-center relative">
+      <div className="relative mx-auto max-w-4xl space-y-12 px-6 py-12 md:space-y-16 md:px-12 md:py-20">
+        <section className="relative text-center">
           {/* Background decoration */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#8cc63f]/10 rounded-full blur-3xl pointer-events-none -z-10" />
-          
-          <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-3">
+          <div className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#8cc63f]/10 blur-3xl" />
+
+          <p className="mb-3 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
             Latest News
           </p>
-          <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight mb-6">
+          <h1 className="mb-6 text-4xl leading-tight font-black text-slate-900 md:text-6xl">
             お知らせ
           </h1>
-          <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-medium">
+          <p className="mx-auto max-w-2xl text-base font-medium text-slate-600 md:text-lg">
             活動記録やお知らせ、技術記事などを発信しています。
           </p>
         </section>
 
         <NewsList articles={allArticlesData} />
 
-        <div className="pt-6 flex justify-center">
+        <div className="flex justify-center pt-6">
           <Link
             href="/admin/news/login"
-            className="inline-flex items-center gap-2 px-4 py-2 md:px-6 md:py-2.5 text-sm md:text-base font-bold text-[#6a9e2f] border-2 border-[#8cc63f] rounded-full hover:bg-[#8cc63f] hover:text-white transition-all duration-300"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-[#8cc63f] px-4 py-2 text-sm font-bold text-[#6a9e2f] transition-all duration-300 hover:bg-[#8cc63f] hover:text-white md:px-6 md:py-2.5 md:text-base"
           >
-            <svg className="w-4 h-4 md:w-5 md:h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            <svg
+              className="h-4 w-4 shrink-0 md:h-5 md:w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+              />
             </svg>
             記事を書く
           </Link>
         </div>
-
       </div>
     </div>
   );

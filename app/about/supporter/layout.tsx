@@ -6,10 +6,6 @@ export const metadata = getCustomMetadata({
   path: "/about/supporter",
 });
 
-export default function SupporterLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function SupporterLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

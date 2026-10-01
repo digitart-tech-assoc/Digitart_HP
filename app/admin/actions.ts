@@ -1,28 +1,29 @@
-'use server';
+"use server";
 
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { createPullRequestForArticle } from '@/lib/github';
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+import { createPullRequestForArticle } from "@/lib/github";
 
 export async function loginAction(prevState: any, formData: FormData) {
-  const password = formData.get('password') as string;
+  const password = formData.get("password") as string;
   const adminPassword = process.env.ADMIN_PASSWORD;
 
   if (!adminPassword) {
-    return { error: 'サーバーで ADMIN_PASSWORD が設定されていません。' };
+    return { error: "サーバーで ADMIN_PASSWORD が設定されていません。" };
   }
 
   if (password === adminPassword) {
     const cookieStore = await cookies();
-    cookieStore.set('admin_auth', 'true', {
+    cookieStore.set("admin_auth", "true", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24 * 7, // 1 week
-      path: '/',
+      path: "/",
     });
-    redirect('/admin/news/new');
+    redirect("/admin/news/new");
   } else {
-    return { error: 'パスワードが正しくありません。' };
+    return { error: "パスワードが正しくありません。" };
   }
 }
 
@@ -32,36 +33,43 @@ export type ActionState = {
   prUrl: string | null;
 };
 
-export async function publishArticleAction(prevState: any, formData: FormData): Promise<ActionState> {
+export async function publishArticleAction(
+  prevState: any,
+  formData: FormData,
+): Promise<ActionState> {
   const cookieStore = await cookies();
-  const authCookie = cookieStore.get('admin_auth');
-  if (!authCookie || authCookie.value !== 'true') {
-    return { error: '認証されていません。', success: false, prUrl: null };
+  const authCookie = cookieStore.get("admin_auth");
+  if (!authCookie || authCookie.value !== "true") {
+    return { error: "認証されていません。", success: false, prUrl: null };
   }
 
   try {
-    const title = formData.get('title') as string;
-    const author = formData.get('author') as string;
-    const date = formData.get('date') as string;
-    const category = formData.get('category') as string;
-    const excerpt = formData.get('excerpt') as string;
-    const content = formData.get('content') as string;
-    const slugInput = formData.get('slug') as string;
-    const imagesJson = formData.get('images') as string;
-    
+    const title = formData.get("title") as string;
+    const author = formData.get("author") as string;
+    const date = formData.get("date") as string;
+    const category = formData.get("category") as string;
+    const excerpt = formData.get("excerpt") as string;
+    const content = formData.get("content") as string;
+    const slugInput = formData.get("slug") as string;
+    const imagesJson = formData.get("images") as string;
+
     if (!title || !author || !date || !category || !content || !slugInput) {
-      return { error: '必須項目が入力されていません。', success: false, prUrl: null };
+      return { error: "必須項目が入力されていません。", success: false, prUrl: null };
     }
 
     if (!/^[a-z0-9-]+$/.test(slugInput)) {
-      return { error: 'ファイル名は半角英小文字、数字、ハイフンのみ使用可能です。', success: false, prUrl: null };
+      return {
+        error: "ファイル名は半角英小文字、数字、ハイフンのみ使用可能です。",
+        success: false,
+        prUrl: null,
+      };
     }
 
-    const allImages: { path: string, content: string }[] = imagesJson ? JSON.parse(imagesJson) : [];
-    
+    const allImages: { path: string; content: string }[] = imagesJson ? JSON.parse(imagesJson) : [];
+
     // Markdown本文にパスが含まれている画像のみを抽出（エディタ上で削除された画像を除外）
-    const images = allImages.filter(img => {
-      const markdownPath = img.path.replace(/^public/, '');
+    const images = allImages.filter((img) => {
+      const markdownPath = img.path.replace(/^public/, "");
       return content.includes(markdownPath);
     });
 
@@ -70,7 +78,7 @@ export async function publishArticleAction(prevState: any, formData: FormData): 
 title: "${title}"
 date: "${date}"
 author: "${author}"
-excerpt: "${excerpt || ''}"
+excerpt: "${excerpt || ""}"
 category: "${category}"
 ---
 
@@ -81,12 +89,12 @@ ${content}
     const finalSlug = `${date}-${slugInput}`;
     const mdPath = `app/news/articles/${finalSlug}.md`;
 
-    const githubFiles: { path: string; content: string; encoding: 'utf-8' | 'base64' }[] = [
+    const githubFiles: { path: string; content: string; encoding: "utf-8" | "base64" }[] = [
       {
         path: mdPath,
         content: frontmatter,
-        encoding: 'utf-8',
-      }
+        encoding: "utf-8",
+      },
     ];
 
     // Add images
@@ -94,7 +102,7 @@ ${content}
       githubFiles.push({
         path: img.path, // e.g. public/images/articles/YYYY-MM-DD/filename.png
         content: img.content, // base64 string without data URL prefix
-        encoding: 'base64' as const,
+        encoding: "base64" as const,
       });
     }
 
@@ -105,7 +113,7 @@ ${content}
 
     return { error: null, success: true, prUrl };
   } catch (error: any) {
-    console.error('Failed to publish article:', error);
-    return { error: error.message || '記事の公開に失敗しました。', success: false, prUrl: null };
+    console.error("Failed to publish article:", error);
+    return { error: error.message || "記事の公開に失敗しました。", success: false, prUrl: null };
   }
 }

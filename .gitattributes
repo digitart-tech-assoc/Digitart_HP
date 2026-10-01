@@ -1,0 +1,10 @@
+# OS に関わらず作業ツリーの改行を LF に統一する（Prettier の endOfLine と揃える）
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.svg text

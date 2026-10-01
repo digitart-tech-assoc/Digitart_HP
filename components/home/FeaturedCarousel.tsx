@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import { StaticImageData } from "next/image";
+import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
 
 type Item = {
   href: string;
@@ -25,8 +25,8 @@ export default function FeaturedCarousel({ items }: { items: Item[] }) {
   }, [items.length]);
 
   return (
-    <div className="relative w-full pt-10 pb-16 overflow-hidden">
-      <div className="relative w-full h-[350px] sm:h-[450px] lg:h-[550px] flex items-center justify-center perspective-[1200px]">
+    <div className="relative w-full overflow-hidden pt-10 pb-16">
+      <div className="relative flex h-[350px] w-full items-center justify-center perspective-[1200px] sm:h-[450px] lg:h-[550px]">
         {items.map((item, i) => {
           let diff = i - active;
           // Normalize diff to be between -1 to 2 when running 4 items
@@ -45,14 +45,26 @@ export default function FeaturedCarousel({ items }: { items: Item[] }) {
           let zIndex = 0;
 
           if (diff === 0) {
-            x = 0; scale = 1; opacity = 1; zIndex = 20;
+            x = 0;
+            scale = 1;
+            opacity = 1;
+            zIndex = 20;
           } else if (diff === 1) {
-            x = 60; scale = 0.85; opacity = 0.5; zIndex = 10;
+            x = 60;
+            scale = 0.85;
+            opacity = 0.5;
+            zIndex = 10;
           } else if (diff === -1) {
-            x = -60; scale = 0.85; opacity = 0.5; zIndex = 10;
+            x = -60;
+            scale = 0.85;
+            opacity = 0.5;
+            zIndex = 10;
           } else {
             // Hidden
-            x = 0; scale = 0.3; opacity = 0; zIndex = 0;
+            x = 0;
+            scale = 0.3;
+            opacity = 0;
+            zIndex = 0;
           }
 
           const isActive = diff === 0;
@@ -72,7 +84,7 @@ export default function FeaturedCarousel({ items }: { items: Item[] }) {
             >
               <Link
                 href={item.href}
-                className="block relative rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] h-full w-full group origin-center"
+                className="group relative block h-full w-full origin-center overflow-hidden rounded-2xl shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] md:rounded-3xl"
                 onClick={(e) => {
                   if (!isActive) {
                     e.preventDefault();
@@ -88,12 +100,12 @@ export default function FeaturedCarousel({ items }: { items: Item[] }) {
                     transform: isActive ? "scale(1.05)" : "scale(1)",
                   }}
                 />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
-                <div className="absolute inset-0 p-6 md:p-10 lg:p-12 flex flex-col justify-end">
-                  <p className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-white/80 mb-2 md:mb-3">
+                <div className="absolute inset-0 bg-black/40 transition-colors duration-500 group-hover:bg-black/20" />
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-12">
+                  <p className="mb-2 text-xs font-bold tracking-[0.3em] text-white/80 uppercase md:mb-3 md:text-sm">
                     {item.en}
                   </p>
-                  <p className="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight">
+                  <p className="text-2xl leading-tight font-black text-white md:text-4xl lg:text-5xl">
                     {item.ja}
                   </p>
                 </div>
@@ -104,7 +116,7 @@ export default function FeaturedCarousel({ items }: { items: Item[] }) {
       </div>
 
       {/* Dots */}
-      <div className="flex justify-center gap-3 mt-4 md:mt-8">
+      <div className="mt-4 flex justify-center gap-3 md:mt-8">
         {items.map((_, i) => (
           <button
             key={i}
@@ -113,7 +125,9 @@ export default function FeaturedCarousel({ items }: { items: Item[] }) {
               setActive(i);
             }}
             className={`h-2 rounded-full transition-all duration-[600ms] ${
-              i === active ? "bg-[#8cc63f] w-8 shadow-[0_0_10px_rgba(140,198,63,0.5)]" : "bg-slate-300 w-2 hover:bg-slate-400"
+              i === active
+                ? "w-8 bg-[#8cc63f] shadow-[0_0_10px_rgba(140,198,63,0.5)]"
+                : "w-2 bg-slate-300 hover:bg-slate-400"
             }`}
             aria-label={`スライド ${i + 1}`}
           />

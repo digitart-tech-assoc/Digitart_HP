@@ -1,16 +1,16 @@
 import Link from "next/link";
-import { getSortedArticlesData } from "@/lib/news";
-import HomeHero from "@/components/home/HomeHero";
-import EventCalendar from "@/components/home/EventCalendar";
-import NewsList from "@/components/news/NewsList";
-import PickupPages from "@/components/home/PickupPages";
-import JoinUs from "@/components/about/JoinUs";
-import ScrollToTop from "@/components/ScrollToTop";
 
-import aboutHero    from "@/app/about/assets/works_hero.jpg";
-import worksHero    from "@/app/about/assets/history_hero.jpg";
-import newsHero     from "@/app/about/assets/events/sagamihara-fes.jpg";
-import joinHero     from "@/app/about/assets/supporters_hero.jpg";
+import newsHero from "@/app/about/assets/events/sagamihara-fes.jpg";
+import worksHero from "@/app/about/assets/history_hero.jpg";
+import joinHero from "@/app/about/assets/supporters_hero.jpg";
+import aboutHero from "@/app/about/assets/works_hero.jpg";
+import JoinUs from "@/components/about/JoinUs";
+import EventCalendar from "@/components/home/EventCalendar";
+import HomeHero from "@/components/home/HomeHero";
+import PickupPages from "@/components/home/PickupPages";
+import NewsList from "@/components/news/NewsList";
+import ScrollToTop from "@/components/ScrollToTop";
+import { getSortedArticlesData } from "@/lib/news";
 
 const PICKUP_ITEMS = [
   {
@@ -57,25 +57,30 @@ export default function Home() {
       <HomeHero />
 
       {/* ── Main Content (slides over fixed hero) ────────── */}
-      <main className="relative bg-white z-10 shadow-[0_-16px_40px_rgba(0,0,0,0.22)] overflow-hidden">
-
+      <main className="relative z-10 overflow-hidden bg-white shadow-[0_-16px_40px_rgba(0,0,0,0.22)]">
         {/* ── Schedule ─────────────────────────────────────── */}
-        <section className="py-16 md:py-28 border-b border-slate-100">
-          <div className="max-w-5xl mx-auto px-6 md:px-12">
+        <section className="border-b border-slate-100 py-16 md:py-28">
+          <div className="mx-auto max-w-5xl px-6 md:px-12">
             <div className="mb-10 md:mb-14">
-              <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-2 md:mb-3">Events</p>
-              <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">直近のイベント</h2>
+              <p className="mb-2 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:mb-3 md:text-xs">
+                Events
+              </p>
+              <h2 className="text-2xl leading-tight font-black text-slate-900 md:text-5xl">
+                直近のイベント
+              </h2>
             </div>
             <EventCalendar />
           </div>
         </section>
 
         {/* ── Pick Up Pages ─────────────────────────────────── */}
-        <section className="py-16 md:py-28 border-b border-slate-100 bg-slate-50/60">
-          <div className="max-w-5xl mx-auto px-6 md:px-12">
+        <section className="border-b border-slate-100 bg-slate-50/60 py-16 md:py-28">
+          <div className="mx-auto max-w-5xl px-6 md:px-12">
             <div className="mb-10 md:mb-14">
-              <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-2 md:mb-3">Topics</p>
-              <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">
+              <p className="mb-2 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:mb-3 md:text-xs">
+                Topics
+              </p>
+              <h2 className="text-2xl leading-tight font-black text-slate-900 md:text-5xl">
                 トピックス
               </h2>
             </div>
@@ -84,17 +89,21 @@ export default function Home() {
         </section>
 
         {/* ── News ─────────────────────────────────────────── */}
-        <section className="py-16 md:py-28 border-b border-slate-100">
-          <div className="max-w-5xl mx-auto px-6 md:px-12">
-            <div className="flex items-end justify-between mb-10 md:mb-14">
+        <section className="border-b border-slate-100 py-16 md:py-28">
+          <div className="mx-auto max-w-5xl px-6 md:px-12">
+            <div className="mb-10 flex items-end justify-between md:mb-14">
               <div>
-                <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[#8cc63f] mb-2 md:mb-3">Latest News</p>
-                <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">お知らせ</h2>
+                <p className="mb-2 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:mb-3 md:text-xs">
+                  Latest News
+                </p>
+                <h2 className="text-2xl leading-tight font-black text-slate-900 md:text-5xl">
+                  お知らせ
+                </h2>
               </div>
               {/* Desktop "View All" */}
               <Link
                 href="/news"
-                className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-[#6a9e2f] border-2 border-[#8cc63f] rounded-full hover:bg-[#8cc63f] hover:text-white transition-all duration-300"
+                className="hidden items-center gap-2 rounded-full border-2 border-[#8cc63f] px-5 py-2.5 text-sm font-bold text-[#6a9e2f] transition-all duration-300 hover:bg-[#8cc63f] hover:text-white sm:inline-flex"
               >
                 すべて見る →
               </Link>
@@ -102,11 +111,11 @@ export default function Home() {
 
             <NewsList articles={allArticles} maxItemsPerTab={5} />
 
-            <div className="mt-8 md:mt-10 flex items-center justify-center gap-3">
+            <div className="mt-8 flex items-center justify-center gap-3 md:mt-10">
               {/* モバイルビューのみ表示する「すべて見る」ボタン */}
               <Link
                 href="/news"
-                className="sm:hidden inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold text-[#6a9e2f] border-2 border-[#8cc63f] rounded-full hover:bg-[#8cc63f] hover:text-white transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#8cc63f] px-6 py-2.5 text-sm font-bold text-[#6a9e2f] transition-all duration-300 hover:bg-[#8cc63f] hover:text-white sm:hidden"
               >
                 すべて見る →
               </Link>
@@ -115,12 +124,22 @@ export default function Home() {
                 href="/admin/news/login"
                 title="記事を書く"
                 aria-label="記事を書く"
-                className="border-2 border-[#8cc63f] text-[#6a9e2f] hover:bg-[#8cc63f] hover:text-white transition-all duration-300 flex items-center justify-center rounded-full shrink-0 w-11 h-11 sm:w-auto sm:h-auto sm:px-6 sm:py-2.5 sm:text-base sm:font-bold"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[#8cc63f] text-[#6a9e2f] transition-all duration-300 hover:bg-[#8cc63f] hover:text-white sm:h-auto sm:w-auto sm:px-6 sm:py-2.5 sm:text-base sm:font-bold"
               >
-                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                <svg
+                  className="h-5 w-5 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
                 </svg>
-                <span className="hidden sm:inline ml-2">記事を書く</span>
+                <span className="ml-2 hidden sm:inline">記事を書く</span>
               </Link>
             </div>
           </div>

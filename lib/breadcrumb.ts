@@ -8,7 +8,8 @@ export type BreadcrumbItem = {
  */
 export function generateBreadcrumbs(pathname: string, siteUrl: string): BreadcrumbItem[] {
   // パスの正規化（末尾のスラッシュを削除）
-  const normalizedPath = pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+  const normalizedPath =
+    pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
 
   // ホームは常に含める
   const breadcrumbs: BreadcrumbItem[] = [

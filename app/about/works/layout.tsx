@@ -6,10 +6,6 @@ export const metadata = getCustomMetadata({
   path: "/about/works",
 });
 
-export default function WorksLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function WorksLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

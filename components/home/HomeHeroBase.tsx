@@ -1,8 +1,9 @@
 "use client";
 
-import Logo from "@/components/Logo";
 import Link from "next/link";
 import { useEffect, useState, useRef, ReactNode } from "react";
+
+import Logo from "@/components/Logo";
 import { SITE_NAME } from "@/lib/constants";
 
 const SLIDE_SRCS = [
@@ -10,7 +11,7 @@ const SLIDE_SRCS = [
   "images/heros/02.jpg",
   "images/heros/03.jpg",
   "images/heros/04.jpg",
-  "images/heros/05.jpg"
+  "images/heros/05.jpg",
 ];
 
 type Phase = "intro" | "expand" | "white" | "done";
@@ -35,7 +36,11 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
     const t2 = setTimeout(() => setPhase("white"), 2200);
     // white → done (fade in content at ~2.8s)
     const t3 = setTimeout(() => setPhase("done"), 2800);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
   }, []);
 
   // Scroll listener
@@ -59,7 +64,9 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
         setTransitioning(false);
       }, 1200);
     }, 5000);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [current, phase]);
 
   const contentVisible = phase === "white" || phase === "done";
@@ -69,7 +76,7 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
       {/* ── Intro overlay (theme-specific) ── */}
       {renderIntro(phase)}
 
-      <section className="fixed top-0 left-0 w-full h-screen flex flex-col justify-center items-center text-center overflow-hidden z-0">
+      <section className="fixed top-0 left-0 z-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden text-center">
         {/* ── Slides: crossfade with layered approach ── */}
         <div className="absolute inset-0">
           {/* Always render all slides, control visibility via z-index + opacity */}
@@ -94,17 +101,19 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
         {/* ── Overlay ── */}
         <div
           className="absolute inset-0 z-10"
-          style={{ background: "linear-gradient(170deg, rgba(15,30,10,0.28) 0%, rgba(8,20,5,0.50) 100%)" }}
+          style={{
+            background: "linear-gradient(170deg, rgba(15,30,10,0.28) 0%, rgba(8,20,5,0.50) 100%)",
+          }}
           aria-hidden="true"
         />
         <div
-          className="absolute inset-x-0 bottom-0 h-2/3 z-10"
+          className="absolute inset-x-0 bottom-0 z-10 h-2/3"
           style={{ background: "linear-gradient(to top, rgba(4,12,3,0.65) 0%, transparent 100%)" }}
           aria-hidden="true"
         />
 
         {/* ── Slide dots ── */}
-        <div className="absolute bottom-6 right-8 flex gap-2 z-20">
+        <div className="absolute right-8 bottom-6 z-20 flex gap-2">
           {SLIDE_SRCS.map((_, i) => (
             <button
               key={i}
@@ -113,9 +122,12 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
                 setPrev(current);
                 setCurrent(i);
                 setTransitioning(true);
-                setTimeout(() => { setPrev(null); setTransitioning(false); }, 1200);
+                setTimeout(() => {
+                  setPrev(null);
+                  setTransitioning(false);
+                }, 1200);
               }}
-              className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+              className="h-1.5 w-1.5 rounded-full transition-all duration-300"
               style={{
                 background: i === current ? "#8cc63f" : "rgba(255,255,255,0.35)",
                 transform: i === current ? "scale(1.6)" : "scale(1)",
@@ -127,7 +139,7 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
 
         {/* ── Main content ── */}
         <div
-          className="relative z-20 px-6 py-10 max-w-5xl mx-auto flex flex-col items-center text-center"
+          className="relative z-20 mx-auto flex max-w-5xl flex-col items-center px-6 py-10 text-center"
           style={{
             opacity: contentVisible ? 1 : 0,
             transition: "opacity 0.8s ease",
@@ -137,7 +149,7 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
           <div className="mb-5 md:mb-6">
             <div className="relative inline-block">
               <div
-                className="absolute inset-0 rounded-full blur-3xl opacity-40"
+                className="absolute inset-0 rounded-full opacity-40 blur-3xl"
                 style={{ background: "rgba(140,198,63,0.5)" }}
                 aria-hidden="true"
               />
@@ -157,13 +169,13 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
                   WebkitTransformStyle: "preserve-3d",
                   transformStyle: "preserve-3d",
                 }}
-                className="relative w-30 sm:w-50 md:w-60 h-auto opacity-100 drop-shadow-2xl"
+                className="relative h-auto w-30 opacity-100 drop-shadow-2xl sm:w-50 md:w-60"
               />
             </div>
           </div>
 
           {/* Eyebrow — break after "UNIVERSITY" on small screens */}
-          <p className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.22em] uppercase mb-6 md:mb-8 text-[#8cc63f]">
+          <p className="mb-6 text-[10px] font-bold tracking-[0.22em] text-[#8cc63f] uppercase sm:text-xs md:mb-8 md:text-sm">
             <span className="block sm:inline">Aoyama Gakuin University</span>
             <span className="hidden sm:inline"> · </span>
             <span className="block sm:inline">Creator Community</span>
@@ -171,33 +183,48 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
 
           {/* Catchphrase */}
           <h1
-            className="text-[clamp(2.5rem,5vw,6rem)] font-black leading-[1.1] tracking-tight text-white mb-8 md:mb-10"
+            className="mb-8 text-[clamp(2.5rem,5vw,6rem)] leading-[1.1] font-black tracking-tight text-white md:mb-10"
             lang="ja"
           >
-            好きを<br className="sm:hidden" /><span style={{ color: "#8cc63f" }}>カタチに</span>しよう
+            好きを
+            <br className="sm:hidden" />
+            <span style={{ color: "#8cc63f" }}>カタチに</span>しよう
           </h1>
 
           {/* Description + Buttons */}
-          <p className="text-sm sm:text-base md:text-lg text-white/85 leading-relaxed font-medium max-w-xl md:max-w-2xl mb-8 md:mb-10">
-            Digitart テクノロジー愛好会は、プログラミング・ゲーム開発・デザインを横断しながら、仲間と一緒にプロダクトをつくる青学生クリエイターコミュニティです。
+          <p className="mb-8 max-w-xl text-sm leading-relaxed font-medium text-white/85 sm:text-base md:mb-10 md:max-w-2xl md:text-lg">
+            Digitart
+            テクノロジー愛好会は、プログラミング・ゲーム開発・デザインを横断しながら、仲間と一緒にプロダクトをつくる青学生クリエイターコミュニティです。
           </p>
 
-          <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/join"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3 md:px-10 md:py-4 text-sm md:text-base font-bold text-white bg-[#8cc63f] hover:bg-[#7ab135] rounded-full shadow-[0_0_24px_rgba(140,198,63,0.45)] transition-all duration-300 hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8cc63f] px-7 py-3 text-sm font-bold text-white shadow-[0_0_24px_rgba(140,198,63,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#7ab135] md:px-10 md:py-4 md:text-base"
             >
               入会する
-              <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+              <svg
+                className="h-4 w-4 md:h-5 md:w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
             <Link
               href="/about"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 md:px-9 md:py-4 text-sm md:text-base font-bold text-white/90 border border-white/45 rounded-full hover:border-white hover:text-white hover:bg-white/10 transition-all duration-300"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/45 px-6 py-3 text-sm font-bold text-white/90 transition-all duration-300 hover:border-white hover:bg-white/10 hover:text-white md:px-9 md:py-4 md:text-base"
             >
               詳しく見る
-              <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+              <svg
+                className="h-4 w-4 md:h-5 md:w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
@@ -206,20 +233,22 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
 
         {/* Scroll indicator */}
         <div
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 z-20"
+          className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5"
           style={{
             opacity: contentVisible ? Math.max(0, 1 - scrollY / 120) : 0,
             transition: "opacity 0.3s",
           }}
           aria-hidden="true"
         >
-          <span className="text-[9px] tracking-[0.28em] text-white/55 uppercase font-bold">Scroll</span>
-          <span className="block w-px h-7 bg-white/35" />
+          <span className="text-[9px] font-bold tracking-[0.28em] text-white/55 uppercase">
+            Scroll
+          </span>
+          <span className="block h-7 w-px bg-white/35" />
         </div>
       </section>
 
       {/* Spacer */}
-      <div className="h-screen w-full relative -z-10" aria-hidden="true" />
+      <div className="relative -z-10 h-screen w-full" aria-hidden="true" />
     </>
   );
 }
