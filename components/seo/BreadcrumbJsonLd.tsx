@@ -2,12 +2,12 @@
 
 import { usePathname } from "next/navigation";
 
+import { JsonLd } from "@/components/seo/JsonLd";
 import { generateBreadcrumbs } from "@/lib/breadcrumb";
 import { SITE_URL } from "@/lib/constants";
 
-import JsonLd from "./JsonLd";
-
-export default function BreadcrumbJsonLd() {
+/** 現在のパスからパンくずリストの構造化データを出力する */
+export function BreadcrumbJsonLd() {
   const pathname = usePathname();
   const breadcrumbItems = generateBreadcrumbs(pathname, SITE_URL);
 

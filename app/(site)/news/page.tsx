@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import NewsList from "@/components/news/NewsList";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { getSortedArticlesData } from "@/lib/news";
 
 export const dynamic = "force-static";
@@ -12,7 +13,7 @@ export default function NewsPage() {
     <div className="min-h-screen bg-slate-50 pt-20 pb-32 font-sans text-slate-900 selection:bg-emerald-200">
       {/* Decorative background gradients */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-[#8cc63f]/15 blur-[100px]" />
+        <div className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-brand/15 blur-[100px]" />
         <div className="absolute top-[20%] right-[-10%] h-[50%] w-[30%] rounded-full bg-emerald-400/10 blur-[100px]" />
         <div className="absolute bottom-[-10%] left-[20%] h-[40%] w-[40%] rounded-full bg-cyan-400/5 blur-[100px]" />
       </div>
@@ -20,11 +21,9 @@ export default function NewsPage() {
       <div className="relative mx-auto max-w-4xl space-y-12 px-6 py-12 md:space-y-16 md:px-12 md:py-20">
         <section className="relative text-center">
           {/* Background decoration */}
-          <div className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#8cc63f]/10 blur-3xl" />
+          <div className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/10 blur-3xl" />
 
-          <p className="mb-3 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
-            Latest News
-          </p>
+          <Eyebrow className="mb-3">Latest News</Eyebrow>
           <h1 className="mb-6 text-4xl leading-tight font-black text-slate-900 md:text-6xl">
             お知らせ
           </h1>
@@ -38,7 +37,7 @@ export default function NewsPage() {
         <div className="flex justify-center pt-6">
           <Link
             href="/admin/news/login"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-[#8cc63f] px-4 py-2 text-sm font-bold text-[#6a9e2f] transition-all duration-300 hover:bg-[#8cc63f] hover:text-white md:px-6 md:py-2.5 md:text-base"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-brand px-4 py-2 text-sm font-bold text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white md:px-6 md:py-2.5 md:text-base"
           >
             <svg
               className="h-4 w-4 shrink-0 md:h-5 md:w-5"

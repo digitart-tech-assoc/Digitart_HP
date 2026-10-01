@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 
-import Logo from "@/components/Logo";
+import { Logo } from "@/components/ui/Logo";
 
 interface HomeHeroIntroProps {
   phase: "intro" | "expand" | "white" | "done";

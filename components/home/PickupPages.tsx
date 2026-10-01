@@ -36,7 +36,7 @@ export default function PickupPages({ items }: { items: PickupItem[] }) {
                 <p className="text-sm leading-relaxed font-medium text-slate-200">{item.desc}</p>
               </div>
               <svg
-                className="mt-1 h-5 w-5 shrink-0 text-[#8cc63f] transition-transform group-hover:translate-x-0.5"
+                className="mt-1 h-5 w-5 shrink-0 text-brand transition-transform group-hover:translate-x-0.5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

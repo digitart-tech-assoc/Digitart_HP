@@ -4,6 +4,7 @@ import { ArrowRightIcon } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
 export default function JoinPage() {
@@ -12,7 +13,7 @@ export default function JoinPage() {
       {/* ── Header ─────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white py-20 md:py-32">
         {/* Decorative Background Elements */}
-        <div className="pointer-events-none absolute top-0 right-0 -z-10 h-[500px] w-[500px] translate-x-1/4 -translate-y-1/4 rounded-full bg-[#8cc63f]/10 blur-[100px]" />
+        <div className="pointer-events-none absolute top-0 right-0 -z-10 h-[500px] w-[500px] translate-x-1/4 -translate-y-1/4 rounded-full bg-brand/10 blur-[100px]" />
         <div className="pointer-events-none absolute bottom-0 left-0 -z-10 h-[400px] w-[400px] -translate-x-1/4 translate-y-1/4 rounded-full bg-emerald-400/5 blur-[80px]" />
         <div className="absolute top-1/2 left-1/2 -z-10 h-[1px] w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
         <div className="absolute top-0 left-1/2 -z-10 h-full w-[1px] bg-gradient-to-b from-transparent via-slate-200 to-transparent" />
@@ -23,9 +24,7 @@ export default function JoinPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="mb-3 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
-              Welcome
-            </p>
+            <Eyebrow className="mb-3">Welcome</Eyebrow>
             <h1 className="mb-8 text-5xl leading-tight font-black text-slate-900 md:text-7xl">
               Join Us
             </h1>
@@ -44,16 +43,14 @@ export default function JoinPage() {
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.05]"
           style={{
-            backgroundImage: "radial-gradient(#8cc63f 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(var(--color-brand) 1px, transparent 1px)",
             backgroundSize: "40px 40px",
           }}
         ></div>
 
         <div className="relative z-10 mx-auto max-w-4xl px-6 md:px-12">
           <div className="mb-16 text-center md:mb-24">
-            <p className="mb-3 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
-              Steps
-            </p>
+            <Eyebrow className="mb-3">Steps</Eyebrow>
             <h2 className="text-3xl leading-tight font-black text-slate-900 md:text-5xl">
               入会手続き
             </h2>
@@ -80,19 +77,19 @@ export default function JoinPage() {
                     href="https://auth.digitart.jp/join/form"
                     target="_blank"
                     rel="noreferrer"
-                    className="border-b-2 border-[#8cc63f]/30 font-bold text-[#8cc63f] transition-colors hover:border-[#8cc63f] hover:text-[#6E9442]"
+                    className="border-b-2 border-brand/30 font-bold text-brand transition-colors hover:border-brand hover:text-brand-logo"
                   >
                     仮入会フォーム
                   </a>
                   より必要事項を入力し、Discordへの招待リンクを取得してください。
                 </p>
-                <div className="border-l-4 border-[#8cc63f] bg-slate-50 p-5 text-sm text-slate-600">
+                <div className="border-l-4 border-brand bg-slate-50 p-5 text-sm text-slate-600">
                   <p>
                     <a
                       href="https://auth.digitart.jp/contact"
                       target="_blank"
                       rel="noreferrer"
-                      className="font-bold text-[#8cc63f] hover:underline"
+                      className="font-bold text-brand hover:underline"
                     >
                       お問い合わせフォーム
                     </a>
@@ -134,7 +131,7 @@ export default function JoinPage() {
               <div className="flex-1 pt-2 md:pt-4">
                 <h3 className="mb-4 text-2xl font-bold text-slate-900 md:text-3xl">
                   Discordへの参加{" "}
-                  <span className="text-xl text-[#8cc63f] md:text-2xl">(仮入会完了)</span>
+                  <span className="text-xl text-brand md:text-2xl">(仮入会完了)</span>
                 </h3>
                 <p className="text-lg leading-relaxed text-slate-600">
                   受け取った招待リンクから、当サークルのDiscordサーバに参加してください。これにより仮入会が完了となります。
@@ -151,7 +148,7 @@ export default function JoinPage() {
               className="relative flex flex-col gap-6 md:flex-row md:gap-12"
             >
               <div className="relative z-10 shrink-0">
-                <span className="bg-gradient-to-br from-[#8cc63f] to-emerald-600 bg-clip-text text-6xl font-black text-transparent md:text-7xl">
+                <span className="bg-gradient-to-br from-brand to-emerald-600 bg-clip-text text-6xl font-black text-transparent md:text-7xl">
                   03
                 </span>
               </div>
@@ -185,9 +182,7 @@ export default function JoinPage() {
             transition={{ duration: 0.8 }}
           >
             <div className="mb-8">
-              <p className="mb-3 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
-                Contact
-              </p>
+              <Eyebrow className="mb-3">Contact</Eyebrow>
               <h2 className="text-3xl leading-tight font-black text-slate-900">お問い合わせ窓口</h2>
             </div>
             <p className="mb-10 text-lg leading-relaxed text-slate-600">
@@ -198,9 +193,9 @@ export default function JoinPage() {
                 href="https://auth.digitart.jp/contact"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-[#8cc63f]/30 hover:shadow-md"
+                className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-brand/30 hover:shadow-md"
               >
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-50 text-slate-700 transition-colors group-hover:bg-[#8cc63f] group-hover:text-white">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-50 text-slate-700 transition-colors group-hover:bg-brand group-hover:text-white">
                   <svg
                     className="h-6 w-6"
                     fill="none"
@@ -215,7 +210,7 @@ export default function JoinPage() {
                     />
                   </svg>
                 </span>
-                <span className="text-lg font-bold text-slate-800 transition-colors group-hover:text-[#8cc63f]">
+                <span className="text-lg font-bold text-slate-800 transition-colors group-hover:text-brand">
                   お問い合わせフォーム
                 </span>
               </a>
@@ -238,9 +233,9 @@ export default function JoinPage() {
                 href={SOCIAL_LINKS.instagram.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-[#E1306C]/30 hover:shadow-md"
+                className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-instagram/30 hover:shadow-md"
               >
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-50 text-slate-700 transition-colors group-hover:bg-[#E1306C] group-hover:text-white">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-50 text-slate-700 transition-colors group-hover:bg-instagram group-hover:text-white">
                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth="2"></rect>
                     <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" strokeWidth="2"></path>
@@ -254,7 +249,7 @@ export default function JoinPage() {
                     ></line>
                   </svg>
                 </span>
-                <span className="text-lg font-bold text-slate-800 transition-colors group-hover:text-[#E1306C]">
+                <span className="text-lg font-bold text-slate-800 transition-colors group-hover:text-instagram">
                   {SOCIAL_LINKS.instagram.label}
                 </span>
               </a>
@@ -269,9 +264,7 @@ export default function JoinPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="mb-8">
-              <p className="mb-3 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
-                Activities
-              </p>
+              <Eyebrow className="mb-3">Activities</Eyebrow>
               <h2 className="text-3xl leading-tight font-black text-slate-900">主な活動内容</h2>
             </div>
             <p className="mb-10 text-lg leading-relaxed text-slate-600">

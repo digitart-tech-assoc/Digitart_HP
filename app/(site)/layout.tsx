@@ -1,7 +1,7 @@
-import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import JsonLd from "@/components/JsonLd";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SOCIAL_LINKS } from "@/lib/constants";
 
 const orgJsonLd = {

@@ -16,7 +16,8 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 import JoinUs from "@/components/about/JoinUs";
-import { ImageWithFallback } from "@/components/ImageWithFallback";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
 // image imports (place files under app/about/assets/)
 import dataHero from "./assets/data_hero.jpg";
@@ -243,9 +244,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="mb-16 text-center"
           >
-            <p className="mb-3 text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
-              Overview
-            </p>
+            <Eyebrow className="mb-3">Overview</Eyebrow>
             <h2 className="mb-8 text-4xl font-black text-slate-900 md:text-5xl">
               Digitartについて
             </h2>
@@ -297,7 +296,7 @@ export default function AboutPage() {
             >
               <div className="flex-1">
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="text-[10px] font-bold tracking-[0.3em] text-[#8cc63f] uppercase md:text-xs">
+                  <span className="text-[10px] font-bold tracking-[0.3em] text-brand uppercase md:text-xs">
                     {card.subtitle}
                   </span>
                 </div>

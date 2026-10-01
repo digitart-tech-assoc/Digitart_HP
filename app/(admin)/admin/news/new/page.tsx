@@ -2,15 +2,9 @@
 
 import { ImagePlus, Send, Loader2 } from "lucide-react";
 import { useState, useRef, useActionState } from "react";
-import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
-import rehypeKatex from "rehype-katex";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
 
 import { publishArticleAction, ActionState } from "@/app/(admin)/admin/actions";
-import "katex/dist/katex.min.css";
+import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 
 const initialState: ActionState = {
   error: null,
@@ -68,6 +62,12 @@ export default function AdminNewsEditor() {
       }
     };
     reader.readAsDataURL(file);
+  };
+
+  // まだアップロードしていない画像は、手元にある base64 データでプレビューする
+  const resolvePreviewImageSrc = (src: string) => {
+    const pendingImage = images.find((img) => img.path === "public" + src);
+    return pendingImage ? `data:image/png;base64,${pendingImage.content}` : src;
   };
 
   const handlePaste = (e: React.ClipboardEvent) => {
@@ -288,117 +288,11 @@ export default function AdminNewsEditor() {
 
         {/* Right Side: Preview */}
         <div className="w-1/2 max-w-none overflow-y-auto border-l border-slate-100 bg-white p-10 shadow-inner">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-              h1: ({ node, ...props }) => (
-                <h1
-                  className="mt-6 mb-4 border-b-2 border-slate-100 pb-3 text-2xl font-extrabold text-slate-900 md:text-3xl"
-                  {...props}
-                />
-              ),
-              h2: ({ node, ...props }) => (
-                <h2
-                  className="mt-8 mb-3 border-b border-slate-100 pb-2 text-xl font-bold text-slate-900 md:text-2xl"
-                  {...props}
-                />
-              ),
-              h3: ({ node, ...props }) => (
-                <h3
-                  className="mt-6 mb-3 flex items-center gap-2 text-lg font-bold text-slate-900 md:text-xl"
-                  {...props}
-                >
-                  <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>
-                  {props.children}
-                </h3>
-              ),
-              p: ({ node, ...props }) => (
-                <p
-                  className="mb-5 text-base leading-relaxed font-medium text-slate-700"
-                  {...props}
-                />
-              ),
-              a: ({ node, href, children, ...props }) => {
-                const linkClass =
-                  "text-emerald-600 hover:text-emerald-700 underline underline-offset-4 decoration-emerald-200 hover:decoration-emerald-500 transition-all font-bold";
-                return (
-                  <a
-                    href={href}
-                    className={linkClass}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    {...props}
-                  >
-                    {children}
-                  </a>
-                );
-              },
-              ul: ({ node, ...props }) => (
-                <ul
-                  className="mb-5 ml-6 list-outside list-disc space-y-1.5 font-medium text-slate-700 marker:text-emerald-500"
-                  {...props}
-                />
-              ),
-              ol: ({ node, ...props }) => (
-                <ol
-                  className="mb-5 ml-6 list-outside list-decimal space-y-1.5 font-mono font-medium text-slate-700 marker:text-emerald-600"
-                  {...props}
-                />
-              ),
-              li: ({ node, ...props }) => (
-                <li className="pl-1 leading-relaxed text-slate-700" {...props} />
-              ),
-              blockquote: ({ node, ...props }) => (
-                <blockquote
-                  className="my-4 rounded-r-xl border-l-4 border-emerald-400 bg-emerald-50/50 py-1.5 pl-4 font-medium text-slate-600 italic"
-                  {...props}
-                />
-              ),
-              code: ({ node, className, children, ...props }: any) => {
-                const match = /language-(\w+)/.exec(className || "");
-                return match ? (
-                  <SyntaxHighlighter
-                    {...props}
-                    style={vscDarkPlus as any}
-                    language={match[1]}
-                    PreTag="div"
-                  >
-                    {String(children).replace(/\n$/, "")}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code
-                    className="rounded-md border border-slate-200 bg-slate-100 px-2 py-1 font-mono text-sm break-words text-slate-800"
-                    {...props}
-                  >
-                    {children}
-                  </code>
-                );
-              },
-              img: ({ node, alt, src, ...props }) => {
-                // If it's a dropped image, src might be a local path that hasn't been uploaded.
-                // We show base64 content instead if we have it in our state.
-                const imgState = images.find((img) => img.path === "public" + src);
-                const actualSrc = imgState ? `data:image/png;base64,${imgState.content}` : src;
-
-                return (
-                  <span className="mx-auto my-10 block w-fit max-w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
-                    <img
-                      className="!m-0 h-auto max-h-96 w-auto max-w-full object-cover"
-                      src={actualSrc}
-                      alt={alt || "記事内画像"}
-                      {...props}
-                    />
-                  </span>
-                );
-              },
-              hr: ({ node, ...props }) => (
-                <hr className="my-10 border-t-2 border-dashed border-slate-100" {...props} />
-              ),
-            }}
-          >
-            {content || "*ここにプレビューが表示されます...*"}
-          </ReactMarkdown>
+          <MarkdownRenderer
+            content={content || "*ここにプレビューが表示されます...*"}
+            openLinksInNewTab
+            resolveImageSrc={resolvePreviewImageSrc}
+          />
         </div>
       </div>
     </div>

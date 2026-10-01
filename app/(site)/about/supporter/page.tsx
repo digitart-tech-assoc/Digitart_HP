@@ -10,7 +10,7 @@ import icon_chrom from "@/app/(site)/about/assets/supporter/icon_chrom.jpg";
 import icon_kuzumochi from "@/app/(site)/about/assets/supporter/icon_kuzumochi.png";
 import icon_mimisuke from "@/app/(site)/about/assets/supporter/icon_mimisuke.png";
 import JoinUs from "@/components/about/JoinUs";
-import { ImageWithFallback } from "@/components/ImageWithFallback";
+import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
 const MEMBERS = [
   {

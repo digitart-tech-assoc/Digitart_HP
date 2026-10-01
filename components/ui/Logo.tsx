@@ -8,7 +8,7 @@ interface LogoProps {
   "aria-label"?: string;
 }
 
-export default function Logo({
+export function Logo({
   width = 120,
   height = 120,
   style = {},

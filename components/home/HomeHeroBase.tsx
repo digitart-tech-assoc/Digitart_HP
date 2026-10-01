@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, useRef, ReactNode } from "react";
 
-import Logo from "@/components/Logo";
+import { Logo } from "@/components/ui/Logo";
 import { SITE_NAME } from "@/lib/constants";
 
 const SLIDE_SRCS = [
@@ -129,7 +129,7 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
               }}
               className="h-1.5 w-1.5 rounded-full transition-all duration-300"
               style={{
-                background: i === current ? "#8cc63f" : "rgba(255,255,255,0.35)",
+                background: i === current ? "var(--color-brand)" : "rgba(255,255,255,0.35)",
                 transform: i === current ? "scale(1.6)" : "scale(1)",
               }}
               aria-label={`スライド ${i + 1}`}
@@ -175,7 +175,7 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
           </div>
 
           {/* Eyebrow — break after "UNIVERSITY" on small screens */}
-          <p className="mb-6 text-[10px] font-bold tracking-[0.22em] text-[#8cc63f] uppercase sm:text-xs md:mb-8 md:text-sm">
+          <p className="mb-6 text-[10px] font-bold tracking-[0.22em] text-brand uppercase sm:text-xs md:mb-8 md:text-sm">
             <span className="block sm:inline">Aoyama Gakuin University</span>
             <span className="hidden sm:inline"> · </span>
             <span className="block sm:inline">Creator Community</span>
@@ -188,7 +188,7 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
           >
             好きを
             <br className="sm:hidden" />
-            <span style={{ color: "#8cc63f" }}>カタチに</span>しよう
+            <span style={{ color: "var(--color-brand)" }}>カタチに</span>しよう
           </h1>
 
           {/* Description + Buttons */}
@@ -200,7 +200,7 @@ export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/join"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#8cc63f] px-7 py-3 text-sm font-bold text-white shadow-[0_0_24px_rgba(140,198,63,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#7ab135] md:px-10 md:py-4 md:text-base"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-3 text-sm font-bold text-white shadow-[0_0_24px_rgba(140,198,63,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-hover md:px-10 md:py-4 md:text-base"
             >
               入会する
               <svg

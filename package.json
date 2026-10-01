@@ -14,7 +14,6 @@
     "pages:build": "npx @cloudflare/next-on-pages"
   },
   "dependencies": {
-    "dompurify": "^3.3.2",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.577.0",
     "motion": "^12.35.0",

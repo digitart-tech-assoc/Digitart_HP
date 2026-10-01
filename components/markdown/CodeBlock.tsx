@@ -8,11 +8,12 @@ interface CodeBlockProps {
   children: React.ReactNode;
 }
 
-export default function CodeBlock({ language, children }: CodeBlockProps) {
+/** 言語指定付きのコードブロックをシンタックスハイライトして表示する */
+export function CodeBlock({ language, children }: CodeBlockProps) {
   return (
     <div className="my-8 overflow-hidden rounded-2xl font-mono leading-relaxed shadow-inner">
       <SyntaxHighlighter
-        style={vscDarkPlus as any}
+        style={vscDarkPlus}
         language={language}
         PreTag="div"
         customStyle={{

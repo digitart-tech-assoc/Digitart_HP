@@ -16,7 +16,7 @@ import WakabaCreate_img from "@/app/(site)/about/assets/events/wakaba-create.jpg
 import WelcomeEvent_img from "@/app/(site)/about/assets/events/welcome-event.jpg";
 import WelcomeLecture_img from "@/app/(site)/about/assets/events/welcome-lecture.jpg";
 import JoinUs from "@/components/about/JoinUs";
-import { ImageWithFallback } from "@/components/ImageWithFallback";
+import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
 const ANNUAL_EVENTS = [
   {
