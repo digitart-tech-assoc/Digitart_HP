@@ -1,7 +1,7 @@
 "use client";
 
 import { ImagePlus, Send, Loader2 } from "lucide-react";
-import { useState, useRef, useActionState, FormEvent } from "react";
+import { useState, useRef, useActionState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";

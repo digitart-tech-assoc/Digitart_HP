@@ -12,7 +12,6 @@ import programmer_recycle from "@/app/about/assets/works/programmer-recycle.png"
 import slime_defence from "@/app/about/assets/works/slime-defence.png";
 import JoinUs from "@/components/about/JoinUs";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
-import { getCustomMetadata } from "@/lib/metadata";
 
 const PROJECTS = [
   {

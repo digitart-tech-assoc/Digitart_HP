@@ -19,7 +19,7 @@ export default async function Page() {
   let content = "";
   try {
     content = await fs.readFile(filePath, "utf8");
-  } catch (err) {
+  } catch {
     content = "規約ファイルが見つかりません。";
   }
 

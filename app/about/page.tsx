@@ -5,7 +5,6 @@ import {
   Code,
   Gamepad2,
   Palette,
-  Cpu,
   History,
   Calendars,
   Briefcase,
