@@ -4,7 +4,8 @@ import { cookies } from "next/headers";
 
 import { buildArticleMarkdown, filterReferencedImages } from "@/features/news/editor/articleFile";
 import { createPullRequestWithFiles, type RepositoryFile } from "@/features/news/editor/github";
-import type { ArticleFields, PendingImage, PublishState } from "@/features/news/editor/types";
+import { parsePublishInput } from "@/features/news/editor/publishInput";
+import type { PublishState } from "@/features/news/editor/types";
 import { ADMIN_SESSION_COOKIE, isAdminSession } from "@/lib/adminSession";
 import { ARTICLES_DIR } from "@/lib/contentPaths";
 
@@ -20,44 +21,30 @@ export async function publishArticleAction(
   formData: FormData,
 ): Promise<PublishState> {
   const cookieStore = await cookies();
-  if (!isAdminSession(cookieStore.get(ADMIN_SESSION_COOKIE)?.value)) {
+  if (!(await isAdminSession(cookieStore.get(ADMIN_SESSION_COOKIE)?.value))) {
     return { error: "認証されていません。", success: false, prUrl: null };
   }
 
-  try {
-    const fields: ArticleFields = {
+  const input = parsePublishInput({
+    fields: {
       title: getString(formData, "title"),
       author: getString(formData, "author"),
       date: getString(formData, "date"),
       slug: getString(formData, "slug"),
       category: getString(formData, "category"),
       excerpt: getString(formData, "excerpt"),
-    };
-    const content = getString(formData, "content");
-    const imagesJson = getString(formData, "images");
+    },
+    content: getString(formData, "content"),
+    imagesJson: getString(formData, "images"),
+  });
+  if (!input.ok) {
+    return { error: input.error, success: false, prUrl: null };
+  }
 
-    if (
-      !fields.title ||
-      !fields.author ||
-      !fields.date ||
-      !fields.category ||
-      !content ||
-      !fields.slug
-    ) {
-      return { error: "必須項目が入力されていません。", success: false, prUrl: null };
-    }
+  const { fields, content } = input.value;
+  const images = filterReferencedImages(input.value.images, content);
 
-    if (!/^[a-z0-9-]+$/.test(fields.slug)) {
-      return {
-        error: "ファイル名は半角英小文字、数字、ハイフンのみ使用可能です。",
-        success: false,
-        prUrl: null,
-      };
-    }
-
-    const allImages: PendingImage[] = imagesJson ? JSON.parse(imagesJson) : [];
-    const images = filterReferencedImages(allImages, content);
-
+  try {
     const files: RepositoryFile[] = [
       {
         path: `${ARTICLES_DIR}/${fields.date}-${fields.slug}.md`,
