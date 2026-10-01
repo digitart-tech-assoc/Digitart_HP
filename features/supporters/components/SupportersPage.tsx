@@ -1,0 +1,129 @@
+import { Quote } from "lucide-react";
+import * as motion from "motion/react-client";
+
+import { JoinUsSection } from "@/components/sections/JoinUsSection";
+import { PageHero } from "@/components/sections/PageHero";
+import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
+import { MEMBERS, QA } from "@/features/supporters/data";
+
+export function SupportersPage() {
+  return (
+    <div className="bg-white">
+      <PageHero title="幹部紹介" subtitle="Digitartを支える人たち" backHref="/about" />
+
+      {/* Intro */}
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-4xl text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-lg leading-relaxed text-gray-600"
+          >
+            Digitartにはどんなメンバーが集まっているのか？
+            <br />
+            Digitartを支える「人」にフォーカスします。
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Member Profiles */}
+      <section className="px-6 py-12">
+        <div className="mx-auto max-w-6xl space-y-20">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
+              第7期役員
+            </h2>
+          </div>
+          {MEMBERS.map((member, i) => {
+            return (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.8 }}
+                className={`flex flex-col ${
+                  i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                } items-center gap-12`}
+              >
+                <div className="flex-shrink-0">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="h-48 w-48 overflow-hidden rounded-full border-4 border-emerald-100 shadow-xl md:h-64 md:w-64"
+                  >
+                    <ImageWithFallback
+                      src={member.image}
+                      alt={member.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </motion.div>
+                </div>
+
+                <div className="flex-1 text-center md:text-left">
+                  <span className="text-sm text-emerald-500" style={{ fontWeight: 600 }}>
+                    {member.year}
+                  </span>
+                  <h3 className="mt-1 mb-1 text-3xl text-gray-900" style={{ fontWeight: 700 }}>
+                    {member.name}
+                  </h3>
+                  <p className="mb-6 text-emerald-600" style={{ fontWeight: 500 }}>
+                    {member.role}
+                  </p>
+                  <div className="relative rounded-2xl bg-emerald-50 p-6">
+                    <Quote className="absolute top-4 left-4 h-8 w-8 text-emerald-300" />
+                    <p className="pt-2 pl-8 leading-relaxed text-gray-700 italic">{member.quote}</p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Q&A Section */}
+      <section className="bg-emerald-50/60 px-6 py-20">
+        <div className="mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-16 text-center"
+          >
+            <h2 className="mb-4 text-4xl text-gray-900" style={{ fontWeight: 700 }}>
+              Q&A
+            </h2>
+            <p className="text-gray-600">よくある質問</p>
+          </motion.div>
+
+          <div className="space-y-6">
+            {QA.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="rounded-2xl bg-white p-8 shadow-sm"
+              >
+                <div className="mb-4 flex items-start gap-4">
+                  <span className="text-2xl text-emerald-500" style={{ fontWeight: 700 }}>
+                    Q.{String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h4 className="text-xl text-gray-900" style={{ fontWeight: 600 }}>
+                    {item.q}
+                  </h4>
+                </div>
+                <p className="ml-14 leading-relaxed text-gray-600">{item.a}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <JoinUsSection />
+    </div>
+  );
+}

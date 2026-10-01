@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, useRef, ReactNode } from "react";
 
 import { Logo } from "@/components/ui/Logo";
+import type { IntroPhase } from "@/features/home/components/HomeHeroIntro";
 import { SITE_NAME } from "@/lib/constants";
 
 const SLIDE_SRCS = [
@@ -14,14 +15,14 @@ const SLIDE_SRCS = [
   "images/heros/05.jpg",
 ];
 
-type Phase = "intro" | "expand" | "white" | "done";
-
 interface HomeHeroBaseProps {
-  renderIntro: (phase: Phase) => ReactNode;
+  /** イントロアニメーションの描画（段階ごとに呼ばれる） */
+  renderIntro: (phase: IntroPhase) => ReactNode;
 }
 
-export default function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
-  const [phase, setPhase] = useState<Phase>("intro");
+/** トップページのヒーロー本体（イントロの進行・背景スライドショー・キャッチコピー） */
+export function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
+  const [phase, setPhase] = useState<IntroPhase>("intro");
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [transitioning, setTransitioning] = useState(false);

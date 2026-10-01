@@ -2,23 +2,19 @@
 
 import { useEffect, useState } from "react";
 
-import HomeHeroBase from "./HomeHeroBase";
-import HomeHeroIntroDark from "./HomeHeroIntroDark";
-import HomeHeroIntroLight from "./HomeHeroIntroLight";
+import { HomeHeroBase } from "@/features/home/components/HomeHeroBase";
+import { HomeHeroIntro, type IntroPhase } from "@/features/home/components/HomeHeroIntro";
 
-type Phase = "intro" | "expand" | "white" | "done";
-
-export default function HomeHero() {
+/** トップページのヒーロー。OS のダークモード設定に合わせてイントロの背景色を切り替える */
+export function HomeHero() {
   const [isDark, setIsDark] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Check system preference
     const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
     setIsDark(darkModeQuery.matches);
     setIsLoaded(true);
 
-    // Listen for changes
     const handleChange = (e: MediaQueryListEvent) => {
       setIsDark(e.matches);
     };
@@ -30,8 +26,9 @@ export default function HomeHero() {
     return null;
   }
 
-  const renderIntro = (phase: Phase) =>
-    isDark ? <HomeHeroIntroDark phase={phase} /> : <HomeHeroIntroLight phase={phase} />;
+  const renderIntro = (phase: IntroPhase) => (
+    <HomeHeroIntro phase={phase} theme={isDark ? "dark" : "light"} />
+  );
 
   return <HomeHeroBase renderIntro={renderIntro} />;
 }

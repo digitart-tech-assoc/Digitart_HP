@@ -33,6 +33,7 @@ app  →  features  →  components / lib
 ├── components/          # 機能に依存しない共通 UI
 │   ├── ui/              # Button / SectionHeading などの汎用部品
 │   ├── layout/          # Header / Footer
+│   ├── sections/        # 複数ページで使うセクション（PageHero / JoinUsSection など）
 │   ├── markdown/        # Markdown の表示
 │   └── seo/             # 構造化データなど
 ├── lib/                 # ドメイン知識を持たない汎用処理（サイト定数・メタデータ・日付など）

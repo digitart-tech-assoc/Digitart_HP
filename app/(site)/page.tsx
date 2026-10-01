@@ -1,48 +1,14 @@
 import Link from "next/link";
 
-import JoinUs from "@/components/about/JoinUs";
-import EventCalendar from "@/components/home/EventCalendar";
-import HomeHero from "@/components/home/HomeHero";
-import PickupPages from "@/components/home/PickupPages";
+import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
+import { EventCalendar } from "@/features/events/components/EventCalendar";
+import { HomeHero } from "@/features/home/components/HomeHero";
+import { PickupPages } from "@/features/home/components/PickupPages";
+import { PICKUP_ITEMS } from "@/features/home/data";
 import { getAllArticles } from "@/features/news/articles";
 import { NewsList } from "@/features/news/components/NewsList";
-
-const PICKUP_ITEMS = [
-  {
-    href: "/about",
-    en: "About",
-    ja: "活動内容",
-    desc: "プログラミング・ゲーム・デザインを横断するDigitartの活動を紹介します。",
-    image: "/images/about/works-hero.jpg",
-    imagePosition: "bg-center",
-  },
-  {
-    href: "/about/works",
-    en: "Works",
-    ja: "制作物",
-    desc: "メンバーが生み出した作品・プロジェクトをご覧いただけます。",
-    image: "/images/about/history-hero.jpg",
-    imagePosition: "bg-center",
-  },
-  {
-    href: "/news",
-    en: "News",
-    ja: "最新情報",
-    desc: "サークルの最新情報やコラムをお届けします。",
-    image: "/images/events/sagamihara-fes.jpg",
-    imagePosition: "bg-center",
-  },
-  {
-    href: "/join",
-    en: "Join Us",
-    ja: "入会案内",
-    desc: "Digitartへの入会方法や活動日程を確認できます。",
-    image: "/images/about/supporters-hero.jpg",
-    imagePosition: "bg-center",
-  },
-];
 
 export default function Home() {
   const allArticles = getAllArticles();
@@ -137,7 +103,7 @@ export default function Home() {
         </section>
 
         {/* ── Join Us ──────────────────────────────────────── */}
-        <JoinUs />
+        <JoinUsSection />
       </div>
     </div>
   );

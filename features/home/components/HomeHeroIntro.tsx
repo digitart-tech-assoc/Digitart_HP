@@ -2,18 +2,29 @@
 
 import { Logo } from "@/components/ui/Logo";
 
+/**
+ * トップページを開いたときのロゴアニメーションの段階。
+ * intro（ロゴ表示）→ expand（ロゴが拡大）→ white（フェードアウト）→ done（終了）の順に進む。
+ */
+export type IntroPhase = "intro" | "expand" | "white" | "done";
+
 interface HomeHeroIntroProps {
-  phase: "intro" | "expand" | "white" | "done";
+  phase: IntroPhase;
+  /** OS のダークモード設定に合わせた背景色 */
+  theme: "light" | "dark";
 }
 
-export default function HomeHeroIntroDark({ phase }: HomeHeroIntroProps) {
+const BACKGROUND_COLOR = { light: "#ffffff", dark: "#222" } as const;
+
+/** トップページを開いたときに全画面で表示するロゴアニメーション */
+export function HomeHeroIntro({ phase, theme }: HomeHeroIntroProps) {
   return (
     <>
       {phase !== "done" && (
         <div
           className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center"
           style={{
-            backgroundColor: "#222",
+            backgroundColor: BACKGROUND_COLOR[theme],
             opacity: phase === "white" ? 0 : 1,
             transition: "opacity 0.8s ease-in-out",
           }}

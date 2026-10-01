@@ -27,7 +27,8 @@ export function getCustomMetadata({
     : `${SITE_URL}/images/digitart_OGP.jpg`;
 
   return {
-    title: pageTitle,
+    // pageTitle にはサイト名を付けてあるので、ルートレイアウトの title.template（"%s | サイト名"）を適用させない
+    title: { absolute: pageTitle },
     description: pageDescription,
     keywords: keywords.length > 0 ? keywords : undefined,
     openGraph: {
