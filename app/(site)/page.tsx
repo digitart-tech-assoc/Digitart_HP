@@ -8,10 +8,10 @@ import JoinUs from "@/components/about/JoinUs";
 import EventCalendar from "@/components/home/EventCalendar";
 import HomeHero from "@/components/home/HomeHero";
 import PickupPages from "@/components/home/PickupPages";
-import NewsList from "@/components/news/NewsList";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
-import { getSortedArticlesData } from "@/lib/news";
+import { getAllArticles } from "@/features/news/articles";
+import { NewsList } from "@/features/news/components/NewsList";
 
 const PICKUP_ITEMS = [
   {
@@ -49,7 +49,7 @@ const PICKUP_ITEMS = [
 ];
 
 export default function Home() {
-  const allArticles = getSortedArticlesData();
+  const allArticles = getAllArticles();
 
   return (
     <div className="bg-transparent text-slate-900">

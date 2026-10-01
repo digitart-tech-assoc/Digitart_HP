@@ -3,34 +3,28 @@
 import Link from "next/link";
 import { useState } from "react";
 
-type Article = {
-  id: string;
-  title: string;
-  date: string;
-  excerpt?: string;
-  author?: string;
-  image?: string;
-  category?: "notice" | "column";
-};
+import {
+  ARTICLE_CATEGORIES,
+  type ArticleCategory,
+  type ArticleSummary,
+} from "@/features/news/schema";
 
-type TabType = "all" | "notice" | "column";
+type TabType = "all" | ArticleCategory;
 
 const TABS: { id: TabType; label: string }[] = [
   { id: "all", label: "すべて" },
-  { id: "notice", label: "お知らせ" },
-  { id: "column", label: "コラム" },
+  ...(Object.entries(ARTICLE_CATEGORIES) as [ArticleCategory, { label: string }][]).map(
+    ([id, { label }]) => ({ id, label }),
+  ),
 ];
 
-const CAT_META: Record<"notice" | "column", { label: string; color: string; bg: string }> = {
-  notice: { label: "お知らせ", color: "#b91c1c", bg: "#fee2e2" },
-  column: { label: "コラム", color: "#3d7a18", bg: "#e8f4df" },
-};
-
-export default function NewsList({
+/** 記事一覧。カテゴリのタブで絞り込める */
+export function NewsList({
   articles,
   maxItemsPerTab,
 }: {
-  articles: Article[];
+  articles: ArticleSummary[];
+  /** 各タブに表示する最大件数（トップページなどで件数を絞るときに指定） */
   maxItemsPerTab?: number;
 }) {
   const [activeTab, setActiveTab] = useState<TabType>("all");
@@ -39,7 +33,7 @@ export default function NewsList({
     .filter((a) => activeTab === "all" || a.category === activeTab)
     .slice(0, maxItemsPerTab);
 
-  // Count actual total vs capped; show "N+" if more articles exist beyond the cap
+  // 上限より多く記事がある場合は「5+」のように表示する
   const countFor = (tab: TabType) => {
     const total =
       tab === "all" ? articles.length : articles.filter((a) => a.category === tab).length;
@@ -51,7 +45,7 @@ export default function NewsList({
 
   return (
     <div>
-      {/* Tabs */}
+      {/* カテゴリのタブ */}
       <div className="mb-8 flex justify-center gap-2 md:mb-12 md:gap-4">
         {TABS.map((tab) => (
           <button
@@ -75,36 +69,32 @@ export default function NewsList({
 
       {filtered.length > 0 ? (
         <ul className="flex flex-col gap-4 md:gap-6">
-          {filtered.map(({ id, date, title, excerpt, category }) => {
-            const meta = category ? CAT_META[category] : null;
+          {filtered.map(({ slug, date, title, excerpt, category }) => {
+            const meta = ARTICLE_CATEGORIES[category];
             return (
-              <li key={id} className="group">
+              <li key={slug} className="group">
                 <Link
-                  href={`/news/${id}`}
+                  href={`/news/${slug}`}
                   className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl md:flex-row md:items-stretch md:gap-6 md:p-6"
                 >
-                  {/* Decorative line on the left */}
+                  {/* 左端のカテゴリ色の線 */}
                   <div
-                    className={`absolute top-0 bottom-0 left-0 w-1 transition-colors duration-300 md:w-1.5 ${
-                      meta ? "" : "bg-slate-200"
-                    } opacity-80 group-hover:opacity-100`}
-                    style={meta ? { backgroundColor: meta.color } : {}}
+                    className="absolute top-0 bottom-0 left-0 w-1 opacity-80 transition-colors duration-300 group-hover:opacity-100 md:w-1.5"
+                    style={{ backgroundColor: meta.color }}
                   />
 
-                  {/* Date and Badge section */}
+                  {/* カテゴリと日付 */}
                   <div className="flex shrink-0 items-center justify-between gap-3 pt-0.5 pl-2 md:w-32 md:flex-col md:items-start md:justify-start md:pl-3">
-                    {meta && (
-                      <span
-                        className="inline-flex items-center justify-center rounded-full border px-2.5 py-1 text-[10px] font-bold md:text-xs"
-                        style={{
-                          color: meta.color,
-                          backgroundColor: meta.bg,
-                          borderColor: `${meta.color}40`,
-                        }}
-                      >
-                        {meta.label}
-                      </span>
-                    )}
+                    <span
+                      className="inline-flex items-center justify-center rounded-full border px-2.5 py-1 text-[10px] font-bold md:text-xs"
+                      style={{
+                        color: meta.color,
+                        backgroundColor: meta.bg,
+                        borderColor: `${meta.color}40`,
+                      }}
+                    >
+                      {meta.label}
+                    </span>
                     <time
                       dateTime={date}
                       className="font-mono text-sm font-bold text-slate-400 tabular-nums md:text-base"
@@ -113,7 +103,7 @@ export default function NewsList({
                     </time>
                   </div>
 
-                  {/* Content section */}
+                  {/* タイトルと概要 */}
                   <div className="flex min-w-0 flex-1 flex-col justify-center">
                     <h3 className="mb-2 text-lg leading-snug font-bold text-slate-800 transition-colors group-hover:text-brand md:text-xl md:leading-[1.5]">
                       {title}
@@ -125,7 +115,7 @@ export default function NewsList({
                     )}
                   </div>
 
-                  {/* Optional icon/chevron for affordance */}
+                  {/* クリックできることを示す矢印 */}
                   <div className="hidden items-center justify-center pr-2 md:flex">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 transition-colors duration-300 group-hover:bg-brand/10">
                       <svg
