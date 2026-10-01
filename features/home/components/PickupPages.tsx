@@ -10,7 +10,8 @@ type PickupItem = {
   imagePosition?: string;
 };
 
-export default function PickupPages({ items }: { items: PickupItem[] }) {
+/** トップページの「トピックス」。主要ページへの画像付きリンク */
+export function PickupPages({ items }: { items: PickupItem[] }) {
   return (
     <div>
       <div className="grid gap-4 md:grid-cols-2">

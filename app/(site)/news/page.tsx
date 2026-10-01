@@ -3,8 +3,17 @@ import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { getAllArticles } from "@/features/news/articles";
 import { NewsList } from "@/features/news/components/NewsList";
+import { getCustomMetadata } from "@/lib/metadata";
 
 export const dynamic = "force-static";
+
+export const metadata = getCustomMetadata({
+  title: "ニュース",
+  description:
+    "Digitartテクノロジー愛好会の最新ニュースや活動報告。プログラミング、ゲーム開発、技術に関する情報などを発信しています。",
+  keywords: ["青学", "サークル", "ニュース", "活動報告", "プログラミング", "ゲーム", "イベント"],
+  path: "/news",
+});
 
 export default function NewsPage() {
   const allArticlesData = getAllArticles();

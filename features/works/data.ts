@@ -1,0 +1,51 @@
+/** メンバーの制作物 */
+export const PROJECTS = [
+  {
+    title: "チョコミント よりも あ・な・た♡【非公式】",
+    desc: "ルビィちゃんが好きなものを「矛盾なく」発表するゲーム。",
+    tech: ["Unity", "Figma"],
+    image: "/images/works/choco-mint.png",
+    url: "https://unityroom.com/games/chocomint_yorimo_anata",
+    category: "Game",
+  },
+  {
+    title: "AuthWebApp",
+    desc: "サークルのDiscord処理を管理するWebシステム(内部向け)。",
+    tech: ["React", "FastAPI", "Supabase"],
+    image: "/images/works/auth-web-app.png",
+    url: null,
+    category: "Web app",
+  },
+  {
+    title: "Aeterna",
+    desc: "ゴシックファンタジーをテーマにした音楽ゲーム。",
+    tech: ["Unity", "C#", "Cubase"],
+    image: "/images/works/aterna.png",
+    url: "https://unityroom.com/games/aeterna",
+    category: "Game",
+  },
+  {
+    title: "プログラマーはrecycle()されました",
+    desc: "ロジックを構築し、実行して敵を倒すローグライクゲーム。",
+    tech: ["React", "Tailwind CSS", "PostgreSQL"],
+    image: "/images/works/programmer-recycle.png",
+    url: null,
+    category: "Web app",
+  },
+  {
+    title: "引き放て！スライムディフェンス！",
+    desc: "スライムが弓とスキルを駆使して迫りくる敵を迎え撃つタワーディフェンスゲーム。",
+    tech: ["Unity", "C#"],
+    image: "/images/works/slime-defence.png",
+    url: "https://unityroom.com/games/slimedefence",
+    category: "Game",
+  },
+  {
+    title: "AI-VOICEVOX",
+    desc: "LLM（生成AI）同士を討論させたり、質問したりできるWebアプリです。",
+    tech: ["Next.js", "JavaScript", "Tailwind CSS"],
+    image: "/images/works/ai-voicevox.png",
+    url: "https://ai-voicevox.vercel.app/",
+    category: "Web app",
+  },
+];

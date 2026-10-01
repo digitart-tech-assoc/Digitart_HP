@@ -1,12 +1,11 @@
-"use client";
-
 import { ArrowRight } from "lucide-react";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 import Link from "next/link";
 
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
-export default function JoinUs() {
+/** 入会案内とお問い合わせへ誘導する、ページ末尾の共通セクション */
+export function JoinUsSection() {
   return (
     <section className="relative overflow-hidden bg-slate-900 px-6 py-24 md:py-32">
       {/* Decorative background element */}

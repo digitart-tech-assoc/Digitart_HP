@@ -34,7 +34,8 @@ function toDateStr(d: Date) {
 
 const DISPLAY_ROWS = 3;
 
-export default function EventCalendar() {
+/** トップページに表示する、直近の予定（content/events.json から今日以降の数件） */
+export function EventCalendar() {
   const rows = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);

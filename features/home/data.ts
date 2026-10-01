@@ -1,0 +1,35 @@
+/** トップページの「トピックス」に並べるページ */
+export const PICKUP_ITEMS = [
+  {
+    href: "/about",
+    en: "About",
+    ja: "活動内容",
+    desc: "プログラミング・ゲーム・デザインを横断するDigitartの活動を紹介します。",
+    image: "/images/about/works-hero.jpg",
+    imagePosition: "bg-center",
+  },
+  {
+    href: "/about/works",
+    en: "Works",
+    ja: "制作物",
+    desc: "メンバーが生み出した作品・プロジェクトをご覧いただけます。",
+    image: "/images/about/history-hero.jpg",
+    imagePosition: "bg-center",
+  },
+  {
+    href: "/news",
+    en: "News",
+    ja: "最新情報",
+    desc: "サークルの最新情報やコラムをお届けします。",
+    image: "/images/events/sagamihara-fes.jpg",
+    imagePosition: "bg-center",
+  },
+  {
+    href: "/join",
+    en: "Join Us",
+    ja: "入会案内",
+    desc: "Digitartへの入会方法や活動日程を確認できます。",
+    image: "/images/about/supporters-hero.jpg",
+    imagePosition: "bg-center",
+  },
+];
