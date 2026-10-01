@@ -4,11 +4,11 @@ import { ArrowLeft } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 
-import period1 from "@/app/about/assets/history/1-period.jpg";
-import period4 from "@/app/about/assets/history/4-period.jpg";
-import period5 from "@/app/about/assets/history/5-period.jpg";
-import period6 from "@/app/about/assets/history/6-period.jpg";
-import period7 from "@/app/about/assets/history/7-period.jpg";
+import period1 from "@/app/(site)/about/assets/history/1-period.jpg";
+import period4 from "@/app/(site)/about/assets/history/4-period.jpg";
+import period5 from "@/app/(site)/about/assets/history/5-period.jpg";
+import period6 from "@/app/(site)/about/assets/history/6-period.jpg";
+import period7 from "@/app/(site)/about/assets/history/7-period.jpg";
 import JoinUs from "@/components/about/JoinUs";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 

@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import newsHero from "@/app/about/assets/events/sagamihara-fes.jpg";
-import worksHero from "@/app/about/assets/history_hero.jpg";
-import joinHero from "@/app/about/assets/supporters_hero.jpg";
-import aboutHero from "@/app/about/assets/works_hero.jpg";
+import newsHero from "@/app/(site)/about/assets/events/sagamihara-fes.jpg";
+import worksHero from "@/app/(site)/about/assets/history_hero.jpg";
+import joinHero from "@/app/(site)/about/assets/supporters_hero.jpg";
+import aboutHero from "@/app/(site)/about/assets/works_hero.jpg";
 import JoinUs from "@/components/about/JoinUs";
 import EventCalendar from "@/components/home/EventCalendar";
 import HomeHero from "@/components/home/HomeHero";
@@ -57,7 +57,7 @@ export default function Home() {
       <HomeHero />
 
       {/* ── Main Content (slides over fixed hero) ────────── */}
-      <main className="relative z-10 overflow-hidden bg-white shadow-[0_-16px_40px_rgba(0,0,0,0.22)]">
+      <div className="relative z-10 overflow-hidden bg-white shadow-[0_-16px_40px_rgba(0,0,0,0.22)]">
         {/* ── Schedule ─────────────────────────────────────── */}
         <section className="border-b border-slate-100 py-16 md:py-28">
           <div className="mx-auto max-w-5xl px-6 md:px-12">
@@ -147,7 +147,7 @@ export default function Home() {
 
         {/* ── Join Us ──────────────────────────────────────── */}
         <JoinUs />
-      </main>
+      </div>
     </div>
   );
 }

@@ -4,12 +4,12 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 
-import ai_voicevox from "@/app/about/assets/works/ai-voicevox.png";
-import aterna from "@/app/about/assets/works/aterna.png";
-import auth_web_app from "@/app/about/assets/works/auth-web-app.png";
-import choco_mint from "@/app/about/assets/works/choco-mint.png";
-import programmer_recycle from "@/app/about/assets/works/programmer-recycle.png";
-import slime_defence from "@/app/about/assets/works/slime-defence.png";
+import ai_voicevox from "@/app/(site)/about/assets/works/ai-voicevox.png";
+import aterna from "@/app/(site)/about/assets/works/aterna.png";
+import auth_web_app from "@/app/(site)/about/assets/works/auth-web-app.png";
+import choco_mint from "@/app/(site)/about/assets/works/choco-mint.png";
+import programmer_recycle from "@/app/(site)/about/assets/works/programmer-recycle.png";
+import slime_defence from "@/app/(site)/about/assets/works/slime-defence.png";
 import JoinUs from "@/components/about/JoinUs";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 

@@ -4,7 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 
 // src配下やapp配下のarticlesディレクトリを指定
-const articlesDirectory = path.join(process.cwd(), "app", "news", "articles");
+const articlesDirectory = path.join(process.cwd(), "app", "(site)", "news", "articles");
 
 export function getSortedArticlesData() {
   // ディレクトリがない（最初）場合は空配列を返す

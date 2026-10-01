@@ -4,17 +4,17 @@ import { ArrowLeft, CalendarDays, MapPin, ExternalLink, Laptop } from "lucide-re
 import { motion } from "motion/react";
 import Link from "next/link";
 
-import AoyamaFes_img from "@/app/about/assets/events/aoyama-fes.jpg";
-import BBQ_img from "@/app/about/assets/events/bbq.jpg";
-import Graduation_img from "@/app/about/assets/events/graduation.jpg";
-import Hackathon_img from "@/app/about/assets/events/hackathon.jpg";
-import LT_img from "@/app/about/assets/events/lt.jpg";
-import SagamiharaFes_img from "@/app/about/assets/events/sagamihara-fes.jpg";
-import SummerCamp_img from "@/app/about/assets/events/summer-camp.jpg";
-import SummerLecture_img from "@/app/about/assets/events/summer-lecture.jpg";
-import WakabaCreate_img from "@/app/about/assets/events/wakaba-create.jpg";
-import WelcomeEvent_img from "@/app/about/assets/events/welcome-event.jpg";
-import WelcomeLecture_img from "@/app/about/assets/events/welcome-lecture.jpg";
+import AoyamaFes_img from "@/app/(site)/about/assets/events/aoyama-fes.jpg";
+import BBQ_img from "@/app/(site)/about/assets/events/bbq.jpg";
+import Graduation_img from "@/app/(site)/about/assets/events/graduation.jpg";
+import Hackathon_img from "@/app/(site)/about/assets/events/hackathon.jpg";
+import LT_img from "@/app/(site)/about/assets/events/lt.jpg";
+import SagamiharaFes_img from "@/app/(site)/about/assets/events/sagamihara-fes.jpg";
+import SummerCamp_img from "@/app/(site)/about/assets/events/summer-camp.jpg";
+import SummerLecture_img from "@/app/(site)/about/assets/events/summer-lecture.jpg";
+import WakabaCreate_img from "@/app/(site)/about/assets/events/wakaba-create.jpg";
+import WelcomeEvent_img from "@/app/(site)/about/assets/events/welcome-event.jpg";
+import WelcomeLecture_img from "@/app/(site)/about/assets/events/welcome-lecture.jpg";
 import JoinUs from "@/components/about/JoinUs";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 

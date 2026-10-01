@@ -3,7 +3,7 @@
 import { KeyRound } from "lucide-react";
 import { useActionState } from "react";
 
-import { loginAction } from "@/app/admin/actions";
+import { loginAction } from "@/app/(admin)/admin/actions";
 
 const initialState = {
   error: null as string | null,

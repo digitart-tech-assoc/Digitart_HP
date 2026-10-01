@@ -22,11 +22,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Adminページではヘッダーを表示しない
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
-
   const isHome = pathname === "/";
   const headerVisible = !isHome || isScrolled || isOpen;
 
