@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-import { buildArticleMarkdown, filterReferencedImages } from "@/features/news/editor/articleFile";
+import { buildArticleMarkdown } from "@/features/news/editor/articleFile";
 import { createPullRequestWithFiles, type RepositoryFile } from "@/features/news/editor/github";
 import { parsePublishInput } from "@/features/news/editor/publishInput";
 import type { PublishState } from "@/features/news/editor/types";
@@ -41,8 +41,7 @@ export async function publishArticleAction(
     return { error: input.error, success: false, prUrl: null };
   }
 
-  const { fields, content } = input.value;
-  const images = filterReferencedImages(input.value.images, content);
+  const { fields, content, images } = input.value;
 
   try {
     const files: RepositoryFile[] = [

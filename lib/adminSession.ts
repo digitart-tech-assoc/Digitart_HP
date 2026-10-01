@@ -61,7 +61,13 @@ function fromBase64Url(value: string): Uint8Array<ArrayBuffer> | null {
   if (!/^[A-Za-z0-9_-]+$/.test(value)) {
     return null;
   }
-  const binary = atob(value.replace(/-/g, "+").replace(/_/g, "/"));
+  let binary: string;
+  try {
+    binary = atob(value.replace(/-/g, "+").replace(/_/g, "/"));
+  } catch {
+    // 長さが不正（4 で割って 1 余る）など、base64 として壊れている
+    return null;
+  }
   const bytes = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i++) {
     bytes[i] = binary.charCodeAt(i);

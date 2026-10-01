@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { filterReferencedImages } from "@/features/news/editor/articleFile";
 import type { ArticleFields, PendingImage } from "@/features/news/editor/types";
 import { articleFrontmatterSchema } from "@/features/news/schema";
 import { ARTICLE_IMAGES_DIR } from "@/lib/contentPaths";
@@ -76,6 +77,9 @@ const pendingImageSchema = z.object({
     .regex(/^[A-Za-z0-9+/]+={0,2}$/, "画像データが正しくありません。"),
 });
 
+/** 本文で使われているかを判定する前の、形だけの確認 */
+const submittedImagesSchema = z.array(z.object({ path: z.string(), content: z.string() }));
+
 const imagesSchema = z
   .array(pendingImageSchema)
   .max(MAX_IMAGES, `画像は ${MAX_IMAGES} 枚までです。`);
@@ -117,6 +121,7 @@ export type ParsePublishInputResult =
  * 記事投稿フォームの値を検証する。
  * 値はリポジトリへのコミット（ファイルパス・ブランチ名・frontmatter）に使われるため、
  * クライアント側の入力チェックに頼らず、ここで形式をすべて確認する。
+ * 返す画像は、本文で参照されているものだけ。
  */
 export function parsePublishInput(raw: {
   fields: Record<keyof ArticleFields, string>;
@@ -144,7 +149,14 @@ export function parsePublishInput(raw: {
     }
   }
 
-  const images = imagesSchema.safeParse(imagesValue);
+  const submittedImages = submittedImagesSchema.safeParse(imagesValue);
+  if (!submittedImages.success) {
+    return { ok: false, error: "画像データが正しくありません。" };
+  }
+
+  // エディタは本文から削除した画像も送ってくるため、先に本文で使われている画像だけに絞る。
+  // 絞る前に検証すると、削除済みの未対応形式の画像のせいで投稿できなくなる
+  const images = imagesSchema.safeParse(filterReferencedImages(submittedImages.data, raw.content));
   if (!images.success) {
     return { ok: false, error: images.error.issues[0].message };
   }
