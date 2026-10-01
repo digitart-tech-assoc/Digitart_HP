@@ -15,7 +15,7 @@ export const metadata = getCustomMetadata({
 });
 
 export default async function Page() {
-  const filePath = path.join(process.cwd(), "app", "bylaws", "bylaws.md");
+  const filePath = path.join(process.cwd(), "app", "(site)", "bylaws", "bylaws.md");
   let content = "";
   try {
     content = await fs.readFile(filePath, "utf8");
@@ -24,7 +24,7 @@ export default async function Page() {
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-8 pt-24 pb-16 md:pt-32">
+    <div className="mx-auto max-w-3xl px-8 pt-24 pb-16 md:pt-32">
       {/* Page-scoped wrapper so styles can target only bylaws page */}
       <div className="bylaws-page">
         <article className="prose">
@@ -33,6 +33,6 @@ export default async function Page() {
           </ReactMarkdown>
         </article>
       </div>
-    </main>
+    </div>
   );
 }

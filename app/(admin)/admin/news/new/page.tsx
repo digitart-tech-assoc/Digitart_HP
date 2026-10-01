@@ -9,7 +9,7 @@ import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
-import { publishArticleAction, ActionState } from "@/app/admin/actions";
+import { publishArticleAction, ActionState } from "@/app/(admin)/admin/actions";
 import "katex/dist/katex.min.css";
 
 const initialState: ActionState = {

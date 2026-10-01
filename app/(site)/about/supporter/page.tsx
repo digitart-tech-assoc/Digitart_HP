@@ -4,11 +4,11 @@ import { ArrowLeft, Quote } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 
-import icon_banetu from "@/app/about/assets/supporter/icon_banetu.jpg";
-import icon_bell from "@/app/about/assets/supporter/icon_bell.jpg";
-import icon_chrom from "@/app/about/assets/supporter/icon_chrom.jpg";
-import icon_kuzumochi from "@/app/about/assets/supporter/icon_kuzumochi.png";
-import icon_mimisuke from "@/app/about/assets/supporter/icon_mimisuke.png";
+import icon_banetu from "@/app/(site)/about/assets/supporter/icon_banetu.jpg";
+import icon_bell from "@/app/(site)/about/assets/supporter/icon_bell.jpg";
+import icon_chrom from "@/app/(site)/about/assets/supporter/icon_chrom.jpg";
+import icon_kuzumochi from "@/app/(site)/about/assets/supporter/icon_kuzumochi.png";
+import icon_mimisuke from "@/app/(site)/about/assets/supporter/icon_mimisuke.png";
 import JoinUs from "@/components/about/JoinUs";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 
