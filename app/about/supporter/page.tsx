@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
+import { ArrowLeft, Quote } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 

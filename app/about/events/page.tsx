@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  ArrowLeft,
-  CalendarDays,
-  MapPin,
-  Clock,
-  Users,
-  ChevronRight,
-  ExternalLink,
-  Laptop,
-} from "lucide-react";
+import { ArrowLeft, CalendarDays, MapPin, ExternalLink, Laptop } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 
@@ -22,7 +13,6 @@ import SagamiharaFes_img from "@/app/about/assets/events/sagamihara-fes.jpg";
 import SummerCamp_img from "@/app/about/assets/events/summer-camp.jpg";
 import SummerLecture_img from "@/app/about/assets/events/summer-lecture.jpg";
 import WakabaCreate_img from "@/app/about/assets/events/wakaba-create.jpg";
-import WakabaStudy_img from "@/app/about/assets/events/wakaba-study.jpg";
 import WelcomeEvent_img from "@/app/about/assets/events/welcome-event.jpg";
 import WelcomeLecture_img from "@/app/about/assets/events/welcome-lecture.jpg";
 import JoinUs from "@/components/about/JoinUs";
