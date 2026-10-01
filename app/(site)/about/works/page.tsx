@@ -4,12 +4,6 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 
-import ai_voicevox from "@/app/(site)/about/assets/works/ai-voicevox.png";
-import aterna from "@/app/(site)/about/assets/works/aterna.png";
-import auth_web_app from "@/app/(site)/about/assets/works/auth-web-app.png";
-import choco_mint from "@/app/(site)/about/assets/works/choco-mint.png";
-import programmer_recycle from "@/app/(site)/about/assets/works/programmer-recycle.png";
-import slime_defence from "@/app/(site)/about/assets/works/slime-defence.png";
 import JoinUs from "@/components/about/JoinUs";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 
@@ -18,7 +12,7 @@ const PROJECTS = [
     title: "チョコミント よりも あ・な・た♡【非公式】",
     desc: "ルビィちゃんが好きなものを「矛盾なく」発表するゲーム。",
     tech: ["Unity", "Figma"],
-    image: choco_mint,
+    image: "/images/works/choco-mint.png",
     url: "https://unityroom.com/games/chocomint_yorimo_anata",
     category: "Game",
   },
@@ -26,7 +20,7 @@ const PROJECTS = [
     title: "AuthWebApp",
     desc: "サークルのDiscord処理を管理するWebシステム(内部向け)。",
     tech: ["React", "FastAPI", "Supabase"],
-    image: auth_web_app,
+    image: "/images/works/auth-web-app.png",
     url: null,
     category: "Web app",
   },
@@ -34,7 +28,7 @@ const PROJECTS = [
     title: "Aeterna",
     desc: "ゴシックファンタジーをテーマにした音楽ゲーム。",
     tech: ["Unity", "C#", "Cubase"],
-    image: aterna,
+    image: "/images/works/aterna.png",
     url: "https://unityroom.com/games/aeterna",
     category: "Game",
   },
@@ -42,7 +36,7 @@ const PROJECTS = [
     title: "プログラマーはrecycle()されました",
     desc: "ロジックを構築し、実行して敵を倒すローグライクゲーム。",
     tech: ["React", "Tailwind CSS", "PostgreSQL"],
-    image: programmer_recycle,
+    image: "/images/works/programmer-recycle.png",
     url: null,
     category: "Web app",
   },
@@ -50,7 +44,7 @@ const PROJECTS = [
     title: "引き放て！スライムディフェンス！",
     desc: "スライムが弓とスキルを駆使して迫りくる敵を迎え撃つタワーディフェンスゲーム。",
     tech: ["Unity", "C#"],
-    image: slime_defence,
+    image: "/images/works/slime-defence.png",
     url: "https://unityroom.com/games/slimedefence",
     category: "Game",
   },
@@ -58,7 +52,7 @@ const PROJECTS = [
     title: "AI-VOICEVOX",
     desc: "LLM（生成AI）同士を討論させたり、質問したりできるWebアプリです。",
     tech: ["Next.js", "JavaScript", "Tailwind CSS"],
-    image: ai_voicevox,
+    image: "/images/works/ai-voicevox.png",
     url: "https://ai-voicevox.vercel.app/",
     category: "Web app",
   },
