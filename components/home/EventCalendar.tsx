@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 
-import eventsData from "@/lib/events.json";
+import eventsData from "@/content/events.json";
 
 type EventType = "welcome" | "info" | "activity" | "study" | "reserve" | "event" | "etc";
 
