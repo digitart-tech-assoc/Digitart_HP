@@ -1,56 +1,51 @@
 "use client";
 
-import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
-import { ImageWithFallback } from "@/components/ImageWithFallback";
-import JoinUs from "@/components/about/JoinUs";
 
-import icon_chrom from "@/app/about/assets/supporter/icon_chrom.jpg";
-import icon_mimisuke from "@/app/about/assets/supporter/icon_mimisuke.png";
-import icon_bell from "@/app/about/assets/supporter/icon_bell.jpg";
-import icon_kuzumochi from "@/app/about/assets/supporter/icon_kuzumochi.png";
 import icon_banetu from "@/app/about/assets/supporter/icon_banetu.jpg";
+import icon_bell from "@/app/about/assets/supporter/icon_bell.jpg";
+import icon_chrom from "@/app/about/assets/supporter/icon_chrom.jpg";
+import icon_kuzumochi from "@/app/about/assets/supporter/icon_kuzumochi.png";
+import icon_mimisuke from "@/app/about/assets/supporter/icon_mimisuke.png";
+import JoinUs from "@/components/about/JoinUs";
+import { ImageWithFallback } from "@/components/ImageWithFallback";
 
 const MEMBERS = [
   {
     name: "くろむ",
     role: "代表",
     year: "社会情報学部社会情報学科 3年",
-    quote:
-      "テクノロジーで何かを作りたい。Digitartはその夢を形にできる場所です。",
+    quote: "テクノロジーで何かを作りたい。Digitartはその夢を形にできる場所です。",
     image: icon_chrom,
   },
   {
     name: "Banetu",
     role: "副代表",
     year: "情報テクノロジー学科 3年",
-    quote:
-      "Digitartの作曲&ゲーム（プレイ）担当。コード書けなくても居場所はあるよ！",
+    quote: "Digitartの作曲&ゲーム（プレイ）担当。コード書けなくても居場所はあるよ！",
     image: icon_banetu,
   },
   {
     name: "ベル",
     role: "副代表",
     year: "情報テクノロジー学科 3年",
-    quote:
-      "Welcome to the underground!",
+    quote: "Welcome to the underground!",
     image: icon_bell,
   },
   {
     name: "葛餅",
     role: "会計",
     year: "情報テクノロジ学科 2年",
-    quote:
-      "興味があるなら飛び込んでみませんか！歓迎しますよ！",
+    quote: "興味があるなら飛び込んでみませんか！歓迎しますよ！",
     image: icon_kuzumochi,
   },
   {
     name: "みみすけ",
     role: "広報",
     year: "情報テクノロジー学科 3年",
-    quote:
-      "エラーはトモダチ！赤文字が出るたびワクワクする体質になりませんか？^o^",
+    quote: "エラーはトモダチ！赤文字が出るたびワクワクする体質になりませんか？^o^",
     image: icon_mimisuke,
   },
 ];
@@ -70,28 +65,27 @@ const QA = [
   },
 ];
 
-
 export default function SupporterPage() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 text-white relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 px-6 pt-32 pb-20 text-white">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] " />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')]" />
         </div>
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="relative z-10 mx-auto max-w-6xl">
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
+            className="mb-8 inline-flex items-center gap-2 text-white/80 transition-colors hover:text-white"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="h-4 w-4" />
             戻る
           </Link>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl mb-4"
+            className="mb-4 text-5xl md:text-7xl"
             style={{ fontWeight: 700 }}
           >
             幹部紹介
@@ -108,14 +102,14 @@ export default function SupporterPage() {
       </section>
 
       {/* Intro */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-4xl text-center">
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-lg text-gray-600 leading-relaxed"
+            className="text-lg leading-relaxed text-gray-600"
           >
             Digitartにはどんなメンバーが集まっているのか？
             <br />
@@ -125,10 +119,10 @@ export default function SupporterPage() {
       </section>
 
       {/* Member Profiles */}
-      <section className="py-12 px-6">
-        <div className="max-w-6xl mx-auto space-y-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl text-gray-900" style={{ fontWeight: 700 }}>
+      <section className="px-6 py-12">
+        <div className="mx-auto max-w-6xl space-y-20">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
               第7期役員
             </h2>
           </div>
@@ -137,85 +131,71 @@ export default function SupporterPage() {
               member.image == null
                 ? null
                 : typeof member.image === "string"
-                ? member.image
-                : member.image?.src ?? String(member.image);
+                  ? member.image
+                  : (member.image?.src ?? String(member.image));
 
             return (
-            <motion.div
-              key={`${member.name ?? 'member'}-${i}`}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8 }}
-              className={`flex flex-col ${
-                i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-              } items-center gap-12`}
-            >
-              <div className="flex-shrink-0">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-xl border-4 border-emerald-100"
-                >
-                  {resolvedImage ? (
-                    <ImageWithFallback
-                      src={resolvedImage}
-                      alt={member.name ?? member.role ?? 'Supporter'}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-500">
-                      <span className="text-sm">画像なし</span>
-                    </div>
-                  )}
-                </motion.div>
-              </div>
-
-              <div className="flex-1 text-center md:text-left">
-                <span
-                  className="text-emerald-500 text-sm"
-                  style={{ fontWeight: 600 }}
-                >
-                  {member.year}
-                </span>
-                <h3
-                  className="text-3xl text-gray-900 mt-1 mb-1"
-                  style={{ fontWeight: 700 }}
-                >
-                  {member.name}
-                </h3>
-                <p
-                  className="text-emerald-600 mb-6"
-                  style={{ fontWeight: 500 }}
-                >
-                  {member.role}
-                </p>
-                <div className="relative bg-emerald-50 p-6 rounded-2xl">
-                  <Quote className="w-8 h-8 text-emerald-300 absolute top-4 left-4" />
-                  <p className="text-gray-700 leading-relaxed pl-8 pt-2 italic">
-                    {member.quote}
-                  </p>
+              <motion.div
+                key={`${member.name ?? "member"}-${i}`}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.8 }}
+                className={`flex flex-col ${
+                  i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                } items-center gap-12`}
+              >
+                <div className="flex-shrink-0">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="h-48 w-48 overflow-hidden rounded-full border-4 border-emerald-100 shadow-xl md:h-64 md:w-64"
+                  >
+                    {resolvedImage ? (
+                      <ImageWithFallback
+                        src={resolvedImage}
+                        alt={member.name ?? member.role ?? "Supporter"}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-gray-100 text-gray-500">
+                        <span className="text-sm">画像なし</span>
+                      </div>
+                    )}
+                  </motion.div>
                 </div>
-              </div>
-            </motion.div>
+
+                <div className="flex-1 text-center md:text-left">
+                  <span className="text-sm text-emerald-500" style={{ fontWeight: 600 }}>
+                    {member.year}
+                  </span>
+                  <h3 className="mt-1 mb-1 text-3xl text-gray-900" style={{ fontWeight: 700 }}>
+                    {member.name}
+                  </h3>
+                  <p className="mb-6 text-emerald-600" style={{ fontWeight: 500 }}>
+                    {member.role}
+                  </p>
+                  <div className="relative rounded-2xl bg-emerald-50 p-6">
+                    <Quote className="absolute top-4 left-4 h-8 w-8 text-emerald-300" />
+                    <p className="pt-2 pl-8 leading-relaxed text-gray-700 italic">{member.quote}</p>
+                  </div>
+                </div>
+              </motion.div>
             );
           })}
         </div>
       </section>
 
       {/* Q&A Section */}
-      <section className="py-20 px-6 bg-emerald-50/60">
-        <div className="max-w-4xl mx-auto">
+      <section className="bg-emerald-50/60 px-6 py-20">
+        <div className="mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="mb-16 text-center"
           >
-            <h2
-              className="text-4xl text-gray-900 mb-4"
-              style={{ fontWeight: 700 }}
-            >
+            <h2 className="mb-4 text-4xl text-gray-900" style={{ fontWeight: 700 }}>
               Q&A
             </h2>
             <p className="text-gray-600">よくある質問</p>
@@ -229,23 +209,17 @@ export default function SupporterPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="bg-white p-8 rounded-2xl shadow-sm"
+                className="rounded-2xl bg-white p-8 shadow-sm"
               >
-                <div className="flex items-start gap-4 mb-4">
-                  <span
-                    className="text-emerald-500 text-2xl"
-                    style={{ fontWeight: 700 }}
-                  >
+                <div className="mb-4 flex items-start gap-4">
+                  <span className="text-2xl text-emerald-500" style={{ fontWeight: 700 }}>
                     Q.{String(i + 1).padStart(2, "0")}
                   </span>
-                  <h4
-                    className="text-xl text-gray-900"
-                    style={{ fontWeight: 600 }}
-                  >
+                  <h4 className="text-xl text-gray-900" style={{ fontWeight: 600 }}>
                     {item.q}
                   </h4>
                 </div>
-                <p className="text-gray-600 leading-relaxed ml-14">{item.a}</p>
+                <p className="ml-14 leading-relaxed text-gray-600">{item.a}</p>
               </motion.div>
             ))}
           </div>

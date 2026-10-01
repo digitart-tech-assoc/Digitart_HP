@@ -1,7 +1,8 @@
 "use client";
 
-import Logo from "@/components/Logo";
 import { ReactNode } from "react";
+
+import Logo from "@/components/Logo";
 
 interface HomeHeroIntroProps {
   phase: "intro" | "expand" | "white" | "done";
@@ -12,7 +13,7 @@ export default function HomeHeroIntroLight({ phase }: HomeHeroIntroProps) {
     <>
       {phase !== "done" && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
+          className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center"
           style={{
             backgroundColor: "#ffffff",
             opacity: phase === "white" ? 0 : 1,
@@ -23,11 +24,7 @@ export default function HomeHeroIntroLight({ phase }: HomeHeroIntroProps) {
             style={{
               transition: "transform 1.4s cubic-bezier(0.16,1,0.3,1), opacity 0.5s ease",
               transform:
-                phase === "intro"
-                  ? "scale(1)"
-                  : phase === "expand"
-                  ? "scale(20)"
-                  : "scale(80)",
+                phase === "intro" ? "scale(1)" : phase === "expand" ? "scale(20)" : "scale(80)",
               opacity: phase === "white" ? 0 : 1,
               willChange: "transform, opacity",
               WebkitFontSmoothing: "antialiased",

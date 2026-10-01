@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SOCIAL_LINKS } from "@/lib/constants";
-import JsonLd from "@/components/JsonLd";
+
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import JsonLd from "@/components/JsonLd";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SOCIAL_LINKS } from "@/lib/constants";
+
+import type { Metadata } from "next";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,7 +25,19 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  keywords: ["青学", "青山学院大学", "サークル", "プログラミング", "ゲーム", "ゲーム開発", "AI", "機械学習", "テクノロジー", "学生団体", "Digitart"],
+  keywords: [
+    "青学",
+    "青山学院大学",
+    "サークル",
+    "プログラミング",
+    "ゲーム",
+    "ゲーム開発",
+    "AI",
+    "機械学習",
+    "テクノロジー",
+    "学生団体",
+    "Digitart",
+  ],
   openGraph: {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
@@ -65,23 +79,23 @@ export default function RootLayout({
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Support",
-      url: "https://auth.digitart.jp/contact"
+      url: "https://auth.digitart.jp/contact",
     },
     foundingDate: "2020",
     areaServed: "JP",
-    additionalType: "StudentOrganization"
+    additionalType: "StudentOrganization",
   };
 
   return (
     <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-white text-slate-900 font-sans selection:bg-emerald-100`}
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased selection:bg-emerald-100`}
       >
         <JsonLd data={orgJsonLd} />
         <BreadcrumbJsonLd />
         <Header />
         <main>{children}</main>
-        <div className="flex-1 bg-slate-900 flex flex-col justify-end">
+        <div className="flex flex-1 flex-col justify-end bg-slate-900">
           <Footer />
         </div>
         {/* Cloudflare Web Analytics */}

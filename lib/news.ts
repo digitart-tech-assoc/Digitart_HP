@@ -1,9 +1,10 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import fs from "fs";
+import path from "path";
+
+import matter from "gray-matter";
 
 // src配下やapp配下のarticlesディレクトリを指定
-const articlesDirectory = path.join(process.cwd(), 'app', 'news', 'articles');
+const articlesDirectory = path.join(process.cwd(), "app", "news", "articles");
 
 export function getSortedArticlesData() {
   // ディレクトリがない（最初）場合は空配列を返す
@@ -15,14 +16,14 @@ export function getSortedArticlesData() {
   const fileNames = fs.readdirSync(articlesDirectory);
   const allArticlesData = fileNames
     // markdownファイルのみを対象
-    .filter((fileName) => fileName.endsWith('.md'))
+    .filter((fileName) => fileName.endsWith(".md"))
     .map((fileName) => {
       // ファイル名から「.md」を削除してid（slug）を取得
-      const id = fileName.replace(/\.md$/, '');
+      const id = fileName.replace(/\.md$/, "");
 
       // Markdownファイルを文字列として読み込む
       const fullPath = path.join(articlesDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const fileContents = fs.readFileSync(fullPath, "utf8");
 
       // gray-matterを使って投稿のメタデータ部分をパース
       const matterResult = matter(fileContents);
@@ -30,7 +31,14 @@ export function getSortedArticlesData() {
       // データをidとまとめて返す
       return {
         id,
-        ...(matterResult.data as { title: string; date: string; excerpt?: string; author?: string; image?: string; category?: 'notice' | 'column' }),
+        ...(matterResult.data as {
+          title: string;
+          date: string;
+          excerpt?: string;
+          author?: string;
+          image?: string;
+          category?: "notice" | "column";
+        }),
       };
     });
 
@@ -51,8 +59,8 @@ export function getArticleData(id: string) {
   if (!fs.existsSync(fullPath)) {
     return null;
   }
-  
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+  const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // gray-matterを使ってメタデータと本文をパース
   const matterResult = matter(fileContents);
@@ -60,6 +68,13 @@ export function getArticleData(id: string) {
   return {
     id,
     content: matterResult.content,
-    ...(matterResult.data as { title: string; date: string; excerpt?: string; author?: string; image?: string; category?: 'notice' | 'column' }),
+    ...(matterResult.data as {
+      title: string;
+      date: string;
+      excerpt?: string;
+      author?: string;
+      image?: string;
+      category?: "notice" | "column";
+    }),
   };
 }

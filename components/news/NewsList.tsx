@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState } from 'react';
+import Link from "next/link";
+import { useState } from "react";
 
 type Article = {
   id: string;
@@ -10,20 +10,20 @@ type Article = {
   excerpt?: string;
   author?: string;
   image?: string;
-  category?: 'notice' | 'column';
+  category?: "notice" | "column";
 };
 
-type TabType = 'all' | 'notice' | 'column';
+type TabType = "all" | "notice" | "column";
 
 const TABS: { id: TabType; label: string }[] = [
-  { id: 'all', label: 'すべて' },
-  { id: 'notice', label: 'お知らせ' },
-  { id: 'column', label: 'コラム' },
+  { id: "all", label: "すべて" },
+  { id: "notice", label: "お知らせ" },
+  { id: "column", label: "コラム" },
 ];
 
-const CAT_META: Record<'notice' | 'column', { label: string; color: string; bg: string }> = {
-  notice: { label: 'お知らせ', color: '#b91c1c', bg: '#fee2e2' },
-  column: { label: 'コラム',   color: '#3d7a18', bg: '#e8f4df' },
+const CAT_META: Record<"notice" | "column", { label: string; color: string; bg: string }> = {
+  notice: { label: "お知らせ", color: "#b91c1c", bg: "#fee2e2" },
+  column: { label: "コラム", color: "#3d7a18", bg: "#e8f4df" },
 };
 
 export default function NewsList({
@@ -33,15 +33,16 @@ export default function NewsList({
   articles: Article[];
   maxItemsPerTab?: number;
 }) {
-  const [activeTab, setActiveTab] = useState<TabType>('all');
+  const [activeTab, setActiveTab] = useState<TabType>("all");
 
   const filtered = articles
-    .filter((a) => activeTab === 'all' || a.category === activeTab)
+    .filter((a) => activeTab === "all" || a.category === activeTab)
     .slice(0, maxItemsPerTab);
 
   // Count actual total vs capped; show "N+" if more articles exist beyond the cap
   const countFor = (tab: TabType) => {
-    const total = tab === 'all' ? articles.length : articles.filter((a) => a.category === tab).length;
+    const total =
+      tab === "all" ? articles.length : articles.filter((a) => a.category === tab).length;
     if (maxItemsPerTab !== undefined && total > maxItemsPerTab) {
       return `${maxItemsPerTab}+`;
     }
@@ -51,19 +52,21 @@ export default function NewsList({
   return (
     <div>
       {/* Tabs */}
-      <div className="flex justify-center gap-2 md:gap-4 mb-8 md:mb-12">
+      <div className="mb-8 flex justify-center gap-2 md:mb-12 md:gap-4">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 md:px-6 md:py-2.5 text-sm md:text-base font-bold rounded-full transition-all duration-300 ${
+            className={`rounded-full px-4 py-2 text-sm font-bold transition-all duration-300 md:px-6 md:py-2.5 md:text-base ${
               activeTab === tab.id
-                ? 'bg-[#8cc63f] text-white shadow-lg shadow-[#8cc63f]/30 scale-105'
-                : 'bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800 shadow-sm border border-slate-200'
+                ? "scale-105 bg-[#8cc63f] text-white shadow-lg shadow-[#8cc63f]/30"
+                : "border border-slate-200 bg-white text-slate-500 shadow-sm hover:bg-slate-50 hover:text-slate-800"
             }`}
           >
             {tab.label}
-            <span className={`ml-1.5 text-xs md:text-sm font-medium ${activeTab === tab.id ? 'text-white/80' : 'text-slate-400'}`}>
+            <span
+              className={`ml-1.5 text-xs font-medium md:text-sm ${activeTab === tab.id ? "text-white/80" : "text-slate-400"}`}
+            >
               ({countFor(tab.id)})
             </span>
           </button>
@@ -78,21 +81,21 @@ export default function NewsList({
               <li key={id} className="group">
                 <Link
                   href={`/news/${id}`}
-                  className="flex flex-col md:flex-row md:items-stretch gap-4 md:gap-6 bg-white rounded-2xl p-5 md:p-6 shadow-sm hover:shadow-xl border border-slate-100 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
+                  className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl md:flex-row md:items-stretch md:gap-6 md:p-6"
                 >
                   {/* Decorative line on the left */}
                   <div
-                    className={`absolute left-0 top-0 bottom-0 w-1 md:w-1.5 transition-colors duration-300 ${
-                      meta ? '' : 'bg-slate-200'
-                    } group-hover:opacity-100 opacity-80`}
+                    className={`absolute top-0 bottom-0 left-0 w-1 transition-colors duration-300 md:w-1.5 ${
+                      meta ? "" : "bg-slate-200"
+                    } opacity-80 group-hover:opacity-100`}
                     style={meta ? { backgroundColor: meta.color } : {}}
                   />
 
                   {/* Date and Badge section */}
-                  <div className="flex items-center justify-between md:flex-col md:items-start md:justify-start gap-3 shrink-0 md:w-32 pl-2 md:pl-3 pt-0.5">
+                  <div className="flex shrink-0 items-center justify-between gap-3 pt-0.5 pl-2 md:w-32 md:flex-col md:items-start md:justify-start md:pl-3">
                     {meta && (
                       <span
-                        className="inline-flex items-center justify-center text-[10px] md:text-xs font-bold px-2.5 py-1 rounded-full border"
+                        className="inline-flex items-center justify-center rounded-full border px-2.5 py-1 text-[10px] font-bold md:text-xs"
                         style={{
                           color: meta.color,
                           backgroundColor: meta.bg,
@@ -104,34 +107,39 @@ export default function NewsList({
                     )}
                     <time
                       dateTime={date}
-                      className="text-sm md:text-base font-bold text-slate-400 tabular-nums font-mono"
+                      className="font-mono text-sm font-bold text-slate-400 tabular-nums md:text-base"
                     >
-                      {new Date(date).toLocaleDateString('ja-JP').replace(/\//g, '.')}
+                      {new Date(date).toLocaleDateString("ja-JP").replace(/\//g, ".")}
                     </time>
                   </div>
 
                   {/* Content section */}
-                  <div className="flex-1 min-w-0 flex flex-col justify-center">
-                    <h3 className="text-lg md:text-xl font-bold text-slate-800 group-hover:text-[#8cc63f] transition-colors leading-snug md:leading-[1.5] mb-2">
+                  <div className="flex min-w-0 flex-1 flex-col justify-center">
+                    <h3 className="mb-2 text-lg leading-snug font-bold text-slate-800 transition-colors group-hover:text-[#8cc63f] md:text-xl md:leading-[1.5]">
                       {title}
                     </h3>
                     {excerpt && (
-                      <p className="text-sm md:text-base text-slate-500 leading-relaxed line-clamp-2">
+                      <p className="line-clamp-2 text-sm leading-relaxed text-slate-500 md:text-base">
                         {excerpt}
                       </p>
                     )}
                   </div>
 
                   {/* Optional icon/chevron for affordance */}
-                  <div className="hidden md:flex items-center justify-center pr-2">
-                    <div className="w-10 h-10 rounded-full bg-slate-50 group-hover:bg-[#8cc63f]/10 flex items-center justify-center transition-colors duration-300">
+                  <div className="hidden items-center justify-center pr-2 md:flex">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 transition-colors duration-300 group-hover:bg-[#8cc63f]/10">
                       <svg
-                        className="w-5 h-5 text-slate-400 group-hover:text-[#8cc63f] transition-colors duration-300"
+                        className="h-5 w-5 text-slate-400 transition-colors duration-300 group-hover:text-[#8cc63f]"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
                       </svg>
                     </div>
                   </div>
@@ -141,8 +149,8 @@ export default function NewsList({
           })}
         </ul>
       ) : (
-        <p className="py-12 text-center text-base md:text-lg font-medium text-slate-400">
-          {activeTab === 'all' ? 'まだ記事がありません' : '該当する記事がありません'}
+        <p className="py-12 text-center text-base font-medium text-slate-400 md:text-lg">
+          {activeTab === "all" ? "まだ記事がありません" : "該当する記事がありません"}
         </p>
       )}
     </div>

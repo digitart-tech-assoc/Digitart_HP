@@ -25,7 +25,8 @@ const layerZones = [
   {
     target: "./lib",
     from: ["./app", "./features", "./components"],
-    message: "lib/ はドメイン知識を持たない汎用層です。app・features・components を import できません。",
+    message:
+      "lib/ はドメイン知識を持たない汎用層です。app・features・components を import できません。",
   },
   {
     target: "./components",
@@ -58,7 +59,8 @@ const eslintConfig = defineConfig([
           patterns: [
             {
               group: ["../*"],
-              message: "親ディレクトリへの相対 import は使わず、@/ から始まるパスで書いてください。",
+              message:
+                "親ディレクトリへの相対 import は使わず、@/ から始まるパスで書いてください。",
             },
           ],
         },

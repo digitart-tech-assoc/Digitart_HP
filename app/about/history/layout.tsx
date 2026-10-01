@@ -6,10 +6,6 @@ export const metadata = getCustomMetadata({
   path: "/about/history",
 });
 
-export default function HistoryLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function HistoryLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

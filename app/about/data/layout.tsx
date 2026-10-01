@@ -6,10 +6,6 @@ export const metadata = getCustomMetadata({
   path: "/about/data",
 });
 
-export default function DataLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DataLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

@@ -1,20 +1,18 @@
 "use client";
 
-import { getCustomMetadata } from "@/lib/metadata";
-
-import { motion } from "motion/react";
 import { ArrowLeft, ExternalLink } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
-import { ImageWithFallback } from "@/components/ImageWithFallback";
-import JoinUs from "@/components/about/JoinUs";
 
-import choco_mint from "@/app/about/assets/works/choco-mint.png";
-import auth_web_app from "@/app/about/assets/works/auth-web-app.png";
+import ai_voicevox from "@/app/about/assets/works/ai-voicevox.png";
 import aterna from "@/app/about/assets/works/aterna.png";
+import auth_web_app from "@/app/about/assets/works/auth-web-app.png";
+import choco_mint from "@/app/about/assets/works/choco-mint.png";
 import programmer_recycle from "@/app/about/assets/works/programmer-recycle.png";
 import slime_defence from "@/app/about/assets/works/slime-defence.png";
-import ai_voicevox from "@/app/about/assets/works/ai-voicevox.png";
-
+import JoinUs from "@/components/about/JoinUs";
+import { ImageWithFallback } from "@/components/ImageWithFallback";
+import { getCustomMetadata } from "@/lib/metadata";
 
 const PROJECTS = [
   {
@@ -64,31 +62,30 @@ const PROJECTS = [
     image: ai_voicevox,
     url: "https://ai-voicevox.vercel.app/",
     category: "Web app",
-  }
+  },
 ];
-
 
 export default function WorksPage() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 text-white relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 px-6 pt-32 pb-20 text-white">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] " />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC4zIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')]" />
         </div>
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="relative z-10 mx-auto max-w-6xl">
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
+            className="mb-8 inline-flex items-center gap-2 text-white/80 transition-colors hover:text-white"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="h-4 w-4" />
             戻る
           </Link>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl mb-4"
+            className="mb-4 text-5xl md:text-7xl"
             style={{ fontWeight: 700 }}
           >
             作品紹介
@@ -105,14 +102,14 @@ export default function WorksPage() {
       </section>
 
       {/* Intro */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-4xl text-center">
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-lg text-gray-600 leading-relaxed"
+            className="text-lg leading-relaxed text-gray-600"
           >
             プログラミング、デザイン、ハードウェアを横断するメンバーたちが、
             <br className="hidden md:block" />
@@ -122,8 +119,8 @@ export default function WorksPage() {
       </section>
 
       {/* Projects */}
-      <section className="pb-32 px-6">
-        <div className="max-w-6xl mx-auto space-y-20">
+      <section className="px-6 pb-32">
+        <div className="mx-auto max-w-6xl space-y-20">
           {PROJECTS.map((project, i) => (
             <motion.div
               key={project.title}
@@ -135,49 +132,40 @@ export default function WorksPage() {
                 i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
               } items-center gap-12`}
             >
-              <div className="flex-1 w-full">
+              <div className="w-full flex-1">
                 {project.url ? (
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="block">
                     <motion.div
                       whileHover={{ scale: 1.02 }}
-                      className="rounded-3xl overflow-hidden shadow-xl relative group"
+                      className="group relative overflow-hidden rounded-3xl shadow-xl"
                     >
                       <ImageWithFallback
                         src={project.image}
                         alt={project.title}
-                        className="w-full aspect-[16/9] object-cover"
+                        className="aspect-[16/9] w-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                      <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/40 to-transparent p-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                         <span
-                          className="text-white flex items-center gap-2"
+                          className="flex items-center gap-2 text-white"
                           style={{ fontWeight: 600 }}
                         >
-                          View Project <ExternalLink className="w-4 h-4" />
+                          View Project <ExternalLink className="h-4 w-4" />
                         </span>
                       </div>
-                      <div
-                        className="absolute top-4 left-4 bg-[#8cc63f] text-white px-3 py-1 rounded-full text-sm font-bold tracking-wider"
-                      >
+                      <div className="absolute top-4 left-4 rounded-full bg-[#8cc63f] px-3 py-1 text-sm font-bold tracking-wider text-white">
                         {project.category}
                       </div>
                     </motion.div>
                   </a>
                 ) : (
                   <div className="block">
-                    <div className="rounded-3xl overflow-hidden shadow-xl relative">
+                    <div className="relative overflow-hidden rounded-3xl shadow-xl">
                       <ImageWithFallback
                         src={project.image}
                         alt={project.title}
-                        className="w-full aspect-[16/9] object-cover"
+                        className="aspect-[16/9] w-full object-cover"
                       />
-                      <div
-                        className="absolute top-4 left-4 bg-[#8cc63f] text-white px-3 py-1 rounded-full text-sm font-bold tracking-wider"
-                      >
+                      <div className="absolute top-4 left-4 rounded-full bg-[#8cc63f] px-3 py-1 text-sm font-bold tracking-wider text-white">
                         {project.category}
                       </div>
                     </div>
@@ -186,19 +174,17 @@ export default function WorksPage() {
               </div>
 
               <div className="flex-1">
-                <h3
-                  className="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight"
-                >
+                <h3 className="mb-4 text-3xl leading-tight font-black text-slate-900 md:text-4xl">
                   {project.title}
                 </h3>
-                <p className="text-slate-600 font-medium text-lg md:text-xl leading-relaxed mb-6">
+                <p className="mb-6 text-lg leading-relaxed font-medium text-slate-600 md:text-xl">
                   {project.desc}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-sm font-bold"
+                      className="rounded-full bg-slate-100 px-4 py-1.5 text-sm font-bold text-slate-600"
                     >
                       {t}
                     </span>

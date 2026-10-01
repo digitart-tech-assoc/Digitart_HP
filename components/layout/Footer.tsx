@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { SITE_NAME, SOCIAL_LINKS, NAV_LINKS } from "@/lib/constants";
 
 export default function Footer() {
   const pathname = usePathname();
 
   // Adminページではフッターを表示しない
-  if (pathname?.startsWith('/admin')) {
+  if (pathname?.startsWith("/admin")) {
     return null;
   }
   const year = new Date().getFullYear();
@@ -20,23 +21,28 @@ export default function Footer() {
 
   return (
     <footer className="relative z-10 bg-slate-900 text-slate-300">
-      <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-10 md:grid-cols-4">
         {/* ブランド */}
         <div className="col-span-1">
-          <h3 className="text-white text-lg font-semibold">{SITE_NAME}</h3>
+          <h3 className="text-lg font-semibold text-white">{SITE_NAME}</h3>
           <p className="mt-2 text-sm text-slate-400">青山学院大学公認学生団体</p>
           <p className="text-sm text-slate-400">Digitart テクノロジー愛好会</p>
         </div>
 
         {/* サイトマップ */}
         <div className="md:col-span-2">
-          <h4 className="text-sm font-semibold text-white mb-3">サイトマップ</h4>
+          <h4 className="mb-3 text-sm font-semibold text-white">サイトマップ</h4>
           <div className="flex gap-6">
             <ul className="flex-1 space-y-2 text-sm">
               {cols[0].map((link: any) => (
                 <li key={link.href}>
                   {link.href.startsWith("http") ? (
-                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-white">
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-300 hover:text-white"
+                    >
                       {link.label}
                     </a>
                   ) : (
@@ -63,7 +69,12 @@ export default function Footer() {
               {cols[1].map((link: any) => (
                 <li key={link.href}>
                   {link.href.startsWith("http") ? (
-                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-white">
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-300 hover:text-white"
+                    >
                       {link.label}
                     </a>
                   ) : (
@@ -90,19 +101,31 @@ export default function Footer() {
 
         {/* 連絡先 */}
         <div className="col-span-1">
-          <h4 className="text-sm font-semibold text-white mb-3">連絡先</h4>
+          <h4 className="mb-3 text-sm font-semibold text-white">連絡先</h4>
           <ul className="space-y-2 text-sm text-slate-300">
             {SOCIAL_LINKS.twitter && (
               <li>
-                <a href={SOCIAL_LINKS.twitter.url} target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                  {SOCIAL_LINKS.twitter.label} {SOCIAL_LINKS.twitter.handle ? `(${SOCIAL_LINKS.twitter.handle})` : ""}
+                <a
+                  href={SOCIAL_LINKS.twitter.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white"
+                >
+                  {SOCIAL_LINKS.twitter.label}{" "}
+                  {SOCIAL_LINKS.twitter.handle ? `(${SOCIAL_LINKS.twitter.handle})` : ""}
                 </a>
               </li>
             )}
             {SOCIAL_LINKS.instagram && (
               <li>
-                <a href={SOCIAL_LINKS.instagram.url} target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                  {SOCIAL_LINKS.instagram.label} {SOCIAL_LINKS.instagram.handle ? `(${SOCIAL_LINKS.instagram.handle})` : ""}
+                <a
+                  href={SOCIAL_LINKS.instagram.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white"
+                >
+                  {SOCIAL_LINKS.instagram.label}{" "}
+                  {SOCIAL_LINKS.instagram.handle ? `(${SOCIAL_LINKS.instagram.handle})` : ""}
                 </a>
               </li>
             )}
@@ -118,7 +141,7 @@ export default function Footer() {
       </div>
 
       {/* コピーライト */}
-      <div className="border-t border-slate-800 text-center py-4 text-xs text-slate-500">
+      <div className="border-t border-slate-800 py-4 text-center text-xs text-slate-500">
         &copy; {year} {SITE_NAME}. All rights reserved.
       </div>
     </footer>

@@ -1,19 +1,20 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+
+import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   // We only protect /admin and its subroutes
-  if (request.nextUrl.pathname.startsWith('/admin')) {
+  if (request.nextUrl.pathname.startsWith("/admin")) {
     // If it's the login page, let them through
-    if (request.nextUrl.pathname === '/admin/news/login') {
+    if (request.nextUrl.pathname === "/admin/news/login") {
       return NextResponse.next();
     }
 
-    const authCookie = request.cookies.get('admin_auth');
-    
+    const authCookie = request.cookies.get("admin_auth");
+
     // If not authenticated, redirect to login
-    if (!authCookie || authCookie.value !== 'true') {
-      return NextResponse.redirect(new URL('/admin/news/login', request.url));
+    if (!authCookie || authCookie.value !== "true") {
+      return NextResponse.redirect(new URL("/admin/news/login", request.url));
     }
   }
 
@@ -21,5 +22,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ["/admin/:path*"],
 };
