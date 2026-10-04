@@ -88,4 +88,6 @@ app  →  features  →  components / lib
 | `npm run lint` / `npm run lint:fix` | ESLint によるチェック / 自動修正 |
 | `npm run typecheck` | TypeScript の型チェック |
 
+PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）が `format:check`・`lint`・`typecheck`・`build` を順に実行します。lint は警告も失敗扱いです。ビルドでは記事の frontmatter も検証されるので、記事の PR もここで確認できます。依存パッケージの更新 PR は Dependabot が毎週作成します。
+
 エディタで保存時に Prettier が走るよう設定しておくと楽です。改行コードは `.gitattributes` と `.editorconfig` で LF に統一しています。

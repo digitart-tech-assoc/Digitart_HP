@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# 同じブランチに続けて push したときは、古い実行を止めて最新のコミットだけを検証する
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Lint・型チェック・ビルド
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: 依存パッケージのインストール
+        run: npm ci
+
+      - name: 整形チェック (Prettier)
+        run: npm run format:check
+
+      - name: Lint (ESLint)
+        run: npm run lint -- --max-warnings 0
+
+      - name: 型チェック
+        run: npm run typecheck
+
+      # 記事の frontmatter はビルド時に zod で検証されるため、記事の書き間違いもここで検出できる
+      - name: ビルド
+        run: npm run build
