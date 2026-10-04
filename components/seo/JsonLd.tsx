@@ -9,6 +9,6 @@ type JsonLdProps = {
  */
 export function JsonLd({ data }: JsonLdProps) {
   // "</script>" などで script タグが途中で閉じられないよう、< をエスケープする
-  const json = JSON.stringify(data).replace(/</g, "\u003c");
+  const json = JSON.stringify(data).replace(/</g, "\\u003c");
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />;
 }
