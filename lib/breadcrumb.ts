@@ -28,7 +28,7 @@ export function generateBreadcrumbs(pathname: string, siteUrl: string): Breadcru
   const pathSegments = normalizedPath.split("/").filter(Boolean);
 
   let currentPath = "";
-  pathSegments.forEach((segment, index) => {
+  pathSegments.forEach((segment) => {
     currentPath += `/${segment}`;
 
     // セグメントを人間が読める形式に変換

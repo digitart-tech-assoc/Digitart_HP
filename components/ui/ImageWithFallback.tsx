@@ -10,7 +10,11 @@ type ImgProps = Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src"> & {
   src?: string;
 };
 
-/** 読み込みに失敗したときにプレースホルダー画像を表示する img */
+/**
+ * 読み込みに失敗したときにプレースホルダー画像を表示する img。
+ * onError で差し替えるために素の img を使うので、next/image の lint ルールはこのファイルでは無効にする。
+ */
+/* eslint-disable @next/next/no-img-element */
 export function ImageWithFallback(props: ImgProps) {
   const [didError, setDidError] = useState(false);
 
