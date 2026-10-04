@@ -4,10 +4,11 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 # 同じブランチに続けて push したときは、古い実行を止めて最新のコミットだけを検証する
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -41,3 +42,36 @@ jobs:
       # 記事の frontmatter はビルド時に zod で検証されるため、記事の書き間違いもここで検出できる
       - name: ビルド
         run: npm run build
+
+  secrets:
+    name: 秘密情報の検出 (Gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks のインストール
+        run: |
+          GITLEAKS_VERSION="8.24.0"
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | tar -xz -C /tmp gitleaks
+          sudo mv /tmp/gitleaks /usr/local/bin/
+
+      # 過去の履歴まで見ると既存のコミットで毎回落ちるため、今回追加されたコミットだけを検査する
+      - name: Gitleaks の実行
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            RANGE="origin/${BASE_REF}..HEAD"
+          elif [ "$EVENT_NAME" = "push" ] && git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+            RANGE="${BEFORE_SHA}..HEAD"
+          else
+            # 手動実行時や、push 前のコミットが取れないとき（force push など）は最新コミットだけを見る
+            RANGE="-1"
+          fi
+          echo "検査範囲: ${RANGE}"
+          gitleaks detect --log-opts="${RANGE}" --redact --verbose --no-banner
