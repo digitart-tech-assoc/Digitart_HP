@@ -1,12 +1,14 @@
 import Link from "next/link";
 
-import { SITE_NAME, SOCIAL_LINKS, NAV_LINKS } from "@/lib/constants";
+import { SITE_NAME, SOCIAL_LINKS, NAV_LINKS, type NavItem } from "@/lib/constants";
 
 export default function Footer() {
   const year = new Date().getFullYear();
   // 左列に Home と About を固定配置し、残りを右列に配置する
   const leftKeys = ["/", "/about"];
-  const left = leftKeys.map((k) => NAV_LINKS.find((l) => l.href === k)).filter(Boolean) as any[];
+  const left = leftKeys
+    .map((k) => NAV_LINKS.find((l) => l.href === k))
+    .filter((l): l is NavItem => l !== undefined);
   const right = NAV_LINKS.filter((l) => !leftKeys.includes(l.href));
   const cols = [left, right];
 
@@ -24,69 +26,39 @@ export default function Footer() {
         <div className="md:col-span-2">
           <h4 className="mb-3 text-sm font-semibold text-white">サイトマップ</h4>
           <div className="flex gap-6">
-            <ul className="flex-1 space-y-2 text-sm">
-              {cols[0].map((link: any) => (
-                <li key={link.href}>
-                  {link.href.startsWith("http") ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-300 hover:text-white"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link href={link.href} className="text-slate-300 hover:text-white">
-                      {link.label}
-                    </Link>
-                  )}
-                  {link.children?.length ? (
-                    <ul className="mt-1 ml-3 space-y-1 text-sm">
-                      {link.children.map((c: any) => (
-                        <li key={c.href}>
-                          <Link href={c.href} className="text-slate-400 hover:text-white">
-                            {c.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-
-            <ul className="flex-1 space-y-2 text-sm">
-              {cols[1].map((link: any) => (
-                <li key={link.href}>
-                  {link.href.startsWith("http") ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-300 hover:text-white"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link href={link.href} className="text-slate-300 hover:text-white">
-                      {link.label}
-                    </Link>
-                  )}
-                  {link.children?.length ? (
-                    <ul className="mt-1 ml-3 space-y-1 text-sm">
-                      {link.children.map((c: any) => (
-                        <li key={c.href}>
-                          <Link href={c.href} className="text-slate-400 hover:text-white">
-                            {c.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
+            {cols.map((col, i) => (
+              <ul key={i} className="flex-1 space-y-2 text-sm">
+                {col.map((link) => (
+                  <li key={link.href}>
+                    {link.href.startsWith("http") ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-300 hover:text-white"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link href={link.href} className="text-slate-300 hover:text-white">
+                        {link.label}
+                      </Link>
+                    )}
+                    {link.children?.length ? (
+                      <ul className="mt-1 ml-3 space-y-1 text-sm">
+                        {link.children.map((c) => (
+                          <li key={c.href}>
+                            <Link href={c.href} className="text-slate-400 hover:text-white">
+                              {c.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            ))}
           </div>
         </div>
 

@@ -121,7 +121,7 @@ export default function Header() {
         <nav className="flex-1 overflow-y-auto px-4 py-4">
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => {
-              const children = (link as any).children as Array<any> | undefined;
+              const children = link.children;
               const parentActive =
                 pathname === link.href ||
                 (children &&
