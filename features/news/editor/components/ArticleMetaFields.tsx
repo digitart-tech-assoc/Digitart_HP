@@ -1,5 +1,7 @@
 "use client";
 
+import { useId } from "react";
+
 import type { ArticleFields } from "@/features/news/editor/types";
 import { ARTICLE_CATEGORIES } from "@/features/news/schema";
 
@@ -14,12 +16,19 @@ type ArticleMetaFieldsProps = {
 
 /** 記事のタイトル・著者・公開日・カテゴリ・ファイル名・概要の入力欄 */
 export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) {
+  // ラベルと入力欄を関連付ける id（同じページに複数置いても重ならないよう useId で作る）
+  const baseId = useId();
+  const id = (key: keyof ArticleFields) => `${baseId}-${key}`;
+
   return (
-    <div className="grid grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       <div>
-        <label className={LABEL_CLASS}>タイトル</label>
+        <label htmlFor={id("title")} className={LABEL_CLASS}>
+          タイトル
+        </label>
         <input
           type="text"
+          id={id("title")}
           value={fields.title}
           onChange={(e) => onChange("title", e.target.value)}
           className={INPUT_CLASS}
@@ -28,9 +37,12 @@ export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) 
         />
       </div>
       <div>
-        <label className={LABEL_CLASS}>著者</label>
+        <label htmlFor={id("author")} className={LABEL_CLASS}>
+          著者
+        </label>
         <input
           type="text"
+          id={id("author")}
           value={fields.author}
           onChange={(e) => onChange("author", e.target.value)}
           className={INPUT_CLASS}
@@ -39,9 +51,12 @@ export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) 
         />
       </div>
       <div>
-        <label className={LABEL_CLASS}>公開日</label>
+        <label htmlFor={id("date")} className={LABEL_CLASS}>
+          公開日
+        </label>
         <input
           type="date"
+          id={id("date")}
           value={fields.date}
           onChange={(e) => onChange("date", e.target.value)}
           className={INPUT_CLASS}
@@ -49,8 +64,11 @@ export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) 
         />
       </div>
       <div>
-        <label className={LABEL_CLASS}>カテゴリ</label>
+        <label htmlFor={id("category")} className={LABEL_CLASS}>
+          カテゴリ
+        </label>
         <select
+          id={id("category")}
           value={fields.category}
           onChange={(e) => onChange("category", e.target.value)}
           className={`${INPUT_CLASS} appearance-none`}
@@ -62,8 +80,8 @@ export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) 
           ))}
         </select>
       </div>
-      <div className="col-span-2">
-        <label className={LABEL_CLASS}>
+      <div className="sm:col-span-2">
+        <label htmlFor={id("slug")} className={LABEL_CLASS}>
           ファイル名（URLの一部になります） <span className="text-red-400">*</span>
         </label>
         <div className="flex items-center">
@@ -72,23 +90,28 @@ export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) 
           </span>
           <input
             type="text"
+            id={id("slug")}
+            aria-describedby={`${id("slug")}-hint`}
             value={fields.slug}
             onChange={(e) => onChange("slug", e.target.value)}
             pattern="^[a-z0-9-]+$"
             title="半角英小文字、数字、ハイフンのみ使用できます"
-            className="flex-1 rounded-r-xl border border-slate-200 bg-white px-4 py-2.5 font-mono text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
+            className="min-w-0 flex-1 rounded-r-xl border border-slate-200 bg-white px-4 py-2.5 font-mono text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
             placeholder="snake-case-title"
             required
           />
           <span className="ml-2 font-mono text-sm text-slate-500">.md</span>
         </div>
-        <p className="mt-1.5 ml-1 text-xs font-medium text-slate-400">
+        <p id={`${id("slug")}-hint`} className="mt-1.5 ml-1 text-xs font-medium text-slate-400">
           半角英小文字、数字、ハイフンのみ使用可能
         </p>
       </div>
-      <div className="col-span-2">
-        <label className={LABEL_CLASS}>概要</label>
+      <div className="sm:col-span-2">
+        <label htmlFor={id("excerpt")} className={LABEL_CLASS}>
+          概要
+        </label>
         <textarea
+          id={id("excerpt")}
           value={fields.excerpt}
           onChange={(e) => onChange("excerpt", e.target.value)}
           className={`${INPUT_CLASS} resize-none`}
