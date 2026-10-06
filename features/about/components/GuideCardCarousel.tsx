@@ -20,11 +20,14 @@ const RESUME_DELAY_MS = 2000;
 /**
  * スマートフォン表示のとき、横並びのカードを一定間隔で自動スクロールする。
  * PC 表示（幅 768px 以上）ではグリッド表示になるため何もしない。
+ * 視差効果を減らす設定（prefers-reduced-motion）のときは自動スクロールしない。
  */
 export function GuideCardCarousel({ itemCount, className, children }: GuideCardCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     let isTouching = false;
     const interval = setInterval(() => {
       if (window.innerWidth >= 768) return;
