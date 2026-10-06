@@ -61,6 +61,22 @@ jobs:
           path: test-results/
           retention-days: 7
 
+  image-sizes:
+    name: 画像サイズの確認
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # 大きな画像が追加されたら警告を出す（失敗にはしない）
+      - name: 追加・変更された画像のサイズを確認
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: node scripts/check-image-sizes.mjs "origin/${BASE_REF}"
+
   secrets:
     name: 秘密情報の検出 (Gitleaks)
     runs-on: ubuntu-latest
