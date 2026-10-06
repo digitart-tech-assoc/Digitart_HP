@@ -87,7 +87,19 @@ app  →  features  →  components / lib
 | `npm run format:check` | 整形漏れがないか確認 |
 | `npm run lint` / `npm run lint:fix` | ESLint によるチェック / 自動修正 |
 | `npm run typecheck` | TypeScript の型チェック |
+| `npm test` / `npm run test:watch` | ユニットテスト（Vitest）を 1 回実行 / 変更を監視して実行 |
+| `npm run test:e2e` | E2E のスモークテスト（Playwright）。先に `npm run build` が必要。初回は `npx playwright install chromium` でブラウザを入れる |
 
-PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）が `format:check`・`lint`・`typecheck`・`build` を順に実行します。lint は警告も失敗扱いです。同時に Gitleaks で、追加されたコミットにトークンなどの秘密情報が含まれていないかも検査します。ビルドでは記事の frontmatter も検証されるので、記事の PR もここで確認できます。依存パッケージの更新 PR は Dependabot が毎週作成します。
+PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）が `format:check`・`lint`・`typecheck`・`test`・`build`・`test:e2e` を順に実行します。lint は警告も失敗扱いです。同時に Gitleaks で、追加されたコミットにトークンなどの秘密情報が含まれていないかも検査します。ビルドでは記事の frontmatter も検証されるので、記事の PR もここで確認できます。依存パッケージの更新 PR は Dependabot が毎月作成します。
 
 エディタで保存時に Prettier が走るよう設定しておくと楽です。改行コードは `.gitattributes` と `.editorconfig` で LF に統一しています。
+
+## テスト
+
+| 種類 | 置き場所 | 内容 |
+|---|---|---|
+| ユニットテスト（Vitest） | テスト対象と同じディレクトリに `*.test.ts(x)` | 入力の検証・データの読み込み・認証などのロジック |
+| E2E（Playwright） | `e2e/*.spec.ts` | ビルドしたアプリを起動し、主要ページの表示や画面の操作を確認する |
+
+- `server-only` を import しているファイルも、Vitest ではそのまま import できます（`vitest.config.mts` で空のモジュールに置き換えています）
+- ファイルを読むコード（`features/news/articles.ts` など）は、一時ディレクトリにファイルを作り、`process.cwd()` をそこに向けてテストします
