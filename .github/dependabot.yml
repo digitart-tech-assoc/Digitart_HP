@@ -2,9 +2,9 @@ version: 2
 updates:
   - package-ecosystem: npm
     directory: /
+    # monthly は毎月 1 日に実行される
     schedule:
-      interval: weekly
-      day: monday
+      interval: monthly
       timezone: Asia/Tokyo
     open-pull-requests-limit: 5
     # PR が溢れないよう、マイナー・パッチ更新は 1 つの PR にまとめる
@@ -14,6 +14,7 @@ updates:
 
   - package-ecosystem: github-actions
     directory: /
+    # monthly は毎月 1 日に実行される
     schedule:
       interval: monthly
       timezone: Asia/Tokyo
