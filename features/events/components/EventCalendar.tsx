@@ -1,20 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
+import { useSyncExternalStore } from "react";
 
-import eventsData from "@/content/events.json";
-
-type EventType = "welcome" | "info" | "activity" | "study" | "reserve" | "event" | "etc";
-
-interface CalendarEvent {
-  date: string;
-  title: string;
-  type: EventType;
-  time?: string;
-  location?: string;
-}
-
-const events = eventsData as CalendarEvent[];
+import type { CalendarEvent, EventType } from "@/features/events/schema";
+import { todayInTokyo } from "@/lib/date";
 
 const TYPE_META: Record<EventType, { color: string }> = {
   welcome: { color: "#84cc16" }, // lime-500
@@ -28,45 +17,71 @@ const TYPE_META: Record<EventType, { color: string }> = {
 
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
 
-function toDateStr(d: Date) {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-
 const DISPLAY_ROWS = 3;
 
-/** トップページに表示する、直近の予定（content/events.json から今日以降の数件） */
-export function EventCalendar() {
-  const rows = useMemo(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return events
-      .filter((e) => e.date >= toDateStr(today))
-      .sort((a, b) => a.date.localeCompare(b.date))
-      .slice(0, DISPLAY_ROWS);
-  }, []);
+// 日付は日をまたいだときにだけ変わる。開いたまま日付が変わるケースは再読み込みに任せ、購読はしない
+function subscribeToday() {
+  return () => {};
+}
 
-  if (rows.length === 0) return null;
+/** サーバー（ビルド時）では閲覧する日が分からないため null を返し、枠だけを表示する */
+function getTodayServerSnapshot() {
+  return null;
+}
+
+type EventCalendarProps = {
+  /** ビルド日以降の予定（日付順） */
+  events: CalendarEvent[];
+};
+
+/**
+ * トップページに表示する、直近の予定（今日以降の数件）。
+ * ページは静的に生成されるため、ビルド時に絞り込むと日がたつにつれて終わった予定が並んでしまう。
+ * そのため「今日」の判定はハイドレーション後にクライアントで行う。
+ */
+export function EventCalendar({ events }: EventCalendarProps) {
+  const today = useSyncExternalStore<string | null>(
+    subscribeToday,
+    todayInTokyo,
+    getTodayServerSnapshot,
+  );
+
+  if (today === null) {
+    return <EventCalendarSkeleton />;
+  }
+
+  const rows = events.filter((e) => e.date >= today).slice(0, DISPLAY_ROWS);
+
+  if (rows.length === 0) {
+    return (
+      <p className="py-6 text-slate-500 md:text-lg">現在予定されているイベントはありません。</p>
+    );
+  }
 
   return (
     <div className="w-full">
       <ul className="divide-y divide-slate-100">
-        {rows.map((ev, i) => {
-          const d = new Date(ev.date + "T00:00:00");
-          const dow = WEEKDAYS[d.getDay()];
-          const isSun = d.getDay() === 0;
-          const isSat = d.getDay() === 6;
-          const meta = TYPE_META[ev.type] || { color: "#94a3b8" };
+        {rows.map((ev) => {
+          // 日付だけを扱うため UTC として解釈し、閲覧者のタイムゾーンで曜日がずれないようにする
+          const d = new Date(`${ev.date}T00:00:00Z`);
+          const day = d.getUTCDay();
+          const isSun = day === 0;
+          const isSat = day === 6;
+          const meta = TYPE_META[ev.type];
 
           return (
-            <li key={i} className="group flex flex-col items-start gap-4 py-6 md:flex-row md:gap-8">
+            <li
+              key={`${ev.date}-${ev.title}`}
+              className="group flex flex-col items-start gap-4 py-6 md:flex-row md:gap-8"
+            >
               {/* Date */}
               <div className="w-16 shrink-0 md:w-24 md:pt-0.5">
                 <span
                   className="text-base font-bold tabular-nums md:text-2xl"
                   style={{ color: isSun ? "#dc2626" : isSat ? "#2563eb" : "#1e293b" }}
                 >
-                  {d.getMonth() + 1}/{d.getDate()}
-                  <span className="ml-1 text-xs md:text-base">({dow})</span>
+                  {d.getUTCMonth() + 1}/{d.getUTCDate()}
+                  <span className="ml-1 text-xs md:text-base">({WEEKDAYS[day]})</span>
                 </span>
               </div>
 
@@ -129,6 +144,25 @@ export function EventCalendar() {
             </li>
           );
         })}
+      </ul>
+    </div>
+  );
+}
+
+/** 予定を表示するまでの枠。表示後に高さが大きく変わらないよう、予定と同じ行数・余白にする */
+function EventCalendarSkeleton() {
+  return (
+    <div className="w-full" aria-busy="true" aria-label="直近のイベントを読み込み中">
+      <ul className="divide-y divide-slate-100">
+        {Array.from({ length: DISPLAY_ROWS }, (_, i) => (
+          <li key={i} className="flex flex-col items-start gap-4 py-6 md:flex-row md:gap-8">
+            <div className="h-6 w-16 shrink-0 animate-pulse rounded bg-slate-100 md:h-8 md:w-24" />
+            <div className="flex-1 space-y-2">
+              <div className="h-6 w-2/3 animate-pulse rounded bg-slate-100 md:h-7" />
+              <div className="h-5 w-1/3 animate-pulse rounded bg-slate-100 md:h-6" />
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );
