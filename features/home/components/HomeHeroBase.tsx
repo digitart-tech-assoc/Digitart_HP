@@ -25,10 +25,10 @@ export function HomeHeroBase() {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [transitioning, setTransitioning] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
   // 利用者が再生・一時停止を選んだら、その選択を優先する（null は未操作）
   const [userPaused, setUserPaused] = useState<boolean | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   // 視差効果を減らす設定のときは、自動では切り替えない（サーバーでは自動再生として描画する）
   const prefersReducedMotion = useSyncExternalStore(
@@ -52,9 +52,23 @@ export function HomeHeroBase() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    // スクロールのたびに state を更新するとヒーロー全体が再描画されるため、
+    // 1 フレームに 1 回だけ、スクロールの案内の透明度を DOM に直接書き込む
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        if (scrollIndicatorRef.current) {
+          scrollIndicatorRef.current.style.opacity = String(Math.max(0, 1 - window.scrollY / 120));
+        }
+      });
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   const showSlide = (next: number) => {
@@ -230,11 +244,8 @@ export function HomeHeroBase() {
 
         {/* Scroll indicator */}
         <div
-          className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5"
-          style={{
-            opacity: Math.max(0, 1 - scrollY / 120),
-            transition: "opacity 0.3s",
-          }}
+          ref={scrollIndicatorRef}
+          className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5 transition-opacity duration-300"
           aria-hidden="true"
         >
           <span className="text-[9px] font-bold tracking-[0.28em] text-white/55 uppercase">
