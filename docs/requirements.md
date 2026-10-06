@@ -184,6 +184,8 @@ image: "/images/articles/2026-09-23/example.png"
 - 記事本文は `content/news/` に保持する
 - 記事画像は `public/images/articles/<公開日>/`、ページ画像は `public/images/<ページ名>/` に保持する
 - ロゴは `public/images/digitart_white_normal.svg` を正本とする
+- 写真などの画像は長辺2000px以下のWebPで保持する（`scripts/optimize-images.mjs` で変換できる）。記事のOGP画像（frontmatterの `image`）と `digitart_OGP.jpg` は、WebPに対応していないSNSがあるためJPEG・PNGのままにする
+- PRで500KBを超える画像を追加すると、CIで警告を出す
 - サイト名、URL、SNS、ナビゲーションは `lib/constants.ts` に集約する
 
 置き場所の詳細は [architecture.md](architecture.md) の「どこに何を置くか」を参照。
