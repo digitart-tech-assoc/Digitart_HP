@@ -149,3 +149,69 @@ body {
   text-align: right;
   color: var(--foreground);
 }
+
+/*
+ * ヘッダーのナビゲーションドロワー（<dialog> を showModal() で開く）。
+ * 閉じるときも滑って消えるよう、display と overlay を transition-behavior: allow-discrete で遅らせる。
+ * 対応していないブラウザでは、アニメーションなしで開閉する。
+ */
+.nav-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: 18rem;
+  max-width: 85vw;
+  height: 100dvh;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: white;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  translate: 100% 0;
+  transition:
+    translate 0.3s ease-in-out,
+    overlay 0.3s allow-discrete,
+    display 0.3s allow-discrete;
+}
+
+.nav-drawer[open] {
+  translate: 0 0;
+}
+
+.nav-drawer::backdrop {
+  background: rgb(0 0 0 / 0);
+  backdrop-filter: blur(0);
+  transition:
+    background 0.3s,
+    backdrop-filter 0.3s,
+    overlay 0.3s allow-discrete,
+    display 0.3s allow-discrete;
+}
+
+.nav-drawer[open]::backdrop {
+  background: rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(4px);
+}
+
+@starting-style {
+  .nav-drawer[open] {
+    translate: 100% 0;
+  }
+
+  .nav-drawer[open]::backdrop {
+    background: rgb(0 0 0 / 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-drawer,
+  .nav-drawer::backdrop {
+    transition: none;
+  }
+}
+
+/* ドロワーを開いている間は、背後のページをスクロールさせない */
+html:has(.nav-drawer[open]) {
+  overflow: hidden;
+}
