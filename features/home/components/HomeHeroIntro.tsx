@@ -36,28 +36,10 @@ export function HomeHeroIntro({ phase, theme }: HomeHeroIntroProps) {
                 phase === "intro" ? "scale(1)" : phase === "expand" ? "scale(20)" : "scale(80)",
               opacity: phase === "white" ? 0 : 1,
               willChange: "transform, opacity",
-              WebkitFontSmoothing: "antialiased",
-              backfaceVisibility: "hidden",
-              MozPerspective: "1000px",
             }}
           >
-            <Logo
-              width={120}
-              height={120}
-              aria-label="Digitart logo intro"
-              style={{
-                WebkitFontSmoothing: "antialiased",
-                MozOsxFontSmoothing: "grayscale",
-                backfaceVisibility: "hidden",
-                display: "block",
-                width: 120,
-                height: 120,
-                shapeRendering: "crispEdges",
-                imageRendering: "crisp-edges",
-                WebkitTransformStyle: "preserve-3d",
-                transformStyle: "preserve-3d",
-              }}
-            />
+            {/* イントロの演出なので、読み上げの対象にしない（alt を空にする） */}
+            <Logo size={120} className="block" />
           </div>
         </div>
       )}
