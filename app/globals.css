@@ -156,3 +156,55 @@ body {
 html:has(.nav-drawer[open]) {
   overflow: hidden;
 }
+
+/*
+ * トップページのイントロ（features/home/components/HomeHeroIntro.tsx）。
+ * 0.8 秒ロゴを見せてから拡大し、2.2 秒から背景ごとフェードアウトして、下のヒーローを見せる。
+ */
+.home-intro {
+  animation: home-intro-fade 2.8s ease-in-out forwards;
+}
+
+.home-intro-logo {
+  animation: home-intro-zoom 2.7s forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes home-intro-fade {
+  0%,
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes home-intro-zoom {
+  0%,
+  30% {
+    scale: 1;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  81% {
+    scale: 20;
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    scale: 60;
+    opacity: 0;
+  }
+}
+
+/* 同じセッションで表示済みのときと、視差効果を減らす設定のときは表示しない */
+:root[data-intro-seen] .home-intro {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-intro {
+    display: none;
+  }
+}

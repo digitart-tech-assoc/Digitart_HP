@@ -33,3 +33,12 @@ export const PICKUP_ITEMS = [
     imagePosition: "bg-center",
   },
 ];
+
+/** トップページのヒーローで切り替えて表示する背景画像 */
+export const HERO_SLIDES = [
+  "/images/heros/01.jpg",
+  "/images/heros/02.jpg",
+  "/images/heros/03.jpg",
+  "/images/heros/04.jpg",
+  "/images/heros/05.jpg",
+];
