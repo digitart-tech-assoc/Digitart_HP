@@ -21,9 +21,14 @@ for (const { path, h1 } of PAGES) {
   });
 }
 
-// /about には現在 h1 がない（#182）。修正したら fixme を外す
-test.fixme("/about が表示され、h1 がある", async ({ page }) => {
+test("/about が表示され、h1 がある", async ({ page }) => {
   await page.goto("/about");
+  await expect(page.locator("h1")).toHaveCount(1);
+});
+
+test("記事ページの h1 は記事タイトルの 1 つだけ", async ({ page }) => {
+  // 本文に # の見出しがある記事
+  await page.goto("/news/2026-02-28-welcome");
   await expect(page.locator("h1")).toHaveCount(1);
 });
 

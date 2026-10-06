@@ -11,6 +11,8 @@ import { CodeBlock } from "@/components/markdown/CodeBlock";
 const LINK_CLASS =
   "font-bold text-emerald-600 underline decoration-emerald-200 underline-offset-4 transition-all hover:text-emerald-700 hover:decoration-emerald-500";
 
+type HeadingTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
 type MarkdownRendererProps = {
   /** 表示する Markdown 文字列 */
   content: string;
@@ -42,31 +44,46 @@ export function MarkdownRenderer({
   resolveImageSrc,
   variant = "article",
 }: MarkdownRendererProps) {
+  // 記事はページ側で記事タイトルを h1 にしているため、本文の見出しは 1 段下げて出力する（見た目は変えない）。
+  // 規約などの文書は、本文の # がページの見出しになる
+  const headingOffset = variant === "article" ? 1 : 0;
+  const heading = (level: number) => `h${Math.min(level + headingOffset, 6)}` as HeadingTag;
+
   const components: Components = {
-    h1: ({ node, ...props }) => (
-      <h1
-        className="mt-6 mb-4 border-b-2 border-slate-100 pb-3 text-2xl font-extrabold text-slate-900 md:text-3xl"
-        {...props}
-      />
-    ),
-    h2: ({ node, ...props }) => (
-      <h2
-        className="mt-8 mb-3 border-b border-slate-100 pb-2 text-xl font-bold text-slate-900 md:text-2xl"
-        {...props}
-      />
-    ),
-    h3: ({ node, children, ...props }) => (
-      <h3
-        className="mt-6 mb-3 flex items-center gap-2 text-lg font-bold text-slate-900 md:text-xl"
-        {...props}
-      >
-        <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>
-        {children}
-      </h3>
-    ),
-    h4: ({ node, ...props }) => (
-      <h4 className="mt-5 mb-2 text-base font-bold text-slate-900 md:text-lg" {...props} />
-    ),
+    h1: ({ node, ...props }) => {
+      const Tag = heading(1);
+      return (
+        <Tag
+          className="mt-6 mb-4 border-b-2 border-slate-100 pb-3 text-2xl font-extrabold text-slate-900 md:text-3xl"
+          {...props}
+        />
+      );
+    },
+    h2: ({ node, ...props }) => {
+      const Tag = heading(2);
+      return (
+        <Tag
+          className="mt-8 mb-3 border-b border-slate-100 pb-2 text-xl font-bold text-slate-900 md:text-2xl"
+          {...props}
+        />
+      );
+    },
+    h3: ({ node, children, ...props }) => {
+      const Tag = heading(3);
+      return (
+        <Tag
+          className="mt-6 mb-3 flex items-center gap-2 text-lg font-bold text-slate-900 md:text-xl"
+          {...props}
+        >
+          <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>
+          {children}
+        </Tag>
+      );
+    },
+    h4: ({ node, ...props }) => {
+      const Tag = heading(4);
+      return <Tag className="mt-5 mb-2 text-base font-bold text-slate-900 md:text-lg" {...props} />;
+    },
     p: ({ node, ...props }) => (
       <p className="mb-5 text-base leading-relaxed font-medium text-slate-700" {...props} />
     ),
