@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
+import { Logo } from "@/components/ui/Logo";
 import { SITE_NAME, NAV_LINKS } from "@/lib/constants";
 
 export default function Header() {
@@ -44,13 +44,7 @@ export default function Header() {
             href="/"
             className="flex items-center gap-3 text-xl font-bold tracking-tight text-slate-800 transition-colors hover:text-brand-strong"
           >
-            <Image
-              src="/images/digitart_white_normal.svg"
-              alt={`${SITE_NAME} ロゴ`}
-              width={32}
-              height={32}
-              className="rounded-md"
-            />
+            <Logo size={32} alt={`${SITE_NAME} ロゴ`} className="rounded-md" />
             {SITE_NAME}
           </Link>
 
