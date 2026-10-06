@@ -27,7 +27,6 @@ export const SOCIAL_LINKS = {
 export type NavItem = {
   href: string;
   label: string;
-  accent?: boolean;
   children?: NavItem[];
 };
 
