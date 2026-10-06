@@ -1,18 +1,36 @@
-import { ExternalLink } from "lucide-react";
+import { CalendarDays, ExternalLink, Laptop, MapPin } from "lucide-react";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { ANNUAL_EVENTS, REGULAR_ACTIVITIES } from "@/features/events/data";
+import { getAnnualEvents, getRegularActivities } from "@/features/events/events";
 import { countEventsByMonth, monthBgClass, monthTextClass } from "@/features/events/monthCounts";
+import type { RegularActivity, Season } from "@/features/events/schema";
 
-/** 月ごとのイベント数（スケジュールの月バーの色分けに使う） */
-const MONTH_COUNTS = countEventsByMonth(ANNUAL_EVENTS);
+/** 時期ごとのタグの色 */
+const SEASON_TAG_CLASS: Record<Season, string> = {
+  "1st Semester": "bg-green-100 text-green-700",
+  "Summer Vacation": "bg-sky-100 text-sky-700",
+  "2nd Semester": "bg-amber-100 text-amber-700",
+  "Spring Vacation": "bg-pink-100 text-pink-700",
+};
+
+/** 定例活動のアイコン（content/regular-activities.json の icon と対応させる） */
+const ACTIVITY_ICON: Record<RegularActivity["icon"], typeof CalendarDays> = {
+  calendar: CalendarDays,
+  "map-pin": MapPin,
+  laptop: Laptop,
+};
 
 /** 年度の並び順（4月始まり） */
 const FISCAL_MONTHS = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];
 
 export function EventsPage() {
+  const annualEvents = getAnnualEvents();
+  const regularActivities = getRegularActivities();
+  // 月ごとのイベント数（スケジュールの月バーの色分けに使う）
+  const monthCounts = countEventsByMonth(annualEvents);
+
   return (
     <div className="bg-white">
       <PageHero
@@ -47,7 +65,7 @@ export function EventsPage() {
           {/* Month Bar */}
           <div className="mb-16 hidden reveal items-center gap-1 px-4 md:flex">
             {FISCAL_MONTHS.map((m) => {
-              const count = MONTH_COUNTS[m];
+              const count = monthCounts[m];
               const barClass = monthBgClass(count);
               const textClass = monthTextClass(count);
               return (
@@ -69,7 +87,7 @@ export function EventsPage() {
       {/* Event Cards */}
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-6xl space-y-8">
-          {ANNUAL_EVENTS.map((event, i) => (
+          {annualEvents.map((event, i) => (
             <div key={`${event.month}-${i}`} className="group reveal">
               <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:shadow-xl">
                 {/* Collapsed View */}
@@ -93,7 +111,7 @@ export function EventsPage() {
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
                         <span
-                          className={`mb-3 inline-block rounded-full px-3 py-1 text-xs ${event.tagColor}`}
+                          className={`mb-3 inline-block rounded-full px-3 py-1 text-xs ${SEASON_TAG_CLASS[event.season]}`}
                           style={{ fontWeight: 600 }}
                         >
                           {event.season}
@@ -105,7 +123,7 @@ export function EventsPage() {
                           {event.title}
                         </h3>
                         <p className="text-sm text-gray-500 md:line-clamp-2">{event.desc}</p>
-                        {event.url && event.url !== "null" && (
+                        {event.url && (
                           <a
                             href={event.url}
                             target="_blank"
@@ -138,18 +156,21 @@ export function EventsPage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {REGULAR_ACTIVITIES.map((act) => (
-              <div
-                key={act.label}
-                className="reveal rounded-2xl bg-white p-8 text-center shadow-sm transition-shadow duration-300 hover:shadow-lg"
-              >
-                <act.icon className="mx-auto mb-4 h-10 w-10 text-emerald-500" />
-                <h4 className="mb-2 text-lg text-gray-900" style={{ fontWeight: 700 }}>
-                  {act.label}
-                </h4>
-                <p className="text-sm text-gray-500">{act.detail}</p>
-              </div>
-            ))}
+            {regularActivities.map((act) => {
+              const Icon = ACTIVITY_ICON[act.icon];
+              return (
+                <div
+                  key={act.label}
+                  className="reveal rounded-2xl bg-white p-8 text-center shadow-sm transition-shadow duration-300 hover:shadow-lg"
+                >
+                  <Icon className="mx-auto mb-4 h-10 w-10 text-emerald-500" />
+                  <h4 className="mb-2 text-lg text-gray-900" style={{ fontWeight: 700 }}>
+                    {act.label}
+                  </h4>
+                  <p className="text-sm text-gray-500">{act.detail}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

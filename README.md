@@ -48,7 +48,7 @@ npm run dev
 | `npm run lint` | ESLint |
 | `npm run typecheck` | 型チェック |
 | `npm test` | ユニットテスト（Vitest） |
-| `npm run build` | 本番ビルド（記事の frontmatter や `content/events.json` の検証もここで行われる） |
+| `npm run build` | 本番ビルド（記事の frontmatter や `content/*.json` の検証もここで行われる） |
 | `npm run test:e2e` | E2E のスモークテスト（Playwright）。先に `npm run build` が必要 |
 
 PR を出すと、GitHub Actions で整形・lint・型チェック・テスト・ビルド・E2E が実行されます。すべて通るまでマージしないでください。
@@ -88,10 +88,11 @@ PR を出すと、GitHub Actions で整形・lint・型チェック・テスト�
 |---|---|
 | トップページの「直近のイベント」 | `content/events.json` |
 | サークル規約 | `content/bylaws.md` |
-| 制作物・沿革・幹部・活動データなど | `features/<機能>/data.ts` |
+| 年間行事・定例活動 | `content/annual-events.json`・`content/regular-activities.json` |
+| 制作物・団体の歩み・活動データ・役員紹介 | `content/works.json`・`history.json`・`stats.json`・`supporters.json` |
 | ナビゲーション・SNS のリンク | `lib/constants.ts` |
 
-詳しくは [docs/architecture.md](docs/architecture.md) の「どこに何を置くか」を見てください。
+JSON の書き方と確認方法は、[docs/architecture.md](docs/architecture.md) の「データを追加・変更する」を見てください。
 
 ## デプロイ
 

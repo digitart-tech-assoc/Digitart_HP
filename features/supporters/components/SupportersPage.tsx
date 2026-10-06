@@ -3,9 +3,11 @@ import { Quote } from "lucide-react";
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { MEMBERS, QA } from "@/features/supporters/data";
+import { getSupporters } from "@/features/supporters/supporters";
 
 export function SupportersPage() {
+  const { members, qa } = getSupporters();
+
   return (
     <div className="bg-white">
       <PageHero title="幹部紹介" subtitle="Digitartを支える人たち" backHref="/about" />
@@ -29,7 +31,7 @@ export function SupportersPage() {
               第7期役員
             </h2>
           </div>
-          {MEMBERS.map((member, i) => {
+          {members.map((member, i) => {
             return (
               <div
                 key={member.name}
@@ -79,7 +81,7 @@ export function SupportersPage() {
           </div>
 
           <div className="space-y-6">
-            {QA.map((item, i) => (
+            {qa.map((item, i) => (
               <div key={i} className="reveal rounded-2xl bg-white p-8 shadow-sm">
                 <div className="mb-4 flex items-start gap-4">
                   <span className="text-2xl text-emerald-500" style={{ fontWeight: 700 }}>

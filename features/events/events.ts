@@ -1,19 +1,22 @@
 import "server-only";
 
-import { z } from "zod";
-
+import annualEventsData from "@/content/annual-events.json";
 import eventsData from "@/content/events.json";
-import { type CalendarEvent, calendarEventsSchema } from "@/features/events/schema";
+import regularActivitiesData from "@/content/regular-activities.json";
+import {
+  annualEventsSchema,
+  type CalendarEvent,
+  calendarEventsSchema,
+  regularActivitiesSchema,
+} from "@/features/events/schema";
+import { parseContent } from "@/lib/content";
 import { todayInTokyo } from "@/lib/date";
 
 /** content/events.json を検証し、日付順に並べて返す */
 function loadEvents(): CalendarEvent[] {
-  const result = calendarEventsSchema.safeParse(eventsData);
-  if (!result.success) {
-    // パスの先頭の数字は配列の何番目か（0 始まり）を表す
-    throw new Error(`content/events.json の形式が不正です\n${z.prettifyError(result.error)}`);
-  }
-  return result.data.sort((a, b) => a.date.localeCompare(b.date));
+  return parseContent("content/events.json", calendarEventsSchema, eventsData).sort((a, b) =>
+    a.date.localeCompare(b.date),
+  );
 }
 
 /**
@@ -24,4 +27,23 @@ function loadEvents(): CalendarEvent[] {
 export function getUpcomingEvents(): CalendarEvent[] {
   const buildDate = todayInTokyo();
   return loadEvents().filter((event) => event.date >= buildDate);
+}
+
+/** 年間行事（content/annual-events.json） */
+export function getAnnualEvents() {
+  return parseContent(
+    "content/annual-events.json",
+    annualEventsSchema,
+    annualEventsData,
+    (events) => events.map((e) => e.image),
+  );
+}
+
+/** 定例活動（content/regular-activities.json） */
+export function getRegularActivities() {
+  return parseContent(
+    "content/regular-activities.json",
+    regularActivitiesSchema,
+    regularActivitiesData,
+  );
 }

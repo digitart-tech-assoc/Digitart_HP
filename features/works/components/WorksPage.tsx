@@ -3,7 +3,7 @@ import { ExternalLink } from "lucide-react";
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { PROJECTS } from "@/features/works/data";
+import { getProjects } from "@/features/works/works";
 
 export function WorksPage() {
   return (
@@ -28,7 +28,7 @@ export function WorksPage() {
       {/* Projects */}
       <section className="px-6 pb-32">
         <div className="mx-auto max-w-6xl space-y-20">
-          {PROJECTS.map((project, i) => (
+          {getProjects().map((project, i) => (
             <div
               key={project.title}
               className={`flex reveal flex-col ${
