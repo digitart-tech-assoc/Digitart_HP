@@ -178,7 +178,8 @@ image: "/images/articles/2026-09-23/example.png"
 
 ### 5.3 静的コンテンツ
 
-- ページ固有の年間行事、作品、沿革、役員、統計は `features/<機能>/data.ts` に保持する
+- 年間行事、定例活動、作品、沿革、役員・FAQ、統計は `content/*.json` に保持し、`features/<機能>/schema.ts` のzodスキーマで検証する（画像が `public/` に存在するかも確認する）
+- About・ホームの案内カードは `features/<機能>/data.ts` に保持する
 - 規約本文は `content/bylaws.md` に保持する
 - 記事本文は `content/news/` に保持する
 - 記事画像は `public/images/articles/<公開日>/`、ページ画像は `public/images/<ページ名>/` に保持する
@@ -216,7 +217,7 @@ app/                    ルーティング専用（page.tsx / layout.tsx / sitem
 features/<機能>/         機能ごとの部品・データ読み込み・Server Action・スキーマ（記事取得、GitHub連携を含む）
 components/             機能に依存しない共通UI・レイアウト・SEO部品
 lib/                    ドメイン知識を持たない汎用処理（定数、メタデータ、日付、セッション）
-content/                記事Markdown、イベントJSON、規約
+content/                記事Markdown、ページのデータ（JSON）、規約
 public/images/          画像
 e2e/                    E2Eテスト
 docs/                   ドキュメント
@@ -353,7 +354,7 @@ PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 - 投稿の公開はPull Requestのマージと再ビルドに依存するため、即時公開ではない
 - ニュース投稿画面は画像をBase64としてServer Actionへ渡すため、画像サイズ・リクエストサイズの上限に注意する
 - `app/api` に公開APIはないため、外部からのイベント取得や会員情報更新が必要になった場合はAPI設計を別途定義する
-- 統計値は `features/stats/data.ts` の定数であり、更新日時と集計根拠を合わせて更新する必要がある
+- 統計値は `content/stats.json` で管理しており、更新日時と集計根拠を合わせて更新する必要がある
 
 ## 13. 変更時チェックリスト
 

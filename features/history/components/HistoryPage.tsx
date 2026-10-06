@@ -1,7 +1,7 @@
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { TIMELINE } from "@/features/history/data";
+import { getTimeline } from "@/features/history/history";
 
 export function HistoryPage() {
   return (
@@ -25,7 +25,7 @@ export function HistoryPage() {
           {/* Center line */}
           <div className="absolute top-0 bottom-0 left-6 w-0.5 transform bg-emerald-200 md:left-1/2 md:-translate-x-0.5" />
 
-          {TIMELINE.map((item, i) => (
+          {getTimeline().map((item, i) => (
             <div
               key={item.year}
               className={`relative mb-16 flex reveal flex-col items-start gap-8 md:flex-row ${

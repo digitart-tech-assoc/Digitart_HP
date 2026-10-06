@@ -1,0 +1,17 @@
+[
+  {
+    "label": "対面活動",
+    "detail": "毎週月曜･木曜 18:45-21:00",
+    "icon": "calendar"
+  },
+  {
+    "label": "活動場所",
+    "detail": "相模原キャンパスF棟 + オンライン",
+    "icon": "map-pin"
+  },
+  {
+    "label": "オンライン(Discord)",
+    "detail": "24時間いつでも活動中！",
+    "icon": "laptop"
+  }
+]

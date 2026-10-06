@@ -59,12 +59,34 @@ app  →  features  →  components / lib
 | ニュース記事 | `content/news/YYYY-MM-DD-<slug>.md` |
 | 記事内の画像 | `public/images/articles/<公開日>/`（管理画面から投稿すると自動で置かれる） |
 | ページで使う画像 | `public/images/<ページ・機能名>/`（例: `public/images/works/`）。コードからは `/images/works/xxx.png` の文字列で参照する |
-| イベント・制作物などのデータ | `content/*.json`（型とスキーマは `features/<機能>/schema.ts`） |
+| イベント・制作物などのデータ | `content/*.json`（型とスキーマは `features/<機能>/schema.ts`。下の「データを追加・変更する」を参照） |
 | 1 つの機能でだけ使う部品 | `features/<機能>/components/` |
 | 2 つ以上の機能で使う部品 | `components/ui/` など |
 | フォーム送信などのサーバー処理 | `features/<機能>/actions.ts` |
 | 外部 API の呼び出し | `features/<機能>/<サービス名>.ts`（先頭に `import "server-only";`） |
 | 色・余白などのデザイン値 | `app/globals.css` の `@theme` |
+
+## データを追加・変更する
+
+更新することが多いデータは、コードではなく `content/` の JSON に置いています。項目を 1 件追加するだけなら、JSON を編集するだけで済みます。
+
+| データ | ファイル | スキーマ |
+|---|---|---|
+| トップページの「直近のイベント」 | `content/events.json` | `features/events/schema.ts` |
+| 年間行事 | `content/annual-events.json` | `features/events/schema.ts` |
+| 定例活動 | `content/regular-activities.json` | `features/events/schema.ts` |
+| 制作物 | `content/works.json` | `features/works/schema.ts` |
+| 団体の歩み | `content/history.json` | `features/history/schema.ts` |
+| 活動データ | `content/stats.json` | `features/stats/schema.ts` |
+| 役員紹介・よくある質問 | `content/supporters.json` | `features/supporters/schema.ts` |
+
+1. 画像を使う場合は `public/images/<ページ名>/` に置き、JSON には `/images/<ページ名>/<ファイル名>` と書く
+2. JSON に 1 件追加する（使える項目と書き方は、各スキーマのコメントを参照）
+3. `npm test` か `npm run build` を実行する。形式の間違いや存在しない画像があると、`content/works.json の形式が不正です → at [3].url` のように、どのファイルの何件目（0 始まり）のどの項目が違うかが表示される
+
+- アイコンや色などの見た目は JSON に書かず、文字列のキー（例：定例活動の `"icon": "calendar"`、年間行事の `"season"`）からコンポーネント側で決めます。新しいキーを使うときは、スキーマとコンポーネントの対応表の両方に追加してください
+- 新しく JSON を追加するときは、`features/<機能>/schema.ts` にスキーマを書き、`server-only` のファイルから `lib/content.ts` の `parseContent` で読み込みます
+- About・トップページの案内カードなど、見た目と一体になっているデータは `features/<機能>/data.ts` に残しています
 
 ## コーディング規約
 
