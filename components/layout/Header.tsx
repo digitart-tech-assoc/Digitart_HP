@@ -27,6 +27,11 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // ヘッダーはページをまたいで残るため、ブラウザの「戻る」などでページが変わったときもドロワーを閉じる
+  useEffect(() => {
+    drawerRef.current?.close();
+  }, [pathname]);
+
   // トップページではヒーロー画像の上に重ねるため、スクロールするまでは背景を透明・文字を白にする
   const isTransparent = pathname === "/" && !isScrolled;
 
