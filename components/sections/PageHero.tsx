@@ -1,5 +1,4 @@
 import { ArrowLeft } from "lucide-react";
-import * as motion from "motion/react-client";
 import Link from "next/link";
 
 /** 背景の格子模様（SVG） */
@@ -28,23 +27,15 @@ export function PageHero({ title, subtitle, backHref }: PageHeroProps) {
           <ArrowLeft className="h-4 w-4" />
           戻る
         </Link>
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-4 text-5xl md:text-7xl"
+        <h1
+          className="mb-4 text-5xl motion-safe:animate-rise md:text-7xl"
           style={{ fontWeight: 700 }}
         >
           {title}
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl text-white/90"
-        >
+        </h1>
+        <p className="text-xl text-white/90 motion-safe:animate-rise motion-safe:[animation-delay:200ms]">
           {subtitle}
-        </motion.p>
+        </p>
       </div>
     </section>
   );

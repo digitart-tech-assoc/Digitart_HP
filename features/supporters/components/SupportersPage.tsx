@@ -1,5 +1,4 @@
 import { Quote } from "lucide-react";
-import * as motion from "motion/react-client";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
@@ -14,17 +13,11 @@ export function SupportersPage() {
       {/* Intro */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-lg leading-relaxed text-gray-600"
-          >
+          <p className="reveal text-lg leading-relaxed text-gray-600">
             Digitartにはどんなメンバーが集まっているのか？
             <br />
             Digitartを支える「人」にフォーカスします。
-          </motion.p>
+          </p>
         </div>
       </section>
 
@@ -38,27 +31,20 @@ export function SupportersPage() {
           </div>
           {MEMBERS.map((member, i) => {
             return (
-              <motion.div
+              <div
                 key={member.name}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.8 }}
-                className={`flex flex-col ${
+                className={`flex reveal flex-col ${
                   i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                 } items-center gap-12`}
               >
                 <div className="flex-shrink-0">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="h-48 w-48 overflow-hidden rounded-full border-4 border-emerald-100 shadow-xl md:h-64 md:w-64"
-                  >
+                  <div className="h-48 w-48 overflow-hidden rounded-full border-4 border-emerald-100 shadow-xl transition-transform duration-300 hover:scale-105 md:h-64 md:w-64">
                     <ImageWithFallback
                       src={member.image}
                       alt={member.name}
                       className="h-full w-full object-cover"
                     />
-                  </motion.div>
+                  </div>
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
@@ -76,7 +62,7 @@ export function SupportersPage() {
                     <p className="pt-2 pl-8 leading-relaxed text-gray-700 italic">{member.quote}</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -85,29 +71,16 @@ export function SupportersPage() {
       {/* Q&A Section */}
       <section className="bg-emerald-50/60 px-6 py-20">
         <div className="mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="mb-16 text-center"
-          >
+          <div className="mb-16 reveal text-center">
             <h2 className="mb-4 text-4xl text-gray-900" style={{ fontWeight: 700 }}>
               Q&A
             </h2>
             <p className="text-gray-600">よくある質問</p>
-          </motion.div>
+          </div>
 
           <div className="space-y-6">
             {QA.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="rounded-2xl bg-white p-8 shadow-sm"
-              >
+              <div key={i} className="reveal rounded-2xl bg-white p-8 shadow-sm">
                 <div className="mb-4 flex items-start gap-4">
                   <span className="text-2xl text-emerald-500" style={{ fontWeight: 700 }}>
                     Q.{String(i + 1).padStart(2, "0")}
@@ -117,7 +90,7 @@ export function SupportersPage() {
                   </h4>
                 </div>
                 <p className="ml-14 leading-relaxed text-gray-600">{item.a}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
