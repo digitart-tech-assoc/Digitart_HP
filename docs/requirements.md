@@ -1,6 +1,6 @@
 # Digitart.jp 要件定義書・実装仕様書
 
-最終更新: 2026-09-23  
+最終更新: 2026-10-07  
 対象: `Digitart_HP`   
 対象サイト: [Digitart テクノロジー愛好会](https://www.digitart.jp)
 
@@ -53,13 +53,13 @@
 | `/news` | お知らせ | ニュース一覧、カテゴリ切替、記事作成画面への導線 |
 | `/news/[slug]` | （記事タイトル） | Markdown記事の本文、日付、著者、コード、数式、画像、関連記事導線 |
 | `/join` | Join Us | 仮入会から正式入会までの手順、入会費、問い合わせ先、活動概要 |
-| `/bylaws` | Digitart テクノロジー愛好会 規約 | `app/bylaws/bylaws.md` を描画した団体規約 |
+| `/bylaws` | Digitart テクノロジー愛好会 規約 | `content/bylaws.md` を描画した団体規約 |
 
 ### 3.2 管理画面
 
 | パス | 画面 | 要件 |
 | --- | --- | --- |
-| `/admin/news/login` | メンバー確認 | `ADMIN_PASSWORD` と入力値を照合し、成功時に認証Cookieを発行する |
+| `/admin/news/login` | メンバー確認 | `ADMIN_PASSWORD` と入力値を照合し、成功時に署名付きのセッションCookieを発行する（詳細は4.7） |
 | `/admin/news/new` | 記事作成 | 記事メタデータ入力、Markdown編集、画像挿入、プレビュー、投稿リクエスト送信 |
 
 管理画面は一般公開サイトのヘッダー・フッターを表示しない。`/admin` 配下はMiddlewareで保護し、ログイン画面以外への未認証アクセスを `/admin/news/login` にリダイレクトする。
@@ -67,9 +67,10 @@
 ### 3.3 共通UI
 
 - ヘッダー: サイトロゴ、サイト名、ドロワー形式のナビゲーション
-- ナビゲーション: Home、About、News、Join Us、Bylaws、外部Contact
+- ナビゲーション: Home、About、News、Join Us、Bylaws、外部Contact（`lib/constants.ts` の `NAV_LINKS`。パンくずリストとサイトマップもここから作る）
 - About配下は子ページを折りたたみ表示する
-- ホームではスクロール位置に応じてヘッダーの表示状態を切り替える
+- ドロワーはネイティブの `<dialog>` で開き、Escや背景のクリックで閉じる。開いている間は背後のページを操作・スクロールできない
+- ホームではスクロールするまでヘッダーを透明な背景・白文字で表示し、スクロール後は白背景に切り替える
 - フッター: 団体名、サイトマップ、SNS、メールアドレス、コピーライト
 - 管理画面では共通ヘッダー・フッターを非表示にする
 
@@ -77,8 +78,10 @@
 
 ### 4.1 ホーム
 
-- ヒーロー表示から団体の印象と活動領域を伝える
-- `lib/events.json` のイベントから直近イベントを表示する
+- ヒーロー表示から団体の印象と活動領域を伝える。見出し・キャッチコピー・入会ボタンはサーバーで描画する
+- 最初の訪問時にロゴのイントロアニメーションを表示する。同じセッションでは2回目以降表示せず、視差効果を減らす設定のときも表示しない
+- 背景画像のスライドショーは5秒ごとに切り替え、一時停止・再生できる。視差効果を減らす設定のときは自動で切り替えない
+- `content/events.json` のイベントから、表示した日（日本時間）以降の予定を3件表示する。絞り込みはクライアントで行う（ページは静的生成のため）
 - About、Works、News、Join Usへのピックアップ導線を表示する
 - ニュースを新しい順に表示し、ホームでは最大5件ずつ表示する
 - 入会案内セクションを表示する
@@ -88,7 +91,7 @@
 - 活動領域としてプログラミング、ゲーム開発、デザインを表示する
 - 5つの案内カードからEvents、Works、History、Data、Supporterへ遷移できる
 - モバイルでは案内カードを横スクロールでき、一定間隔で自動送りする
-- スクロール表示時にMotionによるフェード・スライド演出を行う
+- スクロールに合わせてCSSのフェード・スライド演出を行う（JSがなくても、未対応のブラウザでも本文は表示される）
 
 ### 4.3 イベント
 
@@ -105,7 +108,7 @@
 
 ### 4.5 ニュース
 
-- `app/news/articles/*.md` を記事データとして読み込む
+- `content/news/*.md` を記事データとして読み込む
 - ファイル名から拡張子を除いた値をslugとして使用する
 - frontmatterの日付の降順で記事を並べる
 - カテゴリは `notice`（お知らせ）または `column`（コラム）とする
@@ -161,23 +164,26 @@ image: "/images/articles/2026-09-23/example.png"
 
 ### 5.2 イベントデータ
 
-イベントは `lib/events.json` に配列として保持する。
+イベントは `content/events.json` に配列として保持し、`features/events/schema.ts` のzodスキーマで検証する（不正な場合はビルドが失敗する）。
 
 | フィールド | 型 | 内容 |
 | --- | --- | --- |
 | `date` | string | `YYYY-MM-DD`形式の日付 |
 | `title` | string | イベント名 |
-| `type` | string | `info`、`activity`、`study`、`event`、`etc`等 |
-| `time` | string | 開催時間 |
-| `location` | string | 開催場所 |
+| `type` | string | `welcome`、`info`、`activity`、`study`、`reserve`、`event`、`etc` のいずれか |
+| `time` | string | 開催時間（任意） |
+| `location` | string | 開催場所（任意） |
 
 ### 5.3 静的コンテンツ
 
-- ページ固有のイベント、作品、沿革、役員、統計は各ページの定数として保持する
-- 規約本文は `app/bylaws/bylaws.md` に保持する
-- 記事本文は `app/news/articles/` に保持する
-- 記事画像・ページ画像は `app/about/assets/` または `public/images/` に保持する
+- ページ固有の年間行事、作品、沿革、役員、統計は `features/<機能>/data.ts` に保持する
+- 規約本文は `content/bylaws.md` に保持する
+- 記事本文は `content/news/` に保持する
+- 記事画像は `public/images/articles/<公開日>/`、ページ画像は `public/images/<ページ名>/` に保持する
+- ロゴは `public/images/digitart_white_normal.svg` を正本とする
 - サイト名、URL、SNS、ナビゲーションは `lib/constants.ts` に集約する
+
+置き場所の詳細は [architecture.md](architecture.md) の「どこに何を置くか」を参照。
 
 ## 6. システムアーキテクチャ
 
@@ -185,30 +191,36 @@ image: "/images/articles/2026-09-23/example.png"
 
 | 分類 | 採用技術 |
 | --- | --- |
-| Framework | Next.js 16.1.6 / App Router |
-| UI | React 19.2.3 |
+| Framework | Next.js 16 / App Router |
+| UI | React 19 |
 | Language | TypeScript |
 | Styling | Tailwind CSS 4 / PostCSS |
-| Animation | Motion |
+| Animation | CSS（scroll-driven animations・`@starting-style`）、Motion（数値のカウントアップ） |
 | Icons | lucide-react |
 | Markdown | gray-matter、react-markdown、remark-gfm、rehype-raw |
 | 数式 | remark-math、rehype-katex |
 | Code表示 | react-syntax-highlighter |
-| Image | next/image、ImageWithFallback |
+| Image | next/image（SVG）、ImageWithFallback |
 | Hosting | Cloudflare Pages / `@cloudflare/next-on-pages` |
 | Analytics | Cloudflare Web Analytics |
 | 外部連携 | GitHub REST API |
+| Validation | zod |
+| Test | Vitest、Playwright |
 
 ### 6.2 レイヤー構成
 
 ```text
-app/                    ルーティング、ページ、Server Action、記事データ
-components/             共通UI・ページUI・レイアウト部品
-lib/                    定数、記事取得、GitHub連携、メタデータ生成
-public/                 静的公開アセット
-types/                  TypeScript型定義
-docs/                   要件定義書・実装仕様書
+app/                    ルーティング専用（page.tsx / layout.tsx / sitemap.ts など）
+features/<機能>/         機能ごとの部品・データ読み込み・Server Action・スキーマ（記事取得、GitHub連携を含む）
+components/             機能に依存しない共通UI・レイアウト・SEO部品
+lib/                    ドメイン知識を持たない汎用処理（定数、メタデータ、日付、セッション）
+content/                記事Markdown、イベントJSON、規約
+public/images/          画像
+e2e/                    E2Eテスト
+docs/                   ドキュメント
 ```
+
+依存の向き（`app → features → components / lib`）とコーディング規約は [architecture.md](architecture.md) を参照。
 
 ### 6.3 リクエストとデータフロー
 
@@ -218,7 +230,7 @@ docs/                   要件定義書・実装仕様書
 ブラウザ
   -> Next.js App Router
   -> ページコンポーネント
-  -> lib/constants.ts / lib/events.json / Markdown / 画像
+  -> features/* / lib/constants.ts / content/（Markdown・JSON） / 画像
   -> HTML・静的アセット
 ```
 
@@ -245,9 +257,11 @@ docs/                   要件定義書・実装仕様書
 - サイト名、説明、キーワード、Open Graph、Twitterカードを設定する
 - 記事ページは記事タイトル・概要・画像・パスから個別メタデータを生成する
 - Organization JSON-LDを出力する
-- Breadcrumb JSON-LDを出力する
+- Breadcrumb JSON-LDを各ページで出力する。名前は `NAV_LINKS` から作り、記事ページの最後の項目は記事タイトルにする
+- サイトマップは `app/sitemap.ts` で生成する。`lastmod` は正しい値が分かるページ（記事、ホーム、ニュース一覧）にだけ付ける
 - 画像には用途に応じたaltを設定する
-- メニュー開閉ボタンに`aria-label`と`aria-expanded`を設定する
+- メニュー開閉ボタンに`aria-label`・`aria-expanded`・`aria-controls`を設定する
+- 視差効果を減らす設定（`prefers-reduced-motion`）のときは、アニメーションと自動スライドを止める
 - キーボードフォーカス時の表示を確保する
 - 内部リンクと外部リンクを区別し、外部リンクは`noopener noreferrer`を付ける
 - モバイル幅で横スクロール・カード表示・画像・長いタイトルが破綻しないこと
@@ -289,16 +303,24 @@ docs/                   要件定義書・実装仕様書
 ### 10.1 ローカル開発
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
+
+セットアップの詳細は [README](../README.md) を参照。
 
 ### 10.2 検証
 
 ```bash
+npm run format:check
 npm run lint
+npm run typecheck
+npm test
 npm run build
+npm run test:e2e
 ```
+
+PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 
 ### 10.3 Cloudflare Pages
 
@@ -314,9 +336,9 @@ npm run build
 - 公開文言、イベント、作品、沿革、役員、統計を変更した場合は、対応するページ実装と本書の対象箇所を確認する
 - ニュース追加は管理画面からPull Requestを作成し、レビュー・マージ後に公開する
 - 記事のslugは既存記事と重複させない
-- イベント追加・変更時は`lib/events.json`を更新する
+- イベント追加・変更時は`content/events.json`を更新する
 - サイト全体の名称、SNS、ナビゲーション変更時は`lib/constants.ts`と本書を更新する
-- ルート追加時はサイトマップ、ナビゲーション、フッター、本書を更新する
+- ルート追加時はナビゲーション（`NAV_LINKS`。サイトマップとパンくずにも反映される）、フッター、ページの `BreadcrumbJsonLd`、本書を更新する
 - 環境変数追加・変更時はデプロイ設定と本書の一覧を更新する
 - 外部リンク変更時は、公開ページ、定数、JSON-LD、本文中のリンクを横断して確認する
 - 仕様と実装の差分を見つけた場合は、修正または「既知の制約」に記録する
@@ -329,7 +351,7 @@ npm run build
 - 投稿の公開はPull Requestのマージと再ビルドに依存するため、即時公開ではない
 - ニュース投稿画面は画像をBase64としてServer Actionへ渡すため、画像サイズ・リクエストサイズの上限に注意する
 - `app/api` に公開APIはないため、外部からのイベント取得や会員情報更新が必要になった場合はAPI設計を別途定義する
-- 統計値はページ内定数であり、更新日時と集計根拠を合わせて更新する必要がある
+- 統計値は `features/stats/data.ts` の定数であり、更新日時と集計根拠を合わせて更新する必要がある
 
 ## 13. 変更時チェックリスト
 
@@ -338,6 +360,6 @@ npm run build
 - [ ] ナビゲーション、フッター、サイトマップへの影響を確認した
 - [ ] メタデータ、JSON-LD、外部リンクへの影響を確認した
 - [ ] モバイル表示と管理画面認証への影響を確認した
-- [ ] `npm run lint` を実行した
-- [ ] `npm run build` を実行した
+- [ ] `npm run lint`・`npm run typecheck`・`npm test` を実行した
+- [ ] `npm run build` を実行した（UIを変えた場合は `npm run test:e2e` も）
 - [ ] 本書の該当箇所を更新した
