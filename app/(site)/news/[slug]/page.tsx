@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { getAllArticles, getArticle } from "@/features/news/articles";
 import { getCustomMetadata } from "@/lib/metadata";
 
@@ -39,6 +40,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="min-h-screen bg-slate-50 p-4 font-sans text-slate-900 selection:bg-emerald-200 md:p-8 lg:p-16">
+      <BreadcrumbJsonLd path={`/news/${slug}`} currentLabel={article.title} />
       <div className="mx-auto max-w-3xl space-y-6">
         {/* Article Header */}
         <header className="flex flex-col items-start space-y-6">

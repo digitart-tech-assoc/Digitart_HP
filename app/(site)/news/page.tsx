@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { getAllArticles } from "@/features/news/articles";
 import { NewsList } from "@/features/news/components/NewsList";
@@ -20,6 +21,7 @@ export default function NewsPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-20 pb-32 font-sans text-slate-900 selection:bg-emerald-200">
+      <BreadcrumbJsonLd path="/news" />
       {/* Decorative background gradients */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-brand/15 blur-[100px]" />

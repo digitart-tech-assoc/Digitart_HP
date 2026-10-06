@@ -1,15 +1,17 @@
-"use client";
-
-import { usePathname } from "next/navigation";
-
 import { JsonLd } from "@/components/seo/JsonLd";
 import { generateBreadcrumbs } from "@/lib/breadcrumb";
 import { SITE_URL } from "@/lib/constants";
 
-/** 現在のパスからパンくずリストの構造化データを出力する */
-export function BreadcrumbJsonLd() {
-  const pathname = usePathname();
-  const breadcrumbItems = generateBreadcrumbs(pathname, SITE_URL);
+type BreadcrumbJsonLdProps = {
+  /** ページのパス（例: "/about/works"） */
+  path: string;
+  /** 最後の項目の名前。記事ページの記事タイトルなど、NAV_LINKS にない名前を出したいときに渡す */
+  currentLabel?: string;
+};
+
+/** パンくずリストの構造化データを出力する。各ページの page.tsx から呼ぶ */
+export function BreadcrumbJsonLd({ path, currentLabel }: BreadcrumbJsonLdProps) {
+  const breadcrumbItems = generateBreadcrumbs(path, SITE_URL, currentLabel);
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

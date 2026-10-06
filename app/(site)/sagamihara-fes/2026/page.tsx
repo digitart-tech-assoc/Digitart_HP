@@ -1,3 +1,4 @@
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { FestivalPage } from "@/features/festival/components/FestivalPage";
 import { SAGAMIHARA_FES_2026 } from "@/features/festival/data";
 import { getCustomMetadata } from "@/lib/metadata";
@@ -12,5 +13,10 @@ export const metadata = getCustomMetadata({
 });
 
 export default function Page() {
-  return <FestivalPage festival={SAGAMIHARA_FES_2026} heroImage={HERO_IMAGE} />;
+  return (
+    <>
+      <BreadcrumbJsonLd path="/sagamihara-fes/2026" currentLabel={SAGAMIHARA_FES_2026.title} />
+      <FestivalPage festival={SAGAMIHARA_FES_2026} heroImage={HERO_IMAGE} />
+    </>
+  );
 }

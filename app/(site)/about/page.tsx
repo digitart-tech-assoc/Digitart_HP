@@ -1,3 +1,4 @@
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { AboutPage } from "@/features/about/components/AboutPage";
 import { getCustomMetadata } from "@/lib/metadata";
 
@@ -21,5 +22,10 @@ export const metadata = getCustomMetadata({
 });
 
 export default function Page() {
-  return <AboutPage />;
+  return (
+    <>
+      <BreadcrumbJsonLd path="/about" />
+      <AboutPage />
+    </>
+  );
 }
