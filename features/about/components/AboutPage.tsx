@@ -23,6 +23,8 @@ const MD_GRID_CLASS =
 export function AboutPage() {
   return (
     <div className="bg-white pt-20">
+      {/* ページの見出し。上部はカードから始まるデザインのため、画面には出さずスクリーンリーダーと検索エンジン向けに置く */}
+      <h1 className="sr-only">About</h1>
       {/* Guide Cards Grid */}
       <section className="px-6 py-12 md:py-20">
         <div className="mx-auto max-w-6xl">
