@@ -6,6 +6,7 @@ import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { BYLAWS_FILE } from "@/lib/contentPaths";
 import { getCustomMetadata } from "@/lib/metadata";
 
@@ -26,6 +27,7 @@ export default async function Page() {
 
   return (
     <div className="mx-auto max-w-3xl px-8 pt-24 pb-16 md:pt-32">
+      <BreadcrumbJsonLd path="/bylaws" />
       {/* Page-scoped wrapper so styles can target only bylaws page */}
       <div className="bylaws-page">
         <article className="prose">
