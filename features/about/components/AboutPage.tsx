@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
+import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { GuideCardCarousel } from "@/features/about/components/GuideCardCarousel";
@@ -130,13 +131,10 @@ export function AboutPage() {
                 <p className="mb-10 text-lg leading-relaxed font-medium text-slate-600">
                   {card.desc}
                 </p>
-                <Link
-                  href={card.to}
-                  className="group inline-flex items-center gap-3 rounded-full border-2 border-slate-900 px-8 py-4 text-sm font-bold text-slate-900 transition-all duration-300 hover:bg-slate-900 hover:text-white"
-                >
+                <ButtonLink href={card.to} variant="outline-dark" size="md" className="group">
                   詳しく見る
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
+                </ButtonLink>
               </div>
               <div className="flex-1">
                 <Link href={card.to} className="block">

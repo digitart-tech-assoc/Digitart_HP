@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from "lucide-react";
-import Link from "next/link";
 
+import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
@@ -235,13 +235,10 @@ export function JoinPage() {
             <p className="mb-10 text-lg leading-relaxed text-slate-600">
               Digitartが普段どのような活動を行っているか、過去の制作物やイベントの様子はAboutページに詳しくまとめています。入会をご検討中の方はぜひ一度ご覧ください。
             </p>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-3 rounded-full border-2 border-slate-900 bg-white px-8 py-4 text-lg font-bold text-slate-900 transition-all duration-300 hover:bg-slate-900 hover:text-white"
-            >
+            <ButtonLink href="/about" variant="outline-dark" size="lg" className="group">
               詳しくはこちら
               <ArrowRightIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </ButtonLink>
           </div>
         </div>
       </section>
