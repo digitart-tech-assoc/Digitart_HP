@@ -18,7 +18,7 @@ export const GUIDE_CARDS = [
     desc: "作品制作や交流を深める、年間の定例イベントや特別イベントをご紹介します。",
     icon: Calendars,
     to: "/about/events",
-    image: "/images/about/events-hero.jpg",
+    image: "/images/about/events-hero.webp",
     color: "from-lime-700 to-green-950",
   },
   {
@@ -28,7 +28,7 @@ export const GUIDE_CARDS = [
     desc: "メンバーが生み出した作品の数々をご紹介。",
     icon: Briefcase,
     to: "/about/works",
-    image: "/images/about/works-hero.jpg",
+    image: "/images/about/works-hero.webp",
     color: "from-green-700 to-emerald-950",
   },
   {
@@ -38,7 +38,7 @@ export const GUIDE_CARDS = [
     desc: "設立からの成長と、団体の挑戦の歴史をご紹介します。",
     icon: History,
     to: "/about/history",
-    image: "/images/about/history-hero.jpg",
+    image: "/images/about/history-hero.webp",
     color: "from-emerald-700 to-teal-950",
   },
   {
@@ -48,7 +48,7 @@ export const GUIDE_CARDS = [
     desc: "メンバー数やプロジェクト数など、数字でDigitartを知る。",
     icon: BarChart3,
     to: "/about/data",
-    image: "/images/about/data-hero.jpg",
+    image: "/images/about/data-hero.webp",
     color: "from-teal-700 to-cyan-950",
   },
   {
@@ -58,7 +58,7 @@ export const GUIDE_CARDS = [
     desc: "団体を支えるメンバーやサポーターにフォーカス。",
     icon: Heart,
     to: "/about/supporter",
-    image: "/images/about/supporters-hero.jpg",
+    image: "/images/about/supporters-hero.webp",
     color: "from-lime-700 to-green-950",
   },
 ];

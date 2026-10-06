@@ -16,7 +16,7 @@ category: "notice"
 
 ![](/images/articles/2026-03-26/image.png)
 
-![](/images/articles/2026-03-26/image2.png)
+![](/images/articles/2026-03-26/image2.webp)
 
 
 ## とりあえずどこに行けばいいの？
