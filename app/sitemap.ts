@@ -1,4 +1,3 @@
-
 import { getAllArticles } from "@/features/news/articles";
 import { NAV_LINKS, type NavItem, SITE_URL } from "@/lib/constants";
 
