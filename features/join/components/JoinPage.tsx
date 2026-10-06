@@ -1,5 +1,4 @@
 import { ArrowRightIcon } from "lucide-react";
-import * as motion from "motion/react-client";
 import Link from "next/link";
 
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -17,11 +16,7 @@ export function JoinPage() {
         <div className="absolute top-0 left-1/2 -z-10 h-full w-[1px] bg-gradient-to-b from-transparent via-slate-200 to-transparent" />
 
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center md:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="motion-safe:animate-rise">
             <Eyebrow className="mb-3">Welcome</Eyebrow>
             <h1 className="mb-8 text-5xl leading-tight font-black text-slate-900 md:text-7xl">
               Join Us
@@ -31,12 +26,12 @@ export function JoinPage() {
               <br className="hidden md:block" />
               当サークルへの入会方法や、各種お問い合わせについてはこちらをご覧ください。
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ── How to Join ────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-t border-slate-100 bg-slate-50/50 py-16 md:py-32">
+      <section className="relative overflow-clip border-t border-slate-100 bg-slate-50/50 py-16 md:py-32">
         {/* Subtle background pattern */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.05]"
@@ -56,13 +51,7 @@ export function JoinPage() {
 
           <div className="space-y-16">
             {/* Step 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col gap-6 md:flex-row md:gap-12"
-            >
+            <div className="flex reveal flex-col gap-6 md:flex-row md:gap-12">
               <div className="shrink-0">
                 <span className="text-6xl font-black text-slate-200 md:text-7xl">01</span>
               </div>
@@ -113,16 +102,10 @@ export function JoinPage() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Step 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col gap-6 md:flex-row md:gap-12"
-            >
+            <div className="flex reveal flex-col gap-6 md:flex-row md:gap-12">
               <div className="shrink-0">
                 <span className="text-6xl font-black text-slate-200 md:text-7xl">02</span>
               </div>
@@ -135,16 +118,10 @@ export function JoinPage() {
                   受け取った招待リンクから、当サークルのDiscordサーバに参加してください。これにより仮入会が完了となります。
                 </p>
               </div>
-            </motion.div>
+            </div>
 
             {/* Step 3 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative flex flex-col gap-6 md:flex-row md:gap-12"
-            >
+            <div className="relative flex reveal flex-col gap-6 md:flex-row md:gap-12">
               <div className="relative z-10 shrink-0">
                 <span className="bg-gradient-to-br from-brand to-emerald-600 bg-clip-text text-6xl font-black text-transparent md:text-7xl">
                   03
@@ -164,7 +141,7 @@ export function JoinPage() {
                   お支払いは一度きりです。年会費はございません。
                 </p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -173,12 +150,7 @@ export function JoinPage() {
       <section className="border-t border-slate-100 bg-slate-50 py-16 md:py-28">
         <div className="mx-auto grid max-w-5xl gap-16 px-6 md:grid-cols-2 md:gap-24 md:px-12">
           {/* Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="reveal">
             <div className="mb-8">
               <Eyebrow className="mb-3">Contact</Eyebrow>
               <h2 className="text-3xl leading-tight font-black text-slate-900">お問い合わせ窓口</h2>
@@ -252,15 +224,10 @@ export function JoinPage() {
                 </span>
               </a>
             </div>
-          </motion.div>
+          </div>
 
           {/* Activities */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+          <div className="reveal">
             <div className="mb-8">
               <Eyebrow className="mb-3">Activities</Eyebrow>
               <h2 className="text-3xl leading-tight font-black text-slate-900">主な活動内容</h2>
@@ -275,7 +242,7 @@ export function JoinPage() {
               詳しくはこちら
               <ArrowRightIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>
