@@ -24,6 +24,12 @@ type MarkdownRendererProps = {
    * 管理画面のプレビューで、まだアップロードされていない画像を表示するために使う。
    */
   resolveImageSrc?: (src: string) => string;
+  /**
+   * 見た目の種類。
+   * - article（既定）: ニュース記事。見出しの装飾やブランドカラーのマーカーを付ける
+   * - document: 規約などの文書。装飾を抑え、条文の見出し（h4）と番号付きリストを読みやすくする
+   */
+  variant?: "article" | "document";
 };
 
 /**
@@ -34,6 +40,7 @@ export function MarkdownRenderer({
   content,
   openLinksInNewTab = false,
   resolveImageSrc,
+  variant = "article",
 }: MarkdownRendererProps) {
   const components: Components = {
     h1: ({ node, ...props }) => (
@@ -56,6 +63,9 @@ export function MarkdownRenderer({
         <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>
         {children}
       </h3>
+    ),
+    h4: ({ node, ...props }) => (
+      <h4 className="mt-5 mb-2 text-base font-bold text-slate-900 md:text-lg" {...props} />
     ),
     p: ({ node, ...props }) => (
       <p className="mb-5 text-base leading-relaxed font-medium text-slate-700" {...props} />
@@ -146,6 +156,22 @@ export function MarkdownRenderer({
       <hr className="my-10 border-t-2 border-dashed border-slate-100" {...props} />
     ),
   };
+
+  // 文書向けでは、h3 の装飾をなくし、番号付きリストを等幅フォント・ブランドカラーにしない
+  if (variant === "document") {
+    components.h3 = ({ node, ...props }) => (
+      <h3 className="mt-8 mb-3 text-lg font-bold text-slate-900 md:text-xl" {...props} />
+    );
+    components.p = ({ node, ...props }) => (
+      <p className="mb-3 text-base leading-relaxed text-slate-700" {...props} />
+    );
+    components.ol = ({ node, ...props }) => (
+      <ol
+        className="mb-3 ml-6 list-outside list-decimal space-y-1.5 text-slate-700 marker:text-slate-500"
+        {...props}
+      />
+    );
+  }
 
   return (
     <ReactMarkdown
