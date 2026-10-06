@@ -4,6 +4,7 @@ import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { EventCalendar } from "@/features/events/components/EventCalendar";
+import { getUpcomingEvents } from "@/features/events/events";
 import { HomeHero } from "@/features/home/components/HomeHero";
 import { PickupPages } from "@/features/home/components/PickupPages";
 import { PICKUP_ITEMS } from "@/features/home/data";
@@ -12,6 +13,7 @@ import { NewsList } from "@/features/news/components/NewsList";
 
 export default function Home() {
   const allArticles = getAllArticles();
+  const upcomingEvents = getUpcomingEvents();
 
   return (
     <div className="bg-transparent text-slate-900">
@@ -30,7 +32,7 @@ export default function Home() {
                 直近のイベント
               </h2>
             </div>
-            <EventCalendar />
+            <EventCalendar events={upcomingEvents} />
           </div>
         </section>
 
