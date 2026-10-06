@@ -88,6 +88,21 @@ app  →  features  →  components / lib
 - 新しく JSON を追加するときは、`features/<機能>/schema.ts` にスキーマを書き、`server-only` のファイルから `lib/content.ts` の `parseContent` で読み込みます
 - About・トップページの案内カードなど、見た目と一体になっているデータは `features/<機能>/data.ts` に残しています
 
+## 共通部品
+
+ボタンや見出しを新しく作る前に、次の部品が使えないか確認してください。
+
+| 部品 | 場所 | 用途 |
+|---|---|---|
+| `ButtonLink` / `buttonClassName` | `components/ui/Button.tsx` | ボタンの見た目のリンク / `<button>` に付けるクラス。`variant`（primary・outline・outline-dark・outline-light・neutral）と `size`（sm・md・lg）を選ぶ |
+| `Eyebrow` | `components/ui/Eyebrow.tsx` | 見出しの上の小さな英字ラベル |
+| `PageHero` | `components/sections/PageHero.tsx` | About 配下のページ上部の見出しエリア |
+| `JoinUsSection` | `components/sections/JoinUsSection.tsx` | ページ末尾の入会案内 |
+| `Logo` | `components/ui/Logo.tsx` | サークルのロゴ |
+| `ImageWithFallback` | `components/ui/ImageWithFallback.tsx` | 読み込みに失敗したら代わりの画像を出す画像 |
+
+色は `app/globals.css` の `@theme` で定義したブランドカラー（`bg-brand`・`text-brand-strong` など）を使い、`#8cc63f` のような値を直接書かないでください。
+
 ## コーディング規約
 
 | 項目 | ルール |

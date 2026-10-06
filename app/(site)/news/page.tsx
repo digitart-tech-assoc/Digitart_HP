@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { getAllArticles } from "@/features/news/articles";
 import { NewsList } from "@/features/news/components/NewsList";
@@ -46,10 +45,7 @@ export default function NewsPage() {
         <NewsList articles={allArticlesData} />
 
         <div className="flex justify-center pt-6">
-          <Link
-            href="/admin/news/login"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-brand px-4 py-2 text-sm font-bold text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white md:px-6 md:py-2.5 md:text-base"
-          >
+          <ButtonLink href="/admin/news/login" variant="outline" size="sm">
             <svg
               className="h-4 w-4 shrink-0 md:h-5 md:w-5"
               fill="none"
@@ -64,7 +60,7 @@ export default function NewsPage() {
               />
             </svg>
             記事を書く
-          </Link>
+          </ButtonLink>
         </div>
       </div>
     </div>

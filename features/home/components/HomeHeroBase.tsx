@@ -1,9 +1,9 @@
 "use client";
 
 import { Pause, Play } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState, useRef, useSyncExternalStore } from "react";
 
+import { ButtonLink } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
 import { HERO_SLIDES } from "@/features/home/data";
 import { INTRO_SEEN_STORAGE_KEY } from "@/features/home/introSeen";
@@ -201,10 +201,7 @@ export function HomeHeroBase() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/join"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-3 text-sm font-bold text-white shadow-[0_0_24px_rgba(140,198,63,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-hover md:px-10 md:py-4 md:text-base"
-            >
+            <ButtonLink href="/join" variant="primary" size="md">
               入会する
               <svg
                 className="h-4 w-4 md:h-5 md:w-5"
@@ -215,11 +212,8 @@ export function HomeHeroBase() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/45 px-6 py-3 text-sm font-bold text-white/90 transition-all duration-300 hover:border-white hover:bg-white/10 hover:text-white md:px-9 md:py-4 md:text-base"
-            >
+            </ButtonLink>
+            <ButtonLink href="/about" variant="outline-light" size="md">
               詳しく見る
               <svg
                 className="h-4 w-4 md:h-5 md:w-5"
@@ -230,7 +224,7 @@ export function HomeHeroBase() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </Link>
+            </ButtonLink>
           </div>
         </div>
 
