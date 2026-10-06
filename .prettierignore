@@ -8,3 +8,7 @@ public/
 
 # Markdown は記事・規約の表示に影響するため整形しない
 *.md
+
+# テストの出力
+test-results/
+playwright-report/
