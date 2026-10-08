@@ -37,6 +37,9 @@ export async function GET() {
     });
   });
 
+  // ナビゲーションに載せていないページ
+  urls.push(urlElement(`${SITE_URL}/sagamihara-fes/2026`, undefined, "daily", "0.7"));
+
   // 記事
   articles.forEach((a) => {
     const loc = `${SITE_URL}/news/${a.slug}`;

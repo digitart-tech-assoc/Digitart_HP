@@ -58,11 +58,17 @@ function getDisplayName(segment: string): string {
     join: "Join Us",
     bylaws: "Bylaws",
     contact: "Contact",
+    "sagamihara-fes": "相模原祭",
   };
 
   // スラッグ（記事IDなど）の場合は汎用的な名前を返す
   if (segmentMap[segment]) {
     return segmentMap[segment];
+  }
+
+  // 年（/sagamihara-fes/2026 など）はそのまま表示する
+  if (/^\d{4}$/.test(segment)) {
+    return segment;
   }
 
   // 数字や特殊文字を含むスラッグは親のページ名を使用
