@@ -26,13 +26,13 @@
       "playable": true
     },
     {
-      "title": "作品タイトル（仮）B",
-      "desc": "作品の説明文が入ります。どんな作品で、どう遊べるのかを 1〜2 文で紹介します。",
+      "title": "hit & blow",
+      "desc": "0〜9 の重複しない 4 つの数字を、相手と交互に予想して当て合う数当てゲーム。\n対戦相手をAI(強化学習)で作りました。",
       "category": "Web app",
-      "creators": ["メンバー名", "メンバー名"],
-      "tech": ["Next.js", "TypeScript"],
-      "image": null,
-      "url": null,
+      "creators": ["くろむ"],
+      "tech": ["React", "Vite", "PyTorch"],
+      "image": "/images/sagamihara-fes/2026/works/hit-and-blow.png",
+      "url": "https://www.chrom.jp/hit-and-blow",
       "playable": true
     },
     {
