@@ -8,7 +8,6 @@ export const metadata = getCustomMetadata({
   title: SAGAMIHARA_FES_2026.title,
   description: `${SAGAMIHARA_FES_2026.title}でのDigitart テクノロジー愛好会の展示案内。展示場所・開催日時・出展作品をご覧いただけます。`,
   keywords: ["相模原祭", "相模原祭2026", "青山学院大学", "学園祭", "Digitart"],
-  image: HERO_IMAGE,
   path: "/sagamihara-fes/2026",
 });
 
