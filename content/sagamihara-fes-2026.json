@@ -16,13 +16,13 @@
   },
   "works": [
     {
-      "title": "作品タイトル（仮）A",
-      "desc": "作品の説明文が入ります。どんな作品で、どう遊べるのかを 1〜2 文で紹介します。",
+      "title": "it's bow",
+      "desc": "シンプルな弓矢のゲームを作りました。止まってる的を打つと1点、動いてる的は2点、トータル10点取るとゲームクリアです。\n※ 会場での展示は 10/11（日）のみの予定です。",
       "category": "Game",
-      "creators": ["メンバー名"],
-      "tech": ["Unity", "C#"],
-      "image": null,
-      "url": null,
+      "creators": ["SYOKUN"],
+      "tech": ["Unity"],
+      "image": "/images/sagamihara-fes/2026/works/its-bow.png",
+      "url": "https://unityroom.com/games/is_it_bowgame",
       "playable": true
     },
     {
@@ -36,11 +36,21 @@
       "playable": true
     },
     {
-      "title": "作品タイトル（仮）C",
-      "desc": "作品の説明文が入ります。どんな作品で、どう遊べるのかを 1〜2 文で紹介します。",
+      "title": "AirCursor",
+      "desc": "Webカメラで手の動きを認識し、触れずにWebを操作できるアプリケーション",
+      "category": "Web app",
+      "creators": ["りつき"],
+      "tech": ["Mediapipe", "React", "JavaScript"],
+      "image": "/images/sagamihara-fes/2026/works/air-cursor.png",
+      "url": "https://ritsuki-i.github.io/AirCursor/",
+      "playable": true
+    },
+    {
+      "title": "うさぎ",
+      "desc": "ちいかわのうさぎです",
       "category": "Hardware",
-      "creators": ["メンバー名"],
-      "tech": ["Arduino", "C++"],
+      "creators": ["つまようじ"],
+      "tech": [],
       "image": null,
       "url": null,
       "playable": false
