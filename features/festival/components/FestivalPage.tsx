@@ -161,7 +161,7 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
               rel="noopener noreferrer"
               className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-black/30 hover:shadow-md"
             >
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-700 transition-colors group-hover:bg-black group-hover:text-white">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-black text-white transition-transform group-hover:scale-105">
                 <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
@@ -181,7 +181,7 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
               rel="noopener noreferrer"
               className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-instagram/30 hover:shadow-md"
             >
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-50 text-slate-700 transition-colors group-hover:bg-instagram group-hover:text-white">
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-instagram text-white transition-transform group-hover:scale-105">
                 <svg
                   className="h-6 w-6"
                   fill="none"
