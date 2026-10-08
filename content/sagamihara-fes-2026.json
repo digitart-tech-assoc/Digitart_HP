@@ -1,0 +1,49 @@
+{
+  "title": "相模原祭 2026",
+  "catchphrase": "つくった「好き」を、遊んでみよう。",
+  "lead": "Digitart テクノロジー愛好会は、メンバーが制作したゲームやアプリを展示します。\nどなたでも自由に体験できます。お気軽にお立ち寄りください！",
+  "days": [
+    { "date": "2026-10-10", "open": "10:00", "close": "17:00" },
+    { "date": "2026-10-11", "open": "10:00", "close": "15:30" }
+  ],
+  "venue": {
+    "campus": "青山学院大学 相模原キャンパス",
+    "place": "D210教室",
+    "note": null,
+    "address": "神奈川県相模原市中央区淵野辺5-10-1",
+    "mapImage": null,
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E9%9D%92%E5%B1%B1%E5%AD%A6%E9%99%A2%E5%A4%A7%E5%AD%A6+%E7%9B%B8%E6%A8%A1%E5%8E%9F%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%91%E3%82%B9"
+  },
+  "works": [
+    {
+      "title": "作品タイトル（仮）A",
+      "desc": "作品の説明文が入ります。どんな作品で、どう遊べるのかを 1〜2 文で紹介します。",
+      "category": "Game",
+      "creators": ["メンバー名"],
+      "tech": ["Unity", "C#"],
+      "image": null,
+      "url": null,
+      "playable": true
+    },
+    {
+      "title": "作品タイトル（仮）B",
+      "desc": "作品の説明文が入ります。どんな作品で、どう遊べるのかを 1〜2 文で紹介します。",
+      "category": "Web app",
+      "creators": ["メンバー名", "メンバー名"],
+      "tech": ["Next.js", "TypeScript"],
+      "image": null,
+      "url": null,
+      "playable": true
+    },
+    {
+      "title": "作品タイトル（仮）C",
+      "desc": "作品の説明文が入ります。どんな作品で、どう遊べるのかを 1〜2 文で紹介します。",
+      "category": "Hardware",
+      "creators": ["メンバー名"],
+      "tech": ["Arduino", "C++"],
+      "image": null,
+      "url": null,
+      "playable": false
+    }
+  ]
+}

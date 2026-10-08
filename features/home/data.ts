@@ -1,6 +1,15 @@
 /** トップページの「トピックス」に並べるページ */
 export const PICKUP_ITEMS = [
   {
+    href: "/sagamihara-fes/2026",
+    en: "Sagamihara Festival 2026",
+    ja: "相模原祭 2026 展示案内",
+    desc: "10/10(土)・10/11(日)の相模原祭に出展します。展示場所や作品一覧はこちら。",
+    image: "/images/events/sagamihara-fes.jpg",
+    imagePosition: "bg-center",
+    wide: true,
+  },
+  {
     href: "/about",
     en: "About",
     ja: "活動内容",

@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "25mb",
     },
   },
+  async redirects() {
+    return [
+      // 年ごとのページしかないので、/sagamihara-fes は最新年のページへ送る（年が変わったら更新する）
+      { source: "/sagamihara-fes", destination: "/sagamihara-fes/2026", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;
