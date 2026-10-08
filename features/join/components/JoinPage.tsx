@@ -2,7 +2,9 @@ import { ArrowRightIcon } from "lucide-react";
 import * as motion from "motion/react-client";
 import Link from "next/link";
 
+import { ContactLinkCard } from "@/components/ui/ContactLinkCard";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { InstagramIcon, MailIcon, XIcon } from "@/components/ui/SocialIcons";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
 export function JoinPage() {
@@ -187,70 +189,24 @@ export function JoinPage() {
               入会のご連絡・ご質問はこちらの窓口からお願いいたします。
             </p>
             <div className="flex flex-col gap-6">
-              <a
+              <ContactLinkCard
                 href="https://auth.digitart.jp/contact"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-brand/30 hover:shadow-md"
-              >
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-50 text-slate-700 transition-colors group-hover:bg-brand group-hover:text-white">
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                </span>
-                <span className="text-lg font-bold text-slate-800 transition-colors group-hover:text-brand">
-                  お問い合わせフォーム
-                </span>
-              </a>
-              <a
+                label="お問い合わせフォーム"
+                icon={<MailIcon />}
+                tone="brand"
+              />
+              <ContactLinkCard
                 href={SOCIAL_LINKS.twitter.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-black/30 hover:shadow-md"
-              >
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-50 text-slate-700 transition-colors group-hover:bg-black group-hover:text-white">
-                  <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                </span>
-                <span className="text-lg font-bold text-slate-800 transition-colors group-hover:text-black">
-                  {SOCIAL_LINKS.twitter.label}
-                </span>
-              </a>
-              <a
+                label={SOCIAL_LINKS.twitter.label}
+                icon={<XIcon />}
+                tone="x"
+              />
+              <ContactLinkCard
                 href={SOCIAL_LINKS.instagram.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-instagram/30 hover:shadow-md"
-              >
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-50 text-slate-700 transition-colors group-hover:bg-instagram group-hover:text-white">
-                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth="2"></rect>
-                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" strokeWidth="2"></path>
-                    <line
-                      x1="17.5"
-                      y1="6.5"
-                      x2="17.51"
-                      y2="6.5"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    ></line>
-                  </svg>
-                </span>
-                <span className="text-lg font-bold text-slate-800 transition-colors group-hover:text-instagram">
-                  {SOCIAL_LINKS.instagram.label}
-                </span>
-              </a>
+                label={SOCIAL_LINKS.instagram.label}
+                icon={<InstagramIcon />}
+                tone="instagram"
+              />
             </div>
           </motion.div>
 

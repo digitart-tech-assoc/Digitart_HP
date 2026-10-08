@@ -3,8 +3,10 @@ import * as motion from "motion/react-client";
 import Link from "next/link";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
+import { ContactLinkCard } from "@/components/ui/ContactLinkCard";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
+import { InstagramIcon, XIcon } from "@/components/ui/SocialIcons";
 import { FestivalHero } from "@/features/festival/components/FestivalHero";
 import { FestivalWorkList } from "@/features/festival/components/FestivalWorkList";
 import { formatFestivalDate } from "@/features/festival/data";
@@ -155,61 +157,20 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
             lead="展示の最新情報は SNS で発信しています。"
           />
           <div className="grid gap-4 sm:grid-cols-2">
-            <a
+            <ContactLinkCard
               href={SOCIAL_LINKS.twitter.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-black/30 hover:shadow-md"
-            >
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-black text-white transition-transform group-hover:scale-105">
-                <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </span>
-              <span>
-                <span className="block text-lg font-bold text-slate-800 transition-colors group-hover:text-black">
-                  {SOCIAL_LINKS.twitter.label}
-                </span>
-                <span className="block text-sm font-medium text-slate-500">
-                  {SOCIAL_LINKS.twitter.handle}
-                </span>
-              </span>
-            </a>
-            <a
+              label={SOCIAL_LINKS.twitter.label}
+              sub={SOCIAL_LINKS.twitter.handle}
+              icon={<XIcon />}
+              tone="x"
+            />
+            <ContactLinkCard
               href={SOCIAL_LINKS.instagram.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:border-instagram/30 hover:shadow-md"
-            >
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-instagram text-white transition-transform group-hover:scale-105">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" strokeWidth="2" />
-                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" strokeWidth="2" />
-                  <line
-                    x1="17.5"
-                    y1="6.5"
-                    x2="17.51"
-                    y2="6.5"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-              <span>
-                <span className="block text-lg font-bold text-slate-800 transition-colors group-hover:text-instagram">
-                  {SOCIAL_LINKS.instagram.label}
-                </span>
-                <span className="block text-sm font-medium text-slate-500">
-                  {SOCIAL_LINKS.instagram.handle}
-                </span>
-              </span>
-            </a>
+              label={SOCIAL_LINKS.instagram.label}
+              sub={SOCIAL_LINKS.instagram.handle}
+              icon={<InstagramIcon />}
+              tone="instagram"
+            />
           </div>
         </div>
       </section>
