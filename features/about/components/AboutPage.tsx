@@ -8,10 +8,8 @@ import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { GuideCardCarousel } from "@/features/about/components/GuideCardCarousel";
 import { DOMAIN_CARDS, GUIDE_CARDS } from "@/features/about/data";
 
-// md 以上の画面では最大 5 列で並べる
-const GUIDE_COLS = Math.min(GUIDE_CARDS.length, 5);
-// Tailwind がクラス名を検出できるよう、完全なクラス名で書く
-const MD_GRID_CLASS =
+// md 以上�E画面では最大 5 列で並べめEconst GUIDE_COLS = Math.min(GUIDE_CARDS.length, 5);
+// Tailwind がクラス名を検�Eできるよう、完�Eなクラス名で書ぁEconst MD_GRID_CLASS =
   {
     1: "md:grid-cols-1",
     2: "md:grid-cols-2",
@@ -33,7 +31,7 @@ export function AboutPage() {
             {[...GUIDE_CARDS, ...GUIDE_CARDS].map((card, i) => (
               <motion.div
                 key={`${card.num}-${i}`}
-                initial={{ opacity: 0, y: 40 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: (i % GUIDE_CARDS.length) * 0.1 }}
@@ -68,18 +66,15 @@ export function AboutPage() {
           </GuideCardCarousel>
 
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={false}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mx-auto mt-12 max-w-3xl text-center text-lg leading-relaxed text-gray-600"
           >
-            私たちの活動やモノづくりへの想い、
-            <br className="md:hidden" />
-            「Digitartは何をやっている団体？」など、
-            <br className="md:hidden" />
-            さまざまな角度から解説します。
-          </motion.p>
+            私たちの活動やモノづくりへの想ぁE��E            <br className="md:hidden" />
+            「Digitartは何をめE��てぁE��団体？」など、E            <br className="md:hidden" />
+            さまざまな角度から解説します、E          </motion.p>
         </div>
       </section>
 
@@ -87,7 +82,7 @@ export function AboutPage() {
       <section className="border-t border-slate-100 bg-white px-6 py-24 md:py-32">
         <div className="mx-auto max-w-6xl">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -95,20 +90,17 @@ export function AboutPage() {
           >
             <Eyebrow className="mb-3">Overview</Eyebrow>
             <h2 className="mb-8 text-4xl font-black text-slate-900 md:text-5xl">
-              Digitartについて
+              DigitartにつぁE��
             </h2>
             <p className="mx-auto max-w-3xl text-lg leading-relaxed text-gray-600">
-              Digitartテクノロジー愛好会は、青山学院大学のあらゆるテクノロジー好きが集まるクリエイター集団です。
-              プログラミング、ゲーム開発、デザイン、ハードウェアなど、多様な分野で活動し、
-              技術を通じて新しい価値を創造しています。
-            </p>
+              DigitartチE��ノロジー愛好会�E、E��山学院大学のあらめE��チE��ノロジー好きが雁E��るクリエイター雁E��です、E              プログラミング、ゲーム開発、デザイン、ハードウェアなど、多様な刁E��で活動し、E              技術を通じて新しい価値を創造してぁE��す、E            </p>
           </motion.div>
 
           <div className="grid gap-4 md:grid-cols-3 md:gap-6">
             {DOMAIN_CARDS.map((card, i) => (
               <motion.div
                 key={card.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
@@ -137,7 +129,7 @@ export function AboutPage() {
         >
           <div className="mx-auto max-w-6xl">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}

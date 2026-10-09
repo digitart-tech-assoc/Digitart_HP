@@ -9,22 +9,20 @@ import { MEMBERS, QA } from "@/features/supporters/data";
 export function SupportersPage() {
   return (
     <div className="bg-white">
-      <PageHero title="幹部紹介" subtitle="Digitartを支える人たち" backHref="/about" />
+      <PageHero title="幹部紹仁E subtitle="Digitartを支える人たち" backHref="/about" />
 
       {/* Intro */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="text-lg leading-relaxed text-gray-600"
           >
-            Digitartにはどんなメンバーが集まっているのか？
-            <br />
-            Digitartを支える「人」にフォーカスします。
-          </motion.p>
+            Digitartにはどんなメンバ�Eが集まってぁE��のか！E            <br />
+            Digitartを支える「人」にフォーカスします、E          </motion.p>
         </div>
       </section>
 
@@ -40,7 +38,7 @@ export function SupportersPage() {
             return (
               <motion.div
                 key={member.name}
-                initial={{ opacity: 0, y: 50 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.8 }}
@@ -86,7 +84,7 @@ export function SupportersPage() {
       <section className="bg-emerald-50/60 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -95,14 +93,14 @@ export function SupportersPage() {
             <h2 className="mb-4 text-4xl text-gray-900" style={{ fontWeight: 700 }}>
               Q&A
             </h2>
-            <p className="text-gray-600">よくある質問</p>
+            <p className="text-gray-600">よくある質啁E/p>
           </motion.div>
 
           <div className="space-y-6">
             {QA.map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}

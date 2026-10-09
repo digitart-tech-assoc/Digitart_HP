@@ -10,8 +10,8 @@ export function WorksPage() {
   return (
     <div className="bg-white">
       <PageHero
-        title="作品紹介"
-        subtitle="Digitartメンバーが生み出したプロジェクトの数々"
+        title="作品紹仁E
+        subtitle="Digitartメンバ�Eが生み出したプロジェクト�E数、E
         backHref="/about"
       />
 
@@ -19,16 +19,14 @@ export function WorksPage() {
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="text-lg leading-relaxed text-gray-600"
           >
-            プログラミング、デザイン、ハードウェアを横断するメンバーたちが、
-            <br className="hidden md:block" />
-            チームで生み出したプロジェクトの数々をご紹介します。
-          </motion.p>
+            プログラミング、デザイン、ハードウェアを横断するメンバ�Eたちが、E            <br className="hidden md:block" />
+            チ�Eムで生み出したプロジェクト�E数、E��ご紹介します、E          </motion.p>
         </div>
       </section>
 
@@ -38,7 +36,7 @@ export function WorksPage() {
           {PROJECTS.map((project, i) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.8 }}

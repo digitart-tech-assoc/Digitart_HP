@@ -7,18 +7,18 @@ import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { ANNUAL_EVENTS, REGULAR_ACTIVITIES } from "@/features/events/data";
 import { countEventsByMonth, monthBgClass, monthTextClass } from "@/features/events/monthCounts";
 
-/** 月ごとのイベント数（スケジュールの月バーの色分けに使う） */
+/** 月ごとのイベント数�E�スケジュールの月バーの色刁E��に使ぁE��E*/
 const MONTH_COUNTS = countEventsByMonth(ANNUAL_EVENTS);
 
-/** 年度の並び順（4月始まり） */
+/** 年度の並び頁E��E月始まり！E*/
 const FISCAL_MONTHS = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];
 
 export function EventsPage() {
   return (
     <div className="bg-white">
       <PageHero
-        title="年間行事"
-        subtitle="一年を通して実施されるイベントをご紹介"
+        title="年間行亁E
+        subtitle="一年を通して実施されるイベントをご紹仁E
         backHref="/about"
       />
 
@@ -26,18 +26,15 @@ export function EventsPage() {
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="text-lg leading-relaxed text-gray-600"
           >
-            Digitartでは年間を通じてさまざまなイベントを開催しています。
-            <br />
-            ハッカソンから学園祭出展、LT大会まで、
-            <br className="hidden md:block" />
-            テクノロジーを楽しむ機会が盛りだくさんです。
-          </motion.p>
+            Digitartでは年間を通じてさまざまなイベントを開催してぁE��す、E            <br />
+            ハッカソンから学園祭出展、LT大会まで、E            <br className="hidden md:block" />
+            チE��ノロジーを楽し�E機会が盛りだくさんです、E          </motion.p>
         </div>
       </section>
 
@@ -45,7 +42,7 @@ export function EventsPage() {
       <section className="px-6 py-8">
         <div className="mx-auto max-w-6xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -59,7 +56,7 @@ export function EventsPage() {
 
           {/* Month Bar */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -76,8 +73,7 @@ export function EventsPage() {
                     className={`mt-2 block text-xs ${textClass}`}
                     style={count > 0 ? { fontWeight: 600 } : {}}
                   >
-                    {m}月
-                  </span>
+                    {m}朁E                  </span>
                 </div>
               );
             })}
@@ -91,7 +87,7 @@ export function EventsPage() {
           {ANNUAL_EVENTS.map((event, i) => (
             <motion.div
               key={`${event.month}-${i}`}
-              initial={{ opacity: 0, y: 40 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: 0.05 }}
@@ -139,8 +135,7 @@ export function EventsPage() {
                             className="mt-3 inline-flex items-center gap-2 text-emerald-600 transition-colors hover:text-emerald-700"
                             style={{ fontWeight: 600 }}
                           >
-                            過去のレポート
-                            <ExternalLink className="h-4 w-4" />
+                            過去のレポ�EチE                            <ExternalLink className="h-4 w-4" />
                           </a>
                         )}
                       </div>
@@ -157,23 +152,22 @@ export function EventsPage() {
       <section className="bg-emerald-50/60 px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="mb-12 text-center"
           >
             <h2 className="mb-4 text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
-              定例活動
-            </h2>
-            <p className="text-gray-600">イベント以外にも、日常的に活動しています。</p>
+              定例活勁E            </h2>
+            <p className="text-gray-600">イベント以外にも、日常皁E��活動してぁE��す、E/p>
           </motion.div>
 
           <div className="grid gap-6 md:grid-cols-3">
             {REGULAR_ACTIVITIES.map((act, i) => (
               <motion.div
                 key={act.label}
-                initial={{ opacity: 0, y: 30 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}

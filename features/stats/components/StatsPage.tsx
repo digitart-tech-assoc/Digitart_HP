@@ -8,22 +8,20 @@ import { STATS, BREAKDOWNS } from "@/features/stats/data";
 export function StatsPage() {
   return (
     <div className="bg-white">
-      <PageHero title="活動データ" subtitle="データで見るDigitart" backHref="/about" />
+      <PageHero title="活動データ" subtitle="チE�Eタで見るDigitart" backHref="/about" />
 
       {/* Intro */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="text-lg leading-relaxed text-gray-600"
           >
-            Digitartにまつわるさまざまな「数字」をご紹介します。
-            <br />
-            団体の規模感や活動の広がりを、データでお伝えします。
-          </motion.p>
+            Digitartにまつわるさまざまな「数字」をご紹介します、E            <br />
+            団体�E規模感や活動�E庁E��りを、データでお伝えします、E          </motion.p>
         </div>
       </section>
 
@@ -34,7 +32,7 @@ export function StatsPage() {
             {STATS.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 40 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
@@ -59,7 +57,7 @@ export function StatsPage() {
           {BREAKDOWNS.map((section, si) => (
             <motion.div
               key={section.title}
-              initial={{ opacity: 0, y: 40 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1 }}
@@ -76,7 +74,7 @@ export function StatsPage() {
                     <span className="w-28 shrink-0 text-sm text-gray-600">{item.label}</span>
                     <div className="h-8 flex-1 overflow-hidden rounded-full bg-gray-100">
                       <motion.div
-                        initial={{ width: 0 }}
+                        initial={false}
                         whileInView={{ width: `${item.pct}%` }}
                         viewport={{ once: true }}
                         transition={{

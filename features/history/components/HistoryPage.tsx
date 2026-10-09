@@ -14,7 +14,7 @@ export function HistoryPage() {
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -36,7 +36,7 @@ export function HistoryPage() {
           {TIMELINE.map((item, i) => (
             <motion.div
               key={item.year}
-              initial={{ opacity: 0, y: 40 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.7, delay: 0.1 }}

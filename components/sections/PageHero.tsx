@@ -29,7 +29,7 @@ export function PageHero({ title, subtitle, backHref }: PageHeroProps) {
           戻る
         </Link>
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="mb-4 text-5xl md:text-7xl"
@@ -38,7 +38,7 @@ export function PageHero({ title, subtitle, backHref }: PageHeroProps) {
           {title}
         </motion.h1>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl text-white/90"
