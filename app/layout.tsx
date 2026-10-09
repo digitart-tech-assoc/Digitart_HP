@@ -69,9 +69,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased selection:bg-emerald-100`}
       >
-        <ReducedMotionProvider>
-          {children}
-        </ReducedMotionProvider>
+        <ReducedMotionProvider>{children}</ReducedMotionProvider>
         {/* Cloudflare Web Analytics */}
         <script
           defer
