@@ -33,7 +33,7 @@ export function AboutPage() {
             {[...GUIDE_CARDS, ...GUIDE_CARDS].map((card, i) => (
               <motion.div
                 key={`${card.num}-${i}`}
-                initial={{ opacity: 0, y: 40 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: (i % GUIDE_CARDS.length) * 0.1 }}
@@ -68,7 +68,7 @@ export function AboutPage() {
           </GuideCardCarousel>
 
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={false}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -87,7 +87,7 @@ export function AboutPage() {
       <section className="border-t border-slate-100 bg-white px-6 py-24 md:py-32">
         <div className="mx-auto max-w-6xl">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -108,7 +108,7 @@ export function AboutPage() {
             {DOMAIN_CARDS.map((card, i) => (
               <motion.div
                 key={card.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
@@ -137,7 +137,7 @@ export function AboutPage() {
         >
           <div className="mx-auto max-w-6xl">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}

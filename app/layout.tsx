@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { ReducedMotionProvider } from "@/components/ui/ReducedMotionProvider";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/constants";
 
 import type { Metadata } from "next";
@@ -68,7 +69,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased selection:bg-emerald-100`}
       >
-        {children}
+        <ReducedMotionProvider>{children}</ReducedMotionProvider>
         {/* Cloudflare Web Analytics */}
         <script
           defer

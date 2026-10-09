@@ -19,11 +19,7 @@ export function JoinPage() {
         <div className="absolute top-0 left-1/2 -z-10 h-full w-[1px] bg-gradient-to-b from-transparent via-slate-200 to-transparent" />
 
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center md:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <Eyebrow className="mb-3">Welcome</Eyebrow>
             <h1 className="mb-8 text-5xl leading-tight font-black text-slate-900 md:text-7xl">
               Join Us
@@ -59,7 +55,7 @@ export function JoinPage() {
           <div className="space-y-16">
             {/* Step 1 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
@@ -119,7 +115,7 @@ export function JoinPage() {
 
             {/* Step 2 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
@@ -141,7 +137,7 @@ export function JoinPage() {
 
             {/* Step 3 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
@@ -176,7 +172,7 @@ export function JoinPage() {
         <div className="mx-auto grid max-w-5xl gap-16 px-6 md:grid-cols-2 md:gap-24 md:px-12">
           {/* Contact */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -212,7 +208,7 @@ export function JoinPage() {
 
           {/* Activities */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}

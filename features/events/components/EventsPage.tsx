@@ -26,7 +26,7 @@ export function EventsPage() {
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -45,7 +45,7 @@ export function EventsPage() {
       <section className="px-6 py-8">
         <div className="mx-auto max-w-6xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -59,7 +59,7 @@ export function EventsPage() {
 
           {/* Month Bar */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -91,7 +91,7 @@ export function EventsPage() {
           {ANNUAL_EVENTS.map((event, i) => (
             <motion.div
               key={`${event.month}-${i}`}
-              initial={{ opacity: 0, y: 40 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: 0.05 }}
@@ -157,7 +157,7 @@ export function EventsPage() {
       <section className="bg-emerald-50/60 px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -173,7 +173,7 @@ export function EventsPage() {
             {REGULAR_ACTIVITIES.map((act, i) => (
               <motion.div
                 key={act.label}
-                initial={{ opacity: 0, y: 30 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}

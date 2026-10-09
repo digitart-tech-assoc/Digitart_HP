@@ -13,7 +13,7 @@ export function JoinUsSection() {
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}

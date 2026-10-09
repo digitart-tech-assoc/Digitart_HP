@@ -41,7 +41,7 @@ export function FestivalHero({ festival, image }: FestivalHeroProps) {
       />
 
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="relative z-10 mx-auto flex max-w-5xl flex-col items-center"

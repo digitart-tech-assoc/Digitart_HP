@@ -14,7 +14,7 @@ export function StatsPage() {
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
@@ -34,7 +34,7 @@ export function StatsPage() {
             {STATS.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 40 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
@@ -59,7 +59,7 @@ export function StatsPage() {
           {BREAKDOWNS.map((section, si) => (
             <motion.div
               key={section.title}
-              initial={{ opacity: 0, y: 40 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1 }}
@@ -76,7 +76,7 @@ export function StatsPage() {
                     <span className="w-28 shrink-0 text-sm text-gray-600">{item.label}</span>
                     <div className="h-8 flex-1 overflow-hidden rounded-full bg-gray-100">
                       <motion.div
-                        initial={{ width: 0 }}
+                        initial={false}
                         whileInView={{ width: `${item.pct}%` }}
                         viewport={{ once: true }}
                         transition={{
