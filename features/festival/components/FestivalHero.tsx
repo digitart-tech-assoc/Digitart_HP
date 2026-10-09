@@ -7,17 +7,17 @@ import type { Festival } from "@/features/festival/schema";
 
 type FestivalHeroProps = {
   festival: Festival;
-  /** 背景画像！Eimages/... の形式！E*/
+  /** 背景画像（/images/... の形式） */
   image: string;
 };
 
-/** 学園祭ポ�Eタルの見�Eし。トチE�Eペ�Eジのヒ�Eローと同じ配色・タイポグラフィに揁E��てぁE�� */
+/** 学園祭ポータルの見出し。トップページのヒーローと同じ配色・タイポグラフィに揃えている */
 export function FestivalHero({ festival, image }: FestivalHeroProps) {
   const days = festival.days.map((d) => {
     const { monthDay, weekday } = formatFestivalDate(d.date);
     return `${monthDay}(${weekday})`;
   });
-  // 「相模原祭 2026」�E年だけをブランドカラーにする
+  // 「相模原祭 2026」の年だけをブランドカラーにする
   const titleMatch = festival.title.match(/^(.*?)(\d{4})$/);
 
   return (

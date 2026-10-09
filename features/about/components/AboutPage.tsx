@@ -8,8 +8,10 @@ import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { GuideCardCarousel } from "@/features/about/components/GuideCardCarousel";
 import { DOMAIN_CARDS, GUIDE_CARDS } from "@/features/about/data";
 
-// md 以上�E画面では最大 5 列で並べめEconst GUIDE_COLS = Math.min(GUIDE_CARDS.length, 5);
-// Tailwind がクラス名を検�Eできるよう、完�Eなクラス名で書ぁEconst MD_GRID_CLASS =
+// md 以上の画面では最大 5 列で並べる
+const GUIDE_COLS = Math.min(GUIDE_CARDS.length, 5);
+// Tailwind がクラス名を検出できるよう、完全なクラス名で書く
+const MD_GRID_CLASS =
   {
     1: "md:grid-cols-1",
     2: "md:grid-cols-2",
@@ -72,9 +74,12 @@ export function AboutPage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mx-auto mt-12 max-w-3xl text-center text-lg leading-relaxed text-gray-600"
           >
-            私たちの活動やモノづくりへの想ぁE��E            <br className="md:hidden" />
-            「Digitartは何をめE��てぁE��団体？」など、E            <br className="md:hidden" />
-            さまざまな角度から解説します、E          </motion.p>
+            私たちの活動やモノづくりへの想い、
+            <br className="md:hidden" />
+            「Digitartは何をやっている団体？」など、
+            <br className="md:hidden" />
+            さまざまな角度から解説します。
+          </motion.p>
         </div>
       </section>
 
@@ -90,10 +95,13 @@ export function AboutPage() {
           >
             <Eyebrow className="mb-3">Overview</Eyebrow>
             <h2 className="mb-8 text-4xl font-black text-slate-900 md:text-5xl">
-              DigitartにつぁE��
+              Digitartについて
             </h2>
             <p className="mx-auto max-w-3xl text-lg leading-relaxed text-gray-600">
-              DigitartチE��ノロジー愛好会�E、E��山学院大学のあらめE��チE��ノロジー好きが雁E��るクリエイター雁E��です、E              プログラミング、ゲーム開発、デザイン、ハードウェアなど、多様な刁E��で活動し、E              技術を通じて新しい価値を創造してぁE��す、E            </p>
+              Digitartテクノロジー愛好会は、青山学院大学のあらゆるテクノロジー好きが集まるクリエイター集団です。
+              プログラミング、ゲーム開発、デザイン、ハードウェアなど、多様な分野で活動し、
+              技術を通じて新しい価値を創造しています。
+            </p>
           </motion.div>
 
           <div className="grid gap-4 md:grid-cols-3 md:gap-6">

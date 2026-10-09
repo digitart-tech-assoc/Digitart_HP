@@ -7,18 +7,18 @@ import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { ANNUAL_EVENTS, REGULAR_ACTIVITIES } from "@/features/events/data";
 import { countEventsByMonth, monthBgClass, monthTextClass } from "@/features/events/monthCounts";
 
-/** 月ごとのイベント数�E�スケジュールの月バーの色刁E��に使ぁE��E*/
+/** 月ごとのイベント数（スケジュールの月バーの色分けに使う） */
 const MONTH_COUNTS = countEventsByMonth(ANNUAL_EVENTS);
 
-/** 年度の並び頁E��E月始まり！E*/
+/** 年度の並び順（4月始まり） */
 const FISCAL_MONTHS = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];
 
 export function EventsPage() {
   return (
     <div className="bg-white">
       <PageHero
-        title="年間行亁E
-        subtitle="一年を通して実施されるイベントをご紹仁E
+        title="年間行事"
+        subtitle="一年を通して実施されるイベントをご紹介"
         backHref="/about"
       />
 
@@ -32,9 +32,12 @@ export function EventsPage() {
             transition={{ duration: 0.8 }}
             className="text-lg leading-relaxed text-gray-600"
           >
-            Digitartでは年間を通じてさまざまなイベントを開催してぁE��す、E            <br />
-            ハッカソンから学園祭出展、LT大会まで、E            <br className="hidden md:block" />
-            チE��ノロジーを楽し�E機会が盛りだくさんです、E          </motion.p>
+            Digitartでは年間を通じてさまざまなイベントを開催しています。
+            <br />
+            ハッカソンから学園祭出展、LT大会まで、
+            <br className="hidden md:block" />
+            テクノロジーを楽しむ機会が盛りだくさんです。
+          </motion.p>
         </div>
       </section>
 
@@ -73,7 +76,8 @@ export function EventsPage() {
                     className={`mt-2 block text-xs ${textClass}`}
                     style={count > 0 ? { fontWeight: 600 } : {}}
                   >
-                    {m}朁E                  </span>
+                    {m}月
+                  </span>
                 </div>
               );
             })}
@@ -135,7 +139,8 @@ export function EventsPage() {
                             className="mt-3 inline-flex items-center gap-2 text-emerald-600 transition-colors hover:text-emerald-700"
                             style={{ fontWeight: 600 }}
                           >
-                            過去のレポ�EチE                            <ExternalLink className="h-4 w-4" />
+                            過去のレポート
+                            <ExternalLink className="h-4 w-4" />
                           </a>
                         )}
                       </div>
@@ -159,8 +164,9 @@ export function EventsPage() {
             className="mb-12 text-center"
           >
             <h2 className="mb-4 text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
-              定例活勁E            </h2>
-            <p className="text-gray-600">イベント以外にも、日常皁E��活動してぁE��す、E/p>
+              定例活動
+            </h2>
+            <p className="text-gray-600">イベント以外にも、日常的に活動しています。</p>
           </motion.div>
 
           <div className="grid gap-6 md:grid-cols-3">

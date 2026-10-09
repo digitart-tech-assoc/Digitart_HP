@@ -10,8 +10,8 @@ export function WorksPage() {
   return (
     <div className="bg-white">
       <PageHero
-        title="作品紹仁E
-        subtitle="Digitartメンバ�Eが生み出したプロジェクト�E数、E
+        title="作品紹介"
+        subtitle="Digitartメンバーが生み出したプロジェクトの数々"
         backHref="/about"
       />
 
@@ -25,8 +25,10 @@ export function WorksPage() {
             transition={{ duration: 0.8 }}
             className="text-lg leading-relaxed text-gray-600"
           >
-            プログラミング、デザイン、ハードウェアを横断するメンバ�Eたちが、E            <br className="hidden md:block" />
-            チ�Eムで生み出したプロジェクト�E数、E��ご紹介します、E          </motion.p>
+            プログラミング、デザイン、ハードウェアを横断するメンバーたちが、
+            <br className="hidden md:block" />
+            チームで生み出したプロジェクトの数々をご紹介します。
+          </motion.p>
         </div>
       </section>
 

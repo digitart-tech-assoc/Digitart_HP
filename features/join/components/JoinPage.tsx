@@ -29,8 +29,10 @@ export function JoinPage() {
               Join Us
             </h1>
             <p className="mx-auto max-w-2xl text-base leading-relaxed font-medium text-slate-600 md:text-lg">
-              DigitartチE��ノロジー愛好会に興味を持ってぁE��だきありがとぁE��ざいます、E              <br className="hidden md:block" />
-              当サークルへの入会方法や、各種お問ぁE��わせにつぁE��はこちらをご覧ください、E            </p>
+              Digitartテクノロジー愛好会に興味を持っていただきありがとうございます。
+              <br className="hidden md:block" />
+              当サークルへの入会方法や、各種お問い合わせについてはこちらをご覧ください。
+            </p>
           </motion.div>
         </div>
       </section>
@@ -79,7 +81,8 @@ export function JoinPage() {
                   >
                     仮入会フォーム
                   </a>
-                  より忁E��事頁E��入力し、Discordへの招征E��ンクを取得してください、E                </p>
+                  より必要事項を入力し、Discordへの招待リンクを取得してください。
+                </p>
                 <div className="border-l-4 border-brand bg-slate-50 p-5 text-sm text-slate-600">
                   <p>
                     <a
@@ -88,9 +91,10 @@ export function JoinPage() {
                       rel="noreferrer"
                       className="font-bold text-brand hover:underline"
                     >
-                      お問ぁE��わせフォーム
+                      お問い合わせフォーム
                     </a>
-                    、及び公式SNS�E�E                    <a
+                    、及び公式SNS（
+                    <a
                       href={SOCIAL_LINKS.twitter.url}
                       target="_blank"
                       rel="noreferrer"
@@ -107,7 +111,8 @@ export function JoinPage() {
                     >
                       Instagram
                     </a>
-                    �E��EDMでも受け付けてぁE��す。仮入会フォームが使用できなぁE��合�Eご利用ください、E                  </p>
+                    ）のDMでも受け付けています。仮入会フォームが使用できない場合はご利用ください。
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -126,10 +131,11 @@ export function JoinPage() {
               <div className="flex-1 pt-2 md:pt-4">
                 <h3 className="mb-4 text-2xl font-bold text-slate-900 md:text-3xl">
                   Discordへの参加{" "}
-                  <span className="text-xl text-brand md:text-2xl">(仮入会完亁E</span>
+                  <span className="text-xl text-brand md:text-2xl">(仮入会完了)</span>
                 </h3>
                 <p className="text-lg leading-relaxed text-slate-600">
-                  受け取った招征E��ンクから、当サークルのDiscordサーバに参加してください。これにより仮入会が完亁E��なります、E                </p>
+                  受け取った招待リンクから、当サークルのDiscordサーバに参加してください。これにより仮入会が完了となります。
+                </p>
               </div>
             </motion.div>
 
@@ -148,14 +154,17 @@ export function JoinPage() {
               </div>
               <div className="flex-1 pt-2 md:pt-4">
                 <h3 className="mb-4 text-2xl font-bold text-slate-900 md:text-3xl">
-                  正式�E会�E入会費の納�E
+                  正式入会・入会費の納入
                 </h3>
                 <p className="mb-6 text-lg leading-relaxed text-slate-600">
-                  正式に入会される際、�E会費として{" "}
+                  正式に入会される際、入会費として{" "}
                   <span className="rounded-lg bg-rose-50 px-2 py-1 text-xl font-bold text-rose-600">
-                    1,000冁E                  </span>{" "}
-                  を頂戴ぁE��します、E                  <br />
-                  お支払いは一度きりです。年会費はござぁE��せん、E                </p>
+                    1,000円
+                  </span>{" "}
+                  を頂戴いたします。
+                  <br />
+                  お支払いは一度きりです。年会費はございません。
+                </p>
               </div>
             </motion.div>
           </div>
@@ -174,14 +183,15 @@ export function JoinPage() {
           >
             <div className="mb-8">
               <Eyebrow className="mb-3">Contact</Eyebrow>
-              <h2 className="text-3xl leading-tight font-black text-slate-900">お問ぁE��わせ窓口</h2>
+              <h2 className="text-3xl leading-tight font-black text-slate-900">お問い合わせ窓口</h2>
             </div>
             <p className="mb-10 text-lg leading-relaxed text-slate-600">
-              入会�Eご連絡・ご質問�Eこちら�E窓口からお願いぁE��します、E            </p>
+              入会のご連絡・ご質問はこちらの窓口からお願いいたします。
+            </p>
             <div className="flex flex-col gap-6">
               <ContactLinkCard
                 href="https://auth.digitart.jp/contact"
-                label="お問ぁE��わせフォーム"
+                label="お問い合わせフォーム"
                 icon={<MailIcon />}
                 tone="brand"
               />
@@ -209,15 +219,17 @@ export function JoinPage() {
           >
             <div className="mb-8">
               <Eyebrow className="mb-3">Activities</Eyebrow>
-              <h2 className="text-3xl leading-tight font-black text-slate-900">主な活動�E容</h2>
+              <h2 className="text-3xl leading-tight font-black text-slate-900">主な活動内容</h2>
             </div>
             <p className="mb-10 text-lg leading-relaxed text-slate-600">
-              Digitartが普段どのような活動を行ってぁE��か、E��去の制作物めE��ベント�E様子�EAboutペ�Eジに詳しくまとめてぁE��す。�E会をご検討中の方はぜ�E一度ご覧ください、E            </p>
+              Digitartが普段どのような活動を行っているか、過去の制作物やイベントの様子はAboutページに詳しくまとめています。入会をご検討中の方はぜひ一度ご覧ください。
+            </p>
             <Link
               href="/about"
               className="inline-flex items-center gap-3 rounded-full border-2 border-slate-900 bg-white px-8 py-4 text-lg font-bold text-slate-900 transition-all duration-300 hover:bg-slate-900 hover:text-white"
             >
-              詳しくはこちめE              <ArrowRightIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              詳しくはこちら
+              <ArrowRightIcon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
           </motion.div>
         </div>

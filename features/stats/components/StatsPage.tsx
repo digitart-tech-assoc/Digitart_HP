@@ -8,7 +8,7 @@ import { STATS, BREAKDOWNS } from "@/features/stats/data";
 export function StatsPage() {
   return (
     <div className="bg-white">
-      <PageHero title="活動データ" subtitle="チE�Eタで見るDigitart" backHref="/about" />
+      <PageHero title="活動データ" subtitle="データで見るDigitart" backHref="/about" />
 
       {/* Intro */}
       <section className="px-6 py-20">
@@ -20,8 +20,10 @@ export function StatsPage() {
             transition={{ duration: 0.8 }}
             className="text-lg leading-relaxed text-gray-600"
           >
-            Digitartにまつわるさまざまな「数字」をご紹介します、E            <br />
-            団体�E規模感や活動�E庁E��りを、データでお伝えします、E          </motion.p>
+            Digitartにまつわるさまざまな「数字」をご紹介します。
+            <br />
+            団体の規模感や活動の広がりを、データでお伝えします。
+          </motion.p>
         </div>
       </section>
 

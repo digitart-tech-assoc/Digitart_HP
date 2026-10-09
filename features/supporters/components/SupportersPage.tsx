@@ -9,7 +9,7 @@ import { MEMBERS, QA } from "@/features/supporters/data";
 export function SupportersPage() {
   return (
     <div className="bg-white">
-      <PageHero title="幹部紹仁E subtitle="Digitartを支える人たち" backHref="/about" />
+      <PageHero title="幹部紹介" subtitle="Digitartを支える人たち" backHref="/about" />
 
       {/* Intro */}
       <section className="px-6 py-20">
@@ -21,8 +21,10 @@ export function SupportersPage() {
             transition={{ duration: 0.8 }}
             className="text-lg leading-relaxed text-gray-600"
           >
-            Digitartにはどんなメンバ�Eが集まってぁE��のか！E            <br />
-            Digitartを支える「人」にフォーカスします、E          </motion.p>
+            Digitartにはどんなメンバーが集まっているのか？
+            <br />
+            Digitartを支える「人」にフォーカスします。
+          </motion.p>
         </div>
       </section>
 
@@ -93,7 +95,7 @@ export function SupportersPage() {
             <h2 className="mb-4 text-4xl text-gray-900" style={{ fontWeight: 700 }}>
               Q&A
             </h2>
-            <p className="text-gray-600">よくある質啁E/p>
+            <p className="text-gray-600">よくある質問</p>
           </motion.div>
 
           <div className="space-y-6">
