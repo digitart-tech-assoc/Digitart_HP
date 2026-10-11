@@ -1,5 +1,4 @@
 import { ArrowDown, CalendarDays, MapPin } from "lucide-react";
-import * as motion from "motion/react-client";
 
 import { SmoothScrollLink } from "@/features/festival/components/SmoothScrollLink";
 import { formatFestivalDate } from "@/features/festival/data";
@@ -40,12 +39,7 @@ export function FestivalHero({ festival, image }: FestivalHeroProps) {
         aria-hidden="true"
       />
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 mx-auto flex max-w-5xl flex-col items-center"
-      >
+      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center motion-safe:animate-rise">
         <p className="mb-6 text-[10px] font-bold tracking-[0.22em] text-brand uppercase sm:text-xs md:mb-8 md:text-sm">
           <span className="block sm:inline">Digitart</span>
           <span className="hidden sm:inline"> · </span>
@@ -101,7 +95,7 @@ export function FestivalHero({ festival, image }: FestivalHeroProps) {
             <ArrowDown className="h-4 w-4 md:h-5 md:w-5" />
           </SmoothScrollLink>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

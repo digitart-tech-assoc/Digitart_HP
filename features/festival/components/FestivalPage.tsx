@@ -1,5 +1,4 @@
 import { ArrowRight, Clock, ExternalLink, Map as MapIcon, MapPin } from "lucide-react";
-import * as motion from "motion/react-client";
 import Link from "next/link";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
@@ -34,13 +33,6 @@ function SectionHeading({ en, ja, lead }: { en: string; ja: string; lead?: strin
   );
 }
 
-const fadeIn = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.8 },
-} as const;
-
 /** 学園祭ポータル（展示場所・作品一覧・SNS・団体紹介） */
 export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
   const { venue } = festival;
@@ -55,7 +47,7 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
           <SectionHeading en="Access" ja="開催日時・展示場所" />
 
           <div className="grid gap-8 md:grid-cols-2 md:gap-10">
-            <motion.div {...fadeIn} className="space-y-6">
+            <div className="reveal space-y-6">
               {/* 開催日 */}
               <ul className="grid grid-cols-2 gap-3">
                 {festival.days.map((day, i) => {
@@ -104,10 +96,10 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
                   <ExternalLink className="h-4 w-4" />
                 </a>
               </div>
-            </motion.div>
+            </div>
 
             {/* 構内マップ */}
-            <motion.div {...fadeIn} transition={{ duration: 0.8, delay: 0.15 }}>
+            <div className="reveal">
               {venue.mapImage ? (
                 <a
                   href={venue.mapImage}
@@ -128,7 +120,7 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
                   <p className="text-sm font-bold">構内マップは準備中です</p>
                 </div>
               )}
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -179,7 +171,7 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
       <section className="bg-slate-50/60 py-16 md:py-28">
         <div className="mx-auto max-w-5xl px-6 md:px-12">
           <SectionHeading en="About Us" ja="Digitart について" />
-          <motion.div {...fadeIn}>
+          <div className="reveal">
             <p className="mb-8 max-w-3xl text-base leading-relaxed font-medium text-slate-600 md:text-lg">
               Digitart テクノロジー愛好会は青山学院大学公認の学生団体です。
               <br />
@@ -192,7 +184,7 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
               活動内容を見る
               <ArrowRight className="h-4 w-4" />
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
 
