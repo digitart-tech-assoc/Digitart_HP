@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { calendarEventKey } from "@/features/events/upcoming";
+
 /** 予定の種類。トップページの「直近のイベント」で、行頭の丸の色に使う */
 export const EVENT_TYPES = [
   "welcome",
@@ -25,6 +27,20 @@ export const calendarEventSchema = z.object({
   location: z.string().optional(),
 });
 
-export const calendarEventsSchema = z.array(calendarEventSchema);
+/** 同じ日・時間・タイトルの予定が重複していないか確認する（表示時に予定を見分けるキーにも使う） */
+export const calendarEventsSchema = z.array(calendarEventSchema).superRefine((events, ctx) => {
+  const seen = new Set<string>();
+  events.forEach((event, index) => {
+    const key = calendarEventKey(event);
+    if (seen.has(key)) {
+      ctx.addIssue({
+        code: "custom",
+        message: "同じ日付・時間・タイトルの予定が重複しています",
+        path: [index],
+      });
+    }
+    seen.add(key);
+  });
+});
 
 export type CalendarEvent = z.infer<typeof calendarEventSchema>;
