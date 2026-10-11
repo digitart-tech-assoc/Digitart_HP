@@ -4,6 +4,7 @@ import { z } from "zod";
 
 import eventsData from "@/content/events.json";
 import { type CalendarEvent, calendarEventsSchema } from "@/features/events/schema";
+import { selectUpcomingEvents } from "@/features/events/upcoming";
 import { todayInTokyo } from "@/lib/date";
 
 /** content/events.json を検証し、日付順に並べて返す */
@@ -17,11 +18,9 @@ function loadEvents(): CalendarEvent[] {
 }
 
 /**
- * ビルドした日以降の予定を返す。
- * ページは静的に生成されるため、「今日以降」への絞り込みはクライアント側で表示時に行う。
- * ここではビルド時点で確実に終わっている予定だけを除き、送るデータを減らす。
+ * ビルドした日以降の直近の予定を、トップページに表示する件数分だけ返す。
+ * ページは静的に生成されるため、表示時にクライアント側で「今日以降」に絞り込み直す。
  */
 export function getUpcomingEvents(): CalendarEvent[] {
-  const buildDate = todayInTokyo();
-  return loadEvents().filter((event) => event.date >= buildDate);
+  return selectUpcomingEvents(loadEvents(), todayInTokyo());
 }
