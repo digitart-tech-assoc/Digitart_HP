@@ -3,7 +3,11 @@
 import { useSyncExternalStore } from "react";
 
 import type { CalendarEvent, EventType } from "@/features/events/schema";
-import { calendarEventKey, selectUpcomingEvents } from "@/features/events/upcoming";
+import {
+  calendarEventKey,
+  selectUpcomingEvents,
+  UPCOMING_EVENTS_LIMIT,
+} from "@/features/events/upcoming";
 import { msUntilNextDayInTokyo, todayInTokyo } from "@/lib/date";
 
 const TYPE_META: Record<EventType, { color: string }> = {
@@ -56,7 +60,7 @@ function getTodayServerSnapshot() {
 }
 
 type EventCalendarProps = {
-  /** ビルド日以降の直近の予定（日付順・表示する件数分） */
+  /** ビルド日以降、次に再ビルドされるまでに表示しうる予定（日付順） */
   events: CalendarEvent[];
 };
 
@@ -72,7 +76,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
     getTodayServerSnapshot,
   );
 
-  const rows = today === null ? events : selectUpcomingEvents(events, today);
+  // events はビルド日以降の予定なので、ビルド時は先頭から表示する件数分を出す
+  const rows =
+    today === null ? events.slice(0, UPCOMING_EVENTS_LIMIT) : selectUpcomingEvents(events, today);
 
   if (rows.length === 0) {
     return (

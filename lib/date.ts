@@ -15,3 +15,10 @@ const TOKYO_OFFSET_MS = 9 * 60 * 60 * 1000;
 export function msUntilNextDayInTokyo(now: Date = new Date()): number {
   return DAY_MS - ((now.getTime() + TOKYO_OFFSET_MS) % DAY_MS);
 }
+
+/** `YYYY-MM-DD` の日付に日数を足した日付を `YYYY-MM-DD` で返す */
+export function addDays(date: string, days: number): string {
+  const d = new Date(`${date}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
