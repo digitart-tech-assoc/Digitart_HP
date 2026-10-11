@@ -1,20 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
+import { useSyncExternalStore } from "react";
 
-import eventsData from "@/content/events.json";
-
-type EventType = "welcome" | "info" | "activity" | "study" | "reserve" | "event" | "etc";
-
-interface CalendarEvent {
-  date: string;
-  title: string;
-  type: EventType;
-  time?: string;
-  location?: string;
-}
-
-const events = eventsData as CalendarEvent[];
+import type { CalendarEvent, EventType } from "@/features/events/schema";
+import {
+  calendarEventKey,
+  selectUpcomingEvents,
+  UPCOMING_EVENTS_LIMIT,
+} from "@/features/events/upcoming";
+import { msUntilNextDayInTokyo, todayInTokyo } from "@/lib/date";
 
 const TYPE_META: Record<EventType, { color: string }> = {
   welcome: { color: "#84cc16" }, // lime-500
@@ -28,45 +22,94 @@ const TYPE_META: Record<EventType, { color: string }> = {
 
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
 
-function toDateStr(d: Date) {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+/**
+ * 日付が変わったときに再描画させる。開いたまま日をまたいだタブや、
+ * 「戻る」で復元したページ（bfcache）でも終わった予定が残らないようにする
+ */
+function subscribeToday(onChange: () => void) {
+  let timer: ReturnType<typeof setTimeout>;
+  const scheduleNextDay = () => {
+    clearTimeout(timer);
+    // 端末の時計の誤差を見込み、日付が変わった少し後に確認する
+    timer = setTimeout(() => {
+      onChange();
+      scheduleNextDay();
+    }, msUntilNextDayInTokyo() + 1000);
+  };
+  // バックグラウンドのタブではタイマーが遅れるため、表示に戻ったときにも確認する
+  const handleVisible = () => {
+    if (document.visibilityState === "visible") {
+      onChange();
+      scheduleNextDay();
+    }
+  };
+
+  scheduleNextDay();
+  document.addEventListener("visibilitychange", handleVisible);
+  window.addEventListener("pageshow", handleVisible);
+  return () => {
+    clearTimeout(timer);
+    document.removeEventListener("visibilitychange", handleVisible);
+    window.removeEventListener("pageshow", handleVisible);
+  };
 }
 
-const DISPLAY_ROWS = 3;
+/** サーバー（ビルド時）では閲覧する日が分からないため null を返し、ビルド時に絞り込んだ予定をそのまま表示する */
+function getTodayServerSnapshot() {
+  return null;
+}
 
-/** トップページに表示する、直近の予定（content/events.json から今日以降の数件） */
-export function EventCalendar() {
-  const rows = useMemo(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return events
-      .filter((e) => e.date >= toDateStr(today))
-      .sort((a, b) => a.date.localeCompare(b.date))
-      .slice(0, DISPLAY_ROWS);
-  }, []);
+type EventCalendarProps = {
+  /** ビルド日以降、次に再ビルドされるまでに表示しうる予定（日付順） */
+  events: CalendarEvent[];
+};
 
-  if (rows.length === 0) return null;
+/**
+ * トップページに表示する、直近の予定（今日以降の数件）。
+ * JavaScript が動かない環境や検索エンジンにも予定が見えるよう、ビルド時に絞り込んだ予定を HTML に含める。
+ * ページは静的に生成されるため、ハイドレーション後に閲覧した日を基準に絞り込み直し、終わった予定を除く。
+ */
+export function EventCalendar({ events }: EventCalendarProps) {
+  const today = useSyncExternalStore<string | null>(
+    subscribeToday,
+    todayInTokyo,
+    getTodayServerSnapshot,
+  );
+
+  // events はビルド日以降の予定なので、ビルド時は先頭から表示する件数分を出す
+  const rows =
+    today === null ? events.slice(0, UPCOMING_EVENTS_LIMIT) : selectUpcomingEvents(events, today);
+
+  if (rows.length === 0) {
+    return (
+      <p className="py-6 text-slate-500 md:text-lg">現在予定されているイベントはありません。</p>
+    );
+  }
 
   return (
     <div className="w-full">
       <ul className="divide-y divide-slate-100">
-        {rows.map((ev, i) => {
-          const d = new Date(ev.date + "T00:00:00");
-          const dow = WEEKDAYS[d.getDay()];
-          const isSun = d.getDay() === 0;
-          const isSat = d.getDay() === 6;
-          const meta = TYPE_META[ev.type] || { color: "#94a3b8" };
+        {rows.map((ev) => {
+          // 日付だけを扱うため UTC として解釈し、閲覧者のタイムゾーンで曜日がずれないようにする
+          const d = new Date(`${ev.date}T00:00:00Z`);
+          const day = d.getUTCDay();
+          const isSun = day === 0;
+          const isSat = day === 6;
+          const meta = TYPE_META[ev.type];
 
           return (
-            <li key={i} className="group flex flex-col items-start gap-4 py-6 md:flex-row md:gap-8">
+            <li
+              key={calendarEventKey(ev)}
+              className="group flex flex-col items-start gap-4 py-6 md:flex-row md:gap-8"
+            >
               {/* Date */}
               <div className="w-16 shrink-0 md:w-24 md:pt-0.5">
                 <span
                   className="text-base font-bold tabular-nums md:text-2xl"
                   style={{ color: isSun ? "#dc2626" : isSat ? "#2563eb" : "#1e293b" }}
                 >
-                  {d.getMonth() + 1}/{d.getDate()}
-                  <span className="ml-1 text-xs md:text-base">({dow})</span>
+                  {d.getUTCMonth() + 1}/{d.getUTCDate()}
+                  <span className="ml-1 text-xs md:text-base">({WEEKDAYS[day]})</span>
                 </span>
               </div>
 
