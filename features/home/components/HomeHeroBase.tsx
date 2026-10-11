@@ -5,6 +5,7 @@ import { useEffect, useState, useRef, ReactNode } from "react";
 
 import { Logo } from "@/components/ui/Logo";
 import type { IntroPhase } from "@/features/home/components/HomeHeroIntro";
+import { HERO_NOTICE } from "@/features/home/data";
 import { SITE_NAME } from "@/lib/constants";
 
 const SLIDE_SRCS = [
@@ -230,6 +231,34 @@ export function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
               </svg>
             </Link>
           </div>
+
+          {/* 期間限定のお知らせ（学園祭の出展など） */}
+          {HERO_NOTICE && (
+            <Link
+              href={HERO_NOTICE.href}
+              className="group mt-8 inline-flex max-w-full items-center gap-3 rounded-full border border-white/25 bg-white/10 py-1.5 pr-4 pl-1.5 text-left text-white backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/20 md:mt-10"
+            >
+              <span className="shrink-0 rounded-full bg-brand px-2.5 py-1 text-[10px] font-bold tracking-wider text-white md:text-xs">
+                NEWS
+              </span>
+              <span className="min-w-0">
+                <span className="block text-xs font-bold md:text-sm">{HERO_NOTICE.label}</span>
+                <span className="block text-[10px] font-medium text-white/70 md:text-xs">
+                  {HERO_NOTICE.detail}
+                </span>
+              </span>
+              <svg
+                className="h-4 w-4 shrink-0 text-brand transition-transform group-hover:translate-x-0.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="2.5"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
+          )}
         </div>
 
         {/* Scroll indicator */}
