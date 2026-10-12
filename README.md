@@ -94,6 +94,17 @@ PR を出すと、GitHub Actions で整形・lint・型チェック・テスト�
 
 JSON の書き方と確認方法は、[docs/architecture.md](docs/architecture.md) の「データを追加・変更する」を見てください。
 
+## 画像を追加するとき
+
+画像は大きいままコミットせず、縮小・WebP 化してから追加してください。PR で 500KB を超える画像を追加すると、CI に警告が出ます。
+
+```bash
+node scripts/optimize-images.mjs          # 変換の見込みを表示する
+node scripts/optimize-images.mjs --write  # 長辺 2000px までに縮小して WebP にし、コード・記事の参照も書き換える
+```
+
+記事の `image`（SNS で共有したときのサムネイル）は、WebP に対応していないサービスがあるため変換しません。管理画面から投稿した画像は、ブラウザで自動的に縮小・WebP 化されます。
+
 ## デプロイ
 
 - Cloudflare Pages の Git 連携で、`main` へのマージ時に自動でビルド・公開されます（PR ごとにプレビュー環境も作られます）

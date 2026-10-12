@@ -41,7 +41,7 @@ category: "notice"
   - pre-member(本入会していない人)も大歓迎です!!
   - 今年初のイベント! 詳細未定!
 
-  ![](/images/articles/2026-04-14/Enosima.jpg)
+  ![](/images/articles/2026-04-14/Enosima.webp)
 
 - BBQ
   - 日時: 5月24日(日), 18:30~21:30
@@ -52,7 +52,7 @@ category: "notice"
     - 卒業生: 5000円
   - 構成員のみが参加できます。pre-memberの方は当日までに本入会してください。
 
-  ![](/images/articles/2026-04-14/BBQ.jpg)
+  ![](/images/articles/2026-04-14/BBQ.webp)
 
 ### 参加するには？
 

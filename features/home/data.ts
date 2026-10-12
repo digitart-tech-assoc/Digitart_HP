@@ -17,7 +17,7 @@ export const PICKUP_ITEMS = [
     en: "Sagamihara Festival 2026",
     ja: "相模原祭 2026 展示案内",
     desc: "10/10(土)・10/11(日)の相模原祭に出展します。展示場所や作品一覧はこちら。",
-    image: "/images/events/sagamihara-fes.jpg",
+    image: "/images/events/sagamihara-fes.webp",
     imagePosition: "bg-center",
     wide: true,
   },
@@ -26,7 +26,7 @@ export const PICKUP_ITEMS = [
     en: "About",
     ja: "活動内容",
     desc: "プログラミング・ゲーム・デザインを横断するDigitartの活動を紹介します。",
-    image: "/images/about/works-hero.jpg",
+    image: "/images/about/works-hero.webp",
     imagePosition: "bg-center",
   },
   {
@@ -34,7 +34,7 @@ export const PICKUP_ITEMS = [
     en: "Works",
     ja: "制作物",
     desc: "メンバーが生み出した作品・プロジェクトをご覧いただけます。",
-    image: "/images/about/history-hero.jpg",
+    image: "/images/about/history-hero.webp",
     imagePosition: "bg-center",
   },
   {
@@ -42,7 +42,7 @@ export const PICKUP_ITEMS = [
     en: "News",
     ja: "最新情報",
     desc: "サークルの最新情報やコラムをお届けします。",
-    image: "/images/events/sagamihara-fes.jpg",
+    image: "/images/events/sagamihara-fes.webp",
     imagePosition: "bg-center",
   },
   {
@@ -50,7 +50,7 @@ export const PICKUP_ITEMS = [
     en: "Join Us",
     ja: "入会案内",
     desc: "Digitartへの入会方法や活動日程を確認できます。",
-    image: "/images/about/supporters-hero.jpg",
+    image: "/images/about/supporters-hero.webp",
     imagePosition: "bg-center",
   },
 ];

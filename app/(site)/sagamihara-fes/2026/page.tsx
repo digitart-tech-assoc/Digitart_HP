@@ -3,7 +3,7 @@ import { SAGAMIHARA_FES_2026 } from "@/features/festival/data";
 import { SAGAMIHARA_FES_2026_PATH } from "@/lib/constants";
 import { getCustomMetadata } from "@/lib/metadata";
 
-const HERO_IMAGE = "/images/events/sagamihara-fes.jpg";
+const HERO_IMAGE = "/images/events/sagamihara-fes.webp";
 
 export const metadata = getCustomMetadata({
   title: SAGAMIHARA_FES_2026.title,

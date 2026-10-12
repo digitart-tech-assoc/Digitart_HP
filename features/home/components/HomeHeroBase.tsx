@@ -10,11 +10,11 @@ import { HERO_NOTICE } from "@/features/home/data";
 import { SITE_NAME } from "@/lib/constants";
 
 const SLIDE_SRCS = [
-  "images/heros/01.jpg",
-  "images/heros/02.jpg",
-  "images/heros/03.jpg",
-  "images/heros/04.jpg",
-  "images/heros/05.jpg",
+  "images/heros/01.webp",
+  "images/heros/02.webp",
+  "images/heros/03.webp",
+  "images/heros/04.webp",
+  "images/heros/05.webp",
 ];
 
 interface HomeHeroBaseProps {
