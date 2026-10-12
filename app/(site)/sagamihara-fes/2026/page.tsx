@@ -1,6 +1,6 @@
-import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { FestivalPage } from "@/features/festival/components/FestivalPage";
 import { SAGAMIHARA_FES_2026 } from "@/features/festival/data";
+import { SAGAMIHARA_FES_2026_PATH } from "@/lib/constants";
 import { getCustomMetadata } from "@/lib/metadata";
 
 const HERO_IMAGE = "/images/events/sagamihara-fes.jpg";
@@ -9,14 +9,9 @@ export const metadata = getCustomMetadata({
   title: SAGAMIHARA_FES_2026.title,
   description: `${SAGAMIHARA_FES_2026.title}でのDigitart テクノロジー愛好会の展示案内。展示場所・開催日時・出展作品をご覧いただけます。`,
   keywords: ["相模原祭", "相模原祭2026", "青山学院大学", "学園祭", "Digitart"],
-  path: "/sagamihara-fes/2026",
+  path: SAGAMIHARA_FES_2026_PATH,
 });
 
 export default function Page() {
-  return (
-    <>
-      <BreadcrumbJsonLd path="/sagamihara-fes/2026" currentLabel={SAGAMIHARA_FES_2026.title} />
-      <FestivalPage festival={SAGAMIHARA_FES_2026} heroImage={HERO_IMAGE} />
-    </>
-  );
+  return <FestivalPage festival={SAGAMIHARA_FES_2026} heroImage={HERO_IMAGE} />;
 }
