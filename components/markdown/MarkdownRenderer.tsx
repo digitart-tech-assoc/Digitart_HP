@@ -8,8 +8,12 @@ import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 import { CodeBlock } from "@/components/markdown/CodeBlock";
 
-const LINK_CLASS =
-  "font-bold text-emerald-600 underline decoration-emerald-200 underline-offset-4 transition-all hover:text-emerald-700 hover:decoration-emerald-500";
+const LINK_CLASS = {
+  article:
+    "font-bold text-emerald-600 underline decoration-emerald-200 underline-offset-4 transition-all hover:text-emerald-700 hover:decoration-emerald-500",
+  document:
+    "text-slate-900 underline decoration-slate-300 underline-offset-4 transition-colors hover:decoration-slate-600",
+};
 
 type MarkdownRendererProps = {
   /** 表示する Markdown 文字列 */
@@ -24,6 +28,12 @@ type MarkdownRendererProps = {
    * 管理画面のプレビューで、まだアップロードされていない画像を表示するために使う。
    */
   resolveImageSrc?: (src: string) => string;
+  /**
+   * 見た目の種類。
+   * - article（既定）: ニュース記事。見出しの装飾やブランドカラーのマーカーを付ける
+   * - document: 規約などの文書。ブランドカラーや装飾を使わず、条文の見出し（h4）と番号付きリストを読みやすくする
+   */
+  variant?: "article" | "document";
 };
 
 /**
@@ -34,7 +44,10 @@ export function MarkdownRenderer({
   content,
   openLinksInNewTab = false,
   resolveImageSrc,
+  variant = "article",
 }: MarkdownRendererProps) {
+  const linkClass = LINK_CLASS[variant];
+
   const components: Components = {
     h1: ({ node, ...props }) => (
       <h1
@@ -63,7 +76,7 @@ export function MarkdownRenderer({
     a: ({ node, href, children, ...props }) => {
       if (!href) {
         return (
-          <span className={LINK_CLASS} {...props}>
+          <span className={linkClass} {...props}>
             {children}
           </span>
         );
@@ -71,19 +84,13 @@ export function MarkdownRenderer({
       const isExternal = /^https?:\/\//.test(href);
       if (isExternal || openLinksInNewTab) {
         return (
-          <a
-            href={href}
-            className={LINK_CLASS}
-            target="_blank"
-            rel="noopener noreferrer"
-            {...props}
-          >
+          <a href={href} className={linkClass} target="_blank" rel="noopener noreferrer" {...props}>
             {children}
           </a>
         );
       }
       return (
-        <Link href={href} className={LINK_CLASS} {...props}>
+        <Link href={href} className={linkClass} {...props}>
           {children}
         </Link>
       );
@@ -146,6 +153,41 @@ export function MarkdownRenderer({
       <hr className="my-10 border-t-2 border-dashed border-slate-100" {...props} />
     ),
   };
+
+  /*
+   * 文書向けでは、ブランドカラーや装飾（h3 のバー・引用の背景など）を使わず、番号付きリストを等幅フォントにしない。
+   * 入れ子のリストは親の項目の中に収まるよう、下の余白をなくして項目の間隔だけ空ける
+   */
+  if (variant === "document") {
+    components.h3 = ({ node, ...props }) => (
+      <h3 className="mt-8 mb-3 text-lg font-bold text-slate-900 md:text-xl" {...props} />
+    );
+    // 規約では条の見出しに h4 を使うため、スマートフォンでも本文より大きくする
+    components.h4 = ({ node, ...props }) => (
+      <h4 className="mt-6 mb-2 text-lg font-bold text-slate-900" {...props} />
+    );
+    components.p = ({ node, ...props }) => (
+      <p className="mb-3 text-base leading-relaxed text-slate-700" {...props} />
+    );
+    components.ul = ({ node, ...props }) => (
+      <ul
+        className="mb-3 ml-6 list-outside list-disc space-y-1.5 text-slate-700 marker:text-slate-500 in-[li]:mt-1.5 in-[li]:mb-0"
+        {...props}
+      />
+    );
+    components.ol = ({ node, ...props }) => (
+      <ol
+        className="mb-3 ml-6 list-outside list-decimal space-y-1.5 text-slate-700 marker:text-slate-500 in-[li]:mt-1.5 in-[li]:mb-0"
+        {...props}
+      />
+    );
+    components.blockquote = ({ node, ...props }) => (
+      <blockquote className="my-4 border-l-4 border-slate-200 pl-4 text-slate-600" {...props} />
+    );
+    components.hr = ({ node, ...props }) => (
+      <hr className="my-8 border-t border-slate-200" {...props} />
+    );
+  }
 
   return (
     <ReactMarkdown
