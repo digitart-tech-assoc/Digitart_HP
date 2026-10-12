@@ -268,8 +268,8 @@ docs/                   ドキュメント
 - サイト名、説明、キーワード、Open Graph、Twitterカードを設定する
 - 記事ページは記事タイトル・概要・画像・パスから個別メタデータを生成する
 - Organization JSON-LDを出力する
-- Breadcrumb JSON-LDを各ページで出力する。名前は `NAV_LINKS` から作り、記事ページの最後の項目は記事タイトルにする
-- サイトマップは `app/sitemap.ts` で生成する。`lastmod` は正しい値が分かるページ（記事、ホーム、ニュース一覧）にだけ付ける
+- Breadcrumb JSON-LDは公開サイトのレイアウト（`app/(site)/layout.tsx`）で、表示中のパスから出力する。名前は `NAV_LINKS` から作り、記事・学園祭のページの最後の項目はタイトルにする（`getPageTitles()`）。トップページでは出力しない
+- サイトマップは `app/sitemap.ts` で生成する。`lastmod` は正しい値が分かるページにだけ付ける（記事は frontmatter の `updated`、なければ `date`。ニュース一覧は記事の最新。トップページ・固定ページには付けない。日本時間でビルド日より後の日付は付けない）
 - 画像には用途に応じたaltを設定する
 - メニュー開閉ボタンに`aria-label`・`aria-expanded`・`aria-controls`を設定する
 - 視差効果を減らす設定（`prefers-reduced-motion`）のときは、アニメーションと自動スライドを止める
@@ -349,7 +349,7 @@ PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 - 記事のslugは既存記事と重複させない
 - イベント追加・変更時は`content/events.json`を更新する
 - サイト全体の名称、SNS、ナビゲーション変更時は`lib/constants.ts`と本書を更新する
-- ルート追加時はナビゲーション（`NAV_LINKS`。サイトマップとパンくずにも反映される）、フッター、ページの `BreadcrumbJsonLd`、本書を更新する
+- ルート追加時はナビゲーション（`NAV_LINKS`。サイトマップとパンくずにも反映される）、フッター、本書を更新する。ナビゲーションに載せないページは、サイトマップの `unlistedPages` と、パンくずの名前（`app/(site)/layout.tsx` の `getPageTitles()`）にも加える
 - 環境変数追加・変更時はデプロイ設定と本書の一覧を更新する
 - 外部リンク変更時は、公開ページ、定数、JSON-LD、本文中のリンクを横断して確認する
 - 仕様と実装の差分を見つけた場合は、修正または「既知の制約」に記録する
