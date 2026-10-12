@@ -8,12 +8,45 @@ import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 import { CodeBlock } from "@/components/markdown/CodeBlock";
 
+import type { Heading as MdastHeading, Root, RootContent } from "mdast";
+import type { ReactNode } from "react";
+
 const LINK_CLASS = {
   article:
     "font-bold text-emerald-600 underline decoration-emerald-200 underline-offset-4 transition-all hover:text-emerald-700 hover:decoration-emerald-500",
   document:
     "text-slate-900 underline decoration-slate-300 underline-offset-4 transition-colors hover:decoration-slate-600",
 };
+
+const HEADING_TAGS = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
+
+/**
+ * 記事の見出しを、ページの記事タイトル（h1）の下にレベルを飛ばさずに並ぶよう割り当てる remark プラグイン。
+ * 本文で使われている見出しのレベルを、上から順に h2・h3・h4… と詰めて割り当てる。
+ * - `#` から書く記事も、`##`・`###` から書く記事も、一番上の見出しは h2 になる
+ * - 使っていないレベルは詰める（`#` の次が `###` でも h2 → h3）
+ * - 6 種類すべてを使ったときだけ、最も深い 2 つが h6 になる（h1 の下に 6 段は収まらないため）
+ * 割り当てたレベルは見出しの dataHeadingLevel に入れ、見た目（クラス）は Markdown のレベルのまま変えない。
+ */
+function remarkArticleHeadingLevels() {
+  return (tree: Root) => {
+    const headings: MdastHeading[] = [];
+    const collect = (node: Root | RootContent) => {
+      if (node.type === "heading") headings.push(node);
+      if ("children" in node) node.children.forEach(collect);
+    };
+    collect(tree);
+
+    const levels = [...new Set(headings.map((heading) => heading.depth))].sort((a, b) => a - b);
+    for (const heading of headings) {
+      const outputLevel = Math.min(levels.indexOf(heading.depth) + 2, HEADING_TAGS.length);
+      heading.data = {
+        ...heading.data,
+        hProperties: { ...heading.data?.hProperties, dataHeadingLevel: outputLevel },
+      };
+    }
+  };
+}
 
 type MarkdownRendererProps = {
   /** 表示する Markdown 文字列 */
@@ -48,28 +81,45 @@ export function MarkdownRenderer({
 }: MarkdownRendererProps) {
   const linkClass = LINK_CLASS[variant];
 
+  /**
+   * Markdown の見出し（# の数が level）を描画する部品を作る。クラスは Markdown のレベルで決める。
+   * 記事では、ページ側で記事タイトルを h1 にしているため、remarkArticleHeadingLevels が割り当てたレベルのタグで出力する。
+   * 規約などの文書は本文の # がページの見出しになるので、Markdown のレベルのまま出力する
+   */
+  const heading = (level: number, className?: string, marker?: ReactNode): Components["h1"] =>
+    function Heading({ node, children, ...props }) {
+      const outputLevel = Number(node?.properties.dataHeadingLevel ?? level);
+      // 割り当て用の属性は HTML に出さない
+      const { "data-heading-level": _outputLevel, ...rest } = props as typeof props & {
+        "data-heading-level"?: unknown;
+      };
+      const Tag = HEADING_TAGS[outputLevel - 1];
+      return (
+        <Tag className={className} {...rest}>
+          {marker}
+          {children}
+        </Tag>
+      );
+    };
+
   const components: Components = {
-    h1: ({ node, ...props }) => (
-      <h1
-        className="mt-6 mb-4 border-b-2 border-slate-100 pb-3 text-2xl font-extrabold text-slate-900 md:text-3xl"
-        {...props}
-      />
+    h1: heading(
+      1,
+      "mt-6 mb-4 border-b-2 border-slate-100 pb-3 text-2xl font-extrabold text-slate-900 md:text-3xl",
     ),
-    h2: ({ node, ...props }) => (
-      <h2
-        className="mt-8 mb-3 border-b border-slate-100 pb-2 text-xl font-bold text-slate-900 md:text-2xl"
-        {...props}
-      />
+    h2: heading(
+      2,
+      "mt-8 mb-3 border-b border-slate-100 pb-2 text-xl font-bold text-slate-900 md:text-2xl",
     ),
-    h3: ({ node, children, ...props }) => (
-      <h3
-        className="mt-6 mb-3 flex items-center gap-2 text-lg font-bold text-slate-900 md:text-xl"
-        {...props}
-      >
-        <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>
-        {children}
-      </h3>
+    h3: heading(
+      3,
+      "mt-6 mb-3 flex items-center gap-2 text-lg font-bold text-slate-900 md:text-xl",
+      <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>,
     ),
+    // h4〜h6 は記事では装飾しないが、出力するレベルを変えるために登録する
+    h4: heading(4),
+    h5: heading(5),
+    h6: heading(6),
     p: ({ node, ...props }) => (
       <p className="mb-5 text-base leading-relaxed font-medium text-slate-700" {...props} />
     ),
@@ -159,13 +209,9 @@ export function MarkdownRenderer({
    * 入れ子のリストは親の項目の中に収まるよう、下の余白をなくして項目の間隔だけ空ける
    */
   if (variant === "document") {
-    components.h3 = ({ node, ...props }) => (
-      <h3 className="mt-8 mb-3 text-lg font-bold text-slate-900 md:text-xl" {...props} />
-    );
+    components.h3 = heading(3, "mt-8 mb-3 text-lg font-bold text-slate-900 md:text-xl");
     // 規約では条の見出しに h4 を使うため、スマートフォンでも本文より大きくする
-    components.h4 = ({ node, ...props }) => (
-      <h4 className="mt-6 mb-2 text-lg font-bold text-slate-900" {...props} />
-    );
+    components.h4 = heading(4, "mt-6 mb-2 text-lg font-bold text-slate-900");
     components.p = ({ node, ...props }) => (
       <p className="mb-3 text-base leading-relaxed text-slate-700" {...props} />
     );
@@ -191,7 +237,11 @@ export function MarkdownRenderer({
 
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkGfm, remarkMath]}
+      remarkPlugins={
+        variant === "article"
+          ? [remarkGfm, remarkMath, remarkArticleHeadingLevels]
+          : [remarkGfm, remarkMath]
+      }
       rehypePlugins={[rehypeRaw, rehypeKatex]}
       components={components}
     >
