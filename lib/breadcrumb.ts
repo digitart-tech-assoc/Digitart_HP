@@ -15,30 +15,26 @@ function collectLabels(items: NavItem[], labels = new Map<string, string>()) {
 }
 
 const NAV_LABELS = collectLabels(NAV_LINKS);
-// ナビゲーションには載せていない階層の名前（/sagamihara-fes/2026 などの学園祭ページ）
-NAV_LABELS.set("/sagamihara-fes", "相模原祭");
 
 /**
- * パスからパンくずリストの項目を作る。
- * 途中の階層の名前は NAV_LINKS から引き、最後の項目は currentLabel（記事タイトルなど）があればそれを使う。
- * NAV_LINKS にない階層は、URL のセグメントをそのまま名前にする。
+ * パスのセグメントからパンくずリストの項目を作る。
+ * 途中の階層は NAV_LINKS にあるものだけを入れる（/sagamihara-fes のように、ページのない階層は飛ばす）。
+ * 最後の項目は currentLabel（記事タイトルなど）があればそれを使い、なければ NAV_LINKS から引く。
  */
 export function generateBreadcrumbs(
-  pathname: string,
+  segments: string[],
   siteUrl: string,
   currentLabel?: string,
 ): BreadcrumbItem[] {
-  const segments = pathname.split("/").filter(Boolean);
   const breadcrumbs: BreadcrumbItem[] = [{ name: NAV_LABELS.get("/") ?? "Home", url: siteUrl }];
 
   let currentPath = "";
   segments.forEach((segment, i) => {
     currentPath += `/${segment}`;
     const isLast = i === segments.length - 1;
-    breadcrumbs.push({
-      name: (isLast && currentLabel) || NAV_LABELS.get(currentPath) || segment,
-      url: `${siteUrl}${currentPath}`,
-    });
+    const name =
+      (isLast && currentLabel) || NAV_LABELS.get(currentPath) || (isLast ? segment : undefined);
+    if (name) breadcrumbs.push({ name, url: `${siteUrl}${currentPath}` });
   });
 
   return breadcrumbs;

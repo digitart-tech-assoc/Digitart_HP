@@ -22,11 +22,21 @@ const orgJsonLd = {
   additionalType: "StudentOrganization",
 };
 
-/** 公開サイト共通のレイアウト（ヘッダー・フッター・構造化データ） */
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+/**
+ * 公開サイト共通のレイアウト（ヘッダー・フッター・構造化データ）。
+ * breadcrumb は @breadcrumb（パラレルルート）で、表示中のパスに合わせたパンくずリストの構造化データが入る
+ */
+export default function SiteLayout({
+  children,
+  breadcrumb,
+}: {
+  children: React.ReactNode;
+  breadcrumb: React.ReactNode;
+}) {
   return (
     <>
       <JsonLd data={orgJsonLd} />
+      {breadcrumb}
       <Header />
       <main>{children}</main>
       <div className="flex flex-1 flex-col justify-end bg-slate-900">
