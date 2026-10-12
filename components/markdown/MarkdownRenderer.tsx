@@ -8,10 +8,16 @@ import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 import { CodeBlock } from "@/components/markdown/CodeBlock";
 
-const LINK_CLASS =
-  "font-bold text-emerald-600 underline decoration-emerald-200 underline-offset-4 transition-all hover:text-emerald-700 hover:decoration-emerald-500";
+import type { ReactNode } from "react";
 
-type HeadingTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+const LINK_CLASS = {
+  article:
+    "font-bold text-emerald-600 underline decoration-emerald-200 underline-offset-4 transition-all hover:text-emerald-700 hover:decoration-emerald-500",
+  document:
+    "text-slate-900 underline decoration-slate-300 underline-offset-4 transition-colors hover:decoration-slate-600",
+};
+
+const HEADING_TAGS = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
 
 type MarkdownRendererProps = {
   /** 表示する Markdown 文字列 */
@@ -29,7 +35,7 @@ type MarkdownRendererProps = {
   /**
    * 見た目の種類。
    * - article（既定）: ニュース記事。見出しの装飾やブランドカラーのマーカーを付ける
-   * - document: 規約などの文書。装飾を抑え、条文の見出し（h4）と番号付きリストを読みやすくする
+   * - document: 規約などの文書。ブランドカラーや装飾を使わず、条文の見出し（h4）と番号付きリストを読みやすくする
    */
   variant?: "article" | "document";
 };
@@ -44,53 +50,52 @@ export function MarkdownRenderer({
   resolveImageSrc,
   variant = "article",
 }: MarkdownRendererProps) {
-  // 記事はページ側で記事タイトルを h1 にしているため、本文の見出しは 1 段下げて出力する（見た目は変えない）。
-  // 規約などの文書は、本文の # がページの見出しになる
-  const headingOffset = variant === "article" ? 1 : 0;
-  const heading = (level: number) => `h${Math.min(level + headingOffset, 6)}` as HeadingTag;
+  const linkClass = LINK_CLASS[variant];
 
-  const components: Components = {
-    h1: ({ node, ...props }) => {
-      const Tag = heading(1);
+  /*
+   * 記事はページ側で記事タイトルを h1 にしているため、本文の見出しは 1 段下げて出力する（# → h2 … ###### → h6）。
+   * 見た目（クラス）は Markdown のレベルのままなので変わらず、記事の書き方（# から書き始める）も変えなくてよい。
+   * 規約などの文書は、本文の # がページの見出しになるので下げない
+   */
+  const headingOffset = variant === "article" ? 1 : 0;
+
+  /** Markdown の見出し（# の数が level）を、ずらしたレベルのタグで描画する部品を作る */
+  const heading = (level: number, className?: string, marker?: ReactNode): Components["h1"] =>
+    function Heading({ node, children, ...props }) {
+      const Tag = HEADING_TAGS[Math.min(level - 1 + headingOffset, HEADING_TAGS.length - 1)];
       return (
-        <Tag
-          className="mt-6 mb-4 border-b-2 border-slate-100 pb-3 text-2xl font-extrabold text-slate-900 md:text-3xl"
-          {...props}
-        />
-      );
-    },
-    h2: ({ node, ...props }) => {
-      const Tag = heading(2);
-      return (
-        <Tag
-          className="mt-8 mb-3 border-b border-slate-100 pb-2 text-xl font-bold text-slate-900 md:text-2xl"
-          {...props}
-        />
-      );
-    },
-    h3: ({ node, children, ...props }) => {
-      const Tag = heading(3);
-      return (
-        <Tag
-          className="mt-6 mb-3 flex items-center gap-2 text-lg font-bold text-slate-900 md:text-xl"
-          {...props}
-        >
-          <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>
+        <Tag className={className} {...props}>
+          {marker}
           {children}
         </Tag>
       );
-    },
-    h4: ({ node, ...props }) => {
-      const Tag = heading(4);
-      return <Tag className="mt-5 mb-2 text-base font-bold text-slate-900 md:text-lg" {...props} />;
-    },
+    };
+
+  const components: Components = {
+    h1: heading(
+      1,
+      "mt-6 mb-4 border-b-2 border-slate-100 pb-3 text-2xl font-extrabold text-slate-900 md:text-3xl",
+    ),
+    h2: heading(
+      2,
+      "mt-8 mb-3 border-b border-slate-100 pb-2 text-xl font-bold text-slate-900 md:text-2xl",
+    ),
+    h3: heading(
+      3,
+      "mt-6 mb-3 flex items-center gap-2 text-lg font-bold text-slate-900 md:text-xl",
+      <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>,
+    ),
+    // h4〜h6 は記事では装飾しないが、レベルをずらすために登録する
+    h4: heading(4),
+    h5: heading(5),
+    h6: heading(6),
     p: ({ node, ...props }) => (
       <p className="mb-5 text-base leading-relaxed font-medium text-slate-700" {...props} />
     ),
     a: ({ node, href, children, ...props }) => {
       if (!href) {
         return (
-          <span className={LINK_CLASS} {...props}>
+          <span className={linkClass} {...props}>
             {children}
           </span>
         );
@@ -98,19 +103,13 @@ export function MarkdownRenderer({
       const isExternal = /^https?:\/\//.test(href);
       if (isExternal || openLinksInNewTab) {
         return (
-          <a
-            href={href}
-            className={LINK_CLASS}
-            target="_blank"
-            rel="noopener noreferrer"
-            {...props}
-          >
+          <a href={href} className={linkClass} target="_blank" rel="noopener noreferrer" {...props}>
             {children}
           </a>
         );
       }
       return (
-        <Link href={href} className={LINK_CLASS} {...props}>
+        <Link href={href} className={linkClass} {...props}>
           {children}
         </Link>
       );
@@ -174,19 +173,34 @@ export function MarkdownRenderer({
     ),
   };
 
-  // 文書向けでは、h3 の装飾をなくし、番号付きリストを等幅フォント・ブランドカラーにしない
+  /*
+   * 文書向けでは、ブランドカラーや装飾（h3 のバー・引用の背景など）を使わず、番号付きリストを等幅フォントにしない。
+   * 入れ子のリストは親の項目の中に収まるよう、下の余白をなくして項目の間隔だけ空ける
+   */
   if (variant === "document") {
-    components.h3 = ({ node, ...props }) => (
-      <h3 className="mt-8 mb-3 text-lg font-bold text-slate-900 md:text-xl" {...props} />
-    );
+    components.h3 = heading(3, "mt-8 mb-3 text-lg font-bold text-slate-900 md:text-xl");
+    // 規約では条の見出しに h4 を使うため、スマートフォンでも本文より大きくする
+    components.h4 = heading(4, "mt-6 mb-2 text-lg font-bold text-slate-900");
     components.p = ({ node, ...props }) => (
       <p className="mb-3 text-base leading-relaxed text-slate-700" {...props} />
     );
-    components.ol = ({ node, ...props }) => (
-      <ol
-        className="mb-3 ml-6 list-outside list-decimal space-y-1.5 text-slate-700 marker:text-slate-500"
+    components.ul = ({ node, ...props }) => (
+      <ul
+        className="mb-3 ml-6 list-outside list-disc space-y-1.5 text-slate-700 marker:text-slate-500 in-[li]:mt-1.5 in-[li]:mb-0"
         {...props}
       />
+    );
+    components.ol = ({ node, ...props }) => (
+      <ol
+        className="mb-3 ml-6 list-outside list-decimal space-y-1.5 text-slate-700 marker:text-slate-500 in-[li]:mt-1.5 in-[li]:mb-0"
+        {...props}
+      />
+    );
+    components.blockquote = ({ node, ...props }) => (
+      <blockquote className="my-4 border-l-4 border-slate-200 pl-4 text-slate-600" {...props} />
+    );
+    components.hr = ({ node, ...props }) => (
+      <hr className="my-8 border-t border-slate-200" {...props} />
     );
   }
 

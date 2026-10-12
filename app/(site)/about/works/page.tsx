@@ -1,4 +1,3 @@
-import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { WorksPage } from "@/features/works/components/WorksPage";
 import { getCustomMetadata } from "@/lib/metadata";
 
@@ -9,10 +8,5 @@ export const metadata = getCustomMetadata({
 });
 
 export default function Page() {
-  return (
-    <>
-      <BreadcrumbJsonLd path="/about/works" />
-      <WorksPage />
-    </>
-  );
+  return <WorksPage />;
 }

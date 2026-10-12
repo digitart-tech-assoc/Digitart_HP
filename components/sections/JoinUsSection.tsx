@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import * as motion from "motion/react-client";
 import Link from "next/link";
 
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -7,17 +6,12 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 /** 入会案内とお問い合わせへ誘導する、ページ末尾の共通セクション */
 export function JoinUsSection() {
   return (
-    <section className="relative overflow-hidden bg-slate-900 px-6 py-24 md:py-32">
+    <section className="relative overflow-clip bg-slate-900 px-6 py-24 md:py-32">
       {/* Decorative background element */}
       <div className="pointer-events-none absolute top-0 right-0 h-full w-1/2 translate-x-1/4 -skew-x-12 bg-brand/10" />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="reveal">
           <Eyebrow className="mb-3">Contact</Eyebrow>
           <h2 className="mb-8 text-4xl font-black text-white md:text-6xl">Join Us</h2>
           <p className="mb-12 text-base leading-relaxed font-medium text-slate-300 md:text-xl">
@@ -41,7 +35,7 @@ export function JoinUsSection() {
               <ArrowRight className="h-5 w-5" />
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 
 import { HomeHeroBase } from "@/features/home/components/HomeHeroBase";
 import { HomeHeroIntro, type IntroPhase } from "@/features/home/components/HomeHeroIntro";
@@ -22,8 +22,13 @@ function getDarkModeServerSnapshot() {
   return null;
 }
 
+type HomeHeroProps = {
+  /** イントロに表示するロゴ。読み込みを待たずに表示できるよう、サーバーで作った InlineLogo を渡す */
+  introLogo: ReactNode;
+};
+
 /** トップページのヒーロー。OS のダークモード設定に合わせてイントロの背景色を切り替える */
-export function HomeHero() {
+export function HomeHero({ introLogo }: HomeHeroProps) {
   const isDark = useSyncExternalStore<boolean | null>(
     subscribeDarkMode,
     getDarkModeSnapshot,
@@ -35,7 +40,7 @@ export function HomeHero() {
   }
 
   const renderIntro = (phase: IntroPhase) => (
-    <HomeHeroIntro phase={phase} theme={isDark ? "dark" : "light"} />
+    <HomeHeroIntro phase={phase} theme={isDark ? "dark" : "light"} logo={introLogo} />
   );
 
   return <HomeHeroBase renderIntro={renderIntro} />;
