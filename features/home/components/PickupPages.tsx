@@ -8,6 +8,8 @@ type PickupItem = {
   /** 背景画像のパス（/images/... の形式） */
   image: string;
   imagePosition?: string;
+  /** PC 表示で 2 列分の幅を使う（期間限定の告知など目立たせたいもの） */
+  wide?: boolean;
 };
 
 /** トップページの「トピックス」。主要ページへの画像付きリンク */
@@ -19,7 +21,7 @@ export function PickupPages({ items }: { items: PickupItem[] }) {
           <Link
             href={item.href}
             key={item.href}
-            className="group relative min-h-[180px] overflow-hidden rounded-2xl border border-slate-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg md:min-h-[210px]"
+            className={`group relative min-h-[180px] overflow-hidden rounded-2xl border border-slate-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg md:min-h-[210px] ${item.wide ? "md:col-span-2" : ""}`}
           >
             <div
               className={`absolute inset-0 bg-cover ${item.imagePosition ?? "bg-center"} transition-transform duration-500 group-hover:scale-105`}

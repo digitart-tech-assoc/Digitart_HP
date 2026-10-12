@@ -36,59 +36,63 @@ body {
   color: var(--foreground);
 }
 
-/*
- * 表示時のアニメーション。
- * JS（motion）で opacity: 0 から表示すると、JS の読み込みが終わるまで本文が見えないため、CSS だけで実装する。
- * - 視差効果を減らす設定（prefers-reduced-motion）のときは動かさない
- * - スクロール連動（animation-timeline: view()）に対応していないブラウザでは、最初から表示する
- *
- * 注意: view() は最も近いスクロールコンテナを基準にする。overflow: hidden の要素もスクロールコンテナになるため、
- * reveal を付けた要素の祖先ではページ全体のスクロールを拾えなくなる。はみ出しを隠したいときは overflow-clip を使う。
- */
-@theme {
-  /* ページを開いたときに見出しを少し下から持ち上げる。opacity は変えないので、表示は遅れない */
-  --animate-rise: rise 0.8s ease-out both;
-
-  @keyframes rise {
-    from {
-      translate: 0 1.5rem;
-    }
-  }
+/* Bylaws page specific overrides (scoped) */
+.bylaws-page .prose {
+  line-height: 1.75;
+}
+.bylaws-page .prose h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.bylaws-page .prose h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.6rem;
+}
+.bylaws-page .prose h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+.bylaws-page .prose h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+.bylaws-page .prose p {
+  margin: 0.6rem 0;
+}
+.bylaws-page .prose ul,
+.bylaws-page .prose ol {
+  padding-left: 1.5rem;
+  margin: 0.6rem 0;
+}
+.bylaws-page .prose li {
+  margin: 0.35rem 0;
 }
 
-@keyframes reveal {
-  from {
-    opacity: 0;
-    translate: 0 2rem;
-  }
+.bylaws-page .prose ol {
+  counter-reset: bylaws-ol-counter;
+  list-style: none;
+  padding-left: 1.75rem;
 }
-
-@keyframes reveal-bar {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
+.bylaws-page .prose ol > li {
+  position: relative;
+  padding-left: 0.75rem;
 }
-
-/* スクロールで画面に入るにつれてフェードインする。画面の下端から 10rem 入ったところで表示しきる */
-@utility reveal {
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      animation: reveal linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 10rem;
-    }
-  }
-}
-
-/* 棒グラフの棒を、画面に入るにつれて左から伸ばす */
-@utility reveal-bar {
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      animation: reveal-bar linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 14rem;
-    }
-  }
+.bylaws-page .prose ol > li::before {
+  counter-increment: bylaws-ol-counter;
+  content: counter(bylaws-ol-counter) ".";
+  position: absolute;
+  left: -1.75rem;
+  width: 1.5rem;
+  text-align: right;
+  color: var(--foreground);
 }
 
 /*
@@ -152,59 +156,14 @@ body {
   }
 }
 
-/* ドロワーを開いている間は、背後のページをスクロールさせない */
+/*
+ * ドロワーを開いている間は、背後のページをスクロールさせない。
+ * スクロールバーが消えてページが横にずれないよう、その幅を常に確保しておく。
+ */
+html {
+  scrollbar-gutter: stable;
+}
+
 html:has(.nav-drawer[open]) {
   overflow: hidden;
-}
-
-/*
- * トップページのイントロ（features/home/components/HomeHeroIntro.tsx）。
- * 0.8 秒ロゴを見せてから拡大し、2.2 秒から背景ごとフェードアウトして、下のヒーローを見せる。
- */
-.home-intro {
-  animation: home-intro-fade 2.8s ease-in-out forwards;
-}
-
-.home-intro-logo {
-  animation: home-intro-zoom 2.7s forwards;
-  will-change: transform, opacity;
-}
-
-@keyframes home-intro-fade {
-  0%,
-  78% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
-@keyframes home-intro-zoom {
-  0%,
-  30% {
-    scale: 1;
-    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  81% {
-    scale: 20;
-    opacity: 1;
-    animation-timing-function: ease-out;
-  }
-  100% {
-    scale: 60;
-    opacity: 0;
-  }
-}
-
-/* 同じセッションで表示済みのときと、視差効果を減らす設定のときは表示しない */
-:root[data-intro-seen] .home-intro {
-  display: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-intro {
-    display: none;
-  }
 }

@@ -1,4 +1,5 @@
 import { CalendarDays, ExternalLink, Laptop, MapPin } from "lucide-react";
+import * as motion from "motion/react-client";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
@@ -42,28 +43,46 @@ export function EventsPage() {
       {/* Intro */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="reveal text-lg leading-relaxed text-gray-600">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-lg leading-relaxed text-gray-600"
+          >
             Digitartでは年間を通じてさまざまなイベントを開催しています。
             <br />
             ハッカソンから学園祭出展、LT大会まで、
             <br className="hidden md:block" />
             テクノロジーを楽しむ機会が盛りだくさんです。
-          </p>
+          </motion.p>
         </div>
       </section>
 
       {/* Annual Timeline Visual */}
       <section className="px-6 py-8">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-12 flex reveal items-center gap-3">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-12 flex items-center gap-3"
+          >
             <span className="h-3 w-3 rounded-full bg-emerald-400" />
             <h2 className="text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
               スケジュール
             </h2>
-          </div>
+          </motion.div>
 
           {/* Month Bar */}
-          <div className="mb-16 hidden reveal items-center gap-1 px-4 md:flex">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-16 hidden items-center gap-1 px-4 md:flex"
+          >
             {FISCAL_MONTHS.map((m) => {
               const count = monthCounts[m];
               const barClass = monthBgClass(count);
@@ -80,7 +99,7 @@ export function EventsPage() {
                 </div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -88,7 +107,14 @@ export function EventsPage() {
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-6xl space-y-8">
           {annualEvents.map((event, i) => (
-            <div key={`${event.month}-${i}`} className="group reveal">
+            <motion.div
+              key={`${event.month}-${i}`}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="group"
+            >
               <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:shadow-xl">
                 {/* Collapsed View */}
                 <div className="flex flex-col md:flex-row">
@@ -140,7 +166,7 @@ export function EventsPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -148,27 +174,37 @@ export function EventsPage() {
       {/* Regular Activities */}
       <section className="bg-emerald-50/60 px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <div className="mb-12 reveal text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-12 text-center"
+          >
             <h2 className="mb-4 text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
               定例活動
             </h2>
             <p className="text-gray-600">イベント以外にも、日常的に活動しています。</p>
-          </div>
+          </motion.div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {regularActivities.map((act) => {
+            {regularActivities.map((act, i) => {
               const Icon = ACTIVITY_ICON[act.icon];
               return (
-                <div
+                <motion.div
                   key={act.label}
-                  className="reveal rounded-2xl bg-white p-8 text-center shadow-sm transition-shadow duration-300 hover:shadow-lg"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="rounded-2xl bg-white p-8 text-center shadow-sm transition-shadow duration-300 hover:shadow-lg"
                 >
                   <Icon className="mx-auto mb-4 h-10 w-10 text-emerald-500" />
                   <h4 className="mb-2 text-lg text-gray-900" style={{ fontWeight: 700 }}>
                     {act.label}
                   </h4>
                   <p className="text-sm text-gray-500">{act.detail}</p>
-                </div>
+                </motion.div>
               );
             })}
           </div>
