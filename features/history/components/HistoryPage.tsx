@@ -1,3 +1,5 @@
+import * as motion from "motion/react-client";
+
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
@@ -11,11 +13,17 @@ export function HistoryPage() {
       {/* Intro */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="reveal text-lg leading-relaxed text-gray-600">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-lg leading-relaxed text-gray-600"
+          >
             2019年に設立されたDigitartテクノロジー愛好会。
             わずか5名からスタートした団体が、どのように成長し、挑戦を続けてきたのか。
             ターニングポイントとなった出来事をお伝えします。
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -26,9 +34,13 @@ export function HistoryPage() {
           <div className="absolute top-0 bottom-0 left-6 w-0.5 transform bg-emerald-200 md:left-1/2 md:-translate-x-0.5" />
 
           {getTimeline().map((item, i) => (
-            <div
+            <motion.div
               key={item.year}
-              className={`relative mb-16 flex reveal flex-col items-start gap-8 md:flex-row ${
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className={`relative mb-16 flex flex-col items-start gap-8 md:flex-row ${
                 i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
               }`}
             >
@@ -50,15 +62,18 @@ export function HistoryPage() {
 
               {/* Image */}
               <div className={`ml-14 flex-1 md:ml-0 ${i % 2 === 0 ? "md:pl-16" : "md:pr-16"}`}>
-                <div className="overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 hover:scale-[1.03]">
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  className="overflow-hidden rounded-2xl shadow-lg"
+                >
                   <ImageWithFallback
                     src={item.image}
                     alt={item.title}
                     className="aspect-video w-full object-cover"
                   />
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

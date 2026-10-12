@@ -1,6 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 
-import { INTRO_SEEN_SCRIPT } from "@/features/home/introSeen";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/constants";
 
 import type { Metadata } from "next";
@@ -65,11 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // トップページのイントロを表示済みかどうかを、描画前のスクリプトで <html> に付けるため、属性の不一致の警告を抑える
-    <html lang="ja" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: INTRO_SEEN_SCRIPT }} />
-      </head>
+    <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased selection:bg-emerald-100`}
       >

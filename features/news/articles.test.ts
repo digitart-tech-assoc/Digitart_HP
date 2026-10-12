@@ -4,9 +4,19 @@ import path from "node:path";
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+// テストごとに作った一時ディレクトリ。テストが終わるたびに削除する
+const tempRoots: string[] = [];
+
+afterEach(() => {
+  for (const root of tempRoots.splice(0)) {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
 /** 一時ディレクトリに content/news を作り、そこを作業ディレクトリとして articles.ts を読み込む */
 async function loadWithArticles(files: Record<string, string>) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "articles-"));
+  tempRoots.push(root);
   const dir = path.join(root, "content/news");
   fs.mkdirSync(dir, { recursive: true });
   for (const [name, body] of Object.entries(files)) {
