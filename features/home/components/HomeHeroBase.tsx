@@ -11,8 +11,6 @@ import { SITE_NAME } from "@/lib/constants";
 
 const SLIDE_INTERVAL_MS = 5000;
 const FADE_MS = 1200;
-// イントロが終わるまでの時間（globals.css の .home-intro のアニメーションと合わせる）
-const INTRO_DURATION_MS = 2800;
 // スクロールを促す表示が消えきるスクロール量
 const SCROLL_HINT_FADE_PX = 120;
 
@@ -24,6 +22,26 @@ function subscribeReducedMotion(onChange: () => void) {
   return () => query.removeEventListener("change", onChange);
 }
 
+const INTRO_SELECTOR = ".home-intro";
+
+/** イントロ（HomeHeroIntro）の CSS アニメーションが終わったら知らせる */
+function subscribeIntroEnd(onChange: () => void) {
+  const intro = document.querySelector(INTRO_SELECTOR);
+  intro?.addEventListener("animationend", onChange);
+  return () => intro?.removeEventListener("animationend", onChange);
+}
+
+/**
+ * イントロが終わっているか。表示しない場合（表示済み・視差効果を減らす設定）は display: none、
+ * 表示した場合はフェードアウトの最後に visibility: hidden になる（globals.css の .home-intro）
+ */
+function getIntroDoneSnapshot() {
+  const intro = document.querySelector(INTRO_SELECTOR);
+  if (!intro) return true;
+  const style = getComputedStyle(intro);
+  return style.display === "none" || style.visibility === "hidden";
+}
+
 /** トップページのヒーロー本体（背景スライドショー・キャッチコピー） */
 export function HomeHeroBase() {
   const [current, setCurrent] = useState(0);
@@ -33,6 +51,10 @@ export function HomeHeroBase() {
   // 利用者が再生・一時停止を選んだら、その選択を優先する（null は未操作）
   const [userPaused, setUserPaused] = useState<boolean | null>(null);
   const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const introSeenSavedRef = useRef(false);
+
+  // サーバーではイントロが終わっていないものとして描画し、クライアントで CSS アニメーションの状態を読む
+  const introDone = useSyncExternalStore(subscribeIntroEnd, getIntroDoneSnapshot, () => false);
 
   // 視差効果を減らす設定のときは、自動では切り替えない（サーバーでは自動再生として描画する）
   const prefersReducedMotion = useSyncExternalStore(
@@ -44,7 +66,8 @@ export function HomeHeroBase() {
 
   /*
    * イントロは 1 セッションに 1 回だけ表示する。
-   * イントロが終わったら <html> に印を付け、同じタブ内で戻ってきたとき（クライアント側の遷移）にも表示しない。
+   * 表示したことは表示し始めた時点で sessionStorage に保存し（再読み込みでは出さない）、
+   * イントロが終わったら <html> にも印を付けて、同じタブ内で戻ってきたとき（クライアント側の遷移）にも出さない。
    * 印はページを離れるときではなく、イントロの終了時に付ける（開発時の Strict Mode が最初に一度アンマウントしても、
    * 再生中のイントロが消えないようにするため）。
    * sessionStorage が使えない環境（プライベートブラウズの一部など）では印を付けず、毎回表示する。
@@ -52,14 +75,17 @@ export function HomeHeroBase() {
   useEffect(() => {
     try {
       sessionStorage.setItem(INTRO_SEEN_STORAGE_KEY, "1");
+      introSeenSavedRef.current = true;
     } catch {
-      return;
+      // 印を付けない
     }
-    const timer = setTimeout(() => {
-      document.documentElement.dataset.introSeen = "";
-    }, INTRO_DURATION_MS);
-    return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (introDone && introSeenSavedRef.current) {
+      document.documentElement.dataset.introSeen = "";
+    }
+  }, [introDone]);
 
   // スクロールを促す表示の不透明度だけを持つ。消えきった後は値が変わらないので、再描画もされない
   useEffect(() => {
@@ -87,12 +113,15 @@ export function HomeHeroBase() {
 
   const showNextSlide = useEffectEvent(() => showSlide((current + 1) % HERO_SLIDES.length));
 
-  // 自動スライドショー。スライドが変わるたび（ドットでの切り替えを含む）に、次の切り替えまでの時間を数え直す
+  /*
+   * 自動スライドショー。スライドが変わるたび（ドットでの切り替えを含む）に、次の切り替えまでの時間を数え直す。
+   * イントロがヒーローを覆っている間は数え始めず、最初のスライドもイントロが消えてから SLIDE_INTERVAL_MS 表示する
+   */
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || !introDone) return;
     const timer = setTimeout(showNextSlide, SLIDE_INTERVAL_MS);
     return () => clearTimeout(timer);
-  }, [current, isPlaying]);
+  }, [current, isPlaying, introDone]);
 
   return (
     <>
