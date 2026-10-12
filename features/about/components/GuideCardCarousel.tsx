@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
+import { usePrefersReducedMotion } from "@/lib/reducedMotion";
+
 type GuideCardCarouselProps = {
   /**
    * カードの枚数（複製前）。
@@ -20,13 +22,14 @@ const RESUME_DELAY_MS = 2000;
 /**
  * スマートフォン表示のとき、横並びのカードを一定間隔で自動スクロールする。
  * PC 表示（幅 768px 以上）ではグリッド表示になるため何もしない。
- * 視差効果を減らす設定（prefers-reduced-motion）のときは自動スクロールしない。
+ * 視差効果を減らす設定（prefers-reduced-motion）のときは自動スクロールしない（ページを開いたまま設定を変えても追従する）。
  */
 export function GuideCardCarousel({ itemCount, className, children }: GuideCardCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reducedMotion) return;
 
     let isTouching = false;
     const interval = setInterval(() => {
@@ -66,7 +69,7 @@ export function GuideCardCarousel({ itemCount, className, children }: GuideCardC
       el?.removeEventListener("touchstart", handleTouchStart);
       el?.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [itemCount]);
+  }, [itemCount, reducedMotion]);
 
   return (
     <div ref={scrollRef} className={className}>

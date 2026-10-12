@@ -8,19 +8,12 @@ import { Logo } from "@/components/ui/Logo";
 import { HERO_NOTICE, HERO_SLIDES } from "@/features/home/data";
 import { INTRO_SEEN_STORAGE_KEY } from "@/features/home/introSeen";
 import { SITE_NAME } from "@/lib/constants";
+import { usePrefersReducedMotion } from "@/lib/reducedMotion";
 
 const SLIDE_INTERVAL_MS = 5000;
 const FADE_MS = 1200;
 // スクロールを促す表示が消えきるスクロール量
 const SCROLL_HINT_FADE_PX = 120;
-
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
-
-function subscribeReducedMotion(onChange: () => void) {
-  const query = window.matchMedia(REDUCED_MOTION_QUERY);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
 
 const INTRO_SELECTOR = ".home-intro";
 
@@ -57,12 +50,8 @@ export function HomeHeroBase() {
   const introDone = useSyncExternalStore(subscribeIntroEnd, getIntroDoneSnapshot, () => false);
 
   // 視差効果を減らす設定のときは、自動では切り替えない（サーバーでは自動再生として描画する）
-  const prefersReducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
-    () => false,
-  );
-  const isPlaying = userPaused === null ? !prefersReducedMotion : !userPaused;
+  const reducedMotion = usePrefersReducedMotion();
+  const isPlaying = userPaused === null ? !reducedMotion : !userPaused;
 
   /*
    * イントロは 1 セッションに 1 回だけ表示する。
