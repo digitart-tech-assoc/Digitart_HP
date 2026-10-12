@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import * as motion from "motion/react-client";
 import Link from "next/link";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
@@ -31,12 +30,8 @@ export function AboutPage() {
             className={`-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-6 md:mx-0 md:grid md:px-0 md:pb-0 ${MD_GRID_CLASS} [scrollbar-width:none] after:w-1 after:shrink-0 md:justify-items-center md:gap-6 md:after:hidden [&::-webkit-scrollbar]:hidden`}
           >
             {[...GUIDE_CARDS, ...GUIDE_CARDS].map((card, i) => (
-              <motion.div
+              <div
                 key={`${card.num}-${i}`}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: (i % GUIDE_CARDS.length) * 0.1 }}
                 className={`w-[60vw] shrink-0 snap-center sm:w-[45vw] md:w-full ${i >= GUIDE_CARDS.length ? "md:hidden" : ""}`}
               >
                 <Link
@@ -63,36 +58,24 @@ export function AboutPage() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </GuideCardCarousel>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mx-auto mt-12 max-w-3xl text-center text-lg leading-relaxed text-gray-600"
-          >
+          <p className="mx-auto mt-12 max-w-3xl reveal text-center text-lg leading-relaxed text-gray-600">
             私たちの活動やモノづくりへの想い、
             <br className="md:hidden" />
             「Digitartは何をやっている団体？」など、
             <br className="md:hidden" />
             さまざまな角度から解説します。
-          </motion.p>
+          </p>
         </div>
       </section>
 
       {/* Domain Overview Section */}
       <section className="border-t border-slate-100 bg-white px-6 py-24 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="mb-16 text-center"
-          >
+          <div className="mb-16 reveal text-center">
             <Eyebrow className="mb-3">Overview</Eyebrow>
             <h2 className="mb-8 text-4xl font-black text-slate-900 md:text-5xl">
               Digitartについて
@@ -102,17 +85,13 @@ export function AboutPage() {
               プログラミング、ゲーム開発、デザイン、ハードウェアなど、多様な分野で活動し、
               技術を通じて新しい価値を創造しています。
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid gap-4 md:grid-cols-3 md:gap-6">
-            {DOMAIN_CARDS.map((card, i) => (
-              <motion.div
+            {DOMAIN_CARDS.map((card) => (
+              <div
                 key={card.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.15 }}
-                className={`${card.color} relative overflow-hidden rounded-2xl p-5 md:rounded-3xl md:p-8`}
+                className={`reveal ${card.color} relative overflow-hidden rounded-2xl p-5 md:rounded-3xl md:p-8`}
               >
                 <div className="flex items-center gap-4 md:flex-col md:items-start md:gap-0">
                   <card.icon className="h-8 w-8 shrink-0 text-emerald-600 md:mb-4 md:h-12 md:w-12" />
@@ -123,7 +102,7 @@ export function AboutPage() {
                     <p className="text-sm font-medium text-slate-600 md:text-base">{card.desc}</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -136,12 +115,8 @@ export function AboutPage() {
           className={`px-6 py-20 md:py-32 ${i % 2 === 0 ? "bg-slate-50/60" : "bg-white"}`}
         >
           <div className="mx-auto max-w-6xl">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className={`flex flex-col ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-12`}
+            <div
+              className={`flex reveal flex-col ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-12`}
             >
               <div className="flex-1">
                 <div className="mb-4 flex items-center gap-3">
@@ -165,20 +140,18 @@ export function AboutPage() {
               </div>
               <div className="flex-1">
                 <Link href={card.to} className="block">
-                  <motion.div
-                    whileHover={{ scale: 1.03, rotate: i % 2 === 0 ? 2 : -2 }}
-                    transition={{ duration: 0.4 }}
-                    className="overflow-hidden rounded-2xl border-4 border-white shadow-xl"
+                  <div
+                    className={`overflow-hidden rounded-2xl border-4 border-white shadow-xl transition-transform duration-400 hover:scale-[1.03] ${i % 2 === 0 ? "hover:rotate-2" : "hover:-rotate-2"}`}
                   >
                     <ImageWithFallback
                       src={card.image}
                       alt={card.title}
                       className="aspect-[4/3] w-full object-cover"
                     />
-                  </motion.div>
+                  </div>
                 </Link>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
       ))}
