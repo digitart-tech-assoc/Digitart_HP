@@ -1,4 +1,4 @@
-import { NAV_LINKS, type NavItem } from "@/lib/constants";
+import { getInternalNavLinks } from "@/lib/constants";
 
 export type BreadcrumbItem = {
   name: string;
@@ -6,15 +6,7 @@ export type BreadcrumbItem = {
 };
 
 /** ナビゲーションの定義から作る「パス → 表示名」の対応表。ページ名の管理を NAV_LINKS に一本化する */
-function collectLabels(items: NavItem[], labels = new Map<string, string>()) {
-  for (const item of items) {
-    if (item.href.startsWith("/")) labels.set(item.href, item.label);
-    if (item.children) collectLabels(item.children, labels);
-  }
-  return labels;
-}
-
-const NAV_LABELS = collectLabels(NAV_LINKS);
+const NAV_LABELS = new Map(getInternalNavLinks().map((item) => [item.href, item.label]));
 
 /**
  * パスのセグメントからパンくずリストの項目を作る。

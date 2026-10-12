@@ -4,7 +4,13 @@ import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SAGAMIHARA_FES_2026 } from "@/features/festival/data";
 import { getAllArticles } from "@/features/news/articles";
-import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SOCIAL_LINKS } from "@/lib/constants";
+import {
+  SAGAMIHARA_FES_2026_PATH,
+  SITE_NAME,
+  SITE_DESCRIPTION,
+  SITE_URL,
+  SOCIAL_LINKS,
+} from "@/lib/constants";
 
 const orgJsonLd = {
   "@context": "https://schema.org",
@@ -34,7 +40,7 @@ function getPageTitles(): Record<string, string> {
     ...Object.fromEntries(
       getAllArticles().map((article) => [`/news/${article.slug}`, article.title]),
     ),
-    "/sagamihara-fes/2026": SAGAMIHARA_FES_2026.title,
+    [SAGAMIHARA_FES_2026_PATH]: SAGAMIHARA_FES_2026.title,
   };
 }
 
