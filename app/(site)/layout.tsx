@@ -1,6 +1,9 @@
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { SAGAMIHARA_FES_2026 } from "@/features/festival/data";
+import { getAllArticles } from "@/features/news/articles";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SOCIAL_LINKS } from "@/lib/constants";
 
 const orgJsonLd = {
@@ -23,20 +26,24 @@ const orgJsonLd = {
 };
 
 /**
- * 公開サイト共通のレイアウト（ヘッダー・フッター・構造化データ）。
- * breadcrumb は @breadcrumb（パラレルルート）で、表示中のパスに合わせたパンくずリストの構造化データが入る
+ * パンくずリストの最後の項目に、NAV_LINKS の名前の代わりに使うページのタイトル（パス → タイトル）。
+ * 記事や学園祭のページのように、名前をデータから取るページはここに加える
  */
-export default function SiteLayout({
-  children,
-  breadcrumb,
-}: {
-  children: React.ReactNode;
-  breadcrumb: React.ReactNode;
-}) {
+function getPageTitles(): Record<string, string> {
+  return {
+    ...Object.fromEntries(
+      getAllArticles().map((article) => [`/news/${article.slug}`, article.title]),
+    ),
+    "/sagamihara-fes/2026": SAGAMIHARA_FES_2026.title,
+  };
+}
+
+/** 公開サイト共通のレイアウト（ヘッダー・フッター・構造化データ） */
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <JsonLd data={orgJsonLd} />
-      {breadcrumb}
+      <BreadcrumbJsonLd pageTitles={getPageTitles()} />
       <Header />
       <main>{children}</main>
       <div className="flex flex-1 flex-col justify-end bg-slate-900">
