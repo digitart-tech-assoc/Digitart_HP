@@ -18,6 +18,11 @@ export type PendingImage = {
   content: string;
 };
 
+/** エディタで扱う画像。プレビューの表示に使う MIME タイプを持つ（サーバーには送るが使わない） */
+export type EditorImage = PendingImage & {
+  mimeType: string;
+};
+
 /** 記事投稿（プルリクエスト作成）の結果 */
 export type PublishState = {
   error: string | null;
