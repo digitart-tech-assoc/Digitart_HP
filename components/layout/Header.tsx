@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -12,6 +11,7 @@ import {
   type PointerEvent,
 } from "react";
 
+import { Logo } from "@/components/ui/Logo";
 import { SITE_NAME, NAV_LINKS } from "@/lib/constants";
 
 const DRAWER_ID = "site-navigation-drawer";
@@ -108,13 +108,7 @@ export default function Header() {
               isTransparent ? "drop-shadow-md hover:text-white/80" : "hover:text-brand-strong"
             }`}
           >
-            <Image
-              src="/images/digitart_white_normal.svg"
-              alt={`${SITE_NAME} ロゴ`}
-              width={32}
-              height={32}
-              className="rounded-md"
-            />
+            <Logo size={32} alt={`${SITE_NAME} ロゴ`} className="rounded-md" preload />
             {SITE_NAME}
           </Link>
 
