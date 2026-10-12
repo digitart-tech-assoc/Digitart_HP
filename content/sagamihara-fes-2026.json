@@ -1,0 +1,119 @@
+{
+  "title": "相模原祭 2026",
+  "catchphrase": "つくった「好き」を、遊んでみよう。",
+  "lead": "Digitart テクノロジー愛好会は、メンバーが制作したゲームやアプリを展示します。\nどなたでも自由に体験できます。お気軽にお立ち寄りください！",
+  "days": [
+    { "date": "2026-10-10", "open": "10:00", "close": "17:00" },
+    { "date": "2026-10-11", "open": "10:00", "close": "15:30" }
+  ],
+  "venue": {
+    "campus": "青山学院大学 相模原キャンパス",
+    "place": "D210教室",
+    "note": null,
+    "address": "神奈川県相模原市中央区淵野辺5-10-1",
+    "mapImage": null,
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E9%9D%92%E5%B1%B1%E5%AD%A6%E9%99%A2%E5%A4%A7%E5%AD%A6+%E7%9B%B8%E6%A8%A1%E5%8E%9F%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%91%E3%82%B9"
+  },
+  "works": [
+    {
+      "title": "うさぎ",
+      "desc": "ちいかわのうさぎです",
+      "category": "Hardware",
+      "creators": ["つまようじ"],
+      "tech": [],
+      "image": null,
+      "url": null,
+      "playable": false
+    },
+    {
+      "title": "AirCursor",
+      "desc": "Webカメラで手の動きを認識し、触れずにWebを操作できるアプリケーション",
+      "category": "Web app",
+      "creators": ["りつき"],
+      "tech": ["Mediapipe", "React", "JavaScript"],
+      "image": "/images/sagamihara-fes/2026/works/air-cursor.png",
+      "url": "https://ritsuki-i.github.io/AirCursor/",
+      "playable": true
+    },
+    {
+      "title": "it's bow",
+      "desc": "シンプルな弓矢のゲームを作りました。止まってる的を打つと1点、動いてる的は2点、トータル10点取るとゲームクリアです。\n※ 会場での展示は 10/11（日）のみの予定です。",
+      "category": "Game",
+      "creators": ["SYOKUN"],
+      "tech": ["Unity"],
+      "image": "/images/sagamihara-fes/2026/works/its-bow.png",
+      "url": "https://unityroom.com/games/is_it_bowgame",
+      "playable": true
+    },
+    {
+      "title": "hit & blow",
+      "desc": "0〜9 の重複しない 4 つの数字を、相手と交互に予想して当て合う数当てゲーム。\n対戦相手をAI(強化学習)で作りました。",
+      "category": "Web app",
+      "creators": ["くろむ"],
+      "tech": ["React", "Vite", "PyTorch"],
+      "image": "/images/sagamihara-fes/2026/works/hit-and-blow.png",
+      "url": "https://www.chrom.jp/hit-and-blow",
+      "playable": true
+    },
+    {
+      "title": "tyou exciting",
+      "desc": "左クリックで左のフリッパーが動き、右クリックで右のフリッパーが動きます。また、スペースキーでプランジャーを操作します。",
+      "category": "Game",
+      "creators": ["マスオ"],
+      "tech": ["Unity", "C#"],
+      "image": null,
+      "url": null,
+      "playable": true
+    },
+    {
+      "title": "AGU Drink Finder",
+      "desc": "相模原キャンパスで飲み物に困る人をゼロにします。",
+      "category": "Web app",
+      "creators": ["みぎ"],
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "image": "/images/sagamihara-fes/2026/works/agu-drink-finder.png",
+      "url": "https://mae14828.github.io/drink-finder/",
+      "playable": true
+    },
+    {
+      "title": "推し活を助ける推し管理アプリ",
+      "desc": "推しの情報を登録・管理できるwebアプリです。まだ制作途中ですが、デザインの切り替えを楽しんで頂けると嬉しいです！",
+      "category": "Web app",
+      "creators": ["なつ"],
+      "tech": ["HTML", "CSS", "JavaScript", "PostgreSQL"],
+      "image": "/images/sagamihara-fes/2026/works/oshi-kanri-app.png",
+      "url": "https://vtuber-frontend-wfae.onrender.com/",
+      "playable": true
+    },
+    {
+      "title": "StreamAI",
+      "desc": "AIが自動でゲームをプレイし、実況し、それをYouTubeで配信。\nYouTube上のコメントに応じて反応する。",
+      "category": "Game",
+      "creators": ["ロロ"],
+      "tech": [],
+      "image": null,
+      "url": null,
+      "playable": false
+    },
+    {
+      "title": "CONTINUITY PROTOCOL（体験版）",
+      "desc": "移動基地を守りながら、拠点を広げて生き延びるゲーム。\n※ PC のブラウザ（マウス操作）向けです。",
+      "category": "Game",
+      "creators": ["SHIPPU"],
+      "tech": ["Unity", "C#"],
+      "image": "/images/sagamihara-fes/2026/works/continuity-protocol.png",
+      "url": "https://unityroom.com/games/continuity_protocol_demo",
+      "playable": false
+    },
+    {
+      "title": "よけるんだ！Ninjaくん！",
+      "desc": "Ninjaを操作して前から飛んでくるモノたちを避けましょう！",
+      "category": "Game",
+      "creators": ["りんちゃん"],
+      "tech": ["Unity", "C#", "Blender"],
+      "image": "/images/sagamihara-fes/2026/works/escape-from-ninjakun.png",
+      "url": "https://unityroom.com/games/yokerundaninjakun",
+      "playable": true
+    }
+  ]
+}

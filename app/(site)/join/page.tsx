@@ -1,4 +1,3 @@
-import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { JoinPage } from "@/features/join/components/JoinPage";
 import { getCustomMetadata } from "@/lib/metadata";
 
@@ -11,10 +10,5 @@ export const metadata = getCustomMetadata({
 });
 
 export default function Page() {
-  return (
-    <>
-      <BreadcrumbJsonLd path="/join" />
-      <JoinPage />
-    </>
-  );
+  return <JoinPage />;
 }
