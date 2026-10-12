@@ -2,7 +2,7 @@
 
 import { Pause, Play } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState, useRef, useSyncExternalStore } from "react";
+import { useEffect, useEffectEvent, useState, useRef, useSyncExternalStore } from "react";
 
 import { Logo } from "@/components/ui/Logo";
 import { HERO_NOTICE, HERO_SLIDES } from "@/features/home/data";
@@ -11,6 +11,10 @@ import { SITE_NAME } from "@/lib/constants";
 
 const SLIDE_INTERVAL_MS = 5000;
 const FADE_MS = 1200;
+// イントロが終わるまでの時間（globals.css の .home-intro のアニメーションと合わせる）
+const INTRO_DURATION_MS = 2800;
+// スクロールを促す表示が消えきるスクロール量
+const SCROLL_HINT_FADE_PX = 120;
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
@@ -25,10 +29,10 @@ export function HomeHeroBase() {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [transitioning, setTransitioning] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const [scrollHintOpacity, setScrollHintOpacity] = useState(1);
   // 利用者が再生・一時停止を選んだら、その選択を優先する（null は未操作）
   const [userPaused, setUserPaused] = useState<boolean | null>(null);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // 視差効果を減らす設定のときは、自動では切り替えない（サーバーでは自動再生として描画する）
   const prefersReducedMotion = useSyncExternalStore(
@@ -38,52 +42,56 @@ export function HomeHeroBase() {
   );
   const isPlaying = userPaused === null ? !prefersReducedMotion : !userPaused;
 
-  // イントロは 1 セッションに 1 回だけ表示する。
-  // ページを離れたら <html> に印を付け、同じタブ内で戻ってきたとき（クライアント側の遷移）にも表示しない
+  /*
+   * イントロは 1 セッションに 1 回だけ表示する。
+   * イントロが終わったら <html> に印を付け、同じタブ内で戻ってきたとき（クライアント側の遷移）にも表示しない。
+   * 印はページを離れるときではなく、イントロの終了時に付ける（開発時の Strict Mode が最初に一度アンマウントしても、
+   * 再生中のイントロが消えないようにするため）。
+   * sessionStorage が使えない環境（プライベートブラウズの一部など）では印を付けず、毎回表示する。
+   */
   useEffect(() => {
     try {
       sessionStorage.setItem(INTRO_SEEN_STORAGE_KEY, "1");
     } catch {
-      // sessionStorage が使えない環境では、毎回表示する
+      return;
     }
-    return () => {
+    const timer = setTimeout(() => {
       document.documentElement.dataset.introSeen = "";
-    };
+    }, INTRO_DURATION_MS);
+    return () => clearTimeout(timer);
   }, []);
 
+  // スクロールを促す表示の不透明度だけを持つ。消えきった後は値が変わらないので、再描画もされない
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    const onScroll = () =>
+      setScrollHintOpacity(Math.max(0, 1 - window.scrollY / SCROLL_HINT_FADE_PX));
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => () => clearTimeout(fadeTimerRef.current ?? undefined), []);
+
+  /** 指定したスライドへクロスフェードする。表示中のスライドを選んだときは何もしない */
   const showSlide = (next: number) => {
-    if (timerRef.current) clearTimeout(timerRef.current);
+    if (next === current) return;
+    // 前の切り替えのフェードが終わる前に次へ進んだときは、前の終了処理を取り消す
+    if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
     setPrev(current);
     setCurrent(next);
     setTransitioning(true);
-    setTimeout(() => {
+    fadeTimerRef.current = setTimeout(() => {
       setPrev(null);
       setTransitioning(false);
     }, FADE_MS);
   };
 
-  // 自動スライドショー（重ねた画像のクロスフェード）
+  const showNextSlide = useEffectEvent(() => showSlide((current + 1) % HERO_SLIDES.length));
+
+  // 自動スライドショー。スライドが変わるたび（ドットでの切り替えを含む）に、次の切り替えまでの時間を数え直す
   useEffect(() => {
     if (!isPlaying) return;
-    timerRef.current = setTimeout(() => {
-      const next = (current + 1) % HERO_SLIDES.length;
-      setPrev(current);
-      setCurrent(next);
-      setTransitioning(true);
-      setTimeout(() => {
-        setPrev(null);
-        setTransitioning(false);
-      }, FADE_MS);
-    }, SLIDE_INTERVAL_MS);
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
+    const timer = setTimeout(showNextSlide, SLIDE_INTERVAL_MS);
+    return () => clearTimeout(timer);
   }, [current, isPlaying]);
 
   return (
@@ -267,7 +275,7 @@ export function HomeHeroBase() {
         <div
           className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5"
           style={{
-            opacity: Math.max(0, 1 - scrollY / 120),
+            opacity: scrollHintOpacity,
             transition: "opacity 0.3s",
           }}
           aria-hidden="true"

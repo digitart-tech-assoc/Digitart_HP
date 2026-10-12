@@ -98,6 +98,7 @@ body {
 /*
  * トップページのイントロ（features/home/components/HomeHeroIntro.tsx）。
  * 0.8 秒ロゴを見せてから拡大し、2.2 秒から背景ごとフェードアウトして、下のヒーローを見せる。
+ * 全体の長さ（2.8 秒）を変えるときは、HomeHeroBase の INTRO_DURATION_MS も合わせる。
  * ロゴは scale（transform）ではなく width・height で拡大する。
  * scale だとブラウザが一度描いた画像を引き伸ばしてぼやけるため、毎フレームをベクターのまま描き直させる。
  */
