@@ -1,9 +1,10 @@
-import { Logo } from "@/components/ui/Logo";
+import { InlineLogo } from "@/components/ui/InlineLogo";
 
 /**
  * トップページを開いたときに全画面で表示するロゴアニメーション。
  * ロゴを表示 → 拡大 → フェードアウトの流れを CSS アニメーション（globals.css の .home-intro）だけで行うため、
  * サーバーで描画でき、JS の読み込みを待たずに始まり、JS がなくても最後には消える。
+ * ロゴは <svg> を HTML に直接描画する（InlineLogo）ので、画像の読み込みを待たずに表示され、拡大してもぼやけない。
  * 次の場合は表示しない（CSS で非表示にする）。
  * - 同じセッションですでに表示した（<html data-intro-seen>）
  * - 視差効果を減らす設定（prefers-reduced-motion: reduce）
@@ -12,11 +13,11 @@ import { Logo } from "@/components/ui/Logo";
 export function HomeHeroIntro() {
   return (
     <div
-      className="home-intro pointer-events-none fixed inset-0 z-[100] flex items-center justify-center bg-white dark:bg-[#222]"
+      className="home-intro pointer-events-none fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-white dark:bg-[#222]"
       aria-hidden="true"
     >
       <div className="home-intro-logo">
-        <Logo size={120} className="block" />
+        <InlineLogo className="size-full" />
       </div>
     </div>
   );

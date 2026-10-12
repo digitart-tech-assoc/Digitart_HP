@@ -173,6 +173,7 @@ export function HomeHeroBase() {
                 size={160}
                 alt={`${SITE_NAME} ロゴ`}
                 className="relative block h-auto w-40 drop-shadow-2xl"
+                preload
               />
             </div>
           </div>
