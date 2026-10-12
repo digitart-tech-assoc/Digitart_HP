@@ -1,4 +1,5 @@
 import { ExternalLink } from "lucide-react";
+import * as motion from "motion/react-client";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
@@ -17,11 +18,17 @@ export function WorksPage() {
       {/* Intro */}
       <section className="px-6 py-20">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="reveal text-lg leading-relaxed text-gray-600">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-lg leading-relaxed text-gray-600"
+          >
             プログラミング、デザイン、ハードウェアを横断するメンバーたちが、
             <br className="hidden md:block" />
             チームで生み出したプロジェクトの数々をご紹介します。
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -29,16 +36,23 @@ export function WorksPage() {
       <section className="px-6 pb-32">
         <div className="mx-auto max-w-6xl space-y-20">
           {PROJECTS.map((project, i) => (
-            <div
+            <motion.div
               key={project.title}
-              className={`flex reveal flex-col ${
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8 }}
+              className={`flex flex-col ${
                 i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
               } items-center gap-12`}
             >
               <div className="w-full flex-1">
                 {project.url ? (
                   <a href={project.url} target="_blank" rel="noopener noreferrer" className="block">
-                    <div className="group relative overflow-hidden rounded-3xl shadow-xl transition-transform duration-300 hover:scale-[1.02]">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="group relative overflow-hidden rounded-3xl shadow-xl"
+                    >
                       <ImageWithFallback
                         src={project.image}
                         alt={project.title}
@@ -55,7 +69,7 @@ export function WorksPage() {
                       <div className="absolute top-4 left-4 rounded-full bg-brand px-3 py-1 text-sm font-bold tracking-wider text-white">
                         {project.category}
                       </div>
-                    </div>
+                    </motion.div>
                   </a>
                 ) : (
                   <div className="block">
@@ -91,7 +105,7 @@ export function WorksPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

@@ -1,22 +1,41 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useRef, type MouseEvent } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useSyncExternalStore,
+  type MouseEvent,
+  type PointerEvent,
+} from "react";
 
-import { Logo } from "@/components/ui/Logo";
 import { SITE_NAME, NAV_LINKS } from "@/lib/constants";
 
 const DRAWER_ID = "site-navigation-drawer";
 
+function subscribeNothing() {
+  return () => {};
+}
+
+/** サーバーと、クライアントでハイドレーションが終わるまでは false になる */
+function useIsHydrated() {
+  return useSyncExternalStore(
+    subscribeNothing,
+    () => true,
+    () => false,
+  );
+}
+
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
+  const isHydrated = useIsHydrated();
   const drawerRef = useRef<HTMLDialogElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const pointerDownOnBackdropRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -27,17 +46,23 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // トップページではヒーロー画像の上に重ねるため、スクロールするまでは背景を透明・文字を白にする
-  const isTransparent = pathname === "/" && !isScrolled;
+  // ブラウザの戻る操作など、ドロワーのリンク以外でページを移動したときも閉じる
+  useEffect(() => {
+    drawerRef.current?.close();
+  }, [pathname]);
+
+  /*
+   * トップページではヒーロー画像の上に重ねるため、スクロールするまでは背景を透明・文字を白にする。
+   * ヒーローはハイドレーションが終わるまで描画されないので、それまでは白背景の上でも読める通常の見た目にする。
+   */
+  const isTransparent = pathname === "/" && isHydrated && !isScrolled;
 
   /*
    * ドロワーはネイティブの <dialog> を showModal() で開く。
-   * 背後の要素の操作・フォーカスの無効化と、Esc で閉じる処理をブラウザに任せられる。
+   * 背後の要素の操作・フォーカスの無効化、開閉時のフォーカス移動、Esc で閉じる処理をブラウザに任せられる。
    */
   const openDrawer = () => {
     drawerRef.current?.showModal();
-    closeButtonRef.current?.focus();
-    setIsOpen(true);
   };
 
   const closeDrawer = () => {
@@ -46,14 +71,20 @@ export default function Header() {
 
   // Esc・リンクのクリック・閉じるボタンなど、どの方法で閉じても close イベントで状態をそろえる
   const handleDrawerClose = () => {
-    setIsOpen(false);
     setOpenGroups({});
-    menuButtonRef.current?.focus();
   };
 
-  // ::backdrop をクリックしたときは、イベントの target が <dialog> 自身になる
+  /*
+   * ::backdrop をクリックしたときは、イベントの target が <dialog> 自身になる。
+   * ドロワー内で押して背景の上で離したとき（文字選択のドラッグなど）も target が <dialog> になるため、
+   * 押した位置も背景だったときだけ閉じる。
+   */
+  const handleDrawerPointerDown = (e: PointerEvent<HTMLDialogElement>) => {
+    pointerDownOnBackdropRef.current = e.target === e.currentTarget;
+  };
+
   const handleDrawerClick = (e: MouseEvent<HTMLDialogElement>) => {
-    if (e.target === e.currentTarget) closeDrawer();
+    if (pointerDownOnBackdropRef.current && e.target === e.currentTarget) closeDrawer();
   };
 
   const toggleGroup = (href: string) => {
@@ -77,17 +108,21 @@ export default function Header() {
               isTransparent ? "drop-shadow-md hover:text-white/80" : "hover:text-brand-strong"
             }`}
           >
-            <Logo size={32} alt={`${SITE_NAME} ロゴ`} className="rounded-md" />
+            <Image
+              src="/images/digitart_white_normal.svg"
+              alt={`${SITE_NAME} ロゴ`}
+              width={32}
+              height={32}
+              className="rounded-md"
+            />
             {SITE_NAME}
           </Link>
 
           {/* ハンバーガーボタン */}
           <button
-            ref={menuButtonRef}
             onClick={openDrawer}
             aria-label="メニューを開く"
             aria-haspopup="dialog"
-            aria-expanded={isOpen}
             aria-controls={DRAWER_ID}
             className={`flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-lg transition-colors focus:outline-none focus-visible:ring-2 ${
               isTransparent
@@ -111,6 +146,7 @@ export default function Header() {
         id={DRAWER_ID}
         aria-label="ナビゲーションメニュー"
         onClose={handleDrawerClose}
+        onPointerDown={handleDrawerPointerDown}
         onClick={handleDrawerClick}
         className="nav-drawer"
       >
@@ -119,7 +155,6 @@ export default function Header() {
           <div className="flex items-center justify-between border-b border-slate-100 px-6 py-5">
             <span className="text-base font-semibold tracking-wide text-gray-800">Menu</span>
             <button
-              ref={closeButtonRef}
               onClick={closeDrawer}
               aria-label="メニューを閉じる"
               className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-slate-100 hover:text-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
