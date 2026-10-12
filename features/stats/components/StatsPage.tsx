@@ -3,9 +3,11 @@ import * as motion from "motion/react-client";
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { AnimatedNumber } from "@/features/stats/components/AnimatedNumber";
-import { STATS, BREAKDOWNS } from "@/features/stats/data";
+import { getStats } from "@/features/stats/stats";
 
 export function StatsPage() {
+  const { stats, breakdowns } = getStats();
+
   return (
     <div className="bg-white">
       <PageHero title="活動データ" subtitle="データで見るDigitart" backHref="/about" />
@@ -31,7 +33,7 @@ export function StatsPage() {
       <section className="px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-10">
-            {STATS.map((stat, i) => (
+            {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 40 }}
@@ -56,7 +58,7 @@ export function StatsPage() {
       {/* Breakdowns */}
       <section className="px-6 py-20 pb-32">
         <div className="mx-auto max-w-5xl space-y-16">
-          {BREAKDOWNS.map((section, si) => (
+          {breakdowns.map((section, si) => (
             <motion.div
               key={section.title}
               initial={{ opacity: 0, y: 40 }}

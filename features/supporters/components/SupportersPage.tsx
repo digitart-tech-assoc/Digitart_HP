@@ -4,9 +4,11 @@ import * as motion from "motion/react-client";
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { MEMBERS, QA } from "@/features/supporters/data";
+import { getSupporters } from "@/features/supporters/supporters";
 
 export function SupportersPage() {
+  const { members, qa } = getSupporters();
+
   return (
     <div className="bg-white">
       <PageHero title="幹部紹介" subtitle="Digitartを支える人たち" backHref="/about" />
@@ -36,7 +38,7 @@ export function SupportersPage() {
               第7期役員
             </h2>
           </div>
-          {MEMBERS.map((member, i) => {
+          {members.map((member, i) => {
             return (
               <motion.div
                 key={member.name}
@@ -99,7 +101,7 @@ export function SupportersPage() {
           </motion.div>
 
           <div className="space-y-6">
-            {QA.map((item, i) => (
+            {qa.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}

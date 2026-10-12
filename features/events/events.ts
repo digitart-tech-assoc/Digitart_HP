@@ -1,20 +1,23 @@
 import "server-only";
 
-import { z } from "zod";
-
+import annualEventsData from "@/content/annual-events.json";
 import eventsData from "@/content/events.json";
-import { type CalendarEvent, calendarEventsSchema } from "@/features/events/schema";
+import regularActivitiesData from "@/content/regular-activities.json";
+import {
+  annualEventsSchema,
+  type CalendarEvent,
+  calendarEventsSchema,
+  regularActivitiesSchema,
+} from "@/features/events/schema";
 import { filterUpcomingEvents, UPCOMING_EVENTS_LIMIT } from "@/features/events/upcoming";
+import { parseContent } from "@/lib/content";
 import { addDays, todayInTokyo } from "@/lib/date";
 
 /** content/events.json を検証し、日付順に並べて返す */
 function loadEvents(): CalendarEvent[] {
-  const result = calendarEventsSchema.safeParse(eventsData);
-  if (!result.success) {
-    // パスの先頭の数字は配列の何番目か（0 始まり）を表す
-    throw new Error(`content/events.json の形式が不正です\n${z.prettifyError(result.error)}`);
-  }
-  return result.data.sort((a, b) => a.date.localeCompare(b.date));
+  return parseContent("content/events.json", calendarEventsSchema, eventsData).sort((a, b) =>
+    a.date.localeCompare(b.date),
+  );
 }
 
 /**
@@ -36,4 +39,23 @@ export function getUpcomingEvents(): CalendarEvent[] {
   const lastDisplayDate = addDays(buildDate, MAX_DAYS_BETWEEN_BUILDS);
   const countUntilLastDisplayDate = upcoming.filter((event) => event.date < lastDisplayDate).length;
   return upcoming.slice(0, countUntilLastDisplayDate + UPCOMING_EVENTS_LIMIT);
+}
+
+/** 年間行事（content/annual-events.json） */
+export function getAnnualEvents() {
+  return parseContent(
+    "content/annual-events.json",
+    annualEventsSchema,
+    annualEventsData,
+    (events) => events.map((e) => e.image),
+  );
+}
+
+/** 定例活動（content/regular-activities.json） */
+export function getRegularActivities() {
+  return parseContent(
+    "content/regular-activities.json",
+    regularActivitiesSchema,
+    regularActivitiesData,
+  );
 }
