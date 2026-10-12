@@ -9,6 +9,24 @@ export type RepositoryFile = {
   encoding: "utf-8" | "base64";
 };
 
+/**
+ * GitHub API の呼び出しに失敗したときのエラー。
+ * message は利用者に見せてよい「何に失敗したか」だけにし、API のレスポンス本文は details に分ける（サーバーのログにだけ出す）。
+ */
+/** GitHub に接続するための環境変数が設定されていない */
+export class GitHubConfigError extends Error {}
+
+export class GitHubApiError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+    readonly details: string,
+  ) {
+    super(message);
+    this.name = "GitHubApiError";
+  }
+}
+
 type GitHubClient = {
   /** リポジトリ API のベース URL（https://api.github.com/repos/<owner>/<repo>） */
   baseUrl: string;
@@ -24,7 +42,7 @@ function createClient(): GitHubClient {
   const baseBranch = process.env.GITHUB_BRANCH || "main";
 
   if (!token || !owner || !repo) {
-    throw new Error(
+    throw new GitHubConfigError(
       "GitHubの設定が見つかりません。環境変数 GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO を設定してください。",
     );
   }
@@ -42,7 +60,7 @@ function createClient(): GitHubClient {
 
 /**
  * GitHub API を呼び出し、レスポンスの JSON を返す。
- * 失敗したときは「何に失敗したか」とレスポンス本文を含むエラーを投げる。
+ * 失敗したときは「何に失敗したか」とレスポンス本文を持つ GitHubApiError を投げる。
  */
 async function request<T>(
   client: GitHubClient,
@@ -59,7 +77,7 @@ async function request<T>(
     body: options.body === undefined ? undefined : JSON.stringify(options.body),
   });
   if (!res.ok) {
-    throw new Error(`${failureMessage}: ${await res.text()}`);
+    throw new GitHubApiError(failureMessage, res.status, await res.text());
   }
   return res.json() as Promise<T>;
 }

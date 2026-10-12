@@ -3,7 +3,12 @@
 import { cookies } from "next/headers";
 
 import { buildArticleMarkdown } from "@/features/news/editor/articleFile";
-import { createPullRequestWithFiles, type RepositoryFile } from "@/features/news/editor/github";
+import {
+  createPullRequestWithFiles,
+  GitHubApiError,
+  GitHubConfigError,
+  type RepositoryFile,
+} from "@/features/news/editor/github";
 import { parsePublishInput } from "@/features/news/editor/publishInput";
 import type { PublishState } from "@/features/news/editor/types";
 import { ADMIN_SESSION_COOKIE, isAdminSession } from "@/lib/adminSession";
@@ -66,8 +71,30 @@ export async function publishArticleAction(
 
     return { error: null, success: true, prUrl };
   } catch (error) {
+    // GitHub API のレスポンス本文や設定の不足などの詳細はログにだけ出し、画面には利用者向けのメッセージを返す
+    if (error instanceof GitHubApiError) {
+      console.error(`Failed to publish article: ${error.message} (${error.status})`, error.details);
+      return {
+        error: `${error.message}。時間をおいてもう一度送信してください。解決しない場合は幹部に連絡してください。`,
+        success: false,
+        prUrl: null,
+      };
+    }
     console.error("Failed to publish article:", error);
-    const message = error instanceof Error ? error.message : "";
-    return { error: message || "記事の公開に失敗しました。", success: false, prUrl: null };
+    if (error instanceof GitHubConfigError) {
+      return {
+        error:
+          "記事の送信に失敗しました。幹部に連絡してください（サーバーの設定に問題がある可能性があります）。",
+        success: false,
+        prUrl: null,
+      };
+    }
+    // GitHub への通信の失敗など。送り直せば成功することが多い
+    return {
+      error:
+        "記事の送信に失敗しました。時間をおいてもう一度送信してください。解決しない場合は幹部に連絡してください。",
+      success: false,
+      prUrl: null,
+    };
   }
 }
