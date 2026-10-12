@@ -21,7 +21,7 @@ export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) 
   const id = (key: keyof ArticleFields) => `${baseId}-${key}`;
 
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
       <div>
         <label htmlFor={id("title")} className={LABEL_CLASS}>
           タイトル
@@ -80,7 +80,7 @@ export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) 
           ))}
         </select>
       </div>
-      <div className="sm:col-span-2">
+      <div className="md:col-span-2">
         <label htmlFor={id("slug")} className={LABEL_CLASS}>
           ファイル名（URLの一部になります） <span className="text-red-400">*</span>
         </label>
@@ -106,7 +106,7 @@ export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) 
           半角英小文字、数字、ハイフンのみ使用可能
         </p>
       </div>
-      <div className="sm:col-span-2">
+      <div className="md:col-span-2">
         <label htmlFor={id("excerpt")} className={LABEL_CLASS}>
           概要
         </label>

@@ -207,8 +207,9 @@ export function ArticleEditor() {
                   aria-label="画像を処理中"
                 />
               )}
+              {/* ファイル選択の入力欄は見た目だけ隠し（sr-only）、Tab で移動して Enter・Space で開けるようにする */}
               <label
-                className="group cursor-pointer rounded-xl border border-slate-200 bg-white/80 p-2.5 text-slate-500 shadow-sm backdrop-blur-sm transition-all hover:bg-white hover:text-emerald-600"
+                className="group cursor-pointer rounded-xl border border-slate-200 bg-white/80 p-2.5 text-slate-500 shadow-sm backdrop-blur-sm transition-all focus-within:text-emerald-600 focus-within:ring-2 focus-within:ring-emerald-500 hover:bg-white hover:text-emerald-600"
                 title="画像を挿入"
               >
                 <ImagePlus size={20} className="transition-transform group-hover:scale-110" />
@@ -216,7 +217,7 @@ export function ArticleEditor() {
                   type="file"
                   accept="image/*"
                   multiple
-                  className="hidden"
+                  className="sr-only"
                   aria-label="画像を挿入"
                   onChange={(e) => {
                     if (e.target.files) insertImages(Array.from(e.target.files));
