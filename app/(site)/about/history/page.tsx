@@ -1,4 +1,3 @@
-import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { HistoryPage } from "@/features/history/components/HistoryPage";
 import { getCustomMetadata } from "@/lib/metadata";
 
@@ -9,10 +8,5 @@ export const metadata = getCustomMetadata({
 });
 
 export default function Page() {
-  return (
-    <>
-      <BreadcrumbJsonLd path="/about/history" />
-      <HistoryPage />
-    </>
-  );
+  return <HistoryPage />;
 }
