@@ -108,7 +108,7 @@ export default function Header() {
               isTransparent ? "drop-shadow-md hover:text-white/80" : "hover:text-brand-strong"
             }`}
           >
-            <Logo size={32} alt={`${SITE_NAME} ロゴ`} className="rounded-md" />
+            <Logo size={32} alt={`${SITE_NAME} ロゴ`} className="rounded-md" preload />
             {SITE_NAME}
           </Link>
 

@@ -155,10 +155,12 @@ export function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
                 style={{ background: "rgba(140,198,63,0.5)" }}
                 aria-hidden="true"
               />
+              {/* サーバーでは描画されないため先読みは効かないが、後回しにせずに読み込む */}
               <Logo
                 size={160}
                 alt={`${SITE_NAME} ロゴ`}
                 className="relative block h-auto w-40 drop-shadow-2xl"
+                preload
               />
             </div>
           </div>
