@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { filterReferencedImages } from "@/features/news/editor/articleFile";
 import {
   type ArticleDraft,
   deleteDraft,
@@ -12,6 +13,9 @@ import type { ArticleFields, EditorImage } from "@/features/news/editor/types";
 
 /** 入力が止まってから保存するまでの時間 */
 const SAVE_DELAY_MS = 800;
+
+/** 下書きの読み込みを待つ上限。IndexedDB が応答しない環境でも、エディタを使えるようにする */
+const LOAD_TIMEOUT_MS = 2000;
 
 /** タイトルか本文が入力されているか（何も書いていない状態は下書きとして扱わない） */
 function hasContent(fields: ArticleFields, content: string) {
@@ -49,29 +53,48 @@ export function useArticleDraft({
     restoreRef.current = restore;
   });
 
+  /*
+   * 読み込みが終わるまでは、呼び出し側で入力欄を操作できないようにする（loaded を返す）。
+   * 入力を始めた後に読み込みが終わり、入力した内容を古い下書きで上書きしないようにするため。
+   * 上限の時間を過ぎたら下書きなしで始め、後から読み込めても復元しない。
+   */
   useEffect(() => {
-    let cancelled = false;
+    let settled = false;
+    const finish = () => {
+      settled = true;
+      setLoaded(true);
+    };
+    const timer = setTimeout(finish, LOAD_TIMEOUT_MS);
     loadDraft()
       .then((draft) => {
-        if (cancelled || !draft || !hasContent(draft.fields, draft.content)) return;
+        if (settled || !draft || !hasContent(draft.fields, draft.content)) return;
         restoreRef.current(draft);
         setRestoredAt(draft.savedAt);
       })
       .catch(() => {})
       .finally(() => {
-        if (!cancelled) setLoaded(true);
+        if (settled) return;
+        clearTimeout(timer);
+        finish();
       });
     return () => {
-      cancelled = true;
+      settled = true;
+      clearTimeout(timer);
     };
   }, []);
 
   useEffect(() => {
     if (!loaded || published) return;
     const timer = setTimeout(() => {
-      // すべて消したときは、空の下書きを残さずに削除する
+      // すべて消したときは、空の下書きを残さずに削除する。
+      // 本文から消した画像は保存しない（下書きが大きくなり続けないようにする）
       const task = hasContent(fields, content)
-        ? saveDraft({ fields, content, images, savedAt: Date.now() })
+        ? saveDraft({
+            fields,
+            content,
+            images: filterReferencedImages(images, content),
+            savedAt: Date.now(),
+          })
         : deleteDraft();
       task.catch(() => {});
     }, SAVE_DELAY_MS);
@@ -99,5 +122,5 @@ export function useArticleDraft({
     return deleteDraft().catch(() => {});
   };
 
-  return { restoredAt, discardDraft };
+  return { loaded, restoredAt, discardDraft };
 }

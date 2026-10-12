@@ -27,8 +27,8 @@ ${content}
  * 本文から参照されている画像だけを返す（同じパスの画像は 1 つにまとめる）。
  * エディタに挿入したあと本文から削除した画像を、リポジトリに追加しないようにするため。
  */
-export function filterReferencedImages(images: PendingImage[], content: string): PendingImage[] {
-  const byPath = new Map<string, PendingImage>();
+export function filterReferencedImages<T extends PendingImage>(images: T[], content: string): T[] {
+  const byPath = new Map<string, T>();
   for (const img of images) {
     if (content.includes(img.path.replace(/^public/, ""))) {
       byPath.set(img.path, img);

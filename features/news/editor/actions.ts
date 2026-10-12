@@ -6,6 +6,7 @@ import { buildArticleMarkdown } from "@/features/news/editor/articleFile";
 import {
   createPullRequestWithFiles,
   GitHubApiError,
+  GitHubConfigError,
   type RepositoryFile,
 } from "@/features/news/editor/github";
 import { parsePublishInput } from "@/features/news/editor/publishInput";
@@ -80,9 +81,18 @@ export async function publishArticleAction(
       };
     }
     console.error("Failed to publish article:", error);
+    if (error instanceof GitHubConfigError) {
+      return {
+        error:
+          "記事の送信に失敗しました。幹部に連絡してください（サーバーの設定に問題がある可能性があります）。",
+        success: false,
+        prUrl: null,
+      };
+    }
+    // GitHub への通信の失敗など。送り直せば成功することが多い
     return {
       error:
-        "記事の送信に失敗しました。幹部に連絡してください（サーバーの設定に問題がある可能性があります）。",
+        "記事の送信に失敗しました。時間をおいてもう一度送信してください。解決しない場合は幹部に連絡してください。",
       success: false,
       prUrl: null,
     };

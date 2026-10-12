@@ -5,6 +5,7 @@ import { useActionState, useRef, useState } from "react";
 
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { publishArticleAction } from "@/features/news/editor/actions";
+import { filterReferencedImages } from "@/features/news/editor/articleFile";
 import { ArticleMetaFields } from "@/features/news/editor/components/ArticleMetaFields";
 import { PublishSuccess } from "@/features/news/editor/components/PublishSuccess";
 import type { ArticleDraft } from "@/features/news/editor/draftStorage";
@@ -44,10 +45,14 @@ export function ArticleEditor() {
   const [content, setContent] = useState("");
   const [mobileTab, setMobileTab] = useState<MobileTab>("edit");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const { images, setImages, insertImages, isProcessing, resolvePreviewImageSrc } =
+  const { images, setImages, insertImages, isProcessing, imageError, resolvePreviewImageSrc } =
     useArticleImages({ date: fields.date, textareaRef, setContent });
 
-  const { restoredAt, discardDraft } = useArticleDraft({
+  const {
+    loaded: draftLoaded,
+    restoredAt,
+    discardDraft,
+  } = useArticleDraft({
     fields,
     content,
     images,
@@ -90,7 +95,8 @@ export function ArticleEditor() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-stone-50">
+    // md 以上では画面の高さに収め、入力欄とプレビューをそれぞれスクロールさせる（上のバナーの有無に関係なく収まる）
+    <div className="flex min-h-screen flex-col bg-stone-50 md:h-dvh md:min-h-0">
       <header className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur-md md:px-6 md:py-4">
         <h1 className="shrink-0 text-xl font-bold whitespace-nowrap text-slate-900 md:text-2xl">
           記事の作成
@@ -116,6 +122,16 @@ export function ArticleEditor() {
         </div>
       )}
 
+      {imageError && (
+        <div
+          role="alert"
+          className="flex items-start gap-2 border-b border-red-100 bg-red-50 px-4 py-3 text-sm font-bold break-words text-red-600 md:px-6"
+        >
+          <AlertCircle size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
+          <p>{imageError}</p>
+        </div>
+      )}
+
       {restoredAt !== null && (
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-amber-100 bg-amber-50 px-4 py-2 text-sm text-amber-800 md:px-6">
           <p>
@@ -133,10 +149,13 @@ export function ArticleEditor() {
           <input key={key} type="hidden" name={key} value={value} />
         ))}
         <input type="hidden" name="content" value={content} />
+        {/* 本文から消した画像は送らない（送信サイズの上限を超えないようにする） */}
         <input
           type="hidden"
           name="images"
-          value={JSON.stringify(images.map(({ path, content }) => ({ path, content })))}
+          value={JSON.stringify(
+            filterReferencedImages(images, content).map(({ path, content }) => ({ path, content })),
+          )}
         />
       </form>
 
@@ -165,7 +184,12 @@ export function ArticleEditor() {
         ))}
       </div>
 
-      <div className="flex flex-1 flex-col md:h-[calc(100dvh-73px)] md:flex-row md:overflow-hidden">
+      {/* 下書きを読み込み終わるまでは入力させない（入力した内容が、後から読み込んだ下書きで上書きされないようにする） */}
+      <fieldset
+        disabled={!draftLoaded}
+        aria-busy={!draftLoaded}
+        className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row md:overflow-hidden"
+      >
         {/* 左: 入力欄と本文 */}
         <div
           className={`${mobileTab === "edit" ? "flex" : "hidden"} flex-1 flex-col bg-stone-50 md:flex md:w-1/2 md:flex-none md:border-r md:border-slate-200`}
@@ -174,7 +198,7 @@ export function ArticleEditor() {
             <ArticleMetaFields fields={fields} onChange={updateField} />
           </div>
 
-          <div className="relative flex min-h-[60dvh] flex-1 flex-col bg-amber-50/60">
+          <div className="relative flex min-h-[60dvh] flex-1 flex-col bg-amber-50/60 md:min-h-0">
             <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
               {isProcessing && (
                 <Loader2
@@ -227,7 +251,7 @@ export function ArticleEditor() {
             resolveImageSrc={resolvePreviewImageSrc}
           />
         </div>
-      </div>
+      </fieldset>
     </div>
   );
 }

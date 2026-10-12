@@ -13,6 +13,9 @@ export type RepositoryFile = {
  * GitHub API の呼び出しに失敗したときのエラー。
  * message は利用者に見せてよい「何に失敗したか」だけにし、API のレスポンス本文は details に分ける（サーバーのログにだけ出す）。
  */
+/** GitHub に接続するための環境変数が設定されていない */
+export class GitHubConfigError extends Error {}
+
 export class GitHubApiError extends Error {
   constructor(
     message: string,
@@ -39,7 +42,7 @@ function createClient(): GitHubClient {
   const baseBranch = process.env.GITHUB_BRANCH || "main";
 
   if (!token || !owner || !repo) {
-    throw new Error(
+    throw new GitHubConfigError(
       "GitHubの設定が見つかりません。環境変数 GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO を設定してください。",
     );
   }
