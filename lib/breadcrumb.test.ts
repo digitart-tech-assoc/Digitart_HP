@@ -6,7 +6,7 @@ const SITE = "https://example.com";
 
 describe("generateBreadcrumbs", () => {
   it("階層の名前を NAV_LINKS から引く", () => {
-    expect(generateBreadcrumbs("/about/works", SITE)).toEqual([
+    expect(generateBreadcrumbs(["about", "works"], SITE)).toEqual([
       { name: "Home", url: SITE },
       { name: "About", url: `${SITE}/about` },
       { name: "Works", url: `${SITE}/about/works` },
@@ -14,20 +14,27 @@ describe("generateBreadcrumbs", () => {
   });
 
   it("最後の項目は currentLabel を優先する", () => {
-    expect(generateBreadcrumbs("/news/2026-04-01-hello", SITE, "記事タイトル").at(-1)).toEqual({
+    expect(generateBreadcrumbs(["news", "2026-04-01-hello"], SITE, "記事タイトル").at(-1)).toEqual({
       name: "記事タイトル",
       url: `${SITE}/news/2026-04-01-hello`,
     });
   });
 
-  it("NAV_LINKS にない階層はセグメントをそのまま名前にする", () => {
-    expect(generateBreadcrumbs("/unknown/", SITE).at(-1)).toEqual({
+  it("途中の階層のうち、NAV_LINKS にない（ページのない）階層は飛ばす", () => {
+    expect(generateBreadcrumbs(["sagamihara-fes", "2026"], SITE, "相模原祭 2026")).toEqual([
+      { name: "Home", url: SITE },
+      { name: "相模原祭 2026", url: `${SITE}/sagamihara-fes/2026` },
+    ]);
+  });
+
+  it("最後の項目が NAV_LINKS になく currentLabel もなければ、セグメントをそのまま名前にする", () => {
+    expect(generateBreadcrumbs(["unknown"], SITE).at(-1)).toEqual({
       name: "unknown",
       url: `${SITE}/unknown`,
     });
   });
 
   it("トップページは Home だけ", () => {
-    expect(generateBreadcrumbs("/", SITE)).toEqual([{ name: "Home", url: SITE }]);
+    expect(generateBreadcrumbs([], SITE)).toEqual([{ name: "Home", url: SITE }]);
   });
 });
