@@ -1,5 +1,7 @@
 "use client";
 
+import { prefersReducedMotion } from "@/lib/reducedMotion";
+
 import type { ComponentProps, MouseEvent } from "react";
 
 type SmoothScrollLinkProps = Omit<ComponentProps<"a">, "href"> & {
@@ -19,9 +21,8 @@ export function SmoothScrollLink({ targetId, onClick, ...rest }: SmoothScrollLin
 
     e.preventDefault();
     // 視差効果を減らす設定の人には、アニメーションせずに移動する
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // 位置は移動先の scroll-margin-top（固定ヘッダーの高さ分）を考慮して決まる
-    target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    target.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
     // URL にも #id を残し、共有やブラウザの戻る操作で同じ位置に来られるようにする
     window.history.pushState(null, "", `#${targetId}`);
   };

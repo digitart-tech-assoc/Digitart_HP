@@ -8,19 +8,12 @@ import { Logo } from "@/components/ui/Logo";
 import { HERO_NOTICE, HERO_SLIDES } from "@/features/home/data";
 import { INTRO_SEEN_STORAGE_KEY } from "@/features/home/introSeen";
 import { SITE_NAME } from "@/lib/constants";
+import { usePrefersReducedMotion } from "@/lib/reducedMotion";
 
 const SLIDE_INTERVAL_MS = 5000;
 const FADE_MS = 1200;
 // スクロールを促す表示が消えきるスクロール量
 const SCROLL_HINT_FADE_PX = 120;
-
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
-
-function subscribeReducedMotion(onChange: () => void) {
-  const query = window.matchMedia(REDUCED_MOTION_QUERY);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
 
 const INTRO_SELECTOR = ".home-intro";
 
@@ -47,22 +40,18 @@ export function HomeHeroBase() {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [transitioning, setTransitioning] = useState(false);
-  const [scrollHintOpacity, setScrollHintOpacity] = useState(1);
   // 利用者が再生・一時停止を選んだら、その選択を優先する（null は未操作）
   const [userPaused, setUserPaused] = useState<boolean | null>(null);
   const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const introSeenSavedRef = useRef(false);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   // サーバーではイントロが終わっていないものとして描画し、クライアントで CSS アニメーションの状態を読む
   const introDone = useSyncExternalStore(subscribeIntroEnd, getIntroDoneSnapshot, () => false);
 
   // 視差効果を減らす設定のときは、自動では切り替えない（サーバーでは自動再生として描画する）
-  const prefersReducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
-    () => false,
-  );
-  const isPlaying = userPaused === null ? !prefersReducedMotion : !userPaused;
+  const reducedMotion = usePrefersReducedMotion();
+  const isPlaying = userPaused === null ? !reducedMotion : !userPaused;
 
   /*
    * イントロは 1 セッションに 1 回だけ表示する。
@@ -87,12 +76,28 @@ export function HomeHeroBase() {
     }
   }, [introDone]);
 
-  // スクロールを促す表示の不透明度だけを持つ。消えきった後は値が変わらないので、再描画もされない
   useEffect(() => {
-    const onScroll = () =>
-      setScrollHintOpacity(Math.max(0, 1 - window.scrollY / SCROLL_HINT_FADE_PX));
+    // スクロールのたびに state を更新するとヒーロー全体が再描画されるため、
+    // 1 フレームに 1 回だけ、スクロールの案内の透明度を DOM に直接書き込む
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (scrollIndicatorRef.current) {
+        scrollIndicatorRef.current.style.opacity = String(
+          Math.max(0, 1 - window.scrollY / SCROLL_HINT_FADE_PX),
+        );
+      }
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    // 再読み込みや「戻る」でスクロールした位置から開いたときも、最初から正しい透明度にする
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => () => clearTimeout(fadeTimerRef.current ?? undefined), []);
@@ -302,11 +307,10 @@ export function HomeHeroBase() {
 
         {/* Scroll indicator */}
         <div
+          ref={scrollIndicatorRef}
           className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5"
-          style={{
-            opacity: scrollHintOpacity,
-            transition: "opacity 0.3s",
-          }}
+          // opacity はスクロールに合わせて DOM に直接書き込むため、ここでは指定しない
+          style={{ transition: "opacity 0.3s" }}
           aria-hidden="true"
         >
           <span className="text-[9px] font-bold tracking-[0.28em] text-white/55 uppercase">
