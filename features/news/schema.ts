@@ -20,6 +20,11 @@ const categoryIds = Object.keys(ARTICLE_CATEGORIES) as [ArticleCategory, ...Arti
 export const articleFrontmatterSchema = z.object({
   title: z.string().trim().min(1),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "date は YYYY-MM-DD 形式で書いてください"),
+  /** 公開後に内容を直した日。サイトマップの lastmod に使う */
+  updated: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "updated は YYYY-MM-DD 形式で書いてください")
+    .optional(),
   category: z.enum(categoryIds),
   author: z.string().optional(),
   excerpt: z.string().optional(),

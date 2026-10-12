@@ -155,23 +155,12 @@ export function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
                 style={{ background: "rgba(140,198,63,0.5)" }}
                 aria-hidden="true"
               />
+              {/* サーバーでは描画されないため先読みは効かないが、後回しにせずに読み込む */}
               <Logo
-                aria-label={`${SITE_NAME} logo`}
-                width={160}
-                height={160}
-                style={{
-                  display: "block",
-                  width: 160,
-                  height: "auto",
-                  shapeRendering: "crispEdges",
-                  imageRendering: "crisp-edges",
-                  WebkitFontSmoothing: "antialiased",
-                  MozOsxFontSmoothing: "grayscale",
-                  backfaceVisibility: "hidden",
-                  WebkitTransformStyle: "preserve-3d",
-                  transformStyle: "preserve-3d",
-                }}
-                className="relative h-auto w-30 opacity-100 drop-shadow-2xl sm:w-50 md:w-60"
+                size={160}
+                alt={`${SITE_NAME} ロゴ`}
+                className="relative block h-auto w-40 drop-shadow-2xl"
+                preload
               />
             </div>
           </div>

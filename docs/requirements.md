@@ -168,7 +168,7 @@ image: "/images/articles/2026-09-23/example.png"
 ---
 ```
 
-必須項目は `title`、`date`、`author`、`category`、本文、slug。`excerpt`、`image` は任意とする。実装では `gray-matter` でfrontmatterを分離し、本文を `react-markdown` で描画する。
+必須項目は `title`、`date`、`author`、`category`、本文、slug。`excerpt`、`image`、`updated` は任意とする。`updated` は公開後に内容を直した日（`YYYY-MM-DD`）で、サイトマップの `lastmod` に使う。実装では `gray-matter` でfrontmatterを分離し、本文を `react-markdown` で描画する。
 
 ### 5.2 イベントデータ
 
