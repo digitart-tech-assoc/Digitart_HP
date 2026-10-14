@@ -108,7 +108,7 @@ export const ANNUAL_EVENTS = [
 export const REGULAR_ACTIVITIES = [
   {
     label: "対面活動",
-    detail: "毎週月曜･木曜 18:45-21:00",
+    detail: "毎週月曜･木曜 18:30-21:00",
     icon: CalendarDays,
   },
   {
