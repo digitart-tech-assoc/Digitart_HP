@@ -1,47 +1,21 @@
-"use client";
-
-import { useSyncExternalStore, type ReactNode } from "react";
+import { preload } from "react-dom";
 
 import { HomeHeroBase } from "@/features/home/components/HomeHeroBase";
-import { HomeHeroIntro, type IntroPhase } from "@/features/home/components/HomeHeroIntro";
+import { HomeHeroIntro } from "@/features/home/components/HomeHeroIntro";
+import { HERO_SLIDES } from "@/features/home/data";
 
-const DARK_MODE_QUERY = "(prefers-color-scheme: dark)";
+/**
+ * トップページのヒーロー。
+ * 見出し・キャッチコピー・入会ボタンを初期 HTML に含めるため、サーバーで描画する。
+ */
+export function HomeHero() {
+  // 背景は CSS の background-image で読み込むため、1 枚目だけは HTML の読み込み直後から取得を始める
+  preload(HERO_SLIDES[0], { as: "image", fetchPriority: "high" });
 
-function subscribeDarkMode(onChange: () => void) {
-  const query = window.matchMedia(DARK_MODE_QUERY);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
-
-function getDarkModeSnapshot() {
-  return window.matchMedia(DARK_MODE_QUERY).matches;
-}
-
-/** サーバーでは OS の設定が分からないため null を返し、クライアントで判定するまで描画しない */
-function getDarkModeServerSnapshot() {
-  return null;
-}
-
-type HomeHeroProps = {
-  /** イントロに表示するロゴ。読み込みを待たずに表示できるよう、サーバーで作った InlineLogo を渡す */
-  introLogo: ReactNode;
-};
-
-/** トップページのヒーロー。OS のダークモード設定に合わせてイントロの背景色を切り替える */
-export function HomeHero({ introLogo }: HomeHeroProps) {
-  const isDark = useSyncExternalStore<boolean | null>(
-    subscribeDarkMode,
-    getDarkModeSnapshot,
-    getDarkModeServerSnapshot,
+  return (
+    <>
+      <HomeHeroIntro />
+      <HomeHeroBase />
+    </>
   );
-
-  if (isDark === null) {
-    return null;
-  }
-
-  const renderIntro = (phase: IntroPhase) => (
-    <HomeHeroIntro phase={phase} theme={isDark ? "dark" : "light"} logo={introLogo} />
-  );
-
-  return <HomeHeroBase renderIntro={renderIntro} />;
 }

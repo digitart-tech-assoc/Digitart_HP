@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { InlineLogo } from "@/components/ui/InlineLogo";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { EventCalendar } from "@/features/events/components/EventCalendar";
 import { getUpcomingEvents } from "@/features/events/events";
@@ -20,7 +19,7 @@ export default function Home() {
     <div className="bg-transparent text-slate-900">
       <ScrollToTop />
       {/* ── Hero ─────────────────────────────────────────── */}
-      <HomeHero introLogo={<InlineLogo />} />
+      <HomeHero />
 
       {/* ── Main Content (slides over fixed hero) ────────── */}
       <div className="relative z-10 overflow-clip bg-white shadow-[0_-16px_40px_rgba(0,0,0,0.22)]">

@@ -92,6 +92,66 @@ body {
 }
 
 /*
+ * トップページのイントロ（features/home/components/HomeHeroIntro.tsx）。
+ * 0.8 秒ロゴを見せてから拡大し、2.2 秒から背景ごとフェードアウトして、下のヒーローを見せる。
+ * 最後に visibility: hidden にする（HomeHeroBase は、これを見てイントロの終了を判定し、スライドショーを始める）。
+ * ロゴは scale（transform）ではなく width・height で拡大する。
+ * scale だとブラウザが一度描いた画像を引き伸ばしてぼやけるため、毎フレームをベクターのまま描き直させる。
+ */
+.home-intro {
+  animation: home-intro-fade 2.8s ease-in-out forwards;
+}
+
+.home-intro-logo {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  animation: home-intro-zoom 2.7s forwards;
+}
+
+@keyframes home-intro-fade {
+  0%,
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes home-intro-zoom {
+  0%,
+  30% {
+    width: 120px;
+    height: 120px;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  81% {
+    width: 2400px;
+    height: 2400px;
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    width: 7200px;
+    height: 7200px;
+    opacity: 0;
+  }
+}
+
+/* 同じセッションで表示済みのときと、視差効果を減らす設定のときは表示しない */
+:root[data-intro-seen] .home-intro {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-intro {
+    display: none;
+  }
+}
+
+/*
  * ヘッダーのナビゲーションドロワー（<dialog> を showModal() で開く）。
  * 閉じるときも滑って消えるよう、display と overlay を transition-behavior: allow-discrete で遅らせる。
  * 対応していないブラウザでは、アニメーションなしで開閉する。

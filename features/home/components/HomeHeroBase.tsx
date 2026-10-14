@@ -1,88 +1,140 @@
 "use client";
 
+import { Pause, Play } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState, useRef, ReactNode } from "react";
+import { useEffect, useEffectEvent, useState, useRef, useSyncExternalStore } from "react";
 
 import { Logo } from "@/components/ui/Logo";
-import type { IntroPhase } from "@/features/home/components/HomeHeroIntro";
-import { HERO_NOTICE } from "@/features/home/data";
+import { HERO_NOTICE, HERO_SLIDES } from "@/features/home/data";
+import { INTRO_SEEN_STORAGE_KEY } from "@/features/home/introSeen";
 import { SITE_NAME } from "@/lib/constants";
+import { usePrefersReducedMotion } from "@/lib/reducedMotion";
 
-const SLIDE_SRCS = [
-  "images/heros/01.jpg",
-  "images/heros/02.jpg",
-  "images/heros/03.jpg",
-  "images/heros/04.jpg",
-  "images/heros/05.jpg",
-];
+const SLIDE_INTERVAL_MS = 5000;
+const FADE_MS = 1200;
+// スクロールを促す表示が消えきるスクロール量
+const SCROLL_HINT_FADE_PX = 120;
 
-interface HomeHeroBaseProps {
-  /** イントロアニメーションの描画（段階ごとに呼ばれる） */
-  renderIntro: (phase: IntroPhase) => ReactNode;
+const INTRO_SELECTOR = ".home-intro";
+
+/** イントロ（HomeHeroIntro）の CSS アニメーションが終わったら知らせる */
+function subscribeIntroEnd(onChange: () => void) {
+  const intro = document.querySelector(INTRO_SELECTOR);
+  intro?.addEventListener("animationend", onChange);
+  return () => intro?.removeEventListener("animationend", onChange);
 }
 
-/** トップページのヒーロー本体（イントロの進行・背景スライドショー・キャッチコピー） */
-export function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
-  const [phase, setPhase] = useState<IntroPhase>("intro");
+/**
+ * イントロが終わっているか。表示しない場合（表示済み・視差効果を減らす設定）は display: none、
+ * 表示した場合はフェードアウトの最後に visibility: hidden になる（globals.css の .home-intro）
+ */
+function getIntroDoneSnapshot() {
+  const intro = document.querySelector(INTRO_SELECTOR);
+  if (!intro) return true;
+  const style = getComputedStyle(intro);
+  return style.display === "none" || style.visibility === "hidden";
+}
+
+/** トップページのヒーロー本体（背景スライドショー・キャッチコピー） */
+export function HomeHeroBase() {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [transitioning, setTransitioning] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // 利用者が再生・一時停止を選んだら、その選択を優先する（null は未操作）
+  const [userPaused, setUserPaused] = useState<boolean | null>(null);
+  const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const introSeenSavedRef = useRef(false);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
-  // Intro animation sequence
+  // サーバーではイントロが終わっていないものとして描画し、クライアントで CSS アニメーションの状態を読む
+  const introDone = useSyncExternalStore(subscribeIntroEnd, getIntroDoneSnapshot, () => false);
+
+  // 視差効果を減らす設定のときは、自動では切り替えない（サーバーでは自動再生として描画する）
+  const reducedMotion = usePrefersReducedMotion();
+  const isPlaying = userPaused === null ? !reducedMotion : !userPaused;
+
+  /*
+   * イントロは 1 セッションに 1 回だけ表示する。
+   * 表示したことは表示し始めた時点で sessionStorage に保存し（再読み込みでは出さない）、
+   * イントロが終わったら <html> にも印を付けて、同じタブ内で戻ってきたとき（クライアント側の遷移）にも出さない。
+   * 印はページを離れるときではなく、イントロの終了時に付ける（開発時の Strict Mode が最初に一度アンマウントしても、
+   * 再生中のイントロが消えないようにするため）。
+   * sessionStorage が使えない環境（プライベートブラウズの一部など）では印を付けず、毎回表示する。
+   */
   useEffect(() => {
-    // intro → expand (logo starts growing after 0.8s)
-    const t1 = setTimeout(() => setPhase("expand"), 800);
-    // expand → white (logo fills screen at ~2s)
-    const t2 = setTimeout(() => setPhase("white"), 2200);
-    // white → done (fade in content at ~2.8s)
-    const t3 = setTimeout(() => setPhase("done"), 2800);
+    try {
+      sessionStorage.setItem(INTRO_SEEN_STORAGE_KEY, "1");
+      introSeenSavedRef.current = true;
+    } catch {
+      // 印を付けない
+    }
+  }, []);
+
+  useEffect(() => {
+    if (introDone && introSeenSavedRef.current) {
+      document.documentElement.dataset.introSeen = "";
+    }
+  }, [introDone]);
+
+  useEffect(() => {
+    // スクロールのたびに state を更新するとヒーロー全体が再描画されるため、
+    // 1 フレームに 1 回だけ、スクロールの案内の透明度を DOM に直接書き込む
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (scrollIndicatorRef.current) {
+        scrollIndicatorRef.current.style.opacity = String(
+          Math.max(0, 1 - window.scrollY / SCROLL_HINT_FADE_PX),
+        );
+      }
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    // 再読み込みや「戻る」でスクロールした位置から開いたときも、最初から正しい透明度にする
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
     };
   }, []);
 
-  // Scroll listener
-  useEffect(() => {
-    if (phase !== "done") return;
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [phase]);
+  useEffect(() => () => clearTimeout(fadeTimerRef.current ?? undefined), []);
 
-  // Auto slideshow — crossfade by layering
-  useEffect(() => {
-    if (phase !== "done") return;
-    timerRef.current = setTimeout(() => {
-      const next = (current + 1) % SLIDE_SRCS.length;
-      setPrev(current);
-      setCurrent(next);
-      setTransitioning(true);
-      setTimeout(() => {
-        setPrev(null);
-        setTransitioning(false);
-      }, 1200);
-    }, 5000);
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [current, phase]);
+  /** 指定したスライドへクロスフェードする。表示中のスライドを選んだときは何もしない */
+  const showSlide = (next: number) => {
+    if (next === current) return;
+    // 前の切り替えのフェードが終わる前に次へ進んだときは、前の終了処理を取り消す
+    if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
+    setPrev(current);
+    setCurrent(next);
+    setTransitioning(true);
+    fadeTimerRef.current = setTimeout(() => {
+      setPrev(null);
+      setTransitioning(false);
+    }, FADE_MS);
+  };
 
-  const contentVisible = phase === "white" || phase === "done";
+  const showNextSlide = useEffectEvent(() => showSlide((current + 1) % HERO_SLIDES.length));
+
+  /*
+   * 自動スライドショー。スライドが変わるたび（ドットでの切り替えを含む）に、次の切り替えまでの時間を数え直す。
+   * イントロがヒーローを覆っている間は数え始めず、最初のスライドもイントロが消えてから SLIDE_INTERVAL_MS 表示する
+   */
+  useEffect(() => {
+    if (!isPlaying || !introDone) return;
+    const timer = setTimeout(showNextSlide, SLIDE_INTERVAL_MS);
+    return () => clearTimeout(timer);
+  }, [current, isPlaying, introDone]);
 
   return (
     <>
-      {/* ── Intro overlay (theme-specific) ── */}
-      {renderIntro(phase)}
-
       <section className="fixed top-0 left-0 z-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden text-center">
         {/* ── Slides: crossfade with layered approach ── */}
         <div className="absolute inset-0">
           {/* Always render all slides, control visibility via z-index + opacity */}
-          {SLIDE_SRCS.map((src, i) => {
+          {HERO_SLIDES.map((src, i) => {
             const isCurrent = i === current;
             const isPrev = i === prev;
             return (
@@ -93,7 +145,7 @@ export function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
                   backgroundImage: `url(${src})`,
                   opacity: isCurrent ? 1 : isPrev && transitioning ? 1 : 0,
                   zIndex: isCurrent ? 2 : isPrev ? 1 : 0,
-                  transition: isCurrent ? "opacity 1.2s ease-in-out" : "none",
+                  transition: isCurrent ? `opacity ${FADE_MS}ms ease-in-out` : "none",
                 }}
               />
             );
@@ -114,39 +166,43 @@ export function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
           aria-hidden="true"
         />
 
-        {/* ── Slide dots ── */}
-        <div className="absolute right-8 bottom-6 z-20 flex gap-2">
-          {SLIDE_SRCS.map((_, i) => (
+        {/* ── Slide controls ── */}
+        <div className="absolute right-4 bottom-2 z-20 flex items-center md:right-6">
+          <button
+            type="button"
+            onClick={() => setUserPaused(isPlaying)}
+            aria-label={isPlaying ? "スライドショーを一時停止" : "スライドショーを再生"}
+            className="flex h-8 w-8 items-center justify-center rounded-full text-white/70 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+          >
+            {isPlaying ? (
+              <Pause className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true" />
+            ) : (
+              <Play className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true" />
+            )}
+          </button>
+          {/* 見た目のドットは小さいまま、タップできる範囲を 24px 以上にする */}
+          {HERO_SLIDES.map((_, i) => (
             <button
               key={i}
-              onClick={() => {
-                if (timerRef.current) clearTimeout(timerRef.current);
-                setPrev(current);
-                setCurrent(i);
-                setTransitioning(true);
-                setTimeout(() => {
-                  setPrev(null);
-                  setTransitioning(false);
-                }, 1200);
-              }}
-              className="h-1.5 w-1.5 rounded-full transition-all duration-300"
-              style={{
-                background: i === current ? "var(--color-brand)" : "rgba(255,255,255,0.35)",
-                transform: i === current ? "scale(1.6)" : "scale(1)",
-              }}
+              type="button"
+              onClick={() => showSlide(i)}
               aria-label={`スライド ${i + 1}`}
-            />
+              aria-current={i === current}
+              className="flex h-8 w-6 items-center justify-center rounded-full focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+            >
+              <span
+                className="block h-1.5 w-1.5 rounded-full transition-all duration-300"
+                style={{
+                  background: i === current ? "var(--color-brand)" : "rgba(255,255,255,0.35)",
+                  transform: i === current ? "scale(1.6)" : "scale(1)",
+                }}
+              />
+            </button>
           ))}
         </div>
 
         {/* ── Main content ── */}
-        <div
-          className="relative z-20 mx-auto flex max-w-5xl flex-col items-center px-6 py-10 text-center"
-          style={{
-            opacity: contentVisible ? 1 : 0,
-            transition: "opacity 0.8s ease",
-          }}
-        >
+        <div className="relative z-20 mx-auto flex max-w-5xl flex-col items-center px-6 py-10 text-center">
           {/* Logo above eyebrow — always centred, all screen sizes */}
           <div className="mb-5 md:mb-6">
             <div className="relative inline-block">
@@ -155,7 +211,6 @@ export function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
                 style={{ background: "rgba(140,198,63,0.5)" }}
                 aria-hidden="true"
               />
-              {/* サーバーでは描画されないため先読みは効かないが、後回しにせずに読み込む */}
               <Logo
                 size={160}
                 alt={`${SITE_NAME} ロゴ`}
@@ -252,11 +307,10 @@ export function HomeHeroBase({ renderIntro }: HomeHeroBaseProps) {
 
         {/* Scroll indicator */}
         <div
+          ref={scrollIndicatorRef}
           className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5"
-          style={{
-            opacity: contentVisible ? Math.max(0, 1 - scrollY / 120) : 0,
-            transition: "opacity 0.3s",
-          }}
+          // opacity はスクロールに合わせて DOM に直接書き込むため、ここでは指定しない
+          style={{ transition: "opacity 0.3s" }}
           aria-hidden="true"
         >
           <span className="text-[9px] font-bold tracking-[0.28em] text-white/55 uppercase">
