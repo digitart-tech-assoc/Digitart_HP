@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useEffectEvent, useState, useRef, useSyncExternalStore } from "react";
 
 import { Logo } from "@/components/ui/Logo";
+import { ScrollIndicator } from "@/features/home/components/ScrollIndicator";
 import { HERO_NOTICE, HERO_SLIDES } from "@/features/home/data";
 import { INTRO_SEEN_STORAGE_KEY } from "@/features/home/introSeen";
 import { SITE_NAME } from "@/lib/constants";
@@ -12,8 +13,6 @@ import { usePrefersReducedMotion } from "@/lib/reducedMotion";
 
 const SLIDE_INTERVAL_MS = 5000;
 const FADE_MS = 1200;
-// スクロールを促す表示が消えきるスクロール量
-const SCROLL_HINT_FADE_PX = 120;
 
 const INTRO_SELECTOR = ".home-intro";
 
@@ -44,7 +43,6 @@ export function HomeHeroBase() {
   const [userPaused, setUserPaused] = useState<boolean | null>(null);
   const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const introSeenSavedRef = useRef(false);
-  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   // サーバーではイントロが終わっていないものとして描画し、クライアントで CSS アニメーションの状態を読む
   const introDone = useSyncExternalStore(subscribeIntroEnd, getIntroDoneSnapshot, () => false);
@@ -75,30 +73,6 @@ export function HomeHeroBase() {
       document.documentElement.dataset.introSeen = "";
     }
   }, [introDone]);
-
-  useEffect(() => {
-    // スクロールのたびに state を更新するとヒーロー全体が再描画されるため、
-    // 1 フレームに 1 回だけ、スクロールの案内の透明度を DOM に直接書き込む
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      if (scrollIndicatorRef.current) {
-        scrollIndicatorRef.current.style.opacity = String(
-          Math.max(0, 1 - window.scrollY / SCROLL_HINT_FADE_PX),
-        );
-      }
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    // 再読み込みや「戻る」でスクロールした位置から開いたときも、最初から正しい透明度にする
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(frame);
-    };
-  }, []);
 
   useEffect(() => () => clearTimeout(fadeTimerRef.current ?? undefined), []);
 
@@ -306,18 +280,7 @@ export function HomeHeroBase() {
         </div>
 
         {/* Scroll indicator */}
-        <div
-          ref={scrollIndicatorRef}
-          className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5"
-          // opacity はスクロールに合わせて DOM に直接書き込むため、ここでは指定しない
-          style={{ transition: "opacity 0.3s" }}
-          aria-hidden="true"
-        >
-          <span className="text-[9px] font-bold tracking-[0.28em] text-white/55 uppercase">
-            Scroll
-          </span>
-          <span className="block h-7 w-px bg-white/35" />
-        </div>
+        <ScrollIndicator />
       </section>
 
       {/* Spacer */}
