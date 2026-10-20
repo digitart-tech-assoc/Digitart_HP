@@ -18,7 +18,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: SITE_NAME,
+    // トップページのタイトル。「青学 サークル」などで検索されたときに、何の団体か分かるようにする
+    default: `${SITE_NAME} | 青山学院大学の技術系サークル（Webアプリ・ゲーム開発）`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -30,7 +31,11 @@ export const metadata: Metadata = {
     "ゲーム",
     "ゲーム開発",
     "AI",
+    "人工知能",
+    "SI",
+    "生成AI",
     "機械学習",
+    "LLM",
     "テクノロジー",
     "学生団体",
     "Digitart",
