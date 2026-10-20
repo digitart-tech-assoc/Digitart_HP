@@ -56,7 +56,7 @@ export function FestivalWorkList({ works }: { works: FestivalWork[] }) {
           <div
             ref={scrollerRef}
             onScroll={updateFades}
-            className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="[scrollbar-width:none] overflow-x-auto [&::-webkit-scrollbar]:hidden"
           >
             {/* w-max + mx-auto で、収まるときは中央寄せ・はみ出すときは左端から並べる（justify-center だと左端が見切れる） */}
             <div className="mx-auto flex w-max gap-1.5 px-6 py-2 sm:gap-2 md:gap-4 md:px-12">
