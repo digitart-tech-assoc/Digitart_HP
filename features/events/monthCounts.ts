@@ -38,16 +38,16 @@ export function countEventsByMonth(events: { month: string }[]): Record<number, 
 /** イベント数に応じた月バーの背景色（多いほど濃い緑） */
 export function monthBgClass(count: number) {
   if (count <= 0) return "bg-gray-100";
-  if (count === 1) return "bg-emerald-200";
-  if (count === 2) return "bg-emerald-400";
-  if (count === 3) return "bg-emerald-600";
-  return "bg-emerald-800";
+  if (count === 1) return "bg-brand-200";
+  if (count === 2) return "bg-brand-400";
+  if (count === 3) return "bg-brand-600";
+  return "bg-brand-800";
 }
 
 /** イベント数に応じた月ラベルの文字色 */
 export function monthTextClass(count: number) {
   if (count <= 0) return "text-gray-400";
-  if (count === 1) return "text-emerald-600";
-  if (count === 2) return "text-emerald-700";
-  return "text-emerald-900";
+  if (count === 1) return "text-brand-700";
+  if (count === 2) return "text-brand-800";
+  return "text-brand-900";
 }

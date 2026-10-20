@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { cardClassName } from "@/components/ui/Card";
 import {
   ARTICLE_CATEGORIES,
   type ArticleCategory,
@@ -75,7 +76,12 @@ export function NewsList({
               <li key={slug} className="group">
                 <Link
                   href={`/news/${slug}`}
-                  className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl md:flex-row md:items-stretch md:gap-6 md:p-6"
+                  className={cardClassName({
+                    padding: "sm",
+                    interactive: true,
+                    className:
+                      "relative flex flex-col gap-4 overflow-hidden md:flex-row md:items-stretch md:gap-6",
+                  })}
                 >
                   {/* 左端のカテゴリ色の線 */}
                   <div

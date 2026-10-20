@@ -18,11 +18,11 @@ export default function NewsPage() {
   const allArticlesData = getAllArticles();
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-20 pb-32 font-sans text-slate-900 selection:bg-emerald-200">
+    <div className="min-h-screen bg-slate-50 pt-20 pb-32 font-sans text-slate-900 selection:bg-brand-200">
       {/* Decorative background gradients */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-brand/15 blur-[100px]" />
-        <div className="absolute top-[20%] right-[-10%] h-[50%] w-[30%] rounded-full bg-emerald-400/10 blur-[100px]" />
+        <div className="absolute top-[20%] right-[-10%] h-[50%] w-[30%] rounded-full bg-brand-400/10 blur-[100px]" />
         <div className="absolute bottom-[-10%] left-[20%] h-[40%] w-[40%] rounded-full bg-cyan-400/5 blur-[100px]" />
       </div>
 

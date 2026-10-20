@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer";
 import { ButtonLink } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 import { getAllArticles, getArticle } from "@/features/news/articles";
 import { getCustomMetadata } from "@/lib/metadata";
 
@@ -38,14 +39,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 font-sans text-slate-900 selection:bg-emerald-200 md:p-8 lg:p-16">
+    <div className="min-h-screen bg-slate-50 p-4 font-sans text-slate-900 selection:bg-brand-200 md:p-8 lg:p-16">
       <div className="mx-auto max-w-3xl space-y-6">
         {/* Article Header */}
         <header className="flex flex-col items-start space-y-6">
           <div className="flex flex-wrap items-center gap-3">
             <time
               dateTime={article.date}
-              className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-sm font-bold text-emerald-600"
+              className="inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50 px-3 py-1.5 text-sm font-bold text-brand-700"
             >
               <svg
                 className="h-4 w-4"
@@ -86,9 +87,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </h1>
         </header>
 
-        <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-10">
+        <Card as="article" padding="lg">
           <MarkdownRenderer content={article.content} />
-        </article>
+        </Card>
 
         {/* Bottom Actions */}
         <div className="flex flex-wrap items-center justify-between gap-4 pt-6">

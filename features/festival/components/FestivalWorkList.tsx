@@ -3,6 +3,7 @@
 import { ExternalLink, Gamepad2, Image as ImageIcon, Users } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { cardClassName } from "@/components/ui/Card";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { FESTIVAL_WORK_CATEGORIES, type FestivalWork } from "@/features/festival/schema";
 
@@ -55,7 +56,7 @@ export function FestivalWorkList({ works }: { works: FestivalWork[] }) {
           <div
             ref={scrollerRef}
             onScroll={updateFades}
-            className="[scrollbar-width:none] overflow-x-auto [&::-webkit-scrollbar]:hidden"
+            className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {/* w-max + mx-auto で、収まるときは中央寄せ・はみ出すときは左端から並べる（justify-center だと左端が見切れる） */}
             <div className="mx-auto flex w-max gap-1.5 px-6 py-2 sm:gap-2 md:gap-4 md:px-12">
@@ -100,7 +101,10 @@ export function FestivalWorkList({ works }: { works: FestivalWork[] }) {
         {filtered.map((work) => (
           <li
             key={work.title}
-            className="flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            className={cardClassName({
+              padding: "none",
+              className: "flex flex-col overflow-hidden",
+            })}
           >
             <div className="relative">
               {work.image ? (

@@ -73,6 +73,7 @@ app  →  features  →  components / lib
 | 部品 | 場所 | 用途 |
 |---|---|---|
 | `ButtonLink` / `buttonClassName` | `components/ui/Button.tsx` | ボタンの見た目のリンク / `<button>` に付けるクラス。`variant`（primary・outline・outline-dark・outline-light・neutral）と `size`（sm・md・lg）を選ぶ |
+| `Card` / `cardClassName` | `components/ui/Card.tsx` | 白い面のカード（角丸・枠線・影）/ リンクなどに付けるクラス。`padding`（none・sm・md・lg）を選び、カード全体がリンクのときだけ `interactive` を付ける |
 | `Eyebrow` | `components/ui/Eyebrow.tsx` | 見出しの上の小さな英字ラベル |
 | `PageHero` | `components/sections/PageHero.tsx` | About 配下のページ上部の見出しエリア |
 | `JoinUsSection` | `components/sections/JoinUsSection.tsx` | ページ末尾の入会案内 |
@@ -80,6 +81,9 @@ app  →  features  →  components / lib
 | `ImageWithFallback` | `components/ui/ImageWithFallback.tsx` | 読み込みに失敗したら代わりの画像を出す画像 |
 
 色は `app/globals.css` の `@theme` で定義したブランドカラー（`bg-brand`・`text-brand-strong` など）を使い、`#8cc63f` のような値を直接書かないでください。
+
+- 緑が必要なときは、`emerald-*`・`green-*` ではなく `brand-50`〜`brand-950` の濃淡を使う（`brand-500` が `brand`、`brand-600` が `brand-strong` と同じ色）
+- 白・淡い背景の上の文字は `brand-700` 以上にする（`brand-600` 以下は文字として読むにはコントラストが足りない）。白い文字を載せる背景も `brand-700` 以上にする（ブランドカラーそのままの `primary` ボタンは除く）
 
 ## コーディング規約
 

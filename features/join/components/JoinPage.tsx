@@ -13,7 +13,7 @@ export function JoinPage() {
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white py-20 md:py-32">
         {/* Decorative Background Elements */}
         <div className="pointer-events-none absolute top-0 right-0 -z-10 h-[500px] w-[500px] translate-x-1/4 -translate-y-1/4 rounded-full bg-brand/10 blur-[100px]" />
-        <div className="pointer-events-none absolute bottom-0 left-0 -z-10 h-[400px] w-[400px] -translate-x-1/4 translate-y-1/4 rounded-full bg-emerald-400/5 blur-[80px]" />
+        <div className="pointer-events-none absolute bottom-0 left-0 -z-10 h-[400px] w-[400px] -translate-x-1/4 translate-y-1/4 rounded-full bg-brand-400/5 blur-[80px]" />
         <div className="absolute top-1/2 left-1/2 -z-10 h-[1px] w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
         <div className="absolute top-0 left-1/2 -z-10 h-full w-[1px] bg-gradient-to-b from-transparent via-slate-200 to-transparent" />
 
@@ -125,7 +125,7 @@ export function JoinPage() {
             {/* Step 3 */}
             <div className="relative flex reveal flex-col gap-6 md:flex-row md:gap-12">
               <div className="relative z-10 shrink-0">
-                <span className="bg-gradient-to-br from-brand to-emerald-600 bg-clip-text text-6xl font-black text-transparent md:text-7xl">
+                <span className="bg-gradient-to-br from-brand to-brand-700 bg-clip-text text-6xl font-black text-transparent md:text-7xl">
                   03
                 </span>
               </div>
