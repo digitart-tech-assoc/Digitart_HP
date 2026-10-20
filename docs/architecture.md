@@ -66,6 +66,21 @@ app  →  features  →  components / lib
 | 外部 API の呼び出し | `features/<機能>/<サービス名>.ts`（先頭に `import "server-only";`） |
 | 色・余白などのデザイン値 | `app/globals.css` の `@theme` |
 
+## 共通部品
+
+ボタンや見出しを新しく作る前に、次の部品が使えないか確認してください。
+
+| 部品 | 場所 | 用途 |
+|---|---|---|
+| `ButtonLink` / `buttonClassName` | `components/ui/Button.tsx` | ボタンの見た目のリンク / `<button>` に付けるクラス。`variant`（primary・outline・outline-dark・outline-light・neutral）と `size`（sm・md・lg）を選ぶ |
+| `Eyebrow` | `components/ui/Eyebrow.tsx` | 見出しの上の小さな英字ラベル |
+| `PageHero` | `components/sections/PageHero.tsx` | About 配下のページ上部の見出しエリア |
+| `JoinUsSection` | `components/sections/JoinUsSection.tsx` | ページ末尾の入会案内 |
+| `Logo` | `components/ui/Logo.tsx` | サークルのロゴ |
+| `ImageWithFallback` | `components/ui/ImageWithFallback.tsx` | 読み込みに失敗したら代わりの画像を出す画像 |
+
+色は `app/globals.css` の `@theme` で定義したブランドカラー（`bg-brand`・`text-brand-strong` など）を使い、`#8cc63f` のような値を直接書かないでください。
+
 ## コーディング規約
 
 | 項目 | ルール |
