@@ -29,7 +29,7 @@ export const GUIDE_CARDS = [
     icon: Briefcase,
     to: "/about/works",
     image: "/images/about/works-hero.jpg",
-    color: "from-green-700 to-emerald-950",
+    color: "from-green-700 to-brand-950",
   },
   {
     num: "03",
@@ -39,7 +39,7 @@ export const GUIDE_CARDS = [
     icon: History,
     to: "/about/history",
     image: "/images/about/history-hero.jpg",
-    color: "from-emerald-700 to-teal-950",
+    color: "from-brand-700 to-teal-950",
   },
   {
     num: "04",
@@ -70,7 +70,7 @@ export const DOMAIN_CARDS = [
     icon: Code,
     title: "プログラミング",
     desc: "Webアプリ開発, AI/機械学習",
-    color: "bg-emerald-100",
+    color: "bg-brand-100",
   },
   {
     num: "No.02",

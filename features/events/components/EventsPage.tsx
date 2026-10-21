@@ -2,6 +2,7 @@ import { ExternalLink } from "lucide-react";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
+import { Card } from "@/components/ui/Card";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { ANNUAL_EVENTS, REGULAR_ACTIVITIES } from "@/features/events/data";
 import { countEventsByMonth, monthBgClass, monthTextClass } from "@/features/events/monthCounts";
@@ -38,7 +39,7 @@ export function EventsPage() {
       <section className="px-6 py-8">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 flex reveal items-center gap-3">
-            <span className="h-3 w-3 rounded-full bg-emerald-400" />
+            <span className="h-3 w-3 rounded-full bg-brand-400" />
             <h2 className="text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
               スケジュール
             </h2>
@@ -71,7 +72,7 @@ export function EventsPage() {
         <div className="mx-auto max-w-6xl space-y-8">
           {ANNUAL_EVENTS.map((event, i) => (
             <div key={`${event.month}-${i}`} className="group reveal">
-              <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:shadow-xl">
+              <Card padding="none" className="overflow-hidden">
                 {/* Collapsed View */}
                 <div className="flex flex-col md:flex-row">
                   {/* Image */}
@@ -110,7 +111,7 @@ export function EventsPage() {
                             href={event.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-3 inline-flex items-center gap-2 text-emerald-600 transition-colors hover:text-emerald-700"
+                            className="mt-3 inline-flex items-center gap-2 text-brand-700 transition-colors hover:text-brand-800"
                             style={{ fontWeight: 600 }}
                           >
                             過去のレポート
@@ -121,14 +122,14 @@ export function EventsPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Card>
             </div>
           ))}
         </div>
       </section>
 
       {/* Regular Activities */}
-      <section className="bg-emerald-50/60 px-6 py-20">
+      <section className="bg-brand-50/60 px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <div className="mb-12 reveal text-center">
             <h2 className="mb-4 text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
@@ -139,16 +140,13 @@ export function EventsPage() {
 
           <div className="grid gap-6 md:grid-cols-3">
             {REGULAR_ACTIVITIES.map((act) => (
-              <div
-                key={act.label}
-                className="reveal rounded-2xl bg-white p-8 text-center shadow-sm transition-shadow duration-300 hover:shadow-lg"
-              >
-                <act.icon className="mx-auto mb-4 h-10 w-10 text-emerald-500" />
+              <Card key={act.label} className="reveal text-center">
+                <act.icon className="mx-auto mb-4 h-10 w-10 text-brand-700" />
                 <h4 className="mb-2 text-lg text-gray-900" style={{ fontWeight: 700 }}>
                   {act.label}
                 </h4>
                 <p className="text-sm text-gray-500">{act.detail}</p>
-              </div>
+              </Card>
             ))}
           </div>
         </div>

@@ -1,3 +1,5 @@
+import { cardClassName } from "@/components/ui/Card";
+
 import type { ReactNode } from "react";
 
 /**
@@ -40,7 +42,11 @@ export function ContactLinkCard({ href, label, sub, icon, tone }: ContactLinkCar
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm transition-all hover:shadow-md ${t.card}`}
+      className={cardClassName({
+        padding: "sm",
+        interactive: true,
+        className: `group flex items-center gap-4 ${t.card}`,
+      })}
     >
       <span
         className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-white transition-transform group-hover:scale-105 ${t.icon}`}

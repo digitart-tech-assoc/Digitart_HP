@@ -3,6 +3,7 @@
 import { ExternalLink, Gamepad2, Image as ImageIcon, Users } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { cardClassName } from "@/components/ui/Card";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { FESTIVAL_WORK_CATEGORIES, type FestivalWork } from "@/features/festival/schema";
 
@@ -100,7 +101,10 @@ export function FestivalWorkList({ works }: { works: FestivalWork[] }) {
         {filtered.map((work) => (
           <li
             key={work.title}
-            className="flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            className={cardClassName({
+              padding: "none",
+              className: "flex flex-col overflow-hidden",
+            })}
           >
             <div className="relative">
               {work.image ? (

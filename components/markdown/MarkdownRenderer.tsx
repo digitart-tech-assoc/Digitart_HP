@@ -13,7 +13,7 @@ import type { ReactNode } from "react";
 
 const LINK_CLASS = {
   article:
-    "font-bold text-emerald-600 underline decoration-emerald-200 underline-offset-4 transition-all hover:text-emerald-700 hover:decoration-emerald-500",
+    "font-bold text-brand-700 underline decoration-brand-200 underline-offset-4 transition-all hover:text-brand-800 hover:decoration-brand-500",
   document:
     "text-slate-900 underline decoration-slate-300 underline-offset-4 transition-colors hover:decoration-slate-600",
 };
@@ -114,7 +114,7 @@ export function MarkdownRenderer({
     h3: heading(
       3,
       "mt-6 mb-3 flex items-center gap-2 text-lg font-bold text-slate-900 md:text-xl",
-      <span className="inline-block h-6 w-1.5 rounded-full bg-emerald-500"></span>,
+      <span className="inline-block h-6 w-1.5 rounded-full bg-brand-500"></span>,
     ),
     // h4〜h6 は記事では装飾しないが、出力するレベルを変えるために登録する
     h4: heading(4),
@@ -154,20 +154,20 @@ export function MarkdownRenderer({
     ),
     ul: ({ node, ...props }) => (
       <ul
-        className="mb-5 ml-6 list-outside list-disc space-y-1.5 font-medium text-slate-700 marker:text-emerald-500"
+        className="mb-5 ml-6 list-outside list-disc space-y-1.5 font-medium text-slate-700 marker:text-brand-600"
         {...props}
       />
     ),
     ol: ({ node, ...props }) => (
       <ol
-        className="mb-5 ml-6 list-outside list-decimal space-y-1.5 font-mono font-medium text-slate-700 marker:text-emerald-600"
+        className="mb-5 ml-6 list-outside list-decimal space-y-1.5 font-mono font-medium text-slate-700 marker:text-brand-600"
         {...props}
       />
     ),
     li: ({ node, ...props }) => <li className="pl-1 leading-relaxed" {...props} />,
     blockquote: ({ node, ...props }) => (
       <blockquote
-        className="my-4 rounded-r-xl border-l-4 border-emerald-400 bg-emerald-50/50 py-1.5 pl-4 font-medium text-slate-600 italic"
+        className="my-4 rounded-r-xl border-l-4 border-brand-400 bg-brand-50/50 py-1.5 pl-4 font-medium text-slate-600 italic"
         {...props}
       />
     ),

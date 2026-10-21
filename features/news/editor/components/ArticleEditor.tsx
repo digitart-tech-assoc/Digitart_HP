@@ -105,7 +105,7 @@ export function ArticleEditor() {
           type="submit"
           form="publish-form"
           disabled={isPending || isProcessing}
-          className="flex shrink-0 items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold whitespace-nowrap text-white shadow-lg shadow-emerald-200 transition-all hover:-translate-y-0.5 hover:bg-emerald-500 active:translate-y-0 disabled:opacity-50 md:px-6 md:text-base"
+          className="flex shrink-0 items-center gap-2 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-bold whitespace-nowrap text-white shadow-lg shadow-brand-200 transition-all hover:-translate-y-0.5 hover:bg-brand-600 active:translate-y-0 disabled:opacity-50 md:px-6 md:text-base"
         >
           {isPending ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
           {isPending ? "送信中..." : "投稿リクエストを送信"}
@@ -174,9 +174,7 @@ export function ArticleEditor() {
             aria-selected={mobileTab === tab}
             onClick={() => setMobileTab(tab)}
             className={`${TAB_CLASS} ${
-              mobileTab === tab
-                ? "border-b-2 border-emerald-600 text-emerald-700"
-                : "text-slate-500"
+              mobileTab === tab ? "border-b-2 border-brand-600 text-brand-800" : "text-slate-500"
             }`}
           >
             {label}
@@ -209,7 +207,7 @@ export function ArticleEditor() {
               )}
               {/* ファイル選択の入力欄は見た目だけ隠し（sr-only）、Tab で移動して Enter・Space で開けるようにする */}
               <label
-                className="group cursor-pointer rounded-xl border border-slate-200 bg-white/80 p-2.5 text-slate-500 shadow-sm backdrop-blur-sm transition-all focus-within:text-emerald-600 focus-within:ring-2 focus-within:ring-emerald-500 hover:bg-white hover:text-emerald-600"
+                className="group cursor-pointer rounded-xl border border-slate-200 bg-white/80 p-2.5 text-slate-500 shadow-sm backdrop-blur-sm transition-all focus-within:text-brand-700 focus-within:ring-2 focus-within:ring-brand-500 hover:bg-white hover:text-brand-700"
                 title="画像を挿入"
               >
                 <ImagePlus size={20} className="transition-transform group-hover:scale-110" />

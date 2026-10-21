@@ -15,7 +15,7 @@ type PageHeroProps = {
 /** About 配下のページで使う、緑のグラデーション背景の見出しエリア */
 export function PageHero({ title, subtitle, backHref }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-green-600 to-teal-600 px-6 pt-32 pb-20 text-white">
+    <section className="relative overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 px-6 pt-32 pb-20 text-white">
       <div className="absolute inset-0 opacity-10">
         <div className={`absolute inset-0 ${GRID_PATTERN}`} />
       </div>

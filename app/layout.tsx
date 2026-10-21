@@ -76,7 +76,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: INTRO_SEEN_SCRIPT }} />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased selection:bg-emerald-100`}
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased selection:bg-brand-100`}
       >
         {children}
         {/* Cloudflare Web Analytics */}
