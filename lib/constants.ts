@@ -2,8 +2,29 @@
 
 export const SITE_NAME = "Digitart テクノロジー愛好会";
 export const SITE_DESCRIPTION =
-  "青山学院大学公認学生団体 Digitart テクノロジー愛好会。プログラミング、ゲーム開発、AI/MLなどを学べる学生団体です。";
+  "青山学院大学（青学）公認の技術系サークル Digitart テクノロジー愛好会。Webアプリ開発とゲーム開発を中心に、AI（生成AI・機械学習）やデザインにも、未経験から取り組めます。";
 export const SITE_URL = "https://www.digitart.jp";
+
+/**
+ * 団体の別名（略称・旧称など）。構造化データの alternateName に使い、検索エンジンや AI がどの名前でも同じ団体だと分かるようにする。
+ * SNS のアカウント名（PiedPiper_AGU など）は旧称に由来するため、旧称も必ず入れておく
+ */
+export const SITE_ALTERNATE_NAMES = [
+  "Digitart",
+  "Digitartテクノロジー愛好会",
+  "デジタルト テクノロジー愛好会",
+  "PiedPiper青山テック愛好会",
+];
+
+/** 構造化データで団体を指す ID。ページごとの構造化データからは、この ID で団体を参照する */
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+
+/** 所属する大学（構造化データの parentOrganization に使う） */
+export const UNIVERSITY = {
+  name: "青山学院大学",
+  url: "https://www.aoyama.ac.jp/",
+  sameAs: ["https://www.wikidata.org/wiki/Q616359", "https://ja.wikipedia.org/wiki/青山学院大学"],
+} as const;
 
 /** SNS / 連絡先 */
 export const SOCIAL_LINKS = {
