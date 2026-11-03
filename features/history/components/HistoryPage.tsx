@@ -23,7 +23,7 @@ export function HistoryPage() {
       <section className="px-6 py-12 pb-32">
         <div className="relative mx-auto max-w-5xl">
           {/* Center line */}
-          <div className="absolute top-0 bottom-0 left-6 w-0.5 transform bg-emerald-200 md:left-1/2 md:-translate-x-0.5" />
+          <div className="absolute top-0 bottom-0 left-6 w-0.5 transform bg-brand-200 md:left-1/2 md:-translate-x-0.5" />
 
           {TIMELINE.map((item, i) => (
             <div
@@ -33,13 +33,13 @@ export function HistoryPage() {
               }`}
             >
               {/* Dot */}
-              <div className="absolute left-6 z-10 h-4 w-4 -translate-x-2 transform rounded-full border-4 border-white bg-emerald-400 shadow-md md:left-1/2 md:-translate-x-2" />
+              <div className="absolute left-6 z-10 h-4 w-4 -translate-x-2 transform rounded-full border-4 border-white bg-brand-400 shadow-md md:left-1/2 md:-translate-x-2" />
 
               {/* Content */}
               <div
                 className={`ml-14 flex-1 md:ml-0 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"}`}
               >
-                <span className="text-sm text-emerald-500" style={{ fontWeight: 600 }}>
+                <span className="text-sm text-brand-700" style={{ fontWeight: 600 }}>
                   {item.year}
                 </span>
                 <h3 className="mt-1 mb-3 text-2xl text-gray-900" style={{ fontWeight: 700 }}>

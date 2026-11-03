@@ -10,14 +10,15 @@ import {
 } from "@/features/events/upcoming";
 import { msUntilNextDayInTokyo, todayInTokyo } from "@/lib/date";
 
-const TYPE_META: Record<EventType, { color: string }> = {
-  welcome: { color: "#84cc16" }, // lime-500
-  info: { color: "#8b5cf6" }, // violet-500
-  activity: { color: "#f59e0b" }, // amber-500
-  study: { color: "#14b8a6" }, // teal-500
-  reserve: { color: "#94a3b8" }, // slate-400
-  event: { color: "#84cc16" }, // lime-500
-  etc: { color: "#94a3b8" }, // slate-400
+/** 予定の種類ごとの、行頭の丸の色 */
+const TYPE_DOT_CLASS: Record<EventType, string> = {
+  welcome: "bg-lime-500",
+  info: "bg-violet-500",
+  activity: "bg-amber-500",
+  study: "bg-teal-500",
+  reserve: "bg-slate-400",
+  event: "bg-lime-500",
+  etc: "bg-slate-400",
 };
 
 const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
@@ -95,7 +96,6 @@ export function EventCalendar({ events }: EventCalendarProps) {
           const day = d.getUTCDay();
           const isSun = day === 0;
           const isSat = day === 6;
-          const meta = TYPE_META[ev.type];
 
           return (
             <li
@@ -105,8 +105,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
               {/* Date */}
               <div className="w-16 shrink-0 md:w-24 md:pt-0.5">
                 <span
-                  className="text-base font-bold tabular-nums md:text-2xl"
-                  style={{ color: isSun ? "#dc2626" : isSat ? "#2563eb" : "#1e293b" }}
+                  className={`text-base font-bold tabular-nums md:text-2xl ${
+                    isSun ? "text-red-600" : isSat ? "text-blue-600" : "text-slate-800"
+                  }`}
                 >
                   {d.getUTCMonth() + 1}/{d.getUTCDate()}
                   <span className="ml-1 text-xs md:text-base">({WEEKDAYS[day]})</span>
@@ -117,8 +118,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
               <div className="flex-1">
                 <div className="mb-1.5 flex items-center gap-2 md:gap-3">
                   <span
-                    className="h-2.5 w-2.5 shrink-0 rounded-full md:h-3 md:w-3"
-                    style={{ backgroundColor: meta.color }}
+                    className={`h-2.5 w-2.5 shrink-0 rounded-full md:h-3 md:w-3 ${TYPE_DOT_CLASS[ev.type]}`}
                   />
                   <span className="text-base font-bold text-slate-800 md:text-xl">{ev.title}</span>
                 </div>

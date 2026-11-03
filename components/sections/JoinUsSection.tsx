@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 
+import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 
 /** 入会案内とお問い合わせへ誘導する、ページ末尾の共通セクション */
@@ -18,22 +18,14 @@ export function JoinUsSection() {
             経験やスキルは問いません。テクノロジーに興味があれば、誰でも歓迎します。
           </p>
           <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
-            <Link
-              href="/join"
-              className="inline-flex min-w-52 items-center justify-center gap-3 rounded-full bg-brand px-8 py-4 text-lg font-bold text-white shadow-[0_0_30px_rgba(140,198,63,0.3)] transition-all duration-300 hover:-translate-y-1 hover:bg-brand-hover"
-            >
+            <ButtonLink href="/join" variant="primary" size="lg">
               入会案内
               <ArrowRight className="h-5 w-5" />
-            </Link>
-            <a
-              href="https://auth.digitart.jp/contact"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-w-52 items-center justify-center gap-3 rounded-full border-2 border-white/20 bg-transparent px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:border-white hover:bg-white/10"
-            >
+            </ButtonLink>
+            <ButtonLink href="https://auth.digitart.jp/contact" variant="outline-light" size="lg">
               お問い合わせ
               <ArrowRight className="h-5 w-5" />
-            </a>
+            </ButtonLink>
           </div>
         </div>
       </div>

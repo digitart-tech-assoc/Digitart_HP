@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { getAllArticles } from "@/features/news/articles";
 import { NewsList } from "@/features/news/components/NewsList";
@@ -19,11 +18,11 @@ export default function NewsPage() {
   const allArticlesData = getAllArticles();
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-20 pb-32 font-sans text-slate-900 selection:bg-emerald-200">
+    <div className="min-h-screen bg-slate-50 pt-20 pb-32 font-sans text-slate-900 selection:bg-brand-200">
       {/* Decorative background gradients */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-brand/15 blur-[100px]" />
-        <div className="absolute top-[20%] right-[-10%] h-[50%] w-[30%] rounded-full bg-emerald-400/10 blur-[100px]" />
+        <div className="absolute top-[20%] right-[-10%] h-[50%] w-[30%] rounded-full bg-brand-400/10 blur-[100px]" />
         <div className="absolute bottom-[-10%] left-[20%] h-[40%] w-[40%] rounded-full bg-cyan-400/5 blur-[100px]" />
       </div>
 
@@ -44,10 +43,7 @@ export default function NewsPage() {
         <NewsList articles={allArticlesData} />
 
         <div className="flex justify-center pt-6">
-          <Link
-            href="/admin/news/login"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-brand px-4 py-2 text-sm font-bold text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white md:px-6 md:py-2.5 md:text-base"
-          >
+          <ButtonLink href="/admin/news/login" variant="outline" size="sm">
             <svg
               className="h-4 w-4 shrink-0 md:h-5 md:w-5"
               fill="none"
@@ -62,7 +58,7 @@ export default function NewsPage() {
               />
             </svg>
             記事を書く
-          </Link>
+          </ButtonLink>
         </div>
       </div>
     </div>

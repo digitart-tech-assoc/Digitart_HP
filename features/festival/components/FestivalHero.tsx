@@ -1,5 +1,6 @@
 import { ArrowDown, CalendarDays, MapPin } from "lucide-react";
 
+import { buttonClassName } from "@/components/ui/Button";
 import { SmoothScrollLink } from "@/features/festival/components/SmoothScrollLink";
 import { formatFestivalDate } from "@/features/festival/data";
 import type { Festival } from "@/features/festival/schema";
@@ -82,14 +83,14 @@ export function FestivalHero({ festival, image }: FestivalHeroProps) {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <SmoothScrollLink
             targetId="works"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-3 text-sm font-bold text-white shadow-[0_0_24px_rgba(140,198,63,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-hover md:px-10 md:py-4 md:text-base"
+            className={buttonClassName({ variant: "primary", size: "md" })}
           >
             展示作品を見る
             <ArrowDown className="h-4 w-4 md:h-5 md:w-5" />
           </SmoothScrollLink>
           <SmoothScrollLink
             targetId="access"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/45 px-6 py-3 text-sm font-bold text-white/90 transition-all duration-300 hover:border-white hover:bg-white/10 hover:text-white md:px-9 md:py-4 md:text-base"
+            className={buttonClassName({ variant: "outline-light", size: "md" })}
           >
             展示場所
             <ArrowDown className="h-4 w-4 md:h-5 md:w-5" />

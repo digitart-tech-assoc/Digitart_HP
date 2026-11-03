@@ -3,6 +3,7 @@ import { Quote } from "lucide-react";
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { Card } from "@/components/ui/Card";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 import { MEMBERS } from "@/features/supporters/data";
 import { ORGANIZATION_ID } from "@/lib/constants";
@@ -54,7 +55,7 @@ export function SupportersPage() {
                 } items-center gap-12`}
               >
                 <div className="flex-shrink-0">
-                  <div className="h-48 w-48 overflow-hidden rounded-full border-4 border-emerald-100 shadow-xl transition-transform duration-300 hover:scale-105 md:h-64 md:w-64">
+                  <div className="h-48 w-48 overflow-hidden rounded-full border-4 border-brand-100 shadow-xl transition-transform duration-300 hover:scale-105 md:h-64 md:w-64">
                     <ImageWithFallback
                       src={member.image}
                       alt={member.name}
@@ -64,17 +65,17 @@ export function SupportersPage() {
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
-                  <span className="text-sm text-emerald-500" style={{ fontWeight: 600 }}>
+                  <span className="text-sm text-brand-700" style={{ fontWeight: 600 }}>
                     {member.year}
                   </span>
                   <h3 className="mt-1 mb-1 text-3xl text-gray-900" style={{ fontWeight: 700 }}>
                     {member.name}
                   </h3>
-                  <p className="mb-6 text-emerald-600" style={{ fontWeight: 500 }}>
+                  <p className="mb-6 text-brand-700" style={{ fontWeight: 500 }}>
                     {member.role}
                   </p>
-                  <div className="relative rounded-2xl bg-emerald-50 p-6">
-                    <Quote className="absolute top-4 left-4 h-8 w-8 text-emerald-300" />
+                  <div className="relative rounded-2xl bg-brand-50 p-6">
+                    <Quote className="absolute top-4 left-4 h-8 w-8 text-brand-300" />
                     <p className="pt-2 pl-8 leading-relaxed text-gray-700 italic">{member.quote}</p>
                   </div>
                 </div>
@@ -85,7 +86,7 @@ export function SupportersPage() {
       </section>
 
       {/* Q&A Section */}
-      <section className="bg-emerald-50/60 px-6 py-20">
+      <section className="bg-brand-50/60 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <div className="mb-16 reveal text-center">
             <h2 className="mb-4 text-4xl text-gray-900" style={{ fontWeight: 700 }}>
@@ -96,9 +97,9 @@ export function SupportersPage() {
 
           <div className="space-y-6">
             {JOIN_FAQ.map((item, i) => (
-              <div key={i} className="reveal rounded-2xl bg-white p-8 shadow-sm">
+              <Card key={i} className="reveal">
                 <div className="mb-4 flex items-start gap-4">
-                  <span className="text-2xl text-emerald-500" style={{ fontWeight: 700 }}>
+                  <span className="text-2xl text-brand-700" style={{ fontWeight: 700 }}>
                     Q.{String(i + 1).padStart(2, "0")}
                   </span>
                   <h4 className="text-xl text-gray-900" style={{ fontWeight: 600 }}>
@@ -106,7 +107,7 @@ export function SupportersPage() {
                   </h4>
                 </div>
                 <p className="ml-14 leading-relaxed text-gray-600">{item.a}</p>
-              </div>
+              </Card>
             ))}
           </div>
         </div>

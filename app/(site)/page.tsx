@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
+import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 import { EventCalendar } from "@/features/events/components/EventCalendar";
@@ -60,24 +61,22 @@ export default function Home() {
                 </h2>
               </div>
               {/* Desktop "View All" */}
-              <Link
-                href="/news"
-                className="hidden items-center gap-2 rounded-full border-2 border-brand px-5 py-2.5 text-sm font-bold text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white sm:inline-flex"
-              >
-                すべて見る →
-              </Link>
+              <div className="hidden sm:block">
+                <ButtonLink href="/news" variant="outline" size="sm">
+                  すべて見る →
+                </ButtonLink>
+              </div>
             </div>
 
             <NewsList articles={allArticles} maxItemsPerTab={5} />
 
             <div className="mt-8 flex items-center justify-center gap-3 md:mt-10">
               {/* モバイルビューのみ表示する「すべて見る」ボタン */}
-              <Link
-                href="/news"
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-brand px-6 py-2.5 text-sm font-bold text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white sm:hidden"
-              >
-                すべて見る →
-              </Link>
+              <div className="sm:hidden">
+                <ButtonLink href="/news" variant="outline" size="sm">
+                  すべて見る →
+                </ButtonLink>
+              </div>
               {/* PCビュー：タブ同等サイズの「記事を書く」ボタン / スマホビュー：丸い鉛筆アイコンボタン */}
               <Link
                 href="/admin/news/login"

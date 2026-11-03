@@ -12,7 +12,7 @@ export function PublishSuccess({ prUrl }: PublishSuccessProps) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-stone-50 px-4">
       <div className="max-w-md space-y-6 text-center">
-        <div className="mx-auto mb-4 inline-flex h-20 w-20 rotate-3 items-center justify-center rounded-3xl border border-emerald-200 bg-emerald-100 text-emerald-600 shadow-sm">
+        <div className="mx-auto mb-4 inline-flex h-20 w-20 rotate-3 items-center justify-center rounded-3xl border border-brand-200 bg-brand-100 text-brand-700 shadow-sm">
           <Send size={36} />
         </div>
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
@@ -28,14 +28,14 @@ export function PublishSuccess({ prUrl }: PublishSuccessProps) {
             href={prUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 block font-bold text-emerald-600 underline underline-offset-4 hover:text-emerald-700"
+            className="mt-4 block font-bold text-brand-700 underline underline-offset-4 hover:text-brand-800"
           >
             <span title="Organizationへのアクセス権が必要です">リクエストを確認する→</span>
           </a>
         )}
         <button
           onClick={() => window.location.reload()}
-          className="mt-6 rounded-2xl bg-emerald-600 px-8 py-3 font-bold text-white shadow-lg shadow-emerald-200 transition-all hover:-translate-y-0.5 hover:bg-emerald-500"
+          className="mt-6 rounded-2xl bg-brand-700 px-8 py-3 font-bold text-white shadow-lg shadow-brand-200 transition-all hover:-translate-y-0.5 hover:bg-brand-600"
         >
           続けて別の記事を書く
         </button>

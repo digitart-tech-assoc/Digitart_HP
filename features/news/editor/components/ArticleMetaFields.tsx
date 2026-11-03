@@ -7,7 +7,7 @@ import { ARTICLE_CATEGORIES } from "@/features/news/schema";
 
 const LABEL_CLASS = "mb-1.5 ml-1 block text-xs font-bold tracking-widest text-slate-400 uppercase";
 const INPUT_CLASS =
-  "w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10";
+  "w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 transition-all outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10";
 
 type ArticleMetaFieldsProps = {
   fields: ArticleFields;
@@ -96,7 +96,7 @@ export function ArticleMetaFields({ fields, onChange }: ArticleMetaFieldsProps) 
             onChange={(e) => onChange("slug", e.target.value)}
             pattern="^[a-z0-9-]+$"
             title="半角英小文字、数字、ハイフンのみ使用できます"
-            className="min-w-0 flex-1 rounded-r-xl border border-slate-200 bg-white px-4 py-2.5 font-mono text-slate-900 transition-all outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
+            className="min-w-0 flex-1 rounded-r-xl border border-slate-200 bg-white px-4 py-2.5 font-mono text-slate-900 transition-all outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10"
             placeholder="snake-case-title"
             required
           />

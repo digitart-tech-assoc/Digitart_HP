@@ -26,12 +26,12 @@ export function StatsPage() {
             {STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="reveal rounded-3xl bg-emerald-50 p-6 text-center md:p-10"
+                className="reveal rounded-3xl bg-brand-50 p-6 text-center md:p-10"
               >
-                <p className="mb-2 text-sm text-emerald-600" style={{ fontWeight: 600 }}>
+                <p className="mb-2 text-sm text-brand-700" style={{ fontWeight: 600 }}>
                   {stat.label}
                 </p>
-                <p className="text-4xl text-emerald-700 md:text-6xl" style={{ fontWeight: 700 }}>
+                <p className="text-4xl text-brand-800 md:text-6xl" style={{ fontWeight: 700 }}>
                   <AnimatedNumber value={stat.value} suffix={stat.suffix} />
                 </p>
                 <p className="mt-2 text-xs text-gray-400">{stat.note}</p>
@@ -47,7 +47,7 @@ export function StatsPage() {
           {BREAKDOWNS.map((section) => (
             <div className="reveal" key={section.title}>
               <div className="mb-8 flex items-center gap-3">
-                <span className="h-3 w-3 rounded-full bg-emerald-400" />
+                <span className="h-3 w-3 rounded-full bg-brand-400" />
                 <h3 className="text-2xl text-gray-900" style={{ fontWeight: 700 }}>
                   {section.title}
                 </h3>
@@ -58,7 +58,7 @@ export function StatsPage() {
                     <span className="w-28 shrink-0 text-sm text-gray-600">{item.label}</span>
                     <div className="h-8 flex-1 overflow-clip rounded-full bg-gray-100">
                       <div
-                        className="flex h-full reveal-bar items-center justify-end rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 pr-3"
+                        className="flex h-full reveal-bar items-center justify-end rounded-full bg-gradient-to-r from-brand-400 to-brand-600 pr-3"
                         style={{ width: `${item.pct}%` }}
                       >
                         <span className="text-xs text-white" style={{ fontWeight: 600 }}>

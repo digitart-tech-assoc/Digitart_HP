@@ -1,7 +1,8 @@
 import { ArrowRight, Clock, ExternalLink, Map as MapIcon, MapPin } from "lucide-react";
-import Link from "next/link";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
+import { ButtonLink } from "@/components/ui/Button";
+import { Card, cardClassName } from "@/components/ui/Card";
 import { ContactLinkCard } from "@/components/ui/ContactLinkCard";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
@@ -53,10 +54,7 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
                 {festival.days.map((day, i) => {
                   const { monthDay, weekday } = formatFestivalDate(day.date);
                   return (
-                    <li
-                      key={day.date}
-                      className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm md:p-5"
-                    >
+                    <Card as="li" key={day.date} padding="sm">
                       <p className="text-[10px] font-bold tracking-[0.25em] text-brand-strong uppercase md:text-xs">
                         Day {i + 1}
                       </p>
@@ -68,7 +66,7 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
                         <Clock className="h-4 w-4 text-brand-strong" />
                         {day.open}〜{day.close}
                       </p>
-                    </li>
+                    </Card>
                   );
                 })}
               </ul>
@@ -86,15 +84,10 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
                     {venue.note}
                   </p>
                 )}
-                <a
-                  href={venue.googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-2 rounded-full border-2 border-brand px-5 py-2.5 text-sm font-bold text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white"
-                >
+                <ButtonLink href={venue.googleMapsUrl} variant="outline" size="sm" className="mt-5">
                   Google マップで開く
                   <ExternalLink className="h-4 w-4" />
-                </a>
+                </ButtonLink>
               </div>
             </div>
 
@@ -105,7 +98,11 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
                   href={venue.mapImage}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block overflow-hidden rounded-2xl border border-slate-100 shadow-sm transition-shadow hover:shadow-lg"
+                  className={cardClassName({
+                    padding: "none",
+                    interactive: true,
+                    className: "block overflow-hidden",
+                  })}
                   title="構内マップを拡大して見る"
                 >
                   <ImageWithFallback
@@ -177,13 +174,10 @@ export function FestivalPage({ festival, heroImage }: FestivalPageProps) {
               <br />
               プログラミング・ゲーム開発・デザインを横断しながら、仲間と一緒にプロダクトをつくっています。
             </p>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-brand px-6 py-2.5 text-sm font-bold text-brand-strong transition-all duration-300 hover:bg-brand hover:text-white md:text-base"
-            >
+            <ButtonLink href="/about" variant="outline" size="sm">
               活動内容を見る
               <ArrowRight className="h-4 w-4" />
-            </Link>
+            </ButtonLink>
           </div>
         </div>
       </section>

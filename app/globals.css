@@ -27,6 +27,22 @@
   --color-brand-deep: #5a8a22;
   /* ロゴの緑 */
   --color-brand-logo: #6e9442;
+  /*
+   * ブランドカラーの濃淡（brand と同じ色相で、Tailwind の emerald などと同じ段階）。
+   * 500 は brand、600 は brand-strong と同じ色。
+   * 白・淡い背景の上の文字は 700 以上を使う（600 以下はコントラストが足りない）
+   */
+  --color-brand-50: #f3fbed;
+  --color-brand-100: #e3f6d2;
+  --color-brand-200: #ccedab;
+  --color-brand-300: #b0dd80;
+  --color-brand-400: #98ce57;
+  --color-brand-500: #8cc63f;
+  --color-brand-600: #6a9e2f;
+  --color-brand-700: #567c23;
+  --color-brand-800: #43601d;
+  --color-brand-900: #364d1a;
+  --color-brand-950: #1d2c0a;
   /* Instagram のブランドカラー */
   --color-instagram: #e1306c;
 }
