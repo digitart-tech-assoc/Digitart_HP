@@ -182,8 +182,7 @@ export function HomeHeroBase() {
           <div className="mb-5 md:mb-6">
             <div className="relative inline-block">
               <div
-                className="absolute inset-0 rounded-full opacity-40 blur-3xl"
-                style={{ background: "rgba(140,198,63,0.5)" }}
+                className="absolute inset-0 rounded-full bg-brand/50 opacity-40 blur-3xl"
                 aria-hidden="true"
               />
               <Logo
@@ -209,7 +208,7 @@ export function HomeHeroBase() {
           >
             好きを
             <br className="sm:hidden" />
-            <span style={{ color: "var(--color-brand)" }}>カタチに</span>しよう
+            <span className="text-brand">カタチに</span>しよう
           </h1>
 
           {/* Description + Buttons */}

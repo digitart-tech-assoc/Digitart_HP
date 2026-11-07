@@ -42,9 +42,7 @@ export function SupportersPage() {
       <section className="px-6 py-12">
         <div className="mx-auto max-w-6xl space-y-20">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
-              第7期役員
-            </h2>
+            <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">第7期役員</h2>
           </div>
           {MEMBERS.map((member, i) => {
             return (
@@ -65,15 +63,9 @@ export function SupportersPage() {
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
-                  <span className="text-sm text-brand-700" style={{ fontWeight: 600 }}>
-                    {member.year}
-                  </span>
-                  <h3 className="mt-1 mb-1 text-3xl text-gray-900" style={{ fontWeight: 700 }}>
-                    {member.name}
-                  </h3>
-                  <p className="mb-6 text-brand-700" style={{ fontWeight: 500 }}>
-                    {member.role}
-                  </p>
+                  <span className="text-sm font-semibold text-brand-700">{member.year}</span>
+                  <h3 className="mt-1 mb-1 text-3xl font-bold text-gray-900">{member.name}</h3>
+                  <p className="mb-6 font-medium text-brand-700">{member.role}</p>
                   <div className="relative rounded-2xl bg-brand-50 p-6">
                     <Quote className="absolute top-4 left-4 h-8 w-8 text-brand-300" />
                     <p className="pt-2 pl-8 leading-relaxed text-gray-700 italic">{member.quote}</p>
@@ -89,9 +81,7 @@ export function SupportersPage() {
       <section className="bg-brand-50/60 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <div className="mb-16 reveal text-center">
-            <h2 className="mb-4 text-4xl text-gray-900" style={{ fontWeight: 700 }}>
-              Q&A
-            </h2>
+            <h2 className="mb-4 text-4xl font-bold text-gray-900">Q&A</h2>
             <p className="text-gray-600">よくある質問</p>
           </div>
 
@@ -99,12 +89,10 @@ export function SupportersPage() {
             {JOIN_FAQ.map((item, i) => (
               <Card key={i} className="reveal">
                 <div className="mb-4 flex items-start gap-4">
-                  <span className="text-2xl text-brand-700" style={{ fontWeight: 700 }}>
+                  <span className="text-2xl font-bold text-brand-700">
                     Q.{String(i + 1).padStart(2, "0")}
                   </span>
-                  <h4 className="text-xl text-gray-900" style={{ fontWeight: 600 }}>
-                    {item.q}
-                  </h4>
+                  <h4 className="text-xl font-semibold text-gray-900">{item.q}</h4>
                 </div>
                 <p className="ml-14 leading-relaxed text-gray-600">{item.a}</p>
               </Card>

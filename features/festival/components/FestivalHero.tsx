@@ -54,7 +54,7 @@ export function FestivalHero({ festival, image }: FestivalHeroProps) {
           {titleMatch ? (
             <>
               {titleMatch[1]}
-              <span style={{ color: "var(--color-brand)" }}>{titleMatch[2]}</span>
+              <span className="text-brand">{titleMatch[2]}</span>
             </>
           ) : (
             festival.title
