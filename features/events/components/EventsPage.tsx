@@ -40,9 +40,7 @@ export function EventsPage() {
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 flex reveal items-center gap-3">
             <span className="h-3 w-3 rounded-full bg-brand-400" />
-            <h2 className="text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
-              スケジュール
-            </h2>
+            <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">スケジュール</h2>
           </div>
 
           {/* Month Bar */}
@@ -55,8 +53,7 @@ export function EventsPage() {
                 <div key={m} className="flex-1 text-center">
                   <div className={`mx-0.5 h-2 rounded-full ${barClass}`} />
                   <span
-                    className={`mt-2 block text-xs ${textClass}`}
-                    style={count > 0 ? { fontWeight: 600 } : {}}
+                    className={`mt-2 block text-xs ${textClass} ${count > 0 ? "font-semibold" : ""}`}
                   >
                     {m}月
                   </span>
@@ -83,9 +80,7 @@ export function EventsPage() {
                       className="h-48 w-full object-cover transition-transform duration-700 group-hover:scale-105 md:h-full"
                     />
                     <div className="absolute top-4 left-4 rounded-xl bg-white/95 px-4 py-2 shadow-sm backdrop-blur-sm">
-                      <span className="text-2xl text-gray-900" style={{ fontWeight: 700 }}>
-                        {event.month}
-                      </span>
+                      <span className="text-2xl font-bold text-gray-900">{event.month}</span>
                     </div>
                   </div>
 
@@ -94,15 +89,11 @@ export function EventsPage() {
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
                         <span
-                          className={`mb-3 inline-block rounded-full px-3 py-1 text-xs ${event.tagColor}`}
-                          style={{ fontWeight: 600 }}
+                          className={`mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold ${event.tagColor}`}
                         >
                           {event.season}
                         </span>
-                        <h3
-                          className="mb-3 text-xl text-gray-900 md:text-2xl"
-                          style={{ fontWeight: 700 }}
-                        >
+                        <h3 className="mb-3 text-xl font-bold text-gray-900 md:text-2xl">
                           {event.title}
                         </h3>
                         <p className="text-sm text-gray-500 md:line-clamp-2">{event.desc}</p>
@@ -111,8 +102,7 @@ export function EventsPage() {
                             href={event.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-3 inline-flex items-center gap-2 text-brand-700 transition-colors hover:text-brand-800"
-                            style={{ fontWeight: 600 }}
+                            className="mt-3 inline-flex items-center gap-2 font-semibold text-brand-700 transition-colors hover:text-brand-800"
                           >
                             過去のレポート
                             <ExternalLink className="h-4 w-4" />
@@ -132,9 +122,7 @@ export function EventsPage() {
       <section className="bg-brand-50/60 px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <div className="mb-12 reveal text-center">
-            <h2 className="mb-4 text-3xl text-gray-900 md:text-4xl" style={{ fontWeight: 700 }}>
-              定例活動
-            </h2>
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">定例活動</h2>
             <p className="text-gray-600">イベント以外にも、日常的に活動しています。</p>
           </div>
 
@@ -142,9 +130,7 @@ export function EventsPage() {
             {REGULAR_ACTIVITIES.map((act) => (
               <Card key={act.label} className="reveal text-center">
                 <act.icon className="mx-auto mb-4 h-10 w-10 text-brand-700" />
-                <h4 className="mb-2 text-lg text-gray-900" style={{ fontWeight: 700 }}>
-                  {act.label}
-                </h4>
+                <h4 className="mb-2 text-lg font-bold text-gray-900">{act.label}</h4>
                 <p className="text-sm text-gray-500">{act.detail}</p>
               </Card>
             ))}

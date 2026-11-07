@@ -45,10 +45,7 @@ export function WorksPage() {
                         className="aspect-[16/9] w-full object-cover"
                       />
                       <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/40 to-transparent p-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <span
-                          className="flex items-center gap-2 text-white"
-                          style={{ fontWeight: 600 }}
-                        >
+                        <span className="flex items-center gap-2 font-semibold text-white">
                           View Project <ExternalLink className="h-4 w-4" />
                         </span>
                       </div>
