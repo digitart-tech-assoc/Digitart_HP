@@ -167,6 +167,26 @@ async function openPullRequest(
 }
 
 /**
+ * ベースブランチに、指定したパスのファイルがすでにあるかどうか。
+ * コミットは base_tree に重ねて作るため、同じパスがあるとエラーにならずに中身が置き換わってしまう。それを投稿前に防ぐために使う。
+ */
+export async function fileExistsOnBaseBranch(path: string): Promise<boolean> {
+  const client = createClient();
+  const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+  const res = await fetch(
+    `${client.baseUrl}/contents/${encodedPath}?ref=${encodeURIComponent(client.baseBranch)}`,
+    { method: "GET", headers: client.headers },
+  );
+  if (res.status === 404) {
+    return false;
+  }
+  if (!res.ok) {
+    throw new GitHubApiError("既存の記事の確認に失敗しました", res.status, await res.text());
+  }
+  return true;
+}
+
+/**
  * ファイルを新しいブランチにコミットし、プルリクエストを作成する。
  * @returns 作成したプルリクエストの URL
  */
