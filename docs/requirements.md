@@ -277,6 +277,8 @@ docs/                   要件定義書・実装仕様書
 - ログイン試行の回数制限はアプリ内（インスタンスごとのメモリ上）でも行うが、確実な制限としてCloudflareのRate Limitingルールを設定する（例：`/admin/news/login` へのPOSTを同一IPから1分間に10回まで）
 - `GITHUB_TOKEN` は対象リポジトリのみを対象にしたFine-grained Personal Access Tokenとし、権限は Contents: Read and write と Pull requests: Read and write だけにする。**Workflows権限は付与しない**（付与しないことで、万一 `.github/workflows/` への書き込みが試みられてもGitHub側で拒否される）
 - 記事本文のHTMLを許可する箇所は、Markdown描画の仕様と信頼できる投稿者の運用を前提にする
+- 全ページに `X-Content-Type-Options: nosniff`、`Referrer-Policy: strict-origin-when-cross-origin`、`Content-Security-Policy: frame-ancestors 'none'`、`X-Frame-Options: DENY` を付け、他サイトのiframeに埋め込ませない（値は `lib/securityHeaders.ts`。`next.config.ts` の `headers()` で付け、`@cloudflare/next-on-pages` では `headers()` が付かないミドルウェアのルート（`/admin` 配下）はミドルウェアでも付ける）
+- 管理画面（`/admin` 配下）は `X-Robots-Tag: noindex, nofollow` とmetadataの `robots` で検索結果に載せない
 - GitHub APIのエラーは利用者向けの投稿失敗として処理し、秘密情報をエラーメッセージに含めない（APIのレスポンス本文や設定の不足はサーバーのログにだけ出す）
 
 ## 9. 環境変数・外部サービス

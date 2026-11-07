@@ -1,3 +1,5 @@
+import { ADMIN_HEADERS, SECURITY_HEADERS } from "./lib/securityHeaders";
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -7,6 +9,13 @@ const nextConfig: NextConfig = {
       // ログイン前のリクエストにも適用されるので、必要以上には上げない（画像 1 枚の上限は publishInput.ts で 10MB）
       bodySizeLimit: "25mb",
     },
+  },
+  async headers() {
+    return [
+      // 値の説明は lib/securityHeaders.ts を参照
+      { source: "/:path*", headers: [...SECURITY_HEADERS] },
+      { source: "/admin/:path*", headers: [...ADMIN_HEADERS] },
+    ];
   },
   async redirects() {
     return [
