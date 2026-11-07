@@ -8,8 +8,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* 欧文は Geist、日本語は Noto Sans JP で表示する（app/layout.tsx） */
+  --font-sans: var(--font-geist-sans), var(--font-noto-sans-jp), sans-serif;
+  --font-mono: var(--font-geist-mono), var(--font-noto-sans-jp), monospace;
 }
 
 /*
