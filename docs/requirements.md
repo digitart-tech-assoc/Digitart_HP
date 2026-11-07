@@ -111,7 +111,7 @@
 - ファイル名から拡張子を除いた値をslugとして使用する
 - frontmatterの日付の降順で記事を並べる
 - カテゴリは `notice`（お知らせ）または `column`（コラム）とする
-- 記事本文はGitHub Flavored Markdown、HTML、数式、コードブロックに対応する
+- 記事本文はGitHub Flavored Markdown、HTML（許可リストにある要素・属性のみ。8章を参照）、数式、コードブロックに対応する
 - 外部リンクは新しいタブで開き、内部リンクはNext.jsのLinkを使用する
 - 存在しないslugは404とする
 - 記事ごとにタイトル、概要、画像、パスを使用してメタデータを生成する
@@ -204,7 +204,7 @@ image: "/images/articles/2026-09-23/example.png"
 | Styling | Tailwind CSS 4 / PostCSS |
 | Animation | Motion |
 | Icons | lucide-react |
-| Markdown | gray-matter、react-markdown、remark-gfm、rehype-raw |
+| Markdown | gray-matter、react-markdown、remark-gfm、rehype-raw、rehype-sanitize |
 | 数式 | remark-math、rehype-katex |
 | Code表示 | react-syntax-highlighter |
 | Image | next/image、ImageWithFallback |
@@ -276,7 +276,7 @@ docs/                   要件定義書・実装仕様書
 - 認証CookieはHTTP Only、ProductionではSecure、SameSite Strict、Path `/`、有効期限7日とする
 - ログイン試行の回数制限はアプリ内（インスタンスごとのメモリ上）でも行うが、確実な制限としてCloudflareのRate Limitingルールを設定する（例：`/admin/news/login` へのPOSTを同一IPから1分間に10回まで）
 - `GITHUB_TOKEN` は対象リポジトリのみを対象にしたFine-grained Personal Access Tokenとし、権限は Contents: Read and write と Pull requests: Read and write だけにする。**Workflows権限は付与しない**（付与しないことで、万一 `.github/workflows/` への書き込みが試みられてもGitHub側で拒否される）
-- 記事本文のHTMLを許可する箇所は、Markdown描画の仕様と信頼できる投稿者の運用を前提にする
+- 記事本文のHTMLは、PRのレビューの見落としがそのままXSSにならないよう、許可リスト（`components/markdown/sanitizeSchema.ts`）にある要素・属性だけを描画する。`<script>`・`<style>`・`on*` 属性・`style` 属性・`javascript:` のURLなどは描画しない。iframeは許可したURL（現在はSpotifyの埋め込み）のものだけを表示し、新しいサービスを埋め込むときは許可リストに追加する
 - GitHub APIのエラーは利用者向けの投稿失敗として処理し、秘密情報をエラーメッセージに含めない（APIのレスポンス本文や設定の不足はサーバーのログにだけ出す）
 
 ## 9. 環境変数・外部サービス
