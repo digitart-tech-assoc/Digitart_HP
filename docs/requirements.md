@@ -202,6 +202,7 @@ image: "/images/articles/2026-09-23/example.png"
 | UI | React 19.2.3 |
 | Language | TypeScript |
 | Styling | Tailwind CSS 4 / PostCSS |
+| Font | Geist・Geist Mono（欧文）、Noto Sans JP（和文）。`next/font/google` で読み込み、ビルド時に取得してサイトから配信する |
 | Animation | Motion |
 | Icons | lucide-react |
 | Markdown | gray-matter、react-markdown、remark-gfm、rehype-raw |
