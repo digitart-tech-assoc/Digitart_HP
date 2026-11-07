@@ -2,11 +2,13 @@ import Link from "next/link";
 import ReactMarkdown, { type Components } from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
 import "katex/dist/katex.min.css";
 import { CodeBlock } from "@/components/markdown/CodeBlock";
+import { markdownSanitizeSchema, rehypeAllowedIframes } from "@/components/markdown/sanitizeSchema";
 
 import type { Heading as MdastHeading, Root, RootContent } from "mdast";
 import type { ReactNode } from "react";
@@ -242,7 +244,13 @@ export function MarkdownRenderer({
           ? [remarkGfm, remarkMath, remarkArticleHeadingLevels]
           : [remarkGfm, remarkMath]
       }
-      rehypePlugins={[rehypeRaw, rehypeKatex]}
+      // 本文の HTML は許可リストで絞ってから描画する。KaTeX の出力は許可リストに含めないよう、サニタイズの後に作る
+      rehypePlugins={[
+        rehypeRaw,
+        [rehypeSanitize, markdownSanitizeSchema],
+        rehypeAllowedIframes,
+        rehypeKatex,
+      ]}
       components={components}
     >
       {content}
