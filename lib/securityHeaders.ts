@@ -14,9 +14,11 @@ export const SECURITY_HEADERS = [
   { key: "X-Frame-Options", value: "DENY" },
 ] as const;
 
-/** 管理画面に付けるヘッダー。ページのない URL やリダイレクトにも付くよう、metadata ではなくヘッダーでも指定する */
+/**
+ * 管理画面に追加で付けるヘッダー。ページのない URL やリダイレクトにも付くよう、metadata ではなくヘッダーでも指定する。
+ * 管理画面も "/:path*" に一致して SECURITY_HEADERS が付くので、ここには管理画面だけのものを書く
+ */
 export const ADMIN_HEADERS = [
-  ...SECURITY_HEADERS,
   // 管理画面は検索結果に載せない
   { key: "X-Robots-Tag", value: "noindex, nofollow" },
 ] as const;
