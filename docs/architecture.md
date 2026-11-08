@@ -85,6 +85,11 @@ app  →  features  →  components / lib
 - 緑が必要なときは、`emerald-*`・`green-*` ではなく `brand-50`〜`brand-950` の濃淡を使う（`brand-500` が `brand`、`brand-600` が `brand-strong` と同じ色）
 - 白・淡い背景の上の文字は `brand-700` 以上にする（`brand-600` 以下は文字として読むにはコントラストが足りない）。白い文字を載せる背景も `brand-700` 以上にする（ブランドカラーそのままの `primary` ボタンは除く）
 
+フォントは、欧文が Geist（等幅は Geist Mono）、日本語が Noto Sans JP です（`app/layout.tsx` で読み込み、`app/globals.css` の `--font-sans`・`--font-mono` で組み合わせている）。
+
+- フォントを個別に指定せず、`font-sans`（既定）と `font-mono` のクラスを使う
+- `font-mono` はコード・ファイル名・日付など、半角の文字だけが入る場所に使う。番号付きリストの番号のように記号だけを等幅にしたいときは `marker:font-mono` を使い、日本語の入る本文や入力欄には付けない
+
 ## コーディング規約
 
 | 項目 | ルール |

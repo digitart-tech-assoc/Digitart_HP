@@ -1,7 +1,6 @@
 /**
  * レスポンスに付けるセキュリティヘッダー。
- * next.config.ts の headers() とミドルウェアで同じ値を使うため、ここで一元管理する
- * （@cloudflare/next-on-pages では、ミドルウェアを通るルートに headers() の指定が付かないため、ミドルウェアでも付ける）。
+ * next.config.ts の headers() で、全ページと管理画面に付ける。
  */
 export const SECURITY_HEADERS = [
   // 拡張子と違う形式として解釈させない（画像として置いたファイルを HTML として実行させないため）

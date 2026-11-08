@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { buildArticleMarkdown } from "@/features/news/editor/articleFile";
 import {
   createPullRequestWithFiles,
+  fileExistsOnBaseBranch,
   GitHubApiError,
   GitHubConfigError,
   type RepositoryFile,
@@ -49,9 +50,20 @@ export async function publishArticleAction(
   const { fields, content, images } = input.value;
 
   try {
+    const articlePath = `${ARTICLES_DIR}/${fields.date}-${fields.slug}.md`;
+    // 同じパスの記事があると、PR で既存の記事が置き換わってしまうため、ブランチを作る前に止める
+    if (await fileExistsOnBaseBranch(articlePath)) {
+      return {
+        error:
+          "同じ公開日・ファイル名の記事がすでにあります。ファイル名（slug）を変えてから送信してください。",
+        success: false,
+        prUrl: null,
+      };
+    }
+
     const files: RepositoryFile[] = [
       {
-        path: `${ARTICLES_DIR}/${fields.date}-${fields.slug}.md`,
+        path: articlePath,
         content: buildArticleMarkdown(fields, content),
         encoding: "utf-8",
       },
