@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_JP } from "next/font/google";
 
 import { INTRO_SEEN_SCRIPT } from "@/features/home/introSeen";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/constants";
@@ -14,6 +14,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+/**
+ * 和文のフォント。欧文は Geist のまま、Geist にない文字（日本語）だけをこのフォントで表示する（globals.css の --font-sans）。
+ * OS ごとのフォント（游ゴシック・ヒラギノなど）だと、環境によって混植のバランスや太さが変わるため、そろえる。
+ * 太さは 400〜900 をすべて使っているので、可変フォントで読み込む。
+ * 日本語は next/font の subsets にないため先読みはせず（preload: false）、使う文字の分だけ読み込まれる（unicode-range）
+ */
+const notoSansJp = Noto_Sans_JP({
+  variable: "--font-noto-sans-jp",
+  preload: false,
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -76,7 +88,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: INTRO_SEEN_SCRIPT }} />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased selection:bg-brand-100`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSansJp.variable} flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased selection:bg-brand-100`}
       >
         {children}
         {/* Cloudflare Web Analytics */}
