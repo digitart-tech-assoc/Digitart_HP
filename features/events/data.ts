@@ -8,7 +8,7 @@ export const ANNUAL_EVENTS = [
     title: "新歓イベント",
     desc: "新入生を歓迎し、Digitartの活動内容を紹介する最初のイベント。ゲーム大会や交流会を通じて、同級生や先輩メンバーと仲良くなれる機会です。",
     image: "/images/events/welcome-event.jpg",
-    tagColor: "bg-green-100 text-green-700",
+    tagColor: "bg-brand-100 text-brand-700",
     url: null,
   },
   {
@@ -17,7 +17,7 @@ export const ANNUAL_EVENTS = [
     title: "新入生向け講座",
     desc: "プログラミングやチーム開発の基礎を学ぶ新入生向けの集中講座。数週間にわたり、実際に手を動かしながら学べる内容で、初心者が安心して参加できるようサポート体制も充実させています。",
     image: "/images/events/welcome-lecture.jpg",
-    tagColor: "bg-green-100 text-green-700",
+    tagColor: "bg-brand-100 text-brand-700",
     url: null,
   },
   {
@@ -26,7 +26,7 @@ export const ANNUAL_EVENTS = [
     title: "BBQ",
     desc: "新入生歓迎と親睦を兼ねたBBQイベント。メンバー同士の交流を深める絶好の機会となっています。食事を楽しみながら、サークル活動や趣味の話で盛り上がります。",
     image: "/images/events/bbq.jpg",
-    tagColor: "bg-green-100 text-green-700",
+    tagColor: "bg-brand-100 text-brand-700",
     url: null,
   },
   {
@@ -36,7 +36,7 @@ export const ANNUAL_EVENTS = [
     desc: "学習会で得たスキルを活かして、実際に作品を作ることに挑戦するイベント。チームで協力して作品を制作します。完成した作品は学園祭やオンラインで発表します。",
     image: "/images/events/wakaba-create.jpg",
     color: "from-green-300 to-lime-300",
-    tagColor: "bg-green-100 text-green-700",
+    tagColor: "bg-brand-100 text-brand-700",
     url: null,
   },
   {
