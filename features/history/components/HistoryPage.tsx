@@ -39,12 +39,8 @@ export function HistoryPage() {
               <div
                 className={`ml-14 flex-1 md:ml-0 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"}`}
               >
-                <span className="text-sm text-brand-700" style={{ fontWeight: 600 }}>
-                  {item.year}
-                </span>
-                <h3 className="mt-1 mb-3 text-2xl text-gray-900" style={{ fontWeight: 700 }}>
-                  {item.title}
-                </h3>
+                <span className="text-sm font-semibold text-brand-700">{item.year}</span>
+                <h3 className="mt-1 mb-3 text-2xl font-bold text-gray-900">{item.title}</h3>
                 <p className="leading-relaxed text-gray-600">{item.desc}</p>
               </div>
 

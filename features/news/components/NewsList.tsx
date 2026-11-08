@@ -85,19 +85,13 @@ export function NewsList({
                 >
                   {/* 左端のカテゴリ色の線 */}
                   <div
-                    className="absolute top-0 bottom-0 left-0 w-1 opacity-80 transition-colors duration-300 group-hover:opacity-100 md:w-1.5"
-                    style={{ backgroundColor: meta.color }}
+                    className={`absolute top-0 bottom-0 left-0 w-1 opacity-80 transition-colors duration-300 group-hover:opacity-100 md:w-1.5 ${meta.barClassName}`}
                   />
 
                   {/* カテゴリと日付 */}
                   <div className="flex shrink-0 items-center justify-between gap-3 pt-0.5 pl-2 md:w-32 md:flex-col md:items-start md:justify-start md:pl-3">
                     <span
-                      className="inline-flex items-center justify-center rounded-full border px-2.5 py-1 text-[10px] font-bold md:text-xs"
-                      style={{
-                        color: meta.color,
-                        backgroundColor: meta.bg,
-                        borderColor: `${meta.color}40`,
-                      }}
+                      className={`inline-flex items-center justify-center rounded-full border px-2.5 py-1 text-[10px] font-bold md:text-xs ${meta.badgeClassName}`}
                     >
                       {meta.label}
                     </span>

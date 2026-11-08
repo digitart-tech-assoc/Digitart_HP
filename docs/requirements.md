@@ -1,6 +1,6 @@
 # Digitart.jp 要件定義書・実装仕様書
 
-最終更新: 2026-09-23  
+最終更新: 2026-10-07  
 対象: `Digitart_HP`   
 対象サイト: [Digitart テクノロジー愛好会](https://www.digitart.jp)
 
@@ -54,23 +54,24 @@
 | `/news/[slug]` | （記事タイトル） | Markdown記事の本文、日付、著者、コード、数式、画像、関連記事導線 |
 | `/join` | Join Us | 仮入会から正式入会までの手順、入会費、問い合わせ先、活動概要 |
 | `/sagamihara-fes/2026` | 相模原祭 2026 | 学園祭ポータル。開催日時、展示場所・構内マップ、出展作品一覧、SNS・団体紹介・入会導線（`/sagamihara-fes` は最新年へリダイレクト） |
-| `/bylaws` | Digitart テクノロジー愛好会 規約 | `app/bylaws/bylaws.md` を描画した団体規約 |
+| `/bylaws` | Digitart テクノロジー愛好会 規約 | `content/bylaws.md` を描画した団体規約 |
 
 ### 3.2 管理画面
 
 | パス | 画面 | 要件 |
 | --- | --- | --- |
-| `/admin/news/login` | メンバー確認 | `ADMIN_PASSWORD` と入力値を照合し、成功時に認証Cookieを発行する |
+| `/admin/news/login` | メンバー確認 | `ADMIN_PASSWORD` と入力値を照合し、成功時に署名付きのセッションCookieを発行する（詳細は4.8） |
 | `/admin/news/new` | 記事作成 | 記事メタデータ入力、Markdown編集、画像挿入、プレビュー、投稿リクエスト送信 |
 
-管理画面は一般公開サイトのヘッダー・フッターを表示しない。`/admin` 配下はMiddlewareで保護し、ログイン画面以外への未認証アクセスを `/admin/news/login` にリダイレクトする。
+管理画面は一般公開サイトのヘッダー・フッターを表示しない。`/admin` 配下は各ページで認証を確認し（`requireAdminSession`）、ログイン画面以外への未認証アクセスを `/admin/news/login` にリダイレクトする。ページのない `/admin` 配下のURLも未認証ならリダイレクトし、認証済みなら404を返す。管理ページを追加するときは、ページの先頭で `requireAdminSession` を呼ぶ。
 
 ### 3.3 共通UI
 
 - ヘッダー: サイトロゴ、サイト名、ドロワー形式のナビゲーション
-- ナビゲーション: Home、About、News、Join Us、Bylaws、外部Contact
+- ナビゲーション: Home、About、News、Join Us、Bylaws、外部Contact（`lib/constants.ts` の `NAV_LINKS`。パンくずリストとサイトマップもここから作る）
 - About配下は子ページを折りたたみ表示する
-- ホームではスクロール位置に応じてヘッダーの表示状態を切り替える
+- ドロワーはネイティブの `<dialog>` で開き、Escや背景のクリックで閉じる。開いている間は背後のページを操作・スクロールできない
+- ホームではスクロールするまでヘッダーを透明な背景・白文字で表示し、スクロール後は白背景に切り替える
 - フッター: 団体名、サイトマップ、SNS、メールアドレス、コピーライト
 - 管理画面では共通ヘッダー・フッターを非表示にする
 
@@ -78,9 +79,11 @@
 
 ### 4.1 ホーム
 
-- ヒーロー表示から団体の印象と活動領域を伝える
+- ヒーロー表示から団体の印象と活動領域を伝える。見出し・キャッチコピー・入会ボタンはサーバーで描画する
 - 学園祭の出展など期間限定のお知らせがあるときは、ヒーローにリンクを表示する（`features/home/data.ts` の `HERO_NOTICE`。不要なときは `null`）
-- `lib/events.json` のイベントから直近イベントを表示する
+- 最初の訪問時にロゴのイントロアニメーションを表示する。同じセッションでは2回目以降表示せず、視差効果を減らす設定のときも表示しない
+- 背景画像のスライドショーは5秒ごとに切り替え、一時停止・再生できる。視差効果を減らす設定のときは自動で切り替えない
+- `content/events.json` のイベントから、表示した日（日本時間）以降の予定を3件表示する。絞り込みはクライアントで行う（ページは静的生成のため）
 - About、Works、News、Join Usへのピックアップ導線を表示する
 - ニュースを新しい順に表示し、ホームでは最大5件ずつ表示する
 - 入会案内セクションを表示する
@@ -90,7 +93,7 @@
 - 活動領域としてプログラミング、ゲーム開発、デザインを表示する
 - 5つの案内カードからEvents、Works、History、Data、Supporterへ遷移できる
 - モバイルでは案内カードを横スクロールでき、一定間隔で自動送りする
-- スクロール表示時にMotionによるフェード・スライド演出を行う
+- スクロールに合わせてCSSのフェード・スライド演出を行う（JSがなくても、未対応のブラウザでも本文は表示される）
 
 ### 4.3 イベント
 
@@ -107,7 +110,7 @@
 
 ### 4.5 ニュース
 
-- `app/news/articles/*.md` を記事データとして読み込む
+- `content/news/*.md` を記事データとして読み込む
 - ファイル名から拡張子を除いた値をslugとして使用する
 - frontmatterの日付の降順で記事を並べる
 - カテゴリは `notice`（お知らせ）または `column`（コラム）とする
@@ -146,7 +149,7 @@
 7. 投稿時にMarkdownファイルと画像をGitHub APIへ送信する
 8. 記事追加用ブランチとPull Requestを作成し、管理者の承認後に公開する
 
-投稿データのslugは、日付を接頭辞にした `{date}-{slug}` 形式で生成する。入力slugは半角英小文字、数字、ハイフンのみ許可する。
+投稿データのslugは、日付を接頭辞にした `{date}-{slug}` 形式で生成する。入力slugは半角英小文字、数字、ハイフンのみ許可する。ベースブランチに同じパスの記事があるときは、既存の記事を置き換えないよう、ブランチを作る前に投稿を止める。
 
 投稿内容はServer Actionで再検証する（`features/news/editor/publishInput.ts`）。
 
@@ -174,23 +177,26 @@ image: "/images/articles/2026-09-23/example.png"
 
 ### 5.2 イベントデータ
 
-イベントは `lib/events.json` に配列として保持する。
+イベントは `content/events.json` に配列として保持し、`features/events/schema.ts` のzodスキーマで検証する（不正な場合はビルドが失敗する）。
 
 | フィールド | 型 | 内容 |
 | --- | --- | --- |
 | `date` | string | `YYYY-MM-DD`形式の日付 |
 | `title` | string | イベント名 |
-| `type` | string | `info`、`activity`、`study`、`event`、`etc`等 |
-| `time` | string | 開催時間 |
-| `location` | string | 開催場所 |
+| `type` | string | `welcome`、`info`、`activity`、`study`、`reserve`、`event`、`etc` のいずれか |
+| `time` | string | 開催時間（任意） |
+| `location` | string | 開催場所（任意） |
 
 ### 5.3 静的コンテンツ
 
-- ページ固有のイベント、作品、沿革、役員、統計は各ページの定数として保持する
-- 規約本文は `app/bylaws/bylaws.md` に保持する
-- 記事本文は `app/news/articles/` に保持する
-- 記事画像・ページ画像は `app/about/assets/` または `public/images/` に保持する
+- ページ固有の年間行事、作品、沿革、役員、統計は `features/<機能>/data.ts` に保持する
+- 規約本文は `content/bylaws.md` に保持する
+- 記事本文は `content/news/` に保持する
+- 記事画像は `public/images/articles/<公開日>/`、ページ画像は `public/images/<ページ名>/` に保持する
+- ロゴは `public/images/digitart_white_normal.svg` を正本とする
 - サイト名、URL、SNS、ナビゲーションは `lib/constants.ts` に集約する
+
+置き場所の詳細は [architecture.md](architecture.md) の「どこに何を置くか」を参照。
 
 ## 6. システムアーキテクチャ
 
@@ -198,30 +204,35 @@ image: "/images/articles/2026-09-23/example.png"
 
 | 分類 | 採用技術 |
 | --- | --- |
-| Framework | Next.js 16.1.6 / App Router |
-| UI | React 19.2.3 |
+| Framework | Next.js 16 / App Router |
+| UI | React 19 |
 | Language | TypeScript |
 | Styling | Tailwind CSS 4 / PostCSS |
-| Animation | Motion |
+| Font | Geist・Geist Mono（欧文）、Noto Sans JP（和文）。`next/font/google` で読み込み、ビルド時に取得してサイトから配信する |
+| Animation | CSS（scroll-driven animations・`@starting-style`）、Motion（数値のカウントアップ） |
 | Icons | lucide-react |
 | Markdown | gray-matter、react-markdown、remark-gfm、rehype-raw、rehype-sanitize |
 | 数式 | remark-math、rehype-katex |
 | Code表示 | react-syntax-highlighter |
-| Image | next/image、ImageWithFallback |
+| Image | next/image（SVG）、ImageWithFallback |
 | Hosting | Cloudflare Pages / `@cloudflare/next-on-pages` |
 | Analytics | Cloudflare Web Analytics |
 | 外部連携 | GitHub REST API |
+| Validation | zod |
 
 ### 6.2 レイヤー構成
 
 ```text
-app/                    ルーティング、ページ、Server Action、記事データ
-components/             共通UI・ページUI・レイアウト部品
-lib/                    定数、記事取得、GitHub連携、メタデータ生成
-public/                 静的公開アセット
-types/                  TypeScript型定義
-docs/                   要件定義書・実装仕様書
+app/                    ルーティング専用（page.tsx / layout.tsx / sitemap.ts など）
+features/<機能>/         機能ごとの部品・データ読み込み・Server Action・スキーマ（記事取得、GitHub連携を含む）
+components/             機能に依存しない共通UI・レイアウト・SEO部品
+lib/                    ドメイン知識を持たない汎用処理（定数、メタデータ、日付、セッション）
+content/                記事Markdown、イベントJSON、規約
+public/images/          画像
+docs/                   ドキュメント
 ```
+
+依存の向き（`app → features → components / lib`）とコーディング規約は [architecture.md](architecture.md) を参照。
 
 ### 6.3 リクエストとデータフロー
 
@@ -231,7 +242,7 @@ docs/                   要件定義書・実装仕様書
 ブラウザ
   -> Next.js App Router
   -> ページコンポーネント
-  -> lib/constants.ts / lib/events.json / Markdown / 画像
+  -> features/* / lib/constants.ts / content/（Markdown・JSON） / 画像
   -> HTML・静的アセット
 ```
 
@@ -258,9 +269,11 @@ docs/                   要件定義書・実装仕様書
 - サイト名、説明、キーワード、Open Graph、Twitterカードを設定する
 - 記事ページは記事タイトル・概要・画像・パスから個別メタデータを生成する
 - Organization JSON-LDを出力する
-- Breadcrumb JSON-LDを出力する
+- Breadcrumb JSON-LDは公開サイトのレイアウト（`app/(site)/layout.tsx`）で、表示中のパスから出力する。名前は `NAV_LINKS` から作り、記事・学園祭のページの最後の項目はタイトルにする（`getPageTitles()`）。トップページでは出力しない
+- サイトマップは `app/sitemap.ts` で生成する。`lastmod` は正しい値が分かるページにだけ付ける（記事は frontmatter の `updated`、なければ `date`。ニュース一覧は記事の最新。トップページ・固定ページには付けない。日本時間でビルド日より後の日付は付けない）
 - 画像には用途に応じたaltを設定する
-- メニュー開閉ボタンに`aria-label`と`aria-expanded`を設定する
+- メニュー開閉ボタンに`aria-label`・`aria-expanded`・`aria-controls`を設定する
+- 視差効果を減らす設定（`prefers-reduced-motion`）のときは、アニメーションと自動スライドを止める
 - キーボードフォーカス時の表示を確保する
 - 内部リンクと外部リンクを区別し、外部リンクは`noopener noreferrer`を付ける
 - モバイル幅で横スクロール・カード表示・画像・長いタイトルが破綻しないこと
@@ -271,12 +284,14 @@ docs/                   要件定義書・実装仕様書
 - 管理用パスワード、GitHubアクセストークン等の秘密情報をリポジトリにコミットしない
 - `ADMIN_PASSWORD` はサーバー側でのみ参照する
 - `GITHUB_TOKEN` はServer Actionおよびサーバー側GitHub連携からのみ参照する
-- 管理画面はMiddlewareで認証Cookieを検査し、記事投稿のServer Actionでも同じ検査を行う
+- 管理画面は各ページで認証Cookieを検査し、記事投稿のServer Actionでも同じ検査を行う
 - 認証Cookieの値は `ADMIN_SESSION_SECRET` と `ADMIN_PASSWORD` から作った鍵でHMAC署名し、署名と有効期限を検証する。パスワードをローテーションすると発行済みのセッションは無効になる
 - 認証CookieはHTTP Only、ProductionではSecure、SameSite Strict、Path `/`、有効期限7日とする
 - ログイン試行の回数制限はアプリ内（インスタンスごとのメモリ上）でも行うが、確実な制限としてCloudflareのRate Limitingルールを設定する（例：`/admin/news/login` へのPOSTを同一IPから1分間に10回まで）
 - `GITHUB_TOKEN` は対象リポジトリのみを対象にしたFine-grained Personal Access Tokenとし、権限は Contents: Read and write と Pull requests: Read and write だけにする。**Workflows権限は付与しない**（付与しないことで、万一 `.github/workflows/` への書き込みが試みられてもGitHub側で拒否される）
 - 記事本文のHTMLは、PRのレビューの見落としがそのままXSSにならないよう、許可リスト（`components/markdown/sanitizeSchema.ts`）にある要素・属性だけを描画する。`<script>`・`<style>`・`on*` 属性・`style` 属性・`javascript:` のURLなどは描画しない。iframeは許可したURL（現在はSpotifyの埋め込み）のものだけを表示し、新しいサービスを埋め込むときは許可リストに追加する。iframeの `allow` 属性は記事側の値を使わず、`sanitizeSchema.ts` の `IFRAME_ALLOW` を固定で付ける。id・name には既定どおり `user-content-` を付け（DOM clobbering対策）、ページ内リンク（`#...`）の飛び先もそれに合わせる
+- 全ページに `X-Content-Type-Options: nosniff`、`Referrer-Policy: strict-origin-when-cross-origin`、`Content-Security-Policy: frame-ancestors 'none'`、`X-Frame-Options: DENY` を付け、他サイトのiframeに埋め込ませない（値は `lib/securityHeaders.ts`。`next.config.ts` の `headers()` で付ける）
+- 管理画面（`/admin` 配下）は `X-Robots-Tag: noindex, nofollow` とmetadataの `robots` で検索結果に載せない
 - GitHub APIのエラーは利用者向けの投稿失敗として処理し、秘密情報をエラーメッセージに含めない（APIのレスポンス本文や設定の不足はサーバーのログにだけ出す）
 
 ## 9. 環境変数・外部サービス
@@ -302,16 +317,22 @@ docs/                   要件定義書・実装仕様書
 ### 10.1 ローカル開発
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
+
+セットアップの詳細は [README](../README.md) を参照。
 
 ### 10.2 検証
 
 ```bash
+npm run format:check
 npm run lint
+npm run typecheck
 npm run build
 ```
+
+PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 
 ### 10.3 Cloudflare Pages
 
@@ -319,6 +340,7 @@ npm run build
 - Pages出力先は`.vercel/output/static`
 - Worker名は`digitart-hp-worker`
 - Node.js互換フラグを有効にする
+- `public/images/` の画像は `Cache-Control: public, max-age=86400, stale-while-revalidate=604800` で配信し、ブラウザとエッジにキャッシュさせる（`public/_headers`。Cloudflare Pages では静的ファイルの `Cache-Control` を `next.config.ts` の `headers()` で上書きできないため）。同じファイル名のまま画像を差し替えると、最大1日は古い画像が表示されることがある
 - デプロイ先の環境変数に管理用秘密情報を設定する
 - GitHub APIを使う投稿機能は、デプロイ環境のServer Actionから外部通信できることを前提とする
 
@@ -327,9 +349,9 @@ npm run build
 - 公開文言、イベント、作品、沿革、役員、統計を変更した場合は、対応するページ実装と本書の対象箇所を確認する
 - ニュース追加は管理画面からPull Requestを作成し、レビュー・マージ後に公開する
 - 記事のslugは既存記事と重複させない
-- イベント追加・変更時は`lib/events.json`を更新する
+- イベント追加・変更時は`content/events.json`を更新する
 - サイト全体の名称、SNS、ナビゲーション変更時は`lib/constants.ts`と本書を更新する
-- ルート追加時はサイトマップ、ナビゲーション、フッター、本書を更新する
+- ルート追加時はナビゲーション（`NAV_LINKS`。サイトマップとパンくずにも反映される）、フッター、本書を更新する。ナビゲーションに載せないページは、サイトマップの `unlistedPages` と、パンくずの名前（`app/(site)/layout.tsx` の `getPageTitles()`）にも加える
 - 環境変数追加・変更時はデプロイ設定と本書の一覧を更新する
 - 外部リンク変更時は、公開ページ、定数、JSON-LD、本文中のリンクを横断して確認する
 - 仕様と実装の差分を見つけた場合は、修正または「既知の制約」に記録する
@@ -342,7 +364,7 @@ npm run build
 - 投稿の公開はPull Requestのマージと再ビルドに依存するため、即時公開ではない
 - ニュース投稿画面は画像をBase64としてServer Actionへ渡すため、画像サイズ・リクエストサイズの上限に注意する
 - `app/api` に公開APIはないため、外部からのイベント取得や会員情報更新が必要になった場合はAPI設計を別途定義する
-- 統計値はページ内定数であり、更新日時と集計根拠を合わせて更新する必要がある
+- 統計値は `features/stats/data.ts` の定数であり、更新日時と集計根拠を合わせて更新する必要がある
 
 ## 13. 変更時チェックリスト
 
@@ -351,6 +373,6 @@ npm run build
 - [ ] ナビゲーション、フッター、サイトマップへの影響を確認した
 - [ ] メタデータ、JSON-LD、外部リンクへの影響を確認した
 - [ ] モバイル表示と管理画面認証への影響を確認した
-- [ ] `npm run lint` を実行した
+- [ ] `npm run lint`・`npm run typecheck` を実行した
 - [ ] `npm run build` を実行した
 - [ ] 本書の該当箇所を更新した

@@ -1,0 +1,4 @@
+# Cloudflare Pages が静的ファイルに付けるヘッダー（https://developers.cloudflare.com/pages/configuration/headers/）
+# 画像は同じファイル名のまま差し替えることがあるため、古い画像が残っても困らない 1 日にとどめる
+/images/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800

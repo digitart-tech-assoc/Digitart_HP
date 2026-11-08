@@ -27,12 +27,7 @@ export function PageHero({ title, subtitle, backHref }: PageHeroProps) {
           <ArrowLeft className="h-4 w-4" />
           戻る
         </Link>
-        <h1
-          className="mb-4 text-5xl motion-safe:animate-rise md:text-7xl"
-          style={{ fontWeight: 700 }}
-        >
-          {title}
-        </h1>
+        <h1 className="mb-4 text-5xl font-bold motion-safe:animate-rise md:text-7xl">{title}</h1>
         <p className="text-xl text-white/90 motion-safe:animate-rise motion-safe:[animation-delay:200ms]">
           {subtitle}
         </p>

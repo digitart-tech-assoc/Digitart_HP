@@ -185,7 +185,7 @@ export function MarkdownRenderer({
     ),
     ol: ({ node, ...props }) => (
       <ol
-        className="mb-5 ml-6 list-outside list-decimal space-y-1.5 font-mono font-medium text-slate-700 marker:text-brand-600"
+        className="mb-5 ml-6 list-outside list-decimal space-y-1.5 font-medium text-slate-700 marker:font-mono marker:text-brand-600"
         {...props}
       />
     ),

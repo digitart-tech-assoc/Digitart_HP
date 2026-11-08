@@ -28,10 +28,8 @@ export function StatsPage() {
                 key={stat.label}
                 className="reveal rounded-3xl bg-brand-50 p-6 text-center md:p-10"
               >
-                <p className="mb-2 text-sm text-brand-700" style={{ fontWeight: 600 }}>
-                  {stat.label}
-                </p>
-                <p className="text-4xl text-brand-800 md:text-6xl" style={{ fontWeight: 700 }}>
+                <p className="mb-2 text-sm font-semibold text-brand-700">{stat.label}</p>
+                <p className="text-4xl font-bold text-brand-800 md:text-6xl">
                   <AnimatedNumber value={stat.value} suffix={stat.suffix} />
                 </p>
                 <p className="mt-2 text-xs text-gray-400">{stat.note}</p>
@@ -48,9 +46,7 @@ export function StatsPage() {
             <div className="reveal" key={section.title}>
               <div className="mb-8 flex items-center gap-3">
                 <span className="h-3 w-3 rounded-full bg-brand-400" />
-                <h3 className="text-2xl text-gray-900" style={{ fontWeight: 700 }}>
-                  {section.title}
-                </h3>
+                <h3 className="text-2xl font-bold text-gray-900">{section.title}</h3>
               </div>
               <div className="space-y-4">
                 {section.items.map((item) => (
@@ -61,9 +57,7 @@ export function StatsPage() {
                         className="flex h-full reveal-bar items-center justify-end rounded-full bg-gradient-to-r from-brand-400 to-brand-600 pr-3"
                         style={{ width: `${item.pct}%` }}
                       >
-                        <span className="text-xs text-white" style={{ fontWeight: 600 }}>
-                          {item.pct}%
-                        </span>
+                        <span className="text-xs font-semibold text-white">{item.pct}%</span>
                       </div>
                     </div>
                   </div>
