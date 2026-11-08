@@ -63,7 +63,7 @@
 | `/admin/news/login` | メンバー確認 | `ADMIN_PASSWORD` と入力値を照合し、成功時に署名付きのセッションCookieを発行する（詳細は4.8） |
 | `/admin/news/new` | 記事作成 | 記事メタデータ入力、Markdown編集、画像挿入、プレビュー、投稿リクエスト送信 |
 
-管理画面は一般公開サイトのヘッダー・フッターを表示しない。`/admin` 配下はMiddlewareで保護し、ログイン画面以外への未認証アクセスを `/admin/news/login` にリダイレクトする。
+管理画面は一般公開サイトのヘッダー・フッターを表示しない。`/admin` 配下は各ページで認証を確認し（`requireAdminSession`）、ログイン画面以外への未認証アクセスを `/admin/news/login` にリダイレクトする。ページのない `/admin` 配下のURLも未認証ならリダイレクトし、認証済みなら404を返す。管理ページを追加するときは、ページの先頭で `requireAdminSession` を呼ぶ。
 
 ### 3.3 共通UI
 
@@ -284,7 +284,7 @@ docs/                   ドキュメント
 - 管理用パスワード、GitHubアクセストークン等の秘密情報をリポジトリにコミットしない
 - `ADMIN_PASSWORD` はサーバー側でのみ参照する
 - `GITHUB_TOKEN` はServer Actionおよびサーバー側GitHub連携からのみ参照する
-- 管理画面はMiddlewareで認証Cookieを検査し、記事投稿のServer Actionでも同じ検査を行う
+- 管理画面は各ページで認証Cookieを検査し、記事投稿のServer Actionでも同じ検査を行う
 - 認証Cookieの値は `ADMIN_SESSION_SECRET` と `ADMIN_PASSWORD` から作った鍵でHMAC署名し、署名と有効期限を検証する。パスワードをローテーションすると発行済みのセッションは無効になる
 - 認証CookieはHTTP Only、ProductionではSecure、SameSite Strict、Path `/`、有効期限7日とする
 - ログイン試行の回数制限はアプリ内（インスタンスごとのメモリ上）でも行うが、確実な制限としてCloudflareのRate Limitingルールを設定する（例：`/admin/news/login` へのPOSTを同一IPから1分間に10回まで）
