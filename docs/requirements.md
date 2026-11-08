@@ -337,6 +337,7 @@ PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 - Pages出力先は`.vercel/output/static`
 - Worker名は`digitart-hp-worker`
 - Node.js互換フラグを有効にする
+- `public/images/` の画像は `Cache-Control: public, max-age=86400, stale-while-revalidate=604800` で配信し、ブラウザとエッジにキャッシュさせる（`public/_headers`。Cloudflare Pages では静的ファイルの `Cache-Control` を `next.config.ts` の `headers()` で上書きできないため）。同じファイル名のまま画像を差し替えると、最大1日は古い画像が表示されることがある
 - デプロイ先の環境変数に管理用秘密情報を設定する
 - GitHub APIを使う投稿機能は、デプロイ環境のServer Actionから外部通信できることを前提とする
 
