@@ -18,3 +18,11 @@ updates:
     schedule:
       interval: monthly
       timezone: Asia/Tokyo
+
+  # CI で使う Gitleaks のイメージ（.github/gitleaks/Dockerfile）
+  - package-ecosystem: docker
+    directory: /.github/gitleaks
+    # monthly は毎月 1 日に実行される
+    schedule:
+      interval: monthly
+      timezone: Asia/Tokyo

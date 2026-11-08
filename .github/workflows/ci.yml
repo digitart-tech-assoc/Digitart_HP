@@ -52,17 +52,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Gitleaks のインストール
-        run: |
-          GITLEAKS_VERSION="8.24.0"
-          # 取得したファイルが改ざんされていないか確認してから実行する。
-          # 同じリリースの checksums.txt と比べても、リリースごと差し替えられた場合は防げないため、値をここに書いておく
-          # （バージョンを上げるときは、リリースの checksums.txt の linux_x64 の値に更新する）
-          GITLEAKS_SHA256="cb49b7de5ee986510fe8666ca0273a6cc15eb82571f2f14832c9e8920751f3a4"
-          curl -sSLo /tmp/gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
-          echo "${GITLEAKS_SHA256}  /tmp/gitleaks.tar.gz" | sha256sum -c -
-          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
-          sudo mv /tmp/gitleaks /usr/local/bin/
+      # イメージとバージョンは .github/gitleaks/Dockerfile で指定する（Dependabot が更新する）
+      - name: Gitleaks の準備
+        run: docker build --quiet --tag gitleaks .github/gitleaks
 
       # 過去の履歴まで見ると既存のコミットで毎回落ちるため、今回追加されたコミットだけを検査する
       - name: Gitleaks の実行
@@ -80,4 +72,5 @@ jobs:
             RANGE="-1"
           fi
           echo "検査範囲: ${RANGE}"
-          gitleaks detect --log-opts="${RANGE}" --redact --verbose --no-banner
+          docker run --rm --volume "${PWD}:/repo" --workdir /repo gitleaks \
+            detect --log-opts="${RANGE}" --redact --verbose --no-banner
