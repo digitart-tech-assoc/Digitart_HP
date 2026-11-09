@@ -289,7 +289,7 @@ docs/                   ドキュメント
 - 認証CookieはHTTP Only、ProductionではSecure、SameSite Strict、Path `/`、有効期限7日とする
 - ログイン試行の回数制限はアプリ内（インスタンスごとのメモリ上）でも行うが、確実な制限としてCloudflareのRate Limitingルールを設定する（例：`/admin/news/login` へのPOSTを同一IPから1分間に10回まで）
 - `GITHUB_TOKEN` は対象リポジトリのみを対象にしたFine-grained Personal Access Tokenとし、権限は Contents: Read and write と Pull requests: Read and write だけにする。**Workflows権限は付与しない**（付与しないことで、万一 `.github/workflows/` への書き込みが試みられてもGitHub側で拒否される）
-- GitHub Actionsのワークフローは、必要な権限だけを `permissions` で指定する。秘密情報を扱うワークフローや CI で使うツールは、実行時に最新版を取得せず、`package-lock.json` や digest でバージョンと中身を固定したものを使う
+- GitHub Actionsのワークフローは、必要な権限だけを `permissions` で指定する。秘密情報を扱うワークフローや CI で使うツールは、実行時に最新版を取得せず、`package-lock.json` や digest でバージョンと中身を固定したものを使う。秘密情報を扱うワークフローでは、必要なツールだけを専用の lockfile から install スクリプトを実行せずに入れる
 - 記事本文のHTMLは、PRのレビューの見落としがそのままXSSにならないよう、許可リスト（`components/markdown/sanitizeSchema.ts`）にある要素・属性だけを描画する。`<script>`・`<style>`・`on*` 属性・`style` 属性・`javascript:` のURLなどは描画しない。iframeは許可したURL（現在はSpotifyの埋め込み）のものだけを表示し、新しいサービスを埋め込むときは許可リストに追加する。iframeの `allow` 属性は記事側の値を使わず、`sanitizeSchema.ts` の `IFRAME_ALLOW` を固定で付ける。id・name には既定どおり `user-content-` を付け（DOM clobbering対策）、ページ内リンク（`#...`）の飛び先もそれに合わせる
 - 全ページに `X-Content-Type-Options: nosniff`、`Referrer-Policy: strict-origin-when-cross-origin`、`Content-Security-Policy: frame-ancestors 'none'`、`X-Frame-Options: DENY` を付け、他サイトのiframeに埋め込ませない（値は `lib/securityHeaders.ts`。`next.config.ts` の `headers()` で付ける）
 - 管理画面（`/admin` 配下）は `X-Robots-Tag: noindex, nofollow` とmetadataの `robots` で検索結果に載せない

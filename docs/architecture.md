@@ -114,8 +114,8 @@ app  →  features  →  components / lib
 
 PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）が `format:check`・`lint`・`typecheck`・`build` を順に実行します。lint は警告も失敗扱いです。同時に Gitleaks で、追加されたコミットにトークンなどの秘密情報が含まれていないかも検査します。Gitleaks は `.github/gitleaks/Dockerfile` に書いた公式イメージ（タグと digest で固定）を `docker build` して実行します。ビルドでは記事の frontmatter も検証されるので、記事の PR もここで確認できます。
 
-依存パッケージ（npm）・GitHub Actions・Gitleaks のイメージの更新 PR は、Dependabot が毎月 1 日に作成します（`.github/dependabot.yml`）。
+依存パッケージ（npm。`.github/rotate/` の wrangler を含む）・GitHub Actions・Gitleaks のイメージの更新 PR は、Dependabot が毎月 1 日に作成します（`.github/dependabot.yml`）。
 
-`ADMIN_PASSWORD` は `.github/workflows/rotate-password.yml` が毎週日曜に作り直し、Cloudflare Pages に設定して再デプロイします。このワークフローは Cloudflare の API トークンを扱うため、権限は `contents: read` だけにし、wrangler は `npx` でその場で取得せず、`npm ci` で `package-lock.json` のとおりに入れたものを `npx --no-install` で使います。
+`ADMIN_PASSWORD` は `.github/workflows/rotate-password.yml` が毎週日曜に作り直し、Cloudflare Pages に設定して再デプロイします。このワークフローは Cloudflare の API トークンを扱うため、権限は `contents: read` だけにし、wrangler は `npx` でその場で取得せず、wrangler だけを書いた `.github/rotate/package.json` と `package-lock.json` から `npm ci --ignore-scripts` で入れたものを `npx --no-install` で使います。サイトの依存は入れず、install スクリプトも実行しないので、乗っ取られた依存パッケージが wrangler を書き換えて API トークンと一緒に実行される余地を減らせます。
 
 エディタで保存時に Prettier が走るよう設定しておくと楽です。改行コードは `.gitattributes` と `.editorconfig` で LF に統一しています。
