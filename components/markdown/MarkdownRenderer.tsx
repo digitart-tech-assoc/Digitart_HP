@@ -2,13 +2,20 @@ import Link from "next/link";
 import ReactMarkdown, { type Components } from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
 import "katex/dist/katex.min.css";
 import { CodeBlock } from "@/components/markdown/CodeBlock";
+import {
+  IFRAME_ALLOW,
+  markdownSanitizeSchema,
+  rehypeAllowedIframes,
+  rehypePrefixFragmentLinks,
+} from "@/components/markdown/sanitizeSchema";
 
-import type { Heading as MdastHeading, Root, RootContent } from "mdast";
+import type { Element, Root } from "hast";
 import type { ReactNode } from "react";
 
 const LINK_CLASS = {
@@ -20,30 +27,39 @@ const LINK_CLASS = {
 
 const HEADING_TAGS = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
 
+/** h1〜h6 のタグ名なら、そのレベル（1〜6）を返す */
+function headingLevelOf(tagName: string): number | undefined {
+  const index = (HEADING_TAGS as readonly string[]).indexOf(tagName);
+  return index === -1 ? undefined : index + 1;
+}
+
 /**
- * 記事の見出しを、ページの記事タイトル（h1）の下にレベルを飛ばさずに並ぶよう割り当てる remark プラグイン。
+ * 記事の見出しを、ページの記事タイトル（h1）の下にレベルを飛ばさずに並ぶよう割り当てる rehype プラグイン。
  * 本文で使われている見出しのレベルを、上から順に h2・h3・h4… と詰めて割り当てる。
  * - `#` から書く記事も、`##`・`###` から書く記事も、一番上の見出しは h2 になる
  * - 使っていないレベルは詰める（`#` の次が `###` でも h2 → h3）
  * - 6 種類すべてを使ったときだけ、最も深い 2 つが h6 になる（h1 の下に 6 段は収まらないため）
  * 割り当てたレベルは見出しの dataHeadingLevel に入れ、見た目（クラス）は Markdown のレベルのまま変えない。
+ * 記事の HTML で dataHeadingLevel を書けないよう、サニタイズの後に通す（許可リストには入れない）。
+ * 脚注の見出し（remark-gfm が作る、画面には出ない h2）は数えない。
  */
-function remarkArticleHeadingLevels() {
+function rehypeArticleHeadingLevels() {
   return (tree: Root) => {
-    const headings: MdastHeading[] = [];
-    const collect = (node: Root | RootContent) => {
-      if (node.type === "heading") headings.push(node);
-      if ("children" in node) node.children.forEach(collect);
+    const headings: { node: Element; level: number }[] = [];
+    const collect = (parent: Root | Element) => {
+      for (const child of parent.children) {
+        if (child.type !== "element") continue;
+        if (child.tagName === "section" && child.properties.dataFootnotes !== undefined) continue;
+        const level = headingLevelOf(child.tagName);
+        if (level !== undefined) headings.push({ node: child, level });
+        collect(child);
+      }
     };
     collect(tree);
 
-    const levels = [...new Set(headings.map((heading) => heading.depth))].sort((a, b) => a - b);
-    for (const heading of headings) {
-      const outputLevel = Math.min(levels.indexOf(heading.depth) + 2, HEADING_TAGS.length);
-      heading.data = {
-        ...heading.data,
-        hProperties: { ...heading.data?.hProperties, dataHeadingLevel: outputLevel },
-      };
+    const levels = [...new Set(headings.map(({ level }) => level))].sort((a, b) => a - b);
+    for (const { node, level } of headings) {
+      node.properties.dataHeadingLevel = Math.min(levels.indexOf(level) + 2, HEADING_TAGS.length);
     }
   };
 }
@@ -88,7 +104,14 @@ export function MarkdownRenderer({
    */
   const heading = (level: number, className?: string, marker?: ReactNode): Components["h1"] =>
     function Heading({ node, children, ...props }) {
-      const outputLevel = Number(node?.properties.dataHeadingLevel ?? level);
+      // 割り当てたレベルが 1〜6 の整数でなければ、Markdown のレベルのまま出力する
+      const assignedLevel = Number(node?.properties.dataHeadingLevel);
+      const outputLevel =
+        Number.isInteger(assignedLevel) &&
+        assignedLevel >= 1 &&
+        assignedLevel <= HEADING_TAGS.length
+          ? assignedLevel
+          : level;
       // 割り当て用の属性は HTML に出さない
       const { "data-heading-level": _outputLevel, ...rest } = props as typeof props & {
         "data-heading-level"?: unknown;
@@ -150,6 +173,8 @@ export function MarkdownRenderer({
         title="埋め込みコンテンツ"
         className="my-6 w-full max-w-full rounded-xl border-0"
         {...props}
+        // 埋め込み先に渡す権限は記事側では決めさせず、固定の値にする
+        allow={IFRAME_ALLOW}
       />
     ),
     ul: ({ node, ...props }) => (
@@ -160,7 +185,7 @@ export function MarkdownRenderer({
     ),
     ol: ({ node, ...props }) => (
       <ol
-        className="mb-5 ml-6 list-outside list-decimal space-y-1.5 font-mono font-medium text-slate-700 marker:text-brand-600"
+        className="mb-5 ml-6 list-outside list-decimal space-y-1.5 font-medium text-slate-700 marker:font-mono marker:text-brand-600"
         {...props}
       />
     ),
@@ -237,12 +262,18 @@ export function MarkdownRenderer({
 
   return (
     <ReactMarkdown
-      remarkPlugins={
-        variant === "article"
-          ? [remarkGfm, remarkMath, remarkArticleHeadingLevels]
-          : [remarkGfm, remarkMath]
-      }
-      rehypePlugins={[rehypeRaw, rehypeKatex]}
+      remarkPlugins={[remarkGfm, remarkMath]}
+      // 脚注の id には remark-rehype では接頭辞を付けず、サニタイズで付けた接頭辞にリンクを合わせる（rehypePrefixFragmentLinks）
+      remarkRehypeOptions={{ clobberPrefix: "" }}
+      // 本文の HTML は許可リストで絞ってから描画する。KaTeX の出力は許可リストに含めないよう、サニタイズの後に作る
+      rehypePlugins={[
+        rehypeRaw,
+        [rehypeSanitize, markdownSanitizeSchema],
+        rehypePrefixFragmentLinks,
+        rehypeAllowedIframes,
+        ...(variant === "article" ? [rehypeArticleHeadingLevels] : []),
+        rehypeKatex,
+      ]}
       components={components}
     >
       {content}

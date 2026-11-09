@@ -3,10 +3,21 @@ import { z } from "zod";
 /**
  * 記事のカテゴリ。
  * 表示名と色はここで一元管理し、一覧のバッジや管理画面の選択肢から参照する。
+ * 色は Tailwind のクラスで書く（クラス名を組み立てると Tailwind が検出できないため、完全な形で書く）。
+ * - badgeClassName: カテゴリ名のバッジ（文字・背景・枠線）
+ * - barClassName: 一覧のカードの左端の線
  */
 export const ARTICLE_CATEGORIES = {
-  notice: { label: "お知らせ", color: "#b91c1c", bg: "#fee2e2" },
-  column: { label: "コラム", color: "#3d7a18", bg: "#e8f4df" },
+  notice: {
+    label: "お知らせ",
+    badgeClassName: "border-red-700/25 bg-red-100 text-red-700",
+    barClassName: "bg-red-700",
+  },
+  column: {
+    label: "コラム",
+    badgeClassName: "border-brand-700/25 bg-brand-50 text-brand-700",
+    barClassName: "bg-brand-700",
+  },
 } as const;
 
 export type ArticleCategory = keyof typeof ARTICLE_CATEGORIES;

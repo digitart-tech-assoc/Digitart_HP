@@ -233,7 +233,7 @@ export function ArticleEditor() {
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
               aria-label="本文（Markdown）"
-              className="w-full flex-1 resize-none bg-transparent p-4 pr-16 font-mono text-sm leading-relaxed text-slate-800 outline-none md:p-8"
+              className="w-full flex-1 resize-none bg-transparent p-4 pr-16 text-sm leading-relaxed text-slate-800 outline-none md:p-8"
               placeholder="ここにMarkdownで記事を書いてください... (画像はドラッグ＆ドロップや貼り付けで挿入できます)"
               required
             />
