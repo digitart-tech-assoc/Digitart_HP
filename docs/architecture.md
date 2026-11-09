@@ -107,6 +107,10 @@ app  →  features  →  components / lib
 | `npm run lint` / `npm run lint:fix` | ESLint によるチェック / 自動修正 |
 | `npm run typecheck` | TypeScript の型チェック |
 
-PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）が `format:check`・`lint`・`typecheck`・`build` を順に実行します。lint は警告も失敗扱いです。同時に Gitleaks で、追加されたコミットにトークンなどの秘密情報が含まれていないかも検査します。ビルドでは記事の frontmatter も検証されるので、記事の PR もここで確認できます。依存パッケージの更新 PR は Dependabot が毎週作成します。
+PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）が `format:check`・`lint`・`typecheck`・`build` を順に実行します。lint は警告も失敗扱いです。同時に Gitleaks で、追加されたコミットにトークンなどの秘密情報が含まれていないかも検査します。Gitleaks は `.github/gitleaks/Dockerfile` に書いた公式イメージ（タグと digest で固定）を `docker build` して実行します。ビルドでは記事の frontmatter も検証されるので、記事の PR もここで確認できます。
+
+依存パッケージ（npm）・GitHub Actions・Gitleaks のイメージの更新 PR は、Dependabot が毎月 1 日に作成します（`.github/dependabot.yml`）。
+
+`ADMIN_PASSWORD` は `.github/workflows/rotate-password.yml` が毎週日曜に作り直し、Cloudflare Pages に設定して再デプロイします。このワークフローは Cloudflare の API トークンを扱うため、権限は `contents: read` だけにし、wrangler は `npx` でその場で取得せず、`npm ci` で `package-lock.json` のとおりに入れたものを `npx --no-install` で使います。
 
 エディタで保存時に Prettier が走るよう設定しておくと楽です。改行コードは `.gitattributes` と `.editorconfig` で LF に統一しています。

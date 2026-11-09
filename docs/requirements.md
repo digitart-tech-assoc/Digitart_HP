@@ -276,6 +276,7 @@ docs/                   要件定義書・実装仕様書
 - 認証CookieはHTTP Only、ProductionではSecure、SameSite Strict、Path `/`、有効期限7日とする
 - ログイン試行の回数制限はアプリ内（インスタンスごとのメモリ上）でも行うが、確実な制限としてCloudflareのRate Limitingルールを設定する（例：`/admin/news/login` へのPOSTを同一IPから1分間に10回まで）
 - `GITHUB_TOKEN` は対象リポジトリのみを対象にしたFine-grained Personal Access Tokenとし、権限は Contents: Read and write と Pull requests: Read and write だけにする。**Workflows権限は付与しない**（付与しないことで、万一 `.github/workflows/` への書き込みが試みられてもGitHub側で拒否される）
+- GitHub Actionsのワークフローは、必要な権限だけを `permissions` で指定する。秘密情報を扱うワークフローや CI で使うツールは、実行時に最新版を取得せず、`package-lock.json` や digest でバージョンと中身を固定したものを使う
 - 記事本文のHTMLを許可する箇所は、Markdown描画の仕様と信頼できる投稿者の運用を前提にする
 - GitHub APIのエラーは利用者向けの投稿失敗として処理し、秘密情報をエラーメッセージに含めない（APIのレスポンス本文や設定の不足はサーバーのログにだけ出す）
 
