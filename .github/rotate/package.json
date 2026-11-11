@@ -1,0 +1,8 @@
+{
+  "name": "digitart-hp-rotate-password",
+  "private": true,
+  "description": "rotate-password.yml で使う wrangler だけを入れるためのパッケージ",
+  "dependencies": {
+    "wrangler": "4.155.0"
+  }
+}
