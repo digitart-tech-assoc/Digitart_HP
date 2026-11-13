@@ -47,7 +47,7 @@ npm run dev
 | `npm run format` | Prettier で整形（Tailwind のクラス順も並べ替え） |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | 型チェック |
-| `npm run build` | 本番ビルド（記事の frontmatter や `content/events.json` の検証もここで行われる） |
+| `npm run build` | 本番ビルド（記事の frontmatter や `content/*.json` の検証もここで行われる） |
 
 PR を出すと、GitHub Actions で整形・lint・型チェック・ビルドと、秘密情報の検出（Gitleaks）が実行されます。すべて通るまでマージしないでください。
 
@@ -116,10 +116,14 @@ GitHub のアカウントがあり、Git を使えるメンバー向けの方法
 |---|---|
 | トップページの「直近のイベント」 | `content/events.json` |
 | サークル規約 | `content/bylaws.md` |
-| 制作物・沿革・幹部・活動データなど | `features/<機能>/data.ts` |
+| 年間行事・定例活動 | `content/annual-events.json`・`content/regular-activities.json` |
+| 制作物 | `content/works.json` |
+| 沿革 | `content/history.json` |
+| 幹部紹介 | `content/supporters.json` |
+| 活動データ | `content/stats.json` |
 | ナビゲーション・SNS のリンク | `lib/constants.ts` |
 
-詳しくは [docs/architecture.md](docs/architecture.md) の「どこに何を置くか」を見てください。
+JSON の書き間違いや、存在しない画像の指定は、ビルド（CI）で検出されます。詳しくは [docs/architecture.md](docs/architecture.md) の「どこに何を置くか」「ページのデータを追加・変更する」を見てください。
 
 ## デプロイ
 

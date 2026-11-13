@@ -59,12 +59,39 @@ app  →  features  →  components / lib
 | ニュース記事 | `content/news/YYYY-MM-DD-<slug>.md` |
 | 記事内の画像 | `public/images/articles/<公開日>/`（管理画面から投稿すると自動で置かれる） |
 | ページで使う画像 | `public/images/<ページ・機能名>/`（例: `public/images/works/`）。コードからは `/images/works/xxx.png` の文字列で参照する |
-| イベント・制作物などのデータ | `content/*.json`（型とスキーマは `features/<機能>/schema.ts`） |
+| イベント・制作物・役員・統計などのデータ | `content/*.json`（型とスキーマは `features/<機能>/schema.ts`）。手順は下の「ページのデータを追加・変更する」 |
 | 1 つの機能でだけ使う部品 | `features/<機能>/components/` |
 | 2 つ以上の機能で使う部品 | `components/ui/` など |
 | フォーム送信などのサーバー処理 | `features/<機能>/actions.ts` |
 | 外部 API の呼び出し | `features/<機能>/<サービス名>.ts`（先頭に `import "server-only";`） |
 | 色・余白などのデザイン値 | `app/globals.css` の `@theme` |
+
+### ページのデータを追加・変更する
+
+年間行事・作品・沿革・役員・統計などは、コードではなく `content/*.json` に書きます。
+
+| ファイル | 内容 | 表示するページ |
+|---|---|---|
+| `content/events.json` | 活動予定（トップの「直近のイベント」） | `/` |
+| `content/annual-events.json` | 年間行事 | `/about/events` |
+| `content/regular-activities.json` | 定例活動 | `/about/events` |
+| `content/works.json` | メンバーの制作物 | `/about/works` |
+| `content/history.json` | 団体の歩み | `/about/history` |
+| `content/supporters.json` | 役員の紹介 | `/about/supporter` |
+| `content/stats.json` | 活動データ | `/about/data` |
+
+1 件追加するときは、次の順に進めます。
+
+1. 画像を使う場合は、先に `public/images/<ページ・機能名>/` に置く（ファイル名は `kebab-case`）
+2. 対応する JSON に、既存の項目をコピーして 1 件足す。画像は `/images/works/xxx.png` のように `public` を除いたパスで書く。URL がない項目は `null` にする
+3. `npm run build`（または `npm run dev` でそのページを開く）で確認する。項目の抜け・打ち間違い・存在しない画像があると、`content/works.json の形式が不正です` のように、どのファイルの何件目（0 始まり）が違うかを表示して失敗する
+
+コード側の決まりは次のとおりです。
+
+- 項目の意味と形式は `features/<機能>/schema.ts` の zod スキーマに書く。項目を増やすときは、スキーマ・JSON・表示する部品を同じ PR で変える
+- JSON は `features/<機能>/<機能>.ts` の関数（`getProjects()` など）から読む。ここで `lib/content.ts` の `parseContent` を通し、形式と画像の有無を確認する。部品から JSON を直接 import しない
+- 色（Tailwind のクラス）やアイコンのコンポーネントは JSON に書かない。JSON には種類を表す文字列（`"season": "1st Semester"`・`"icon": "calendar"`）を書き、部品の側で色やアイコンに対応させる（`features/events/components/EventsPage.tsx` の `SEASON_TAG_CLASS`・`ACTIVITY_ICON`）
+- About の案内カードやトップのトピックスのように、ページの構成そのものを決めるデータは、これまでどおり `features/<機能>/data.ts` に書く
 
 ## 共通部品
 
