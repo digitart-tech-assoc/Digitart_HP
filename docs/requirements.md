@@ -83,6 +83,7 @@
 - 学園祭の出展など期間限定のお知らせがあるときは、ヒーローにリンクを表示する（`features/home/data.ts` の `HERO_NOTICE`。不要なときは `null`）
 - 最初の訪問時にロゴのイントロアニメーションを表示する。同じセッションでは2回目以降表示せず、視差効果を減らす設定のときも表示しない
 - 背景画像のスライドショーは5秒ごとに切り替え、一時停止・再生できる。視差効果を減らす設定のときは自動で切り替えない
+- 背景画像は、最初に1枚目だけを読み込む。2枚目以降は、次に表示する1枚をイントロの終了後に読み込み、読み込みが終わってから切り替える
 - `content/events.json` のイベントから、表示した日（日本時間）以降の予定を3件表示する。絞り込みはクライアントで行う（ページは静的生成のため）
 - About、Works、News、Join Usへのピックアップ導線を表示する
 - ニュースを新しい順に表示し、ホームでは最大5件ずつ表示する
@@ -115,6 +116,7 @@
 - frontmatterの日付の降順で記事を並べる
 - カテゴリは `notice`（お知らせ）または `column`（コラム）とする
 - 記事本文はGitHub Flavored Markdown、HTML（許可リストにある要素・属性のみ。8章を参照）、数式、コードブロックに対応する
+- 記事本文の画像は、画面に近づいてから読み込む（`loading="lazy"`。記事一覧のリンクが記事ページを先読みしても、開いていない記事の画像は読み込まない）
 - 外部リンクは新しいタブで開き、内部リンクはNext.jsのLinkを使用する
 - 存在しないslugは404とする
 - 記事ごとにタイトル、概要、画像、パスを使用してメタデータを生成する
@@ -214,7 +216,7 @@ image: "/images/articles/2026-09-23/example.png"
 | Markdown | gray-matter、react-markdown、remark-gfm、rehype-raw、rehype-sanitize |
 | 数式 | remark-math、rehype-katex |
 | Code表示 | react-syntax-highlighter |
-| Image | next/image（SVG）、ImageWithFallback |
+| Image | next/image（ロゴのSVG、ヒーローの背景。どちらも `unoptimized`）、ImageWithFallback |
 | Hosting | Cloudflare Pages / `@cloudflare/next-on-pages` |
 | Analytics | Cloudflare Web Analytics |
 | 外部連携 | GitHub REST API |
