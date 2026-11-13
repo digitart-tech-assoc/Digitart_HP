@@ -5,6 +5,8 @@
 node_modules/
 package-lock.json
 public/
+test-results/
+playwright-report/
 
 # Markdown は記事・規約の表示に影響するため整形しない
 *.md
