@@ -1,6 +1,7 @@
 "use client";
 
 import { Pause, Play } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useEffectEvent, useState, useRef, useSyncExternalStore } from "react";
 
@@ -43,6 +44,15 @@ export function HomeHeroBase() {
   // 利用者が再生・一時停止を選んだら、その選択を優先する（null は未操作）
   const [userPaused, setUserPaused] = useState<boolean | null>(null);
   const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /*
+   * これまでに表示した（または表示しようとした）スライド。画像を描画する（＝読み込む）対象になる。
+   * 最初は 1 枚目だけで、一度入れたスライドは外さない（切り替えのたびに読み込み直さないため）
+   */
+  const [requestedSlides, setRequestedSlides] = useState<readonly number[]>([0]);
+  // 読み込みが終わったスライド。1 枚目は最初から表示しているので、読み込み済みとして扱う
+  const loadedSlidesRef = useRef(new Set([0]));
+  // 読み込みが終わるのを待っている切り替え先（待っていないときは null）
+  const pendingSlideRef = useRef<number | null>(null);
   const introSeenSavedRef = useRef(false);
 
   // サーバーではイントロが終わっていないものとして描画し、クライアントで CSS アニメーションの状態を読む
@@ -77,11 +87,15 @@ export function HomeHeroBase() {
 
   useEffect(() => () => clearTimeout(fadeTimerRef.current ?? undefined), []);
 
-  /** 指定したスライドへクロスフェードする。表示中のスライドを選んだときは何もしない */
-  const showSlide = (next: number) => {
-    if (next === current) return;
+  /** スライドの画像を描画する対象に加える */
+  const requestSlide = (index: number) =>
+    setRequestedSlides((slides) => (slides.includes(index) ? slides : [...slides, index]));
+
+  /** 指定したスライドへクロスフェードする */
+  const fadeTo = (next: number) => {
     // 前の切り替えのフェードが終わる前に次へ進んだときは、前の終了処理を取り消す
     if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
+    requestSlide(next);
     setPrev(current);
     setCurrent(next);
     setTransitioning(true);
@@ -89,6 +103,35 @@ export function HomeHeroBase() {
       setPrev(null);
       setTransitioning(false);
     }, FADE_MS);
+  };
+
+  /**
+   * 指定したスライドを表示する。表示中のスライドを選んだときは何もしない。
+   * 画像がまだ読み込めていないときは、読み込みが終わってから切り替える（何もない背景にフェードしないため）
+   */
+  const showSlide = (next: number) => {
+    if (next === current) {
+      pendingSlideRef.current = null;
+      return;
+    }
+    if (loadedSlidesRef.current.has(next)) {
+      pendingSlideRef.current = null;
+      fadeTo(next);
+    } else {
+      pendingSlideRef.current = next;
+      requestSlide(next);
+    }
+  };
+
+  /** 画像の読み込みが終わった（または失敗した）ときに呼ぶ。そのスライドへの切り替えを待っていたら切り替える */
+  const handleSlideSettled = (index: number) => {
+    loadedSlidesRef.current.add(index);
+    // 先読みしただけのスライドも、読み込んだあとは描画したままにする
+    requestSlide(index);
+    if (pendingSlideRef.current === index) {
+      pendingSlideRef.current = null;
+      fadeTo(index);
+    }
   };
 
   const showNextSlide = useEffectEvent(() => showSlide((current + 1) % HERO_SLIDES.length));
@@ -103,21 +146,41 @@ export function HomeHeroBase() {
     return () => clearTimeout(timer);
   }, [current, isPlaying, introDone]);
 
+  /*
+   * 次に表示するスライドだけを先に読み込む。
+   * イントロが終わるまでは、最初の表示に必要なもの（1 枚目・フォントなど）と帯域を取り合わないよう読み込まない
+   */
+  const upcomingSlide = introDone ? (current + 1) % HERO_SLIDES.length : null;
+
   return (
     <>
       <section className="fixed top-0 left-0 z-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden text-center">
         {/* ── Slides: crossfade with layered approach ── */}
         <div className="absolute inset-0">
-          {/* Always render all slides, control visibility via z-index + opacity */}
+          {/*
+           * 読み込むスライドだけを描画し、重なり順と透明度で表示を切り替える。
+           * 画像は用意した大きさのまま配信するので unoptimized にする。
+           * 1 枚目は最初の画面に出るので先読みし（preload）、残りは描画した時点で読み込む
+           */}
           {HERO_SLIDES.map((src, i) => {
+            if (!requestedSlides.includes(i) && i !== upcomingSlide) return null;
             const isCurrent = i === current;
             const isPrev = i === prev;
             return (
-              <div
+              <Image
                 key={src}
-                className="absolute inset-0 bg-cover bg-center"
+                src={src}
+                alt=""
+                fill
+                sizes="100vw"
+                unoptimized
+                preload={i === 0}
+                fetchPriority={i === 0 ? "high" : "low"}
+                loading={i === 0 ? undefined : "eager"}
+                onLoad={() => handleSlideSettled(i)}
+                onError={() => handleSlideSettled(i)}
+                className="object-cover object-center"
                 style={{
-                  backgroundImage: `url(${src})`,
                   opacity: isCurrent ? 1 : isPrev && transitioning ? 1 : 0,
                   zIndex: isCurrent ? 2 : isPrev ? 1 : 0,
                   transition: isCurrent ? `opacity ${FADE_MS}ms ease-in-out` : "none",
