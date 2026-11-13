@@ -30,7 +30,19 @@ test("記事一覧から記事ページを開ける", async ({ page }) => {
   await firstArticle.click();
 
   await expect(page).toHaveURL(href!);
-  await expect(page.locator("h1").first()).not.toBeEmpty();
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.locator("h1")).not.toBeEmpty();
+});
+
+// 本文を「# 見出し」から書いている記事。本文の # が h1 のまま出ると、記事タイトルと合わせて h1 が 2 つになる
+test("本文に # の見出しがある記事でも、h1 は記事タイトルの 1 つだけ", async ({ page }) => {
+  await page.goto("/news/2026-02-28-welcome");
+
+  await expect(page.locator("h1")).toHaveCount(1);
+  // 本文の # は h2 として出力される
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Digitartの公式ホームページが新しくなりました！" }),
+  ).toBeVisible();
 });
 
 test("ログインしていない状態で管理画面を開くと、ログインページに移動する", async ({ page }) => {

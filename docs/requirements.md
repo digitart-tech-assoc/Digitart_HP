@@ -272,7 +272,7 @@ docs/                   ドキュメント
 - 記事ページは記事タイトル・概要・画像・パスから個別メタデータを生成する
 - Organization JSON-LDを出力する
 - Breadcrumb JSON-LDは公開サイトのレイアウト（`app/(site)/layout.tsx`）で、表示中のパスから出力する。名前は `NAV_LINKS` から作り、記事・学園祭のページの最後の項目はタイトルにする（`getPageTitles()`）。トップページでは出力しない
-- サイトマップは `app/sitemap.ts` で生成する。`lastmod` は正しい値が分かるページにだけ付ける（記事は frontmatter の `updated`、なければ `date`。ニュース一覧は記事の最新。トップページ・固定ページには付けない。日本時間でビルド日より後の日付は付けない）
+- サイトマップは `app/sitemap.ts` で生成する。`lastmod` は正しい値が分かるページにだけ付ける（記事は frontmatter の `updated`、なければ `date`。ニュース一覧は記事の最新。トップページ・固定ページには付けない。日本時間でビルド日より後の日付は付けない。`updated` だけが後の日付の記事も、公開日には戻さずに付けず、そのときはニュース一覧にも付けない）
 - 画像には用途に応じたaltを設定する
 - メニュー開閉ボタンに`aria-label`・`aria-expanded`・`aria-controls`を設定する
 - 視差効果を減らす設定（`prefers-reduced-motion`）のときは、アニメーションと自動スライドを止める
