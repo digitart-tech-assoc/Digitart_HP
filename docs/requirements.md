@@ -189,7 +189,18 @@ image: "/images/articles/2026-09-23/example.png"
 
 ### 5.3 静的コンテンツ
 
-- ページ固有の年間行事、作品、沿革、役員、統計は `features/<機能>/data.ts` に保持する
+- 年間行事・定例活動・作品・沿革・役員・統計は `content/*.json` に保持し、`features/<機能>/schema.ts` のzodスキーマで検証する（不正な場合や、指定した画像が `public/` にない場合はビルドが失敗する）
+
+  | ファイル | 内容 | スキーマ |
+  | --- | --- | --- |
+  | `content/annual-events.json` | 年間行事（`month`・`season`・`title`・`desc`・`image`・`url`） | `features/events/schema.ts` |
+  | `content/regular-activities.json` | 定例活動（`label`・`detail`・`icon`）。`icon` は `calendar`・`map-pin`・`laptop` のいずれか | `features/events/schema.ts` |
+  | `content/works.json` | 作品（`title`・`desc`・`tech`・`image`・`url`・`category`） | `features/works/schema.ts` |
+  | `content/history.json` | 沿革（`year`・`title`・`desc`・`image`） | `features/history/schema.ts` |
+  | `content/supporters.json` | 役員（`name`・`role`・`year`・`quote`・`image`） | `features/supporters/schema.ts` |
+  | `content/stats.json` | 統計（`stats`）と内訳のグラフ（`breakdowns`） | `features/stats/schema.ts` |
+
+- Aboutの案内カード・活動領域、トップのトピックス・ヒーローの画像など、ページの構成に関わるものは `features/<機能>/data.ts` に保持する
 - 規約本文は `content/bylaws.md` に保持する
 - 記事本文は `content/news/` に保持する
 - 記事画像は `public/images/articles/<公開日>/`、ページ画像は `public/images/<ページ名>/` に保持する
@@ -227,7 +238,7 @@ app/                    ルーティング専用（page.tsx / layout.tsx / sitem
 features/<機能>/         機能ごとの部品・データ読み込み・Server Action・スキーマ（記事取得、GitHub連携を含む）
 components/             機能に依存しない共通UI・レイアウト・SEO部品
 lib/                    ドメイン知識を持たない汎用処理（定数、メタデータ、日付、セッション）
-content/                記事Markdown、イベントJSON、規約
+content/                記事Markdown、各ページのデータ（JSON）、規約
 public/images/          画像
 docs/                   ドキュメント
 ```
@@ -350,6 +361,7 @@ PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 - ニュース追加は管理画面からPull Requestを作成し、レビュー・マージ後に公開する
 - 記事のslugは既存記事と重複させない
 - イベント追加・変更時は`content/events.json`を更新する
+- 年間行事・作品・沿革・役員・統計の変更時は、対応する `content/*.json` を更新する（項目の意味は `features/<機能>/schema.ts` のコメントを参照）
 - サイト全体の名称、SNS、ナビゲーション変更時は`lib/constants.ts`と本書を更新する
 - ルート追加時はナビゲーション（`NAV_LINKS`。サイトマップとパンくずにも反映される）、フッター、本書を更新する。ナビゲーションに載せないページは、サイトマップの `unlistedPages` と、パンくずの名前（`app/(site)/layout.tsx` の `getPageTitles()`）にも加える
 - 環境変数追加・変更時はデプロイ設定と本書の一覧を更新する
@@ -364,7 +376,7 @@ PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 - 投稿の公開はPull Requestのマージと再ビルドに依存するため、即時公開ではない
 - ニュース投稿画面は画像をBase64としてServer Actionへ渡すため、画像サイズ・リクエストサイズの上限に注意する
 - `app/api` に公開APIはないため、外部からのイベント取得や会員情報更新が必要になった場合はAPI設計を別途定義する
-- 統計値は `features/stats/data.ts` の定数であり、更新日時と集計根拠を合わせて更新する必要がある
+- 統計値は `content/stats.json` に手で書いた値であり、更新日時と集計根拠を合わせて更新する必要がある
 
 ## 13. 変更時チェックリスト
 
