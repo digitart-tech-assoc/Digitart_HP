@@ -116,6 +116,6 @@ PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）�
 
 依存パッケージ（npm。`.github/rotate/` の wrangler を含む）・GitHub Actions・Gitleaks のイメージの更新 PR は、Dependabot が毎月 1 日に作成します（`.github/dependabot.yml`）。ワークフローのアクションは、タグを付け替えられても別の中身が実行されないよう、`actions/checkout@<コミット SHA> # v7.0.1` のように SHA で指定しています。Dependabot は後ろのコメントのバージョンを見て、SHA とコメントをまとめて更新します。
 
-`ADMIN_PASSWORD` は `.github/workflows/rotate-password.yml` が毎週日曜に作り直し、Cloudflare Pages に設定して再デプロイします。このワークフローは Cloudflare の API トークンを扱うため、権限は `contents: read` だけにし、wrangler は `npx` でその場で取得せず、wrangler だけを書いた `.github/rotate/package.json` と `package-lock.json` から `npm ci --ignore-scripts` で入れたものを `npx --no-install` で使います。サイトの依存は入れず、install スクリプトも実行しないので、乗っ取られた依存パッケージが wrangler を書き換えて API トークンと一緒に実行される余地を減らせます。
+`ADMIN_PASSWORD` は `.github/workflows/rotate-password.yml` が毎週日曜に作り直し、Cloudflare Pages に設定して再デプロイします。このワークフローは Cloudflare の API トークンを扱うため、権限は `contents: read` だけにし、wrangler は `npx` でその場で取得せず、wrangler だけを書いた `.github/rotate/package.json` と `package-lock.json` から `npm ci --ignore-scripts` で入れたものを `npx --no-install` で使います。サイトの依存は入れず、install スクリプトも実行しないので、乗っ取られた依存パッケージが wrangler を書き換えて API トークンと一緒に実行される余地を減らせます。再デプロイは、Cloudflare の API のレスポンスとデプロイの完了を確認してから Discord に新しいパスワードを通知します。途中で失敗したときは新しいパスワードを通知せず、失敗したことだけを Discord に通知します（そのときは、ログを確認してワークフローを手動で実行し直します）。
 
 エディタで保存時に Prettier が走るよう設定しておくと楽です。改行コードは `.gitattributes` と `.editorconfig` で LF に統一しています。
