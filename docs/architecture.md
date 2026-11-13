@@ -36,6 +36,7 @@ app  →  features  →  components / lib
 ├── lib/                 # ドメイン知識を持たない汎用処理（サイト定数・メタデータ・日付など）
 ├── content/             # コードではないもの（記事 Markdown・イベント JSON・規約など）
 ├── public/images/       # 画像。URL で参照する
+├── e2e/                 # E2E のスモークテスト（ユニットテストは対象のファイルの隣に置く）
 └── docs/                # ドキュメント
 ```
 
@@ -112,6 +113,20 @@ app  →  features  →  components / lib
 | `npm run lint` / `npm run lint:fix` | ESLint によるチェック / 自動修正 |
 | `npm run typecheck` | TypeScript の型チェック |
 
-PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）が `format:check`・`lint`・`typecheck`・`build` を順に実行します。lint は警告も失敗扱いです。同時に Gitleaks で、追加されたコミットにトークンなどの秘密情報が含まれていないかも検査します。ビルドでは記事の frontmatter も検証されるので、記事の PR もここで確認できます。依存パッケージの更新 PR は Dependabot が毎週作成します。
+PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）が `format:check`・`lint`・`typecheck`・`test`・`build`・`test:e2e` を順に実行します。lint は警告も失敗扱いです。同時に Gitleaks で、追加されたコミットにトークンなどの秘密情報が含まれていないかも検査します。ビルドでは記事の frontmatter も検証されるので、記事の PR もここで確認できます。依存パッケージの更新 PR は Dependabot が毎週作成します。
+
+## テスト
+
+| コマンド | 内容 |
+|---|---|
+| `npm test` / `npm run test:watch` | ユニットテスト（Vitest）を 1 回実行 / ファイルの変更を見て再実行 |
+| `npm run test:e2e` | E2E のスモークテスト（Playwright）。`npm run build` したアプリを `next start` で起動して確認する |
+
+- ユニットテストは、対象のファイルと同じディレクトリに `<ファイル名>.test.ts`（JSX を書くときは `.test.tsx`）で置く（例: `lib/breadcrumb.ts` → `lib/breadcrumb.test.ts`）
+- 対象は、検証・変換・認証などのロジック（`lib/`・`features/<機能>/*.ts`・サニタイズなど）。見た目だけの部品のテストは書かない
+- 記事の追加や実行した日で結果が変わらないよう、ファイルの読み込みや「今日」はテスト用の値に差し替える（`app/sitemap.test.ts`・`features/news/articles.test.ts` を参照）
+- `import "server-only";` のあるファイルもテストできる（`vitest.config.mts` で空のモジュールに差し替えている）
+- E2E は `e2e/` に置く。確認するのは、主要ページが表示されて h1 が 1 つあること、未ログインで管理画面を開くとログイン画面に移動することなど、壊れると影響の大きい最小限の動きだけにする
+- E2E を手元で初めて実行するときは、`npx playwright install chromium` でブラウザを入れる
 
 エディタで保存時に Prettier が走るよう設定しておくと楽です。改行コードは `.gitattributes` と `.editorconfig` で LF に統一しています。

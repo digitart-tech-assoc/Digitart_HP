@@ -9,7 +9,9 @@
 - 整形 `npm run format:check`（直すときは `npm run format`）
 - Lint `npm run lint`
 - 型チェック `npm run typecheck`
+- ユニットテスト `npm test`（Vitest）
 - ビルド `npm run build`（記事の frontmatter と `content/*.json` の zod による検証もここで行われる）
+- E2E のスモークテスト `npm run test:e2e`（Playwright。先に `npm run build` が必要。初回は `npx playwright install chromium` でブラウザを入れる）
 - 動作確認: `npm run dev` で <http://localhost:3000> を開く。UI の変更は実際の画面で確認する
 
 依存は `npm ci` で入れる。Node.js は `.node-version`（24）、npm は 11 を使い、古い npm で `package-lock.json` を書き換えない。
@@ -60,6 +62,7 @@ PR のレビューでは、次の観点で確認する。項目を細かく増�
 - PR: [`.github/pull_request_template.md`](.github/pull_request_template.md) を使い、関連する issue を `#<番号>` で書く。UI を変えたときは変更前後のスクリーンショットを付ける。
 - ボタン・カードなどを作る前に、docs/architecture.md の「共通部品」が使えないか確認する。色は `app/globals.css` の `@theme` のトークン（`brand-*` など）を使う。
 - 外部から来るデータは zod で検証する。`any` は使わない。
+- ロジック（検証・変換・認証など）を追加・変更したら、同じディレクトリの `*.test.ts` にテストを追加・更新する。書き方は docs/architecture.md の「テスト」。
 - 秘密情報を扱うファイル（`ADMIN_PASSWORD`・`GITHUB_TOKEN` など）は先頭に `import "server-only";` を付ける。
 
 ### Ask first
