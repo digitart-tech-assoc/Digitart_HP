@@ -181,8 +181,10 @@ export async function fileExistsOnBaseBranch(path: string): Promise<boolean> {
     return false;
   }
   if (!res.ok) {
-    throw new GitHubApiError("既存の記事の確認に失敗しました", res.status, await res.text());
+    throw new GitHubApiError("既存のファイルの確認に失敗しました", res.status, await res.text());
   }
+  // 知りたいのは有無だけなので、ファイルの中身（画像なら最大 1MB）は読まずに接続を閉じる
+  await res.body?.cancel();
   return true;
 }
 
