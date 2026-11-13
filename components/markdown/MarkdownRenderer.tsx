@@ -220,6 +220,10 @@ export function MarkdownRenderer({
             src={resolvedSrc}
             alt={alt || "記事内画像"}
             {...props}
+            // 画面に近づいてから読み込む。lazy でない img には React が先読みのヒントを出し、
+            // 記事一覧のリンクがこのページを先読みしただけで、開いていない記事の画像まで読み込まれてしまう
+            loading="lazy"
+            decoding="async"
           />
         </span>
       );
