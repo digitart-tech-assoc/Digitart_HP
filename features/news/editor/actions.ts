@@ -61,6 +61,18 @@ export async function publishArticleAction(
       };
     }
 
+    // 画像も同じ理由で確認する。ファイル名はブラウザ側で重ならないように付けているが、
+    // フォームの値は書き換えられるため、既存記事の画像と同じパスを送れば差し替える PR を作れてしまう
+    const imageExists = await Promise.all(images.map((img) => fileExistsOnBaseBranch(img.path)));
+    const existingImage = images.find((_, index) => imageExists[index]);
+    if (existingImage) {
+      return {
+        error: `画像「${existingImage.path.split("/").pop()}」と同じ名前の画像がすでにあります。本文からその画像を削除し、挿入し直してから送信してください。`,
+        success: false,
+        prUrl: null,
+      };
+    }
+
     const files: RepositoryFile[] = [
       {
         path: articlePath,
