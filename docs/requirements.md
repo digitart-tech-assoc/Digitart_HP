@@ -219,6 +219,7 @@ image: "/images/articles/2026-09-23/example.png"
 | Analytics | Cloudflare Web Analytics |
 | 外部連携 | GitHub REST API |
 | Validation | zod |
+| Test | Vitest（ユニットテスト）、Playwright（E2E のスモークテスト） |
 
 ### 6.2 レイヤー構成
 
@@ -229,6 +230,7 @@ components/             機能に依存しない共通UI・レイアウト・SEO
 lib/                    ドメイン知識を持たない汎用処理（定数、メタデータ、日付、セッション）
 content/                記事Markdown、イベントJSON、規約
 public/images/          画像
+e2e/                    E2E のスモークテスト（Playwright）
 docs/                   ドキュメント
 ```
 
@@ -329,10 +331,12 @@ npm run dev
 npm run format:check
 npm run lint
 npm run typecheck
+npm test
 npm run build
+npm run test:e2e
 ```
 
-PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
+`npm test` はユニットテスト（Vitest）、`npm run test:e2e` はビルドしたアプリを起動して主要ページの表示と管理画面のリダイレクトを確認するスモークテスト（Playwright）。PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 
 ### 10.3 Cloudflare Pages
 
@@ -373,6 +377,6 @@ PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 - [ ] ナビゲーション、フッター、サイトマップへの影響を確認した
 - [ ] メタデータ、JSON-LD、外部リンクへの影響を確認した
 - [ ] モバイル表示と管理画面認証への影響を確認した
-- [ ] `npm run lint`・`npm run typecheck` を実行した
+- [ ] `npm run lint`・`npm run typecheck`・`npm test` を実行した
 - [ ] `npm run build` を実行した
 - [ ] 本書の該当箇所を更新した
