@@ -5,7 +5,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Card } from "@/components/ui/Card";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { MEMBERS } from "@/features/supporters/data";
+import { getMembers } from "@/features/supporters/supporters";
 import { ORGANIZATION_ID } from "@/lib/constants";
 import { JOIN_FAQ } from "@/lib/faq";
 
@@ -44,7 +44,7 @@ export function SupportersPage() {
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">第7期役員</h2>
           </div>
-          {MEMBERS.map((member, i) => {
+          {getMembers().map((member, i) => {
             return (
               <div
                 key={member.name}

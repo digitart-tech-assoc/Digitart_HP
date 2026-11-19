@@ -4,7 +4,7 @@ export type FaqItem = { q: string; a: string };
 
 /**
  * 団体の基本情報の質問。検索エンジンや AI が団体の説明として引用しやすいよう、答えの最初の一文で言い切る。
- * 部員数・活動日・学部の内訳は features/stats/data.ts と features/events/data.ts と同じ値を書いているので、あちらを直したらここも直す
+ * 部員数・活動日・学部の内訳は content/stats.json と content/regular-activities.json と同じ値を書いているので、あちらを直したらここも直す
  */
 const ABOUT_FAQ: FaqItem[] = [
   {

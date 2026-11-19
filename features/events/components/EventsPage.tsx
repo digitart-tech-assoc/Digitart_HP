@@ -1,19 +1,37 @@
-import { ExternalLink } from "lucide-react";
+import { CalendarDays, ExternalLink, Laptop, type LucideIcon, MapPin } from "lucide-react";
 
 import { JoinUsSection } from "@/components/sections/JoinUsSection";
 import { PageHero } from "@/components/sections/PageHero";
 import { Card } from "@/components/ui/Card";
 import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
-import { ANNUAL_EVENTS, REGULAR_ACTIVITIES } from "@/features/events/data";
+import { getAnnualEvents, getRegularActivities } from "@/features/events/events";
 import { countEventsByMonth, monthBgClass, monthTextClass } from "@/features/events/monthCounts";
+import type { RegularActivity, Season } from "@/features/events/schema";
 
-/** 月ごとのイベント数（スケジュールの月バーの色分けに使う） */
-const MONTH_COUNTS = countEventsByMonth(ANNUAL_EVENTS);
+/** 時期ごとのタグの色（content/annual-events.json の season と対応させる） */
+const SEASON_TAG_CLASS: Record<Season, string> = {
+  "1st Semester": "bg-brand-100 text-brand-700",
+  "Summer Vacation": "bg-sky-100 text-sky-700",
+  "2nd Semester": "bg-amber-100 text-amber-700",
+  "Spring Vacation": "bg-pink-100 text-pink-700",
+};
+
+/** 定例活動のアイコン（content/regular-activities.json の icon と対応させる） */
+const ACTIVITY_ICON: Record<RegularActivity["icon"], LucideIcon> = {
+  calendar: CalendarDays,
+  "map-pin": MapPin,
+  laptop: Laptop,
+};
 
 /** 年度の並び順（4月始まり） */
 const FISCAL_MONTHS = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];
 
 export function EventsPage() {
+  const annualEvents = getAnnualEvents();
+  const regularActivities = getRegularActivities();
+  // 月ごとのイベント数（スケジュールの月バーの色分けに使う）
+  const monthCounts = countEventsByMonth(annualEvents);
+
   return (
     <div className="bg-white">
       <PageHero
@@ -46,7 +64,7 @@ export function EventsPage() {
           {/* Month Bar */}
           <div className="mb-16 hidden reveal items-center gap-1 px-4 md:flex">
             {FISCAL_MONTHS.map((m) => {
-              const count = MONTH_COUNTS[m];
+              const count = monthCounts[m];
               const barClass = monthBgClass(count);
               const textClass = monthTextClass(count);
               return (
@@ -67,7 +85,7 @@ export function EventsPage() {
       {/* Event Cards */}
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-6xl space-y-8">
-          {ANNUAL_EVENTS.map((event, i) => (
+          {annualEvents.map((event, i) => (
             <div key={`${event.month}-${i}`} className="group reveal">
               <Card padding="none" className="overflow-hidden">
                 {/* Collapsed View */}
@@ -89,7 +107,7 @@ export function EventsPage() {
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
                         <span
-                          className={`mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold ${event.tagColor}`}
+                          className={`mb-3 inline-block rounded-full px-3 py-1 text-xs font-semibold ${SEASON_TAG_CLASS[event.season]}`}
                         >
                           {event.season}
                         </span>
@@ -97,7 +115,7 @@ export function EventsPage() {
                           {event.title}
                         </h3>
                         <p className="text-sm text-gray-500 md:line-clamp-2">{event.desc}</p>
-                        {event.url && event.url !== "null" && (
+                        {event.url && (
                           <a
                             href={event.url}
                             target="_blank"
@@ -127,13 +145,16 @@ export function EventsPage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {REGULAR_ACTIVITIES.map((act) => (
-              <Card key={act.label} className="reveal text-center">
-                <act.icon className="mx-auto mb-4 h-10 w-10 text-brand-700" />
-                <h4 className="mb-2 text-lg font-bold text-gray-900">{act.label}</h4>
-                <p className="text-sm text-gray-500">{act.detail}</p>
-              </Card>
-            ))}
+            {regularActivities.map((act) => {
+              const Icon = ACTIVITY_ICON[act.icon];
+              return (
+                <Card key={act.label} className="reveal text-center">
+                  <Icon className="mx-auto mb-4 h-10 w-10 text-brand-700" />
+                  <h4 className="mb-2 text-lg font-bold text-gray-900">{act.label}</h4>
+                  <p className="text-sm text-gray-500">{act.detail}</p>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
