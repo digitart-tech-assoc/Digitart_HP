@@ -151,7 +151,7 @@
 7. 投稿時にMarkdownファイルと画像をGitHub APIへ送信する
 8. 記事追加用ブランチとPull Requestを作成し、管理者の承認後に公開する
 
-投稿データのslugは、日付を接頭辞にした `{date}-{slug}` 形式で生成する。入力slugは半角英小文字、数字、ハイフンのみ許可する。ベースブランチに同じパスの記事があるときは、既存の記事を置き換えないよう、ブランチを作る前に投稿を止める。
+投稿データのslugは、日付を接頭辞にした `{date}-{slug}` 形式で生成する。入力slugは半角英小文字、数字、ハイフンのみ許可する。ベースブランチに同じパスの記事または画像があるときは、既存の記事・画像を置き換えないよう、ブランチを作る前に投稿を止める（画像のファイル名はブラウザで重ならないように付けるが、送信された値は書き換えられるため、サーバー側でも確認する）。
 
 投稿内容はServer Actionで再検証する（`features/news/editor/publishInput.ts`）。
 
@@ -221,6 +221,7 @@ image: "/images/articles/2026-09-23/example.png"
 | Analytics | Cloudflare Web Analytics |
 | 外部連携 | GitHub REST API |
 | Validation | zod |
+| Test | Vitest（ユニットテスト）、Playwright（E2E のスモークテスト） |
 
 ### 6.2 レイヤー構成
 
@@ -231,6 +232,7 @@ components/             機能に依存しない共通UI・レイアウト・SEO
 lib/                    ドメイン知識を持たない汎用処理（定数、メタデータ、日付、セッション）
 content/                記事Markdown、イベントJSON、規約
 public/images/          画像
+e2e/                    E2E のスモークテスト（Playwright）
 docs/                   ドキュメント
 ```
 
@@ -291,6 +293,7 @@ docs/                   ドキュメント
 - 認証CookieはHTTP Only、ProductionではSecure、SameSite Strict、Path `/`、有効期限7日とする
 - ログイン試行の回数制限はアプリ内（インスタンスごとのメモリ上）でも行うが、確実な制限としてCloudflareのRate Limitingルールを設定する（例：`/admin/news/login` へのPOSTを同一IPから1分間に10回まで）
 - `GITHUB_TOKEN` は対象リポジトリのみを対象にしたFine-grained Personal Access Tokenとし、権限は Contents: Read and write と Pull requests: Read and write だけにする。**Workflows権限は付与しない**（付与しないことで、万一 `.github/workflows/` への書き込みが試みられてもGitHub側で拒否される）
+- GitHub Actionsのワークフローは、必要な権限だけを `permissions` で指定する。秘密情報を扱うワークフローや CI で使うツールは、実行時に最新版を取得せず、`package-lock.json` や digest でバージョンと中身を固定したものを使う。アクション（`uses:`）は後から付け替えられるタグではなく、コミット SHA で指定する（バージョンは `# v7.0.1` のようにコメントで書く）。秘密情報を扱うワークフローでは、必要なツールだけを専用の lockfile から install スクリプトを実行せずに入れる
 - 記事本文のHTMLは、PRのレビューの見落としがそのままXSSにならないよう、許可リスト（`components/markdown/sanitizeSchema.ts`）にある要素・属性だけを描画する。`<script>`・`<style>`・`on*` 属性・`style` 属性・`javascript:` のURLなどは描画しない。iframeは許可したURL（現在はSpotifyの埋め込み）のものだけを表示し、新しいサービスを埋め込むときは許可リストに追加する。iframeの `allow` 属性は記事側の値を使わず、`sanitizeSchema.ts` の `IFRAME_ALLOW` を固定で付ける。id・name には既定どおり `user-content-` を付け（DOM clobbering対策）、ページ内リンク（`#...`）の飛び先もそれに合わせる
 - 全ページに `X-Content-Type-Options: nosniff`、`Referrer-Policy: strict-origin-when-cross-origin`、`Content-Security-Policy: frame-ancestors 'none'`、`X-Frame-Options: DENY` を付け、他サイトのiframeに埋め込ませない（値は `lib/securityHeaders.ts`。`next.config.ts` の `headers()` で付ける）
 - 管理画面（`/admin` 配下）は `X-Robots-Tag: noindex, nofollow` とmetadataの `robots` で検索結果に載せない
@@ -331,10 +334,12 @@ npm run dev
 npm run format:check
 npm run lint
 npm run typecheck
+npm test
 npm run build
+npm run test:e2e
 ```
 
-PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
+`npm test` はユニットテスト（Vitest）、`npm run test:e2e` はビルドしたアプリを起動して主要ページの表示と管理画面のリダイレクトを確認するスモークテスト（Playwright）。PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 
 ### 10.3 Cloudflare Pages
 
@@ -375,6 +380,6 @@ PRとmainへのpushでは、GitHub Actionsが上記を順に実行する。
 - [ ] ナビゲーション、フッター、サイトマップへの影響を確認した
 - [ ] メタデータ、JSON-LD、外部リンクへの影響を確認した
 - [ ] モバイル表示と管理画面認証への影響を確認した
-- [ ] `npm run lint`・`npm run typecheck` を実行した
+- [ ] `npm run lint`・`npm run typecheck`・`npm test` を実行した
 - [ ] `npm run build` を実行した
 - [ ] 本書の該当箇所を更新した

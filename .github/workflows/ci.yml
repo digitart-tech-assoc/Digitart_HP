@@ -16,13 +16,13 @@ permissions:
 
 jobs:
   check:
-    name: Lint・型チェック・ビルド
+    name: Lint・型チェック・テスト・ビルド
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .node-version
           cache: npm
@@ -39,24 +39,42 @@ jobs:
       - name: 型チェック
         run: npm run typecheck
 
+      - name: ユニットテスト (Vitest)
+        run: npm test
+
       # 記事の frontmatter はビルド時に zod で検証されるため、記事の書き間違いもここで検出できる
       - name: ビルド
         run: npm run build
+
+      # ビルドしたアプリを起動し、主要ページの表示と管理画面のリダイレクトを確認する。
+      # ブラウザは package-lock.json の Playwright のバージョンで決まったものが入る
+      - name: Playwright のブラウザのインストール
+        run: npx --no-install playwright install --with-deps chromium
+
+      - name: E2E のスモークテスト (Playwright)
+        run: npm run test:e2e
+
+      - name: 失敗したときのトレースを保存
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: playwright-test-results
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
 
   secrets:
     name: 秘密情報の検出 (Gitleaks)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
-      - name: Gitleaks のインストール
-        run: |
-          GITLEAKS_VERSION="8.24.0"
-          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | tar -xz -C /tmp gitleaks
-          sudo mv /tmp/gitleaks /usr/local/bin/
+      # イメージとバージョンは .github/gitleaks/Dockerfile で指定する（Dependabot が更新する）
+      - name: Gitleaks の準備
+        run: docker build --quiet --tag gitleaks .github/gitleaks
 
       # 過去の履歴まで見ると既存のコミットで毎回落ちるため、今回追加されたコミットだけを検査する
       - name: Gitleaks の実行
@@ -74,4 +92,5 @@ jobs:
             RANGE="-1"
           fi
           echo "検査範囲: ${RANGE}"
-          gitleaks detect --log-opts="${RANGE}" --redact --verbose --no-banner
+          docker run --rm --volume "${PWD}:/repo" --workdir /repo gitleaks \
+            detect --log-opts="${RANGE}" --redact --verbose --no-banner
