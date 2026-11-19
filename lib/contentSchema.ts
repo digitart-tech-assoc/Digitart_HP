@@ -13,5 +13,11 @@ export const imagePathSchema = z
 /** 空でない文字列（前後の空白は取り除く） */
 export const requiredText = z.string().trim().min(1);
 
-/** 外部の URL。ないときは null（省略しても null になる） */
-export const optionalUrl = z.url().nullable().default(null);
+/**
+ * 外部の URL（http・https のみ）。ないときは null（省略しても null になる）。
+ * そのまま <a href> に入るため、javascript: などのスキームは受け付けない
+ */
+export const optionalUrl = z
+  .url({ protocol: /^https?$/ })
+  .nullable()
+  .default(null);

@@ -56,10 +56,21 @@ export const SEASONS = [
 
 export type Season = (typeof SEASONS)[number];
 
+// month の書き方。monthCounts.ts の parseMonths が受け付ける形に合わせ、1〜12 の月だけを全体一致で受け付ける
+// （"13月" や "開催は4月ごろ" を通すと、月バーの集計で存在しない月に数えられ、本来の月に表示されない）
+/** 1〜12 の月 */
+const MONTH_NUMBER = "(?:1[0-2]|[1-9])";
+/** "4月" または "4-5月"（年をまたぐ "11-2月" も可） */
+const MONTH_PART = `${MONTH_NUMBER}(?:\\s*[-~〜]\\s*${MONTH_NUMBER})?\\s*月`;
+/** "4月"・"4-5月"・"12月, 1月" のように、月か月の範囲を , か 、 で区切って並べたもの */
+const MONTH_PATTERN = new RegExp(`^${MONTH_PART}(?:\\s*[,、]\\s*${MONTH_PART})*$`);
+
 /** content/annual-events.json の 1 件分（年間行事） */
 export const annualEventSchema = z.object({
   /** 開催月。"4月"・"4-5月"・"12月, 1月" のように書く（月ごとの件数の集計に使う） */
-  month: z.string().regex(/\d+\s*月/, "month は「4月」「4-5月」のように書いてください"),
+  month: z
+    .string()
+    .regex(MONTH_PATTERN, "month は「4月」「4-5月」「12月, 1月」のように書いてください"),
   season: z.enum(SEASONS),
   title: requiredText,
   desc: requiredText,
