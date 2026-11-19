@@ -208,7 +208,12 @@ export function HomeHeroBase() {
         <div className="absolute right-4 bottom-2 z-20 flex items-center md:right-6">
           <button
             type="button"
-            onClick={() => setUserPaused(isPlaying)}
+            onClick={() => {
+              // 一時停止したら、読み込み待ちの切り替え（自動再生で予約されたもの）も取り消す
+              // （残すと、画像の読み込みが終わった時点で、止めたはずのスライドが切り替わる）
+              if (isPlaying) pendingSlideRef.current = null;
+              setUserPaused(isPlaying);
+            }}
             aria-label={isPlaying ? "スライドショーを一時停止" : "スライドショーを再生"}
             className="flex h-8 w-8 items-center justify-center rounded-full text-white/70 transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
           >
