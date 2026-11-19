@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/.github/rotate/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -13,6 +14,8 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
 
 # next.js
 /.next/
