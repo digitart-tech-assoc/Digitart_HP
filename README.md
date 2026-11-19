@@ -47,9 +47,11 @@ npm run dev
 | `npm run format` | Prettier で整形（Tailwind のクラス順も並べ替え） |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | 型チェック |
+| `npm test` | ユニットテスト（Vitest） |
+| `npm run test:e2e` | E2E のスモークテスト（Playwright。先に `npm run build` が必要。初回は `npx playwright install chromium`） |
 | `npm run build` | 本番ビルド（記事の frontmatter や `content/events.json` の検証もここで行われる） |
 
-PR を出すと、GitHub Actions で整形・lint・型チェック・ビルドと、秘密情報の検出（Gitleaks）が実行されます。すべて通るまでマージしないでください。
+PR を出すと、GitHub Actions で整形・lint・型チェック・ユニットテスト・ビルド・E2E のスモークテストと、秘密情報の検出（Gitleaks）が実行されます。すべて通るまでマージしないでください。
 
 ## 記事の投稿
 
