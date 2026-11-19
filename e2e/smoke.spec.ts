@@ -38,11 +38,9 @@ test("記事一覧から記事ページを開ける", async ({ page }) => {
 test("本文に # の見出しがある記事でも、h1 は記事タイトルの 1 つだけ", async ({ page }) => {
   await page.goto("/news/2026-02-28-welcome");
 
+  // 本文の # が h2 として出力されることは MarkdownRenderer.test.tsx で確かめているので、
+  // ここでは記事の見出しの文字に依存しないよう、h1 の数だけを確かめる
   await expect(page.locator("h1")).toHaveCount(1);
-  // 本文の # は h2 として出力される
-  await expect(
-    page.getByRole("heading", { level: 2, name: "Digitartの公式ホームページが新しくなりました！" }),
-  ).toBeVisible();
 });
 
 test("ログインしていない状態で管理画面を開くと、ログインページに移動する", async ({ page }) => {
