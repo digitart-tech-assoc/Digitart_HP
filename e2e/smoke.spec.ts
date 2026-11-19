@@ -30,7 +30,17 @@ test("記事一覧から記事ページを開ける", async ({ page }) => {
   await firstArticle.click();
 
   await expect(page).toHaveURL(href!);
-  await expect(page.locator("h1").first()).not.toBeEmpty();
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.locator("h1")).not.toBeEmpty();
+});
+
+// 本文を「# 見出し」から書いている記事。本文の # が h1 のまま出ると、記事タイトルと合わせて h1 が 2 つになる
+test("本文に # の見出しがある記事でも、h1 は記事タイトルの 1 つだけ", async ({ page }) => {
+  await page.goto("/news/2026-02-28-welcome");
+
+  // 本文の # が h2 として出力されることは MarkdownRenderer.test.tsx で確かめているので、
+  // ここでは記事の見出しの文字に依存しないよう、h1 の数だけを確かめる
+  await expect(page.locator("h1")).toHaveCount(1);
 });
 
 test("ログインしていない状態で管理画面を開くと、ログインページに移動する", async ({ page }) => {
