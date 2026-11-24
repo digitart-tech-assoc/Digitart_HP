@@ -127,5 +127,5 @@ GitHub のアカウントがあり、Git を使えるメンバー向けの方法
 
 - Cloudflare Pages の Git 連携で、`main` へのマージ時に自動でビルド・公開されます（PR ごとにプレビュー環境も作られます）
 - ビルドには `@cloudflare/next-on-pages` を使っています（設定は `wrangler.toml`）
-- 管理画面のパスワード（`ADMIN_PASSWORD`）は、GitHub Actions（`.github/workflows/rotate-password.yml`）が毎週日曜 0 時（UTC）に自動で変更し、再デプロイして Discord に通知します。手動で変えたいときは、このワークフローを手動実行してください
+- 管理画面のパスワード（`ADMIN_PASSWORD`）は、GitHub Actions（`.github/workflows/rotate-password.yml`）が毎週日曜 0 時（UTC）に自動で変更し、再デプロイが完了してから Discord に通知します。再デプロイに失敗したときは、パスワードを含まない失敗の通知が Discord に届くので、原因を直してからこのワークフローを手動実行してください（新しいパスワードが登録済みだと、次のデプロイで誰も知らないパスワードに切り替わるため）。手動で変えたいときも、このワークフローを手動実行してください
 - 上記のワークフローには、リポジトリのシークレット `CLOUDFLARE_API_TOKEN`・`CLOUDFLARE_ACCOUNT_ID`・`DISCORD_WEBHOOK` が必要です

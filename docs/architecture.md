@@ -117,7 +117,7 @@ PR と main への push では、GitHub Actions（`.github/workflows/ci.yml`）�
 
 依存パッケージ（npm。`.github/rotate/` の wrangler を含む）・GitHub Actions・Gitleaks のイメージの更新 PR は、Dependabot が毎月 1 日に作成します（`.github/dependabot.yml`）。ワークフローのアクションは、タグを付け替えられても別の中身が実行されないよう、`actions/checkout@<コミット SHA> # v7.0.1` のように SHA で指定しています。Dependabot は後ろのコメントのバージョンを見て、SHA とコメントをまとめて更新します。
 
-`ADMIN_PASSWORD` は `.github/workflows/rotate-password.yml` が毎週日曜に作り直し、Cloudflare Pages に設定して再デプロイします。このワークフローは Cloudflare の API トークンを扱うため、権限は `contents: read` だけにし、wrangler は `npx` でその場で取得せず、wrangler だけを書いた `.github/rotate/package.json` と `package-lock.json` から `npm ci --ignore-scripts` で入れたものを `npx --no-install` で使います。サイトの依存は入れず、install スクリプトも実行しないので、乗っ取られた依存パッケージが wrangler を書き換えて API トークンと一緒に実行される余地を減らせます。
+`ADMIN_PASSWORD` は `.github/workflows/rotate-password.yml` が毎週日曜に作り直し、Cloudflare Pages に設定して再デプロイします。Pages の secret は次のデプロイから使われるため、再デプロイが完了する（`latest_stage` が `deploy` で `success` になる）まで 30 秒ごとに問い合わせ、完了してから Discord に新しいパスワードを通知します。待つ上限は、他のビルドの順番待ちと自分のビルド（Pages は 20 分で打ち切る）が終わるまでの 45 分です。失敗と判断した後にデプロイが成功すると、通知していないパスワードに切り替わってしまうので、状態の取得に失敗しても上限までは諦めません。どこかのステップで失敗したときは、パスワードを含まない失敗の通知を送り、手動での再実行を求めます。このワークフローは Cloudflare の API トークンを扱うため、権限は `contents: read` だけにし、wrangler は `npx` でその場で取得せず、wrangler だけを書いた `.github/rotate/package.json` と `package-lock.json` から `npm ci --ignore-scripts` で入れたものを `npx --no-install` で使います。サイトの依存は入れず、install スクリプトも実行しないので、乗っ取られた依存パッケージが wrangler を書き換えて API トークンと一緒に実行される余地を減らせます。
 
 ## テスト
 
