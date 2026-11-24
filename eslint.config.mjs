@@ -86,6 +86,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Cloudflare 向けのビルドとローカル実行の生成物
+    ".open-next/**",
+    ".wrangler/**",
     // テストの出力
     "test-results/**",
     "playwright-report/**",
