@@ -72,6 +72,24 @@ describe("sitemap", () => {
     expect(byUrl.get(`${SITE_URL}/news`)?.lastModified).toBeUndefined();
   });
 
+  it("updated だけが今日より後の記事にも lastModified を付けず（公開日には戻さない）、/news にも付けない", () => {
+    const { byUrl } = sitemapWith([
+      article("2026-09-01-a", { updated: "2026-12-01" }),
+      article("2026-08-01-b"),
+    ]);
+
+    expect(byUrl.get(`${SITE_URL}/news/2026-09-01-a`)?.lastModified).toBeUndefined();
+    expect(byUrl.get(`${SITE_URL}/news/2026-08-01-b`)?.lastModified).toBe("2026-08-01");
+    expect(byUrl.get(`${SITE_URL}/news`)?.lastModified).toBeUndefined();
+  });
+
+  it("今日の日付の updated は lastModified に付ける", () => {
+    const { byUrl } = sitemapWith([article("2026-09-01-a", { updated: "2026-10-12" })]);
+
+    expect(byUrl.get(`${SITE_URL}/news/2026-09-01-a`)?.lastModified).toBe("2026-10-12");
+    expect(byUrl.get(`${SITE_URL}/news`)?.lastModified).toBe("2026-10-12");
+  });
+
   it("URL が重複しない", () => {
     const { entries, byUrl } = sitemapWith([article("2026-09-01-a")]);
     expect(byUrl.size).toBe(entries.length);
