@@ -40,6 +40,8 @@ export function HomeHeroBase() {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [transitioning, setTransitioning] = useState(false);
+  // 一度表示したスライド。画像を読み込み直さないよう、表示し終わった後も描画しておく
+  const [shownSlides, setShownSlides] = useState<ReadonlySet<number>>(() => new Set([0]));
   // 利用者が再生・一時停止を選んだら、その選択を優先する（null は未操作）
   const [userPaused, setUserPaused] = useState<boolean | null>(null);
   const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -84,6 +86,7 @@ export function HomeHeroBase() {
     if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
     setPrev(current);
     setCurrent(next);
+    setShownSlides((shown) => new Set(shown).add(next));
     setTransitioning(true);
     fadeTimerRef.current = setTimeout(() => {
       setPrev(null);
@@ -91,7 +94,17 @@ export function HomeHeroBase() {
     }, FADE_MS);
   };
 
-  const showNextSlide = useEffectEvent(() => showSlide((current + 1) % HERO_SLIDES.length));
+  const nextSlide = (current + 1) % HERO_SLIDES.length;
+  const showNextSlide = useEffectEvent(() => showSlide(nextSlide));
+
+  /*
+   * 描画する（= 画像を読み込む）スライド。最初は 1 枚目だけを読み込み、5 枚すべてを最初に読み込まないようにする。
+   * 自動で切り替えるときは、待っている間に次の 1 枚を読み込んでおく。
+   * サーバーではイントロが終わっていないものとして描画するので、初期 HTML には 1 枚目しか含まれない
+   * （含めると、React が 2 枚目のプリロードも出力する）
+   */
+  const isSlideRendered = (i: number) =>
+    shownSlides.has(i) || (isPlaying && introDone && i === nextSlide);
 
   /*
    * 自動スライドショー。スライドが変わるたび（ドットでの切り替えを含む）に、次の切り替えまでの時間を数え直す。
@@ -108,16 +121,26 @@ export function HomeHeroBase() {
       <section className="fixed top-0 left-0 z-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden text-center">
         {/* ── Slides: crossfade with layered approach ── */}
         <div className="absolute inset-0">
-          {/* Always render all slides, control visibility via z-index + opacity */}
+          {/* 描画したスライドを重ね、z-index と opacity で表示を切り替える */}
           {HERO_SLIDES.map((src, i) => {
+            if (!isSlideRendered(i)) return null;
             const isCurrent = i === current;
             const isPrev = i === prev;
             return (
-              <div
+              /*
+               * CSS の背景画像ではなく img にして、1 枚目を高い優先度で読み込む。
+               * クライアントコンポーネントで描画するので、React が出すプリロードは / の HTML にだけ入り、
+               * / を先読みした他のページでは読み込まれない。サイズは画面に合わせて切り抜くので、next/image は使わない
+               */
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
                 key={src}
-                className="absolute inset-0 bg-cover bg-center"
+                src={src}
+                alt=""
+                fetchPriority={i === 0 ? "high" : "low"}
+                decoding={i === 0 ? undefined : "async"}
+                className="absolute inset-0 h-full w-full object-cover"
                 style={{
-                  backgroundImage: `url(${src})`,
                   opacity: isCurrent ? 1 : isPrev && transitioning ? 1 : 0,
                   zIndex: isCurrent ? 2 : isPrev ? 1 : 0,
                   transition: isCurrent ? `opacity ${FADE_MS}ms ease-in-out` : "none",
