@@ -220,6 +220,11 @@ export function MarkdownRenderer({
             src={resolvedSrc}
             alt={alt || "記事内画像"}
             {...props}
+            // lazy でない img には React が画像のプリロードを出力し、それが RSC ペイロードにも入る。
+            // 記事一覧の <Link> が記事ページを先読みすると、開いていない記事の画像まで読み込まれるため、
+            // 1 枚目も含めてすべて lazy にする（表示範囲にある画像は、レイアウトが終わるとすぐ読み込まれる）
+            loading="lazy"
+            decoding="async"
           />
         </span>
       );
