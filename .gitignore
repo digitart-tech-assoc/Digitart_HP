@@ -41,6 +41,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# wrangler（ローカル実行時の状態と、wrangler dev 用の秘密情報）
+/.wrangler/
+.dev.vars*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
