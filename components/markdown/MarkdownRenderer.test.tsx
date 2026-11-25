@@ -83,3 +83,25 @@ describe("MarkdownRenderer の見出し", () => {
     expect(html).toMatch(/<h4[^>]*>第 1 条<\/h4>/);
   });
 });
+
+describe("MarkdownRenderer の画像", () => {
+  // lazy でない img には React が画像のプリロードを出力し、記事ページの先読みで画像まで読み込まれるため
+  it("1 枚目も含めて、すべての画像を lazy で読み込み、プリロードを出力しない", () => {
+    const html = render("![1 枚目](/images/a.png)\n\n![2 枚目](/images/b.png)");
+
+    const images = html.match(/<img [^>]*>/g) ?? [];
+    expect(images).toHaveLength(2);
+    for (const img of images) {
+      expect(img).toContain('loading="lazy"');
+      expect(img).toContain('decoding="async"');
+    }
+    expect(html).not.toContain('rel="preload"');
+  });
+
+  it("記事の HTML で loading を指定しても lazy のままになる", () => {
+    const html = render('<img src="/images/a.png" alt="画像" loading="eager">');
+
+    expect(html).toContain('loading="lazy"');
+    expect(html).not.toContain("eager");
+  });
+});

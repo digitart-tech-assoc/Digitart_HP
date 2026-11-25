@@ -58,3 +58,25 @@ test("ナビゲーションのドロワーを開閉できる", async ({ page }) 
   await expect(drawer).toBeHidden();
   await expect(page.getByRole("button", { name: "メニューを開く" })).toBeFocused();
 });
+
+/*
+ * 記事一覧の <Link> は記事ページを、ヘッダーのロゴは / を先読みする。
+ * 先読みした RSC ペイロードに画像のプリロードが入っていると、開いていないページの画像まで読み込まれる
+ */
+test("記事一覧を開いても、記事の画像とヒーローの画像を読み込まない", async ({ page }) => {
+  const otherPageImages = /\/images\/(articles|heros)\//;
+  const requested: string[] = [];
+  page.on("request", (request) => {
+    if (otherPageImages.test(request.url())) requested.push(request.url());
+  });
+
+  await page.goto("/news");
+  // 表示範囲にあるリンクの先読みが終わるまで待つ
+  await page.waitForLoadState("networkidle");
+
+  const preloads = await page
+    .locator('link[rel="preload"][as="image"]')
+    .evaluateAll((links) => links.map((link) => link.getAttribute("href") ?? ""));
+  expect(preloads.filter((href) => otherPageImages.test(href))).toEqual([]);
+  expect(requested).toEqual([]);
+});
